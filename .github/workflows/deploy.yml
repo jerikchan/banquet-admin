@@ -64,7 +64,7 @@ jobs:
       - name: Sed Config Base
         shell: bash
         run: |
-          sed -i  's#VITE_PUBLIC_PATH\s*=.*#VITE_PUBLIC_PATH = /vue-vben-admin/#g' ./.env.production
+          sed -i  's#VITE_PUBLIC_PATH\s*=.*#VITE_PUBLIC_PATH = /banquet-admin/#g' ./.env.production
           sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
           cat ./.env.production
 
@@ -85,21 +85,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Set SSH Environment
-        env:
-          DOCS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$ACTIONS_DEPLOY_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com > ~/.ssh/known_hosts
-          chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-          git config --local user.email "vbenadmin@163.com"
-          git config --local user.name "vbenAdmin"
+      # - name: Set SSH Environment
+      #   env:
+      #     DOCS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+      #   run: |
+      #     mkdir -p ~/.ssh/
+      #     echo "$ACTIONS_DEPLOY_KEY" > ~/.ssh/id_rsa
+      #     chmod 600 ~/.ssh/id_rsa
+      #     ssh-keyscan github.com > ~/.ssh/known_hosts
+      #     chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+      #     git config --local user.email "vbenadmin@163.com"
+      #     git config --local user.name "vbenAdmin"
 
-      - name: Delete gh-pages branch
-        run: |
-          git push origin --delete gh-pages
+      # - name: Delete gh-pages branch
+      #   run: |
+      #     git push origin --delete gh-pages
 
       - name: Build
         run: |
@@ -109,10 +109,12 @@ jobs:
           cp dist/index.html dist/404.html
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v2.5.0
-        env:
-          ACTIONS_DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./dist
+        uses: peaceiris/actions-gh-pages@v3
+        # env:
+          # ACTIONS_DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
+          # PUBLISH_BRANCH: gh-pages
+          # PUBLISH_DIR: ./dist
         with:
-          forceOrphan: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # forceOrphan: true
