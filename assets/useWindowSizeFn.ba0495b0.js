@@ -1,0 +1,1 @@
+import{bd as e,ac as n,S as t}from"./vendor.18836d94.js";function r(r,s=150,i){let o=()=>{r()};const d=t(o,s);o=d;const a=()=>{i&&i.immediate&&o(),window.addEventListener("resize",o)},m=()=>{window.removeEventListener("resize",o)};return e((()=>{a()})),n((()=>{m()})),[a,m]}export{r as u};
