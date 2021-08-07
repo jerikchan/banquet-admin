@@ -67,7 +67,7 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'parentDept',
+    field: 'parentId',
     label: '上级部门',
     component: 'TreeSelect',
 
@@ -75,11 +75,11 @@ export const formSchema: FormSchema[] = [
       replaceFields: {
         title: 'deptName',
         key: 'id',
-        value: 'id',
+        value: 'deptId',
       },
       getPopupContainer: () => document.body,
     },
-    required: true,
+    required: false,
   },
   {
     field: 'orderNo',

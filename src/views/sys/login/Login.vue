@@ -32,29 +32,9 @@
         <div class="flex w-full h-full py-5 xl:h-auto xl:py-0 xl:my-0 xl:w-6/12">
           <div
             :class="`${prefixCls}-form`"
-            class="
-              relative
-              w-full
-              px-5
-              py-8
-              mx-auto
-              my-auto
-              rounded-md
-              shadow-md
-              xl:ml-16 xl:bg-transparent
-              sm:px-8
-              xl:p-4 xl:shadow-none
-              sm:w-3/4
-              lg:w-2/4
-              xl:w-auto
-              enter-x
-            "
+            class="relative w-full px-5 py-8 mx-auto my-auto rounded-md shadow-md xl:ml-16 xl:bg-transparent sm:px-8 xl:p-4 xl:shadow-none sm:w-3/4 lg:w-2/4 xl:w-auto enter-x"
           >
             <LoginForm />
-            <ForgetPasswordForm />
-            <RegisterForm />
-            <MobileForm />
-            <QrCodeForm />
           </div>
         </div>
       </div>
@@ -67,11 +47,6 @@
   import { AppLogo } from '/@/components/Application';
   import { AppLocalePicker, AppDarkModeToggle } from '/@/components/Application';
   import LoginForm from './LoginForm.vue';
-  import ForgetPasswordForm from './ForgetPasswordForm.vue';
-  import RegisterForm from './RegisterForm.vue';
-  import MobileForm from './MobileForm.vue';
-  import QrCodeForm from './QrCodeForm.vue';
-
   import { useGlobSetting } from '/@/hooks/setting';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -82,10 +57,6 @@
     components: {
       AppLogo,
       LoginForm,
-      ForgetPasswordForm,
-      RegisterForm,
-      MobileForm,
-      QrCodeForm,
       AppLocalePicker,
       AppDarkModeToggle,
     },
@@ -151,6 +122,7 @@
   .@{prefix-cls} {
     min-height: 100%;
     overflow: hidden;
+    background: url(../../../assets/images/bg.png);
     @media (max-width: @screen-xl) {
       background-color: #293146;
 
@@ -203,7 +175,7 @@
         }
 
         img {
-          width: 48px;
+          width: 24px;
         }
       }
     }
@@ -247,6 +219,17 @@
     .ant-divider-inner-text {
       font-size: 12px;
       color: @text-color-secondary;
+    }
+
+    &-form-title {
+      @media (max-width: @screen-xl) {
+        color: rgba(0, 0, 0, 0.85);
+      }
+    }
+
+    &-form-code-input {
+      min-width: auto !important;
+      margin-right: 8px;
     }
   }
 </style>

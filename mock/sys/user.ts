@@ -1,15 +1,15 @@
 import { MockMethod } from 'vite-plugin-mock';
-import { resultError, resultSuccess, getRequestToken, requestParams } from '../_util';
+import { resultError, resultSuccess, getRequestToken, requestParams, encryptByMd5 } from '../_util';
 
 export function createFakeUserList() {
   return [
     {
       userId: '1',
-      username: 'vben',
-      realName: 'Vben Admin',
+      username: 'admin',
+      realName: '管理员',
       avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
       desc: 'manager',
-      password: '123456',
+      password: encryptByMd5('admin'),
       token: 'fakeToken1',
       homePath: '/dashboard/analysis',
       roles: [
@@ -22,7 +22,7 @@ export function createFakeUserList() {
     {
       userId: '2',
       username: 'test',
-      password: '123456',
+      password: encryptByMd5('123456'),
       realName: 'test user',
       avatar: 'https://q1.qlogo.cn/g?b=qq&nk=339449197&s=640',
       desc: 'tester',
@@ -46,16 +46,16 @@ const fakeCodeList: any = {
 export default [
   // mock user login
   {
-    url: '/basic-api/login',
+    url: '/basic-api/login/loginAuth',
     timeout: 200,
     method: 'post',
     response: ({ body }) => {
-      const { username, password } = body;
+      const { userName, pwd } = body;
       const checkUser = createFakeUserList().find(
-        (item) => item.username === username && password === item.password
+        (item) => item.username === userName && pwd === item.password
       );
       if (!checkUser) {
-        return resultError('Incorrect account or password！');
+        return resultError('账号或密码错误！');
       }
       const { userId, username: _username, token, realName, desc, roles } = checkUser;
       return resultSuccess({
@@ -69,7 +69,7 @@ export default [
     },
   },
   {
-    url: '/basic-api/getUserInfo',
+    url: '/basic-api/login/getUserInfo',
     method: 'get',
     response: (request: requestParams) => {
       const token = getRequestToken(request);
@@ -98,7 +98,7 @@ export default [
     },
   },
   {
-    url: '/basic-api/logout',
+    url: '/basic-api/login/logout',
     timeout: 200,
     method: 'get',
     response: (request: requestParams) => {

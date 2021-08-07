@@ -34,7 +34,7 @@ export interface AccountListItem {
 }
 
 export interface DeptListItem {
-  id: string;
+  deptId: string;
   orderNo: string;
   createTime: string;
   remark: string;

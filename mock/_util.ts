@@ -1,5 +1,7 @@
 // Interface data format used to return a unified format
 
+import md5 from 'crypto-js/md5';
+
 export function resultSuccess<T = Recordable>(result: T, { message = 'ok' } = {}) {
   return {
     code: 0,
@@ -57,4 +59,8 @@ export interface requestParams {
  */
 export function getRequestToken({ headers }: requestParams): string | undefined {
   return headers?.authorization;
+}
+
+export function encryptByMd5(password: string) {
+  return md5(password).toString();
 }

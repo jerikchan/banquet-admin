@@ -71,7 +71,7 @@ export default {
     signUpFormTitle: 'Sign up',
     forgetFormTitle: 'Reset password',
 
-    signInTitle: 'Backstage management system',
+    signInTitle: 'Banquet Wedding Hotel Operation System',
     signInDesc: 'Enter your personal details and get started!',
     policy: 'I agree to the xxx Privacy Policy',
     scanSign: `scanning the code to complete the login`,
@@ -96,6 +96,7 @@ export default {
 
     userName: 'Username',
     password: 'Password',
+    code: 'Verify Code',
     confirmPassword: 'Confirm Password',
     email: 'Email',
     smsCode: 'SMS code',

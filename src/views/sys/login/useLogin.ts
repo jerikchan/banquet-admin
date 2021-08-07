@@ -2,6 +2,7 @@ import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
 import type { RuleObject } from 'ant-design-vue/lib/form/interface';
 import { ref, computed, unref, Ref } from 'vue';
 import { useI18n } from '/@/hooks/web/useI18n';
+import { getVerCode } from '/@/api/sys/user';
 
 export enum LoginStateEnum {
   LOGIN,
@@ -115,4 +116,25 @@ function createRule(message: string) {
       trigger: 'change',
     },
   ];
+}
+
+export function useVerCode() {
+  const key = ref('');
+  const code = ref('');
+  let locked = false;
+  const refresh = async () => {
+    if (locked) return;
+    locked = true;
+    const data = await getVerCode();
+    key.value = data.key;
+    code.value = data.code;
+    locked = false;
+  };
+  refresh();
+
+  return {
+    key: key,
+    code,
+    refresh,
+  };
 }

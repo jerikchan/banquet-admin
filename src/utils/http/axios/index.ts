@@ -81,15 +81,30 @@ const transform: AxiosTransform = {
 
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
-    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true } = options;
+    const {
+      apiUrl,
+      joinPrefix,
+      joinParamsToUrl,
+      formatDate,
+      joinTime = true,
+      devUrl,
+      joinDevPrefix,
+    } = options;
 
     if (joinPrefix) {
       config.url = `${urlPrefix}${config.url}`;
     }
 
-    if (apiUrl && isString(apiUrl)) {
-      config.url = `${apiUrl}${config.url}`;
+    if (joinDevPrefix) {
+      if (devUrl && isString(devUrl)) {
+        config.url = `${devUrl}${config.url}`;
+      }
+    } else {
+      if (apiUrl && isString(apiUrl)) {
+        config.url = `${apiUrl}${config.url}`;
+      }
     }
+
     const params = config.params || {};
     const data = config.data || false;
     formatDate && data && !isString(data) && formatRequestDate(data);
@@ -196,7 +211,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // authentication schemes，e.g: Bearer
         // authenticationScheme: 'Bearer',
         authenticationScheme: '',
-        timeout: 10 * 1000,
+        // timeout: 10 * 1000,
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
         // 接口可能会有通用的地址部分，可以统一抽取出来
@@ -210,6 +225,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         requestOptions: {
           // 默认将prefix 添加到url
           joinPrefix: true,
+          // join
+          joinDevPrefix: false,
           // 是否返回原生响应头 比如：需要获取响应头时使用该属性
           isReturnNativeResponse: false,
           // 需要对返回数据进行处理
@@ -222,6 +239,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           errorMessageMode: 'message',
           // 接口地址
           apiUrl: globSetting.apiUrl,
+          // 开发接口
+          devUrl: globSetting.devUrl,
           //  是否加入时间戳
           joinTime: true,
           // 忽略重复请求
