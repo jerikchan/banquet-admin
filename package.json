@@ -7,10 +7,14 @@
     "url": "https://github.com/anncwb"
   },
   "scripts": {
+    "test": "esno ./build/script/postBuild.ts",
     "bootstrap": "yarn install",
     "serve": "npm run dev",
+    "serve:mock": "npm run dev:mock",
     "dev": "vite",
+    "dev:mock": "vite --mode mock",
     "build": "cross-env NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
+    "build:mock": "vite build --mode mock --outDir dist-mock && cross-env OUTPUT_DIR=dist-mock esno ./build/script/postBuild.ts",
     "build:test": "cross-env vite build --mode test && esno ./build/script/postBuild.ts",
     "build:no-cache": "yarn clean:cache && npm run build",
     "report": "cross-env REPORT=true npm run build",

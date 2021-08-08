@@ -6,54 +6,6 @@ on:
       - main
 
 jobs:
-  # push-to-ftp:
-  #   if: "contains(github.event.head_commit.message, '[deploy]')"
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-
-  #     - name: Sed Config Base
-  #       shell: bash
-  #       run: |
-  #         sed -i  's#VITE_PUBLIC_PATH\s*=.*#VITE_PUBLIC_PATH = /next/#g' ./.env.production
-  #         sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
-  #         cat ./.env.production
-
-  #     - name: use Node.js 14
-  #       uses: actions/setup-node@v2.1.2
-  #       with:
-  #         node-version: '14.x'
-
-  #     - name: Get yarn cache
-  #       id: yarn-cache
-  #       run: echo "::set-output name=dir::$(yarn cache dir)"
-
-  #     - name: Cache dependencies
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: ${{ steps.yarn-cache.outputs.dir }}
-  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-yarn-
-
-  #     - name: Build
-  #       run: |
-  #         yarn install
-  #         yarn run build
-
-  #     - name: Deploy
-  #       uses: SamKirkland/FTP-Deploy-Action@2.0.0
-  #       env:
-  #         FTP_SERVER: ${{ secrets.FTP_SERVER }}
-  #         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-  #         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-  #         METHOD: sftp
-  #         PORT: ${{ secrets.FTP_PORT }}
-  #         LOCAL_DIR: dist
-  #         REMOTE_DIR: /srv/www/vben-admin
-  #         ARGS: --delete --verbose --parallel=80
-
   push-to-gh-pages:
     if: "contains(github.event.head_commit.message, '[release]')"
     runs-on: ubuntu-latest
@@ -101,6 +53,16 @@ jobs:
       #   run: |
       #     git push origin --delete gh-pages
 
+      # - name: Build
+      #   run: |
+      #     yarn install
+      #     yarn run build
+      #     touch dist/.nojekyll
+      #     cp dist/index.html dist/404.html
+      #     yarn run build:mock
+      #     touch dist-mock/.nojekyll
+      #     cp dist-mock/index.html dist-mock/404.html
+
       - name: Build
         run: |
           yarn install
@@ -108,13 +70,19 @@ jobs:
           touch dist/.nojekyll
           cp dist/index.html dist/404.html
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        # env:
-          # ACTIONS_DEPLOY_KEY: ${{secrets.ACTIONS_DEPLOY_KEY}}
-          # PUBLISH_BRANCH: gh-pages
-          # PUBLISH_DIR: ./dist
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          # forceOrphan: true
+      # - name: Deploy
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./dist-mock
+
+      - name: Deploy to Server # 2. deploy to remote server
+        uses: AEnterprise/rsync-deploy@v1.0 # Use a third party action (https://github.com/AEnterprise/rsync-deploy)
+        env:
+          DEPLOY_KEY: ${{ secrets.DUEBASS_KEY }} # use pre-configured secret (the private key)
+          ARGS: -avz --delete # must have this variable
+          SERVER_PORT: "22" # SSH port
+          FOLDER: ./dist # folder to push (./ is the root of current repo)
+          SERVER_IP: ${{ secrets.DUEBASS_HOST }} # use pre-configured ssh_host value (e.g., IP or domain.com）
+          USERNAME: ${{ secrets.DUEBASS_USERNAME }} # use pre-configured ssh_username value
+          SERVER_DESTINATION: /usr/share/banquet-admin # put your repo files on this directory of the remote server

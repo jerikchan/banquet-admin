@@ -22,7 +22,6 @@ export interface RequestOptions {
   // Whether to send token in header
   withToken?: boolean;
   devUrl?: string;
-  joinDevPrefix?: boolean;
 }
 
 export interface Result<T = any> {

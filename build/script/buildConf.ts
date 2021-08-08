@@ -15,7 +15,12 @@ function createConfig(
     configName,
     config,
     configFileName = GLOB_CONFIG_FILE_NAME,
-  }: { configName: string; config: any; configFileName?: string } = { configName: '', config: {} }
+    outputDir,
+  }: { configName: string; config: any; configFileName?: string; outputDir: string } = {
+    configName: '',
+    config: {},
+    outputDir: '',
+  }
 ) {
   try {
     const windowConf = `window.${configName}`;
@@ -27,11 +32,11 @@ function createConfig(
         writable: false,
       });
     `.replace(/\s/g, '');
-    fs.mkdirp(getRootPath(OUTPUT_DIR));
-    writeFileSync(getRootPath(`${OUTPUT_DIR}/${configFileName}`), configStr);
+    fs.mkdirp(getRootPath(outputDir));
+    writeFileSync(getRootPath(`${outputDir}/${configFileName}`), configStr);
 
     console.log(chalk.cyan(`✨ [${pkg.name}]`) + ` - configuration file is build successfully:`);
-    console.log(chalk.gray(OUTPUT_DIR + '/' + chalk.green(configFileName)) + '\n');
+    console.log(chalk.gray(outputDir + '/' + chalk.green(configFileName)) + '\n');
   } catch (error) {
     console.log(chalk.red('configuration file configuration file failed to package:\n' + error));
   }
@@ -40,5 +45,6 @@ function createConfig(
 export function runBuildConfig() {
   const config = getEnvConfig();
   const configFileName = getConfigFileName(config);
-  createConfig({ config, configName: configFileName });
+  const outputDir = (process.env.OUTPUT_DIR as string) || (OUTPUT_DIR as string);
+  createConfig({ config, configName: configFileName, outputDir });
 }

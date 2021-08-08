@@ -5,11 +5,9 @@ import { ErrorMessageMode } from '/#/axios';
 import { useGlobSetting } from '/@/hooks/setting';
 import { buildUUID } from '/@/utils/uuid';
 
-const { joinDevPrefix, devUrl, apiUrl } = useGlobSetting();
+const { devUrl, apiUrl } = useGlobSetting();
 
 enum Api {
-  // Login = '/roomSys/login/loginAuth',
-  // Logout = '/roomSys/login/logout',
   Login = '/login/loginAuth',
   Logout = '/login/logout',
   GetUserInfo = '/login/getUserInfo',
@@ -28,7 +26,7 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
     },
     {
       errorMessageMode: mode,
-      joinDevPrefix,
+      devUrl,
     }
   );
 }
@@ -37,7 +35,7 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
  * @description: getUserInfo
  */
 export function getUserInfo() {
-  return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { joinDevPrefix });
+  return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { devUrl });
 }
 
 export function getPermCode() {
@@ -45,11 +43,11 @@ export function getPermCode() {
 }
 
 export function doLogout() {
-  return defHttp.get({ url: Api.Logout }, { joinDevPrefix });
+  return defHttp.get({ url: Api.Logout }, { devUrl });
 }
 
 export async function getVerCode() {
-  const urlPrefix = joinDevPrefix ? devUrl : apiUrl;
+  const urlPrefix = devUrl ? devUrl : apiUrl;
   const key = buildUUID();
   return { code: `${urlPrefix}${Api.GetVerCode}?k=${key}`, key };
 }
