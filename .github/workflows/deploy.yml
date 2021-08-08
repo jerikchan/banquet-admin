@@ -13,12 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Sed Config Base
-        shell: bash
-        run: |
-          sed -i  's#VITE_PUBLIC_PATH\s*=.*#VITE_PUBLIC_PATH = /banquet-admin/#g' ./.env.production
-          sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
-          cat ./.env.production
+      # - name: Sed Config Base
+      #   shell: bash
+      #   run: |
+      #     sed -i  's#VITE_PUBLIC_PATH\s*=.*#VITE_PUBLIC_PATH = /banquet-admin/#g' ./.env.production
+      #     sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
+      #     cat ./.env.production
 
       - name: use Node.js 14
         uses: actions/setup-node@v2.1.2
