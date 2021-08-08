@@ -1,1 +1,0 @@
-import{A as a,al as n,_ as s,F as e,G as o,x as r,aa as t}from"./vendor.18836d94.js";var u=a({name:"Menu2Demo",components:{Input:n}});const l={class:"p-5"},p=t(" 多层级缓存-页面2 "),c=r("br",null,null,-1);u.render=function(a,n,t,u,d,m){const f=s("Input");return e(),o("div",l,[p,c,r(f)])};export{u as default};
