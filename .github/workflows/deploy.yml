@@ -80,6 +80,7 @@ jobs:
 
       - name: Build
         run: |
+          mkdir -p dist
           touch dist/index.html
           echo "test" > dist/index.html
 
