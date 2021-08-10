@@ -1,0 +1,1 @@
+import{aG as s}from"./index.c1a25957.js";var o,t;(t=o||(o={})).ACCOUNT_INFO="/account/getAccountInfo",t.SESSION_TIMEOUT="/user/sessionTimeout";const a=()=>s.get({url:o.ACCOUNT_INFO}),O=()=>s.post({url:o.SESSION_TIMEOUT});export{a,O as s};

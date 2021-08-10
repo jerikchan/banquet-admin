@@ -1,0 +1,1 @@
+import{ak as r,ar as s,ab as t}from"./index.c1a25957.js";import{A as a}from"./vendor.517bedfb.js";const e=t(a({name:"Authority",props:{value:{type:[Number,Array,String],default:""}},setup(t,{slots:a}){const{hasPermission:e}=r();return()=>function(){const{value:r}=t;return r?e(r)?s(a):null:s(a)}()}}));export{e as A};
