@@ -5,12 +5,12 @@ import { FormSchema } from '/@/components/Table';
 export const columns: BasicColumn[] = [
   {
     title: '用户名',
-    dataIndex: 'account',
+    dataIndex: 'userName',
     width: 120,
   },
   {
     title: '昵称',
-    dataIndex: 'nickname',
+    dataIndex: 'realName',
     width: 120,
   },
   {
@@ -36,13 +36,13 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'account',
+    field: 'userName',
     label: '用户名',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    field: 'nickname',
+    field: 'realName',
     label: '昵称',
     component: 'Input',
     colProps: { span: 8 },
@@ -51,7 +51,7 @@ export const searchFormSchema: FormSchema[] = [
 
 export const accountFormSchema: FormSchema[] = [
   {
-    field: 'account',
+    field: 'userName',
     label: '用户名',
     component: 'Input',
     helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
@@ -87,7 +87,7 @@ export const accountFormSchema: FormSchema[] = [
     componentProps: {
       api: getAllRoleList,
       labelField: 'roleName',
-      valueField: 'roleValue',
+      valueField: 'value',
     },
     required: true,
   },
@@ -98,15 +98,15 @@ export const accountFormSchema: FormSchema[] = [
     componentProps: {
       replaceFields: {
         title: 'deptName',
-        key: 'id',
-        value: 'id',
+        key: 'deptId',
+        value: 'deptId',
       },
       getPopupContainer: () => document.body,
     },
     required: true,
   },
   {
-    field: 'nickname',
+    field: 'realName',
     label: '昵称',
     component: 'Input',
     required: true,

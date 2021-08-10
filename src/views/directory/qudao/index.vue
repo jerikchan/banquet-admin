@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增角色 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增获客渠道 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -30,21 +30,21 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getRoleListByPage, deleteRole } from '/@/api/demo/system';
+  import { getQudaoListByPage, deleteQudao } from '/@/api/directory/qudao';
 
   import { useDrawer } from '/@/components/Drawer';
-  import RoleDrawer from './RoleDrawer.vue';
+  import RoleDrawer from './QudaoDrawer.vue';
 
-  import { columns, searchFormSchema } from './role.data';
+  import { columns, searchFormSchema } from './qudao.data';
 
   export default defineComponent({
-    name: 'RoleManagement',
+    name: 'QudaoManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
-        title: '角色列表',
-        api: getRoleListByPage,
+        title: '获客渠道列表',
+        api: getQudaoListByPage,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -78,8 +78,8 @@
 
       async function handleDelete(record: Recordable) {
         console.log(record);
-        await deleteRole({
-          roleId: record.roleId,
+        await deleteQudao({
+          dicId: record.dicId,
         });
         reload();
       }

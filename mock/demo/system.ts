@@ -5,10 +5,10 @@ const accountList = (() => {
   const result: any[] = [];
   for (let index = 0; index < 20; index++) {
     result.push({
-      id: `${index}`,
-      account: '@first',
+      accountId: `${index}`,
+      userName: '@first',
       email: '@email',
-      nickname: '@cname()',
+      realName: '@cname()',
       role: '@first',
       createTime: '@datetime',
       remark: '@cword(10,20)',
@@ -25,7 +25,7 @@ const roleList = (() => {
       id: index + 1,
       orderNo: `${index + 1}`,
       roleName: ['超级管理员', '管理员', '文章管理员', '普通用户'][index],
-      roleValue: '@first',
+      value: '@first',
       createTime: '@datetime',
       remark: '@cword(10,20)',
       menu: [['0', '1', '2'], ['0', '1'], ['0', '2'], ['2']][index],
@@ -136,7 +136,7 @@ const menuList = (() => {
 
 export default [
   {
-    url: '/basic-api/system/getAccountList',
+    url: '/basic-api/account/find',
     timeout: 100,
     method: 'get',
     response: ({ query }) => {
@@ -145,12 +145,21 @@ export default [
     },
   },
   {
-    url: '/basic-api/system/getRoleListByPage',
+    url: '/basic-api/role/findRoleInfos',
     timeout: 100,
     method: 'get',
     response: ({ query }) => {
       const { page = 1, pageSize = 20 } = query;
       return resultPageSuccess(page, pageSize, roleList);
+    },
+  },
+  {
+    url: '/basic-api/role/delete',
+    timeout: 100,
+    method: 'post',
+    response: ({ query }) => {
+      const { roleId } = query;
+      return resultSuccess({ roleId });
     },
   },
   {

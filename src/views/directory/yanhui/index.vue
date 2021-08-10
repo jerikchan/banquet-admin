@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增角色 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增宴会 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -30,21 +30,21 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getRoleListByPage, deleteRole } from '/@/api/demo/system';
+  import { getYanhuiListByPage, deleteYanhui } from '/@/api/directory/yanhui';
 
   import { useDrawer } from '/@/components/Drawer';
-  import RoleDrawer from './RoleDrawer.vue';
+  import RoleDrawer from './YanhuiDrawer.vue';
 
-  import { columns, searchFormSchema } from './role.data';
+  import { columns, searchFormSchema } from './yanhui.data';
 
   export default defineComponent({
-    name: 'RoleManagement',
+    name: 'YanhuiManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
-        title: '角色列表',
-        api: getRoleListByPage,
+        title: '宴会列表',
+        api: getYanhuiListByPage,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -78,7 +78,7 @@
 
       async function handleDelete(record: Recordable) {
         console.log(record);
-        await deleteRole({
+        await deleteYanhui({
           roleId: record.roleId,
         });
         reload();

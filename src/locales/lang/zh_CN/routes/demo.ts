@@ -185,4 +185,10 @@ export default {
     editRowTable: '可编辑行',
     authColumn: '权限列',
   },
+  directory: {
+    moduleName: '配置管理',
+    yanhui: '宴会种类',
+    tingfang: '厅房种类',
+    qudao: '获客渠道',
+  },
 };

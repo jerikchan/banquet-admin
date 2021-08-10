@@ -2,18 +2,18 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
+import { setDirectoryStatus } from '/@/api/directory/directory';
 import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
-    title: '角色名称',
-    dataIndex: 'roleName',
+    title: '宴会名称',
+    dataIndex: 'label',
     width: 200,
   },
   {
-    title: '角色值',
-    dataIndex: 'value',
+    title: '宴会值',
+    dataIndex: 'code',
     width: 180,
   },
   {
@@ -38,13 +38,13 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? '0' : '1';
           const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
+          setDirectoryStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
-              createMessage.success(`已成功修改角色状态`);
+              createMessage.success(`已成功修改宴会状态`);
             })
             .catch(() => {
-              createMessage.error('修改角色状态失败');
+              createMessage.error('修改宴会状态失败');
             })
             .finally(() => {
               record.pendingStatus = false;
@@ -66,8 +66,8 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'roleName',
-    label: '角色名称',
+    field: 'label',
+    label: '宴会名称',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -87,14 +87,14 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'roleName',
-    label: '角色名称',
+    field: 'label',
+    label: '宴会名称',
     required: true,
     component: 'Input',
   },
   {
-    field: 'value',
-    label: '角色值',
+    field: 'code',
+    label: '宴会值',
     required: true,
     component: 'Input',
   },

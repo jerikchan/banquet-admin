@@ -24,20 +24,20 @@
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './role.data';
+  import { formSchema } from './yanhui.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList, updateRole, addRole } from '/@/api/demo/system';
+  import { getMenuList, updateYanhui, addYanhui } from '/@/api/directory/yanhui';
 
   export default defineComponent({
-    name: 'RoleDrawer',
+    name: 'YanhuiDrawer',
     components: { BasicDrawer, BasicForm, BasicTree },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const treeData = ref<TreeItem[]>([]);
-      let roleId = '';
+      let dicId = '';
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 90,
@@ -58,11 +58,11 @@
           setFieldsValue({
             ...data.record,
           });
-          roleId = data.record.roleId;
+          dicId = data.record.dicId;
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增宴会' : '编辑宴会'));
 
       async function handleSubmit() {
         try {
@@ -70,12 +70,12 @@
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (isUpdate.value) {
-            await updateRole({
+            await updateYanhui({
               ...values,
-              roleId,
+              dicId,
             });
           } else {
-            await addRole(values);
+            await addYanhui(values);
           }
           console.log(values);
           closeDrawer();

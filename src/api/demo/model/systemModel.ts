@@ -1,8 +1,8 @@
 import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 
 export type AccountParams = BasicPageParams & {
-  account?: string;
-  nickname?: string;
+  userName?: string;
+  nickName?: string;
 };
 
 export type RoleParams = {
@@ -23,10 +23,10 @@ export type MenuParams = {
 };
 
 export interface AccountListItem {
-  id: string;
-  account: string;
+  accountId: string;
+  userName: string;
   email: string;
-  nickname: string;
+  nickName: string;
   role: number;
   createTime: string;
   remark: string;
