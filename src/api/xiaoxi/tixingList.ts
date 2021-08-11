@@ -12,55 +12,58 @@ import { useGlobSetting } from '/@/hooks/setting';
 const { devUrl } = useGlobSetting();
 
 enum Api {
-  DirectoryPageList = '/dic/findDic',
+  DirectoryPageList = '/notification/find',
   GetAllDirectoryList = '/system/getAllDirectoryList',
-  AddDirectory = '/dic/add',
-  UpdateDirectory = '/dic/update',
-  DeleteDirectory = '/dic/delete',
+  AddDirectory = '/notification//add',
+  UpdateDirectory = '/notification/update',
+  DeleteDirectory = '/notification/delete',
   MenuList = '/system/getMenuList',
   setDirectoryStatus = '/system/setRoleStatus',
 }
 
-export const getTingfangListByPage = (params?: DirectoryPageParams) =>
+export const getNotificationListByPage = (params?: DirectoryPageParams) =>
   defHttp.get<DirectoryPageListGetResultModel>(
     {
       url: Api.DirectoryPageList,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2edf340004' },
+      params: { ...params },
     },
     { devUrl }
   );
 
-export const getAllTingfangList = (params?: DirectoryParams) =>
+export const getAllNotificationList = (params?: DirectoryParams) =>
   defHttp.get<DirectoryListGetResultModel>({
     url: Api.GetAllDirectoryList,
-    params: { ...params, parentId: '402881847b2c2d77017b2c2edf340004' },
+    params: { ...params },
   });
 
-export const addTingfang = (params?: DirectoryParams) =>
+export const addNotification = (params?: DirectoryParams) =>
   defHttp.post<DirectoryListGetResultModel>(
-    { url: Api.AddDirectory, params: { ...params, parentId: '402881847b2c2d77017b2c2edf340004' } },
+    {
+      url: Api.AddDirectory,
+      params: { ...params },
+    },
     { devUrl }
   );
 
-export const updateTingfang = (params?: DirectoryParams) =>
+export const updateNotification = (params?: DirectoryParams) =>
   defHttp.post<DirectoryListGetResultModel>(
     {
       url: Api.UpdateDirectory,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2edf340004' },
+      params: { ...params },
     },
     { devUrl }
   );
 
-export const deleteTingfang = (params?: { dicId: string }) =>
+export const deleteNotification = (params?: { dicId: string }) =>
   defHttp.post<DirectoryListGetResultModel>(
     {
       url: Api.DeleteDirectory,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2edf340004' },
+      params,
     },
     { devUrl }
   );
 
-export const setTingfangStatus = (id: number, status: string) =>
+export const setNotificationStatus = (id: number, status: string) =>
   defHttp.post({ url: Api.setDirectoryStatus, params: { id, status } });
 
 export const getMenuList = (params?: MenuParams) =>

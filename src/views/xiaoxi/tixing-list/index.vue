@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增宴会 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增提醒 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -30,21 +30,21 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getYanhuiListByPage, deleteYanhui } from '/@/api/directory/yanhui';
+  import { getNotificationListByPage, deleteNotification } from '/@/api/xiaoxi/tixingList';
 
   import { useDrawer } from '/@/components/Drawer';
-  import RoleDrawer from './YanhuiDrawer.vue';
+  import RoleDrawer from './Drawer.vue';
 
-  import { columns, searchFormSchema } from './yanhui.data';
+  import { columns, searchFormSchema } from './data';
 
   export default defineComponent({
-    name: 'YanhuiManagement',
+    name: 'NotificationList',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
-        title: '宴会列表',
-        api: getYanhuiListByPage,
+        title: '提醒列表',
+        api: getNotificationListByPage,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -78,7 +78,7 @@
 
       async function handleDelete(record: Recordable) {
         console.log(record);
-        await deleteYanhui({
+        await deleteNotification({
           dicId: record.dicId,
         });
         reload();

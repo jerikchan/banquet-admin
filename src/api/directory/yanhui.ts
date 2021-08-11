@@ -25,7 +25,7 @@ export const getYanhuiListByPage = (params?: DirectoryPageParams) =>
   defHttp.get<DirectoryPageListGetResultModel>(
     {
       url: Api.DirectoryPageList,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002', isChild: '0' },
+      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002' },
     },
     { devUrl }
   );
@@ -33,14 +33,14 @@ export const getYanhuiListByPage = (params?: DirectoryPageParams) =>
 export const getAllYanhuiList = (params?: DirectoryParams) =>
   defHttp.get<DirectoryListGetResultModel>({
     url: Api.GetAllDirectoryList,
-    params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002', isChild: '0' },
+    params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002' },
   });
 
 export const addYanhui = (params?: DirectoryParams) =>
   defHttp.post<DirectoryListGetResultModel>(
     {
       url: Api.AddDirectory,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002', isChild: '0' },
+      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002' },
     },
     { devUrl }
   );
@@ -49,16 +49,16 @@ export const updateYanhui = (params?: DirectoryParams) =>
   defHttp.post<DirectoryListGetResultModel>(
     {
       url: Api.UpdateDirectory,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002', isChild: '0' },
+      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002' },
     },
     { devUrl }
   );
 
-export const deleteYanhui = (params?: { roleId: string }) =>
+export const deleteYanhui = (params?: { dicId: string }) =>
   defHttp.post<DirectoryListGetResultModel>(
     {
       url: Api.DeleteDirectory,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002', isChild: '0' },
+      params,
     },
     { devUrl }
   );

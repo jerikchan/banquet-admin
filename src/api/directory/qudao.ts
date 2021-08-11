@@ -25,7 +25,7 @@ export const getQudaoListByPage = (params?: DirectoryPageParams) =>
   defHttp.get<DirectoryPageListGetResultModel>(
     {
       url: Api.DirectoryPageList,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002' },
+      params: { ...params, parentId: '402881847b2c2d77017b2c2eb4c70003' },
     },
     { devUrl }
   );
@@ -33,12 +33,12 @@ export const getQudaoListByPage = (params?: DirectoryPageParams) =>
 export const getAllQudaoList = (params?: DirectoryParams) =>
   defHttp.get<DirectoryListGetResultModel>({
     url: Api.GetAllDirectoryList,
-    params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002' },
+    params: { ...params, parentId: '402881847b2c2d77017b2c2eb4c70003' },
   });
 
 export const addQudao = (params?: DirectoryParams) =>
   defHttp.post<DirectoryListGetResultModel>(
-    { url: Api.AddDirectory, params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002' } },
+    { url: Api.AddDirectory, params: { ...params, parentId: '402881847b2c2d77017b2c2eb4c70003' } },
     { devUrl }
   );
 
@@ -46,16 +46,16 @@ export const updateQudao = (params?: DirectoryParams) =>
   defHttp.post<DirectoryListGetResultModel>(
     {
       url: Api.UpdateDirectory,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002' },
+      params: { ...params, parentId: '402881847b2c2d77017b2c2eb4c70003' },
     },
     { devUrl }
   );
 
-export const deleteQudao = (params?: { roleId: string }) =>
+export const deleteQudao = (params?: { dicId: string }) =>
   defHttp.post<DirectoryListGetResultModel>(
     {
       url: Api.DeleteDirectory,
-      params: { ...params, parentId: '402881847b2c2d77017b2c2e67180002' },
+      params: { ...params, parentId: '402881847b2c2d77017b2c2eb4c70003' },
     },
     { devUrl }
   );

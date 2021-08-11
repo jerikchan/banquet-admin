@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增宴会 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增审批 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -30,21 +30,21 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getYanhuiListByPage, deleteYanhui } from '/@/api/directory/yanhui';
+  import { getFlowListByPage, deleteFlow } from '/@/api/shenhe/shenpi';
 
   import { useDrawer } from '/@/components/Drawer';
-  import RoleDrawer from './YanhuiDrawer.vue';
+  import RoleDrawer from './Drawer.vue';
 
-  import { columns, searchFormSchema } from './yanhui.data';
+  import { columns, searchFormSchema } from './data';
 
   export default defineComponent({
-    name: 'YanhuiManagement',
+    name: 'FlowList',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
-        title: '宴会列表',
-        api: getYanhuiListByPage,
+        title: '审批列表',
+        api: getFlowListByPage,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -78,7 +78,7 @@
 
       async function handleDelete(record: Recordable) {
         console.log(record);
-        await deleteYanhui({
+        await deleteFlow({
           dicId: record.dicId,
         });
         reload();

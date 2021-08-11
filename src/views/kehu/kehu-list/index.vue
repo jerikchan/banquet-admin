@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增宴会 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增客户 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -30,21 +30,21 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getYanhuiListByPage, deleteYanhui } from '/@/api/directory/yanhui';
+  import { getKehuListByPage, deleteKehu } from '/@/api/kehu/kehuList';
 
   import { useDrawer } from '/@/components/Drawer';
-  import RoleDrawer from './YanhuiDrawer.vue';
+  import RoleDrawer from './Drawer.vue';
 
-  import { columns, searchFormSchema } from './yanhui.data';
+  import { columns, searchFormSchema } from './data';
 
   export default defineComponent({
-    name: 'YanhuiManagement',
+    name: 'KehuList',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
-        title: '宴会列表',
-        api: getYanhuiListByPage,
+        title: '客户列表',
+        api: getKehuListByPage,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -78,7 +78,7 @@
 
       async function handleDelete(record: Recordable) {
         console.log(record);
-        await deleteYanhui({
+        await deleteKehu({
           dicId: record.dicId,
         });
         reload();
