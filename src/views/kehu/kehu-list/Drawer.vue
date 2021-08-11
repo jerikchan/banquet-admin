@@ -28,10 +28,10 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList, updateYanhui, addYanhui } from '/@/api/directory/yanhui';
+  import { getMenuList, updateKehu, addKehu } from '/@/api/kehu/kehuList';
 
   export default defineComponent({
-    name: 'YanhuiDrawer',
+    name: 'KehuDrawer',
     components: { BasicDrawer, BasicForm, BasicTree },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -62,7 +62,7 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增宴会' : '编辑宴会'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增客户' : '编辑客户'));
 
       async function handleSubmit() {
         try {
@@ -70,12 +70,12 @@
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (isUpdate.value) {
-            await updateYanhui({
+            await updateKehu({
               ...values,
               dicId,
             });
           } else {
-            await addYanhui(values);
+            await addKehu(values);
           }
           console.log(values);
           closeDrawer();

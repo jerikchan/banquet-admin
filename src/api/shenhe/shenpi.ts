@@ -12,7 +12,7 @@ import { useGlobSetting } from '/@/hooks/setting';
 const { devUrl } = useGlobSetting();
 
 enum Api {
-  DirectoryPageList = '/flow/findFlows ',
+  DirectoryPageList = '/flow/findFlows',
   GetAllDirectoryList = '/system/getAllDirectoryList',
   AddDirectory = '/flow//add',
   UpdateDirectory = '/flow/update',
