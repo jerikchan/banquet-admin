@@ -7,11 +7,11 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { accountFormSchema } from './account.data';
-  import { getDeptList, updateAccount, addAccount } from '/@/api/admin/system';
+  import { customerFormSchema } from './customer.data';
+  import { getCustomerTypeList, updateCustomer, addCustomer } from '/@/api/admin/customer';
 
   export default defineComponent({
-    name: 'AccountModal',
+    name: 'CustomerModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -20,7 +20,7 @@
 
       const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = useForm({
         labelWidth: 100,
-        schemas: accountFormSchema,
+        schemas: customerFormSchema,
         showActionButtonGroup: false,
         actionColOptions: {
           span: 23,
@@ -39,20 +39,16 @@
           });
         }
 
-        const treeData = await getDeptList();
+        const treeData = await getCustomerTypeList();
         updateSchema([
           {
-            field: 'pwd',
-            show: !unref(isUpdate),
-          },
-          {
-            field: 'deptId',
+            field: 'type',
             componentProps: { treeData },
           },
         ]);
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增员工' : '编辑员工'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增客户' : '编辑客户'));
 
       async function handleSubmit() {
         try {
@@ -61,12 +57,12 @@
           // TODO custom api
           console.log(values);
           if (isUpdate.value) {
-            await updateAccount({
+            await updateCustomer({
               ...values,
-              accountId: rowId.value,
+              customerId: rowId.value,
             });
           } else {
-            await addAccount(values);
+            await addCustomer(values);
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });

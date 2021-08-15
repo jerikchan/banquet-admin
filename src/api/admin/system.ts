@@ -43,7 +43,7 @@ export const addAccount = (params?: AccountParams) =>
 export const updateAccount = (params?: AccountParams) =>
   defHttp.post<AccountListGetResultModel>({ url: Api.UpdateAccount, params }, { devUrl });
 
-export const deleteAccount = (params?: { accountId: string }) =>
+export const deleteAccount = (params?: { id: string }) =>
   defHttp.post<AccountListGetResultModel>({ url: Api.DeleteAccount, params }, { devUrl });
 
 export const getDeptList = (params?: DeptListItem) =>

@@ -1,8 +1,10 @@
 import {
   ChannelParams,
   MenuParams,
+  CustomerParams,
   ChannelListGetResultModel,
   MenuListGetResultModel,
+  CustomerListGetResultModel,
 } from './model/customer';
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
@@ -14,6 +16,11 @@ enum Api {
   AddChannel = '/dic/add',
   UpdateChannel = '/dic/update',
   DeleteChannel = '/dic/delete',
+
+  GetCustomerList = '/customer/findCustomer',
+  AddCustomer = '/customer/addCustomer',
+  UpdateCustomer = '/customer/updateCustomer',
+  DeleteCustomer = '/customer/deleteCustomer',
 
   GetMenuList = '/system/getMenuList',
 }
@@ -56,3 +63,26 @@ export const deleteChannel = (params?: { dicId: string }) =>
 
 export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });
+
+export const getCustomerTypeList = () =>
+  new Promise((resolve) => {
+    resolve([
+      { label: '待审核', id: '0' },
+      { label: '线索', id: '1' },
+      { label: '意向', id: '2' },
+      { label: '流失', id: '3' },
+      { label: '成交', id: '5' },
+    ]);
+  });
+
+export const getCustomerList = (params?: CustomerParams) =>
+  defHttp.get<CustomerListGetResultModel>({ url: Api.GetCustomerList, params }, { devUrl });
+
+export const addCustomer = (params?: CustomerParams) =>
+  defHttp.post<CustomerListGetResultModel>({ url: Api.AddCustomer, params }, { devUrl });
+
+export const updateCustomer = (params?: CustomerParams) =>
+  defHttp.post<CustomerListGetResultModel>({ url: Api.UpdateCustomer, params }, { devUrl });
+
+export const deleteCustomer = (params?: { accountId: string }) =>
+  defHttp.post<CustomerListGetResultModel>({ url: Api.DeleteCustomer, params }, { devUrl });

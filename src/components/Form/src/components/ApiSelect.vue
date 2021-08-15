@@ -60,7 +60,7 @@
       // support xxx.xxx.xx
       resultField: propTypes.string.def(''),
       labelField: propTypes.string.def('label'),
-      valueField: propTypes.string.def('value'),
+      valueField: propTypes.string.def(''),
       immediate: propTypes.bool.def(true),
     },
     emits: ['options-change', 'change'],
@@ -84,7 +84,7 @@
             prev.push({
               label: next[labelField],
               value: numberToString ? `${value}` : value,
-              ...omit(next, [labelField, valueField]),
+              ...omit(next, ['label', 'value', labelField, valueField]),
             });
           }
           return prev;
@@ -137,7 +137,7 @@
         emit('options-change', unref(getOptions));
       }
 
-      function handleChange(_, ...args) {
+      function handleChange(_, ...args) {debugger
         emitData.value = args;
       }
 
