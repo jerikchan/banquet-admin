@@ -37,32 +37,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      # - name: Set SSH Environment
-      #   env:
-      #     DOCS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-      #   run: |
-      #     mkdir -p ~/.ssh/
-      #     echo "$ACTIONS_DEPLOY_KEY" > ~/.ssh/id_rsa
-      #     chmod 600 ~/.ssh/id_rsa
-      #     ssh-keyscan github.com > ~/.ssh/known_hosts
-      #     chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
-      #     git config --local user.email "vbenadmin@163.com"
-      #     git config --local user.name "vbenAdmin"
-
-      # - name: Delete gh-pages branch
-      #   run: |
-      #     git push origin --delete gh-pages
-
-      # - name: Build
-      #   run: |
-      #     yarn install
-      #     yarn run build
-      #     touch dist/.nojekyll
-      #     cp dist/index.html dist/404.html
-      #     yarn run build:mock
-      #     touch dist-mock/.nojekyll
-      #     cp dist-mock/index.html dist-mock/404.html
-
       - name: Build
         run: |
           yarn install
@@ -70,36 +44,22 @@ jobs:
           touch dist/.nojekyll
           cp dist/index.html dist/404.html
 
-      # - name: Build
-      #   run: |
-      #     mkdir -p dist
-      #     touch dist/index.html
-      #     echo "test" > dist/index.html
-
-      # - name: Deploy
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./dist-mock
-
-      - name: Deploy to Server # 2. deploy to remote server
-        uses: AEnterprise/rsync-deploy@v1.0.1 # Use a third party action (https://github.com/AEnterprise/rsync-deploy)
-        env:
-          DEPLOY_KEY: ${{ secrets.DUEBASS_KEY }} # use pre-configured secret (the private key)
-          ARGS: -avz --delete # must have this variable
-          SERVER_PORT: "22" # SSH port
-          FOLDER: ./dist/ # folder to push (./ is the root of current repo)
-          SERVER_IP: ${{ secrets.DUEBASS_HOST }} # use pre-configured ssh_host value (e.g., IP or domain.com）
-          USERNAME: ${{ secrets.DUEBASS_USERNAME }} # use pre-configured ssh_username value
-          SERVER_DESTINATION: /usr/share/banquet-admin # put your repo files on this directory of the remote server
-
-      - name: Deploy to Server2 # 2. deploy to remote server
-        uses: AEnterprise/rsync-deploy@v1.0.1 # Use a third party action (https://github.com/AEnterprise/rsync-deploy)
-        env:
-          DEPLOY_KEY: ${{ secrets.DUEBASS_KEY }} # use pre-configured secret (the private key)
-          ARGS: -avz --delete # must have this variable
-          SERVER_PORT: "22" # SSH port
-          FOLDER: ./dist/ # folder to push (./ is the root of current repo)
-          SERVER_IP: 101.132.242.68 # use pre-configured ssh_host value (e.g., IP or domain.com）
-          USERNAME: root # use pre-configured ssh_username value
-          SERVER_DESTINATION: /usr/share/www # put your repo files on this directory of the remote server
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -avzr --delete
+          path: ./dist/
+          remote_path: /usr/share/banquet-admin
+          remote_host: ${{ secrets.DUEBASS_HOST }}
+          remote_user: root
+          remote_key: ${{ secrets.DUEBASS_KEY }}
+          
+      - name: rsync productions
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -avzr --delete
+          path: ./dist/
+          remote_path: /usr/share/www
+          remote_host: 101.132.242.68
+          remote_user: root
+          remote_key: ${{ secrets.DUEBASS_KEY }}
