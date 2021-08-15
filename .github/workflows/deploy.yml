@@ -92,3 +92,14 @@ jobs:
           SERVER_IP: ${{ secrets.DUEBASS_HOST }} # use pre-configured ssh_host value (e.g., IP or domain.com）
           USERNAME: ${{ secrets.DUEBASS_USERNAME }} # use pre-configured ssh_username value
           SERVER_DESTINATION: /usr/share/banquet-admin # put your repo files on this directory of the remote server
+
+      - name: Deploy to Server2 # 2. deploy to remote server
+        uses: AEnterprise/rsync-deploy@v1.0 # Use a third party action (https://github.com/AEnterprise/rsync-deploy)
+        env:
+          DEPLOY_KEY: ${{ secrets.DUEBASS_KEY }} # use pre-configured secret (the private key)
+          ARGS: -avz --delete # must have this variable
+          SERVER_PORT: "22" # SSH port
+          FOLDER: ./dist/ # folder to push (./ is the root of current repo)
+          SERVER_IP: 101.132.242.68 # use pre-configured ssh_host value (e.g., IP or domain.com）
+          USERNAME: root # use pre-configured ssh_username value
+          SERVER_DESTINATION: /usr/share/www # put your repo files on this directory of the remote server
