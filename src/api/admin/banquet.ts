@@ -52,7 +52,7 @@ export const updateBanquetType = (params?: BanquetTypeParams) =>
     { devUrl }
   );
 
-export const deleteBanquetType = (params?: { dicId: string }) =>
+export const deleteBanquetType = (params?: { id: string }) =>
   defHttp.post<BanquetTypeListGetResultModel>(
     {
       url: Api.DeleteBanquetType,
@@ -88,7 +88,7 @@ export const updateRoomType = (params?: RoomTypeParams) =>
     { devUrl }
   );
 
-export const deleteRoomType = (params?: { dicId: string }) =>
+export const deleteRoomType = (params?: { id: string }) =>
   defHttp.post<RoomTypeListGetResultModel>(
     {
       url: Api.DeleteRoomType,

@@ -7,11 +7,11 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { customerFormSchema } from './customer.data';
-  import { getCustomerTypeList, updateCustomer, addCustomer } from '/@/api/admin/customer';
+  import { commentFormSchema } from './comment.data';
+  import { getCommentTypeList, updateComment, addComment } from '/@/api/admin/comment';
 
   export default defineComponent({
-    name: 'CustomerModal',
+    name: 'CommentModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -20,7 +20,7 @@
 
       const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = useForm({
         labelWidth: 100,
-        schemas: customerFormSchema,
+        schemas: commentFormSchema,
         showActionButtonGroup: false,
         actionColOptions: {
           span: 23,
@@ -39,17 +39,16 @@
           });
         }
 
-        const treeData = await getCustomerTypeList();
+        const treeData = await getCommentTypeList();
         updateSchema([
           {
-            field: 'customerType',
-            componentProps: { treeData, disabled: unref(isUpdate) },
-            required: !unref(isUpdate),
+            field: 'type',
+            componentProps: { treeData },
           },
         ]);
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增客户' : '编辑客户'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增沟通' : '编辑沟通'));
 
       async function handleSubmit() {
         try {
@@ -58,12 +57,12 @@
           // TODO custom api
           console.log(values);
           if (isUpdate.value) {
-            await updateCustomer({
+            await updateComment({
               ...values,
-              id: idRef.value,
+              id: unref(idRef),
             });
           } else {
-            await addCustomer(values);
+            await addComment(values);
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

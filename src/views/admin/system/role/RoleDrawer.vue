@@ -37,7 +37,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const treeData = ref<TreeItem[]>([]);
-      let roleId = '';
+      const idRef = ref('');
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 90,
@@ -58,7 +58,7 @@
           setFieldsValue({
             ...data.record,
           });
-          roleId = data.record.roleId;
+          idRef.value = data.record.id;
         }
       });
 
@@ -72,7 +72,7 @@
           if (isUpdate.value) {
             await updateRole({
               ...values,
-              roleId,
+              id: unref(idRef),
             });
           } else {
             await addRole(values);

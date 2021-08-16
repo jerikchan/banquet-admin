@@ -3,7 +3,7 @@
     v-bind="$attrs"
     @register="registerDrawer"
     showFooter
-    :title="getTitle"
+    title="确认审批"
     width="500px"
     @ok="handleSubmit"
   >
@@ -24,14 +24,14 @@
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './banquet-type.data';
+  import { formSchema } from './review.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList, updateBanquetType, addBanquetType } from '/@/api/admin/banquet';
+  import { getMenuList, updateReview, addReview } from '/@/api/admin/approval';
 
   export default defineComponent({
-    name: 'BanquetTypeDrawer',
+    name: 'ReviewDrawer',
     components: { BasicDrawer, BasicForm, BasicTree },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -62,20 +62,18 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增宴会类型' : '编辑宴会类型'));
-
       async function handleSubmit() {
         try {
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (isUpdate.value) {
-            await updateBanquetType({
+            await updateReview({
               ...values,
-              id: unref(idRef),
+              flowId: unref(idRef),
             });
           } else {
-            await addBanquetType(values);
+            await addReview(values);
           }
           console.log(values);
           closeDrawer();
@@ -88,7 +86,6 @@
       return {
         registerDrawer,
         registerForm,
-        getTitle,
         handleSubmit,
         treeData,
       };

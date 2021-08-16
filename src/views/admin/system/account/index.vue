@@ -95,8 +95,9 @@
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteAccount({ accountId: record.id });
+        await deleteAccount({ id: record.id });
         console.log(record);
+        reload();
       }
 
       function handleSuccess({ isUpdate, values }) {

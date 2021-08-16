@@ -10,28 +10,14 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '昵称',
-    dataIndex: 'realName',
-    width: 120,
-  },
-  {
-    title: '邮箱',
-    dataIndex: 'email',
-    width: 120,
-  },
-  {
     title: '创建时间',
     dataIndex: 'createTime',
     width: 180,
   },
   {
     title: '客户类型',
-    dataIndex: 'type',
+    dataIndex: 'customerType',
     width: 200,
-  },
-  {
-    title: '备注',
-    dataIndex: 'remark',
   },
 ];
 
@@ -39,12 +25,6 @@ export const searchFormSchema: FormSchema[] = [
   {
     field: 'customerName',
     label: '客户名',
-    component: 'Input',
-    colProps: { span: 8 },
-  },
-  {
-    field: 'realName',
-    label: '昵称',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -61,22 +41,11 @@ export const customerFormSchema: FormSchema[] = [
         required: true,
         message: '请输入客户名',
       },
-      {
-        validator(_, value) {
-          return new Promise((resolve, reject) => {
-            isAccountExist(value)
-              .then(() => resolve())
-              .catch((err) => {
-                reject(err.message || '验证失败');
-              });
-          });
-        },
-      },
     ],
   },
   {
     label: '客户类型',
-    field: 'type',
+    field: 'customerType',
     component: 'ApiSelect',
     componentProps: {
       api: getCustomerTypeList,
@@ -85,23 +54,12 @@ export const customerFormSchema: FormSchema[] = [
     },
     required: true,
   },
-  {
-    field: 'realName',
-    label: '昵称',
-    component: 'Input',
-    required: true,
-  },
+];
 
+export const customerTypeFormSchema: FormSchema[] = [
   {
-    label: '邮箱',
-    field: 'email',
-    component: 'Input',
-    required: true,
-  },
-
-  {
-    label: '备注',
     field: 'remark',
+    label: '备注',
     component: 'InputTextArea',
   },
 ];

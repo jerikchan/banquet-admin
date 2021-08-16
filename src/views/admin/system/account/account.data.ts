@@ -20,13 +20,23 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '手机号',
+    dataIndex: 'mobile',
+    width: 120,
   },
+  // {
+  //   title: '创建时间',
+  //   dataIndex: 'createTime',
+  //   width: 180,
+  // },
   {
     title: '角色',
-    dataIndex: 'role',
+    dataIndex: 'roleId',
+    width: 200,
+  },
+  {
+    title: '部门',
+    dataIndex: 'deptId',
     width: 200,
   },
   {
@@ -61,17 +71,17 @@ export const accountFormSchema: FormSchema[] = [
         required: true,
         message: '请输入用户名',
       },
-      {
-        validator(_, value) {
-          return new Promise((resolve, reject) => {
-            isAccountExist(value)
-              .then(() => resolve())
-              .catch((err) => {
-                reject(err.message || '验证失败');
-              });
-          });
-        },
-      },
+      // {
+      //   validator(_, value) {
+      //     return new Promise((resolve, reject) => {
+      //       isAccountExist(value)
+      //         .then(() => resolve())
+      //         .catch((err) => {
+      //           reject(err.message || '验证失败');
+      //         });
+      //     });
+      //   },
+      // },
     ],
   },
   {
@@ -88,7 +98,7 @@ export const accountFormSchema: FormSchema[] = [
     componentProps: {
       api: getRoleList,
       labelField: 'roleName',
-      valueField: 'roleId',
+      valueField: 'id',
       mode: 'multiple',
     },
     required: true,
@@ -100,8 +110,8 @@ export const accountFormSchema: FormSchema[] = [
     componentProps: {
       replaceFields: {
         title: 'deptName',
-        key: 'deptId',
-        value: 'deptId',
+        key: 'id',
+        value: 'id',
       },
       multiple: true,
       getPopupContainer: () => document.body,
@@ -119,7 +129,14 @@ export const accountFormSchema: FormSchema[] = [
     label: '邮箱',
     field: 'email',
     component: 'Input',
-    required: true,
+    required: false,
+  },
+
+  {
+    label: '手机号',
+    field: 'mobile',
+    component: 'Input',
+    required: false,
   },
 
   {

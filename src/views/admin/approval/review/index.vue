@@ -1,9 +1,9 @@
 <template>
   <div>
     <BasicTable @register="registerTable">
-      <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增厅房 </a-button>
-      </template>
+      <!-- <template #toolbar>
+        <a-button type="primary" @click="handleCreate"> 新增审批 </a-button>
+      </template> -->
       <template #action="{ record }">
         <TableAction
           :actions="[
@@ -23,28 +23,28 @@
         />
       </template>
     </BasicTable>
-    <RoomTypeDrawer @register="registerDrawer" @success="handleSuccess" />
+    <ReviewDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getRoomTypeList, deleteRoomType } from '/@/api/admin/banquet';
+  import { getReviewList, deleteReview } from '/@/api/admin/approval';
 
   import { useDrawer } from '/@/components/Drawer';
-  import RoomTypeDrawer from './RoomTypeDrawer.vue';
+  import ReviewDrawer from './ReviewDrawer.vue';
 
-  import { columns, searchFormSchema } from './room-type.data';
+  import { columns, searchFormSchema } from './review.data';
 
   export default defineComponent({
-    name: 'RoomTypeManagement',
-    components: { BasicTable, RoomTypeDrawer, TableAction },
+    name: 'ReviewManagement',
+    components: { BasicTable, ReviewDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
-        title: '厅房类型列表',
-        api: getRoomTypeList,
+        title: '待我审批',
+        api: getReviewList,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -78,7 +78,7 @@
 
       async function handleDelete(record: Recordable) {
         console.log(record);
-        await deleteRoomType({
+        await deleteReview({
           id: record.id,
         });
         reload();

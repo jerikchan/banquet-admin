@@ -21,6 +21,7 @@ enum Api {
   AddCustomer = '/customer/addCustomer',
   UpdateCustomer = '/customer/updateCustomer',
   DeleteCustomer = '/customer/deleteCustomer',
+  UpdateCustomerType = '/customer/updateType',
 
   GetMenuList = '/system/getMenuList',
 }
@@ -52,7 +53,7 @@ export const updateChannel = (params?: ChannelParams) =>
     { devUrl }
   );
 
-export const deleteChannel = (params?: { dicId: string }) =>
+export const deleteChannel = (params?: { id: string }) =>
   defHttp.post<ChannelListGetResultModel>(
     {
       url: Api.DeleteChannel,
@@ -84,5 +85,8 @@ export const addCustomer = (params?: CustomerParams) =>
 export const updateCustomer = (params?: CustomerParams) =>
   defHttp.post<CustomerListGetResultModel>({ url: Api.UpdateCustomer, params }, { devUrl });
 
-export const deleteCustomer = (params?: { accountId: string }) =>
+export const deleteCustomer = (params?: { id: string }) =>
   defHttp.post<CustomerListGetResultModel>({ url: Api.DeleteCustomer, params }, { devUrl });
+
+export const updateCustomerType = (params?: any) =>
+  defHttp.post<CustomerListGetResultModel>({ url: Api.UpdateCustomerType, params }, { devUrl });

@@ -3,19 +3,9 @@ import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '厅房类型名称',
-    dataIndex: 'label',
+    title: '发起人',
+    dataIndex: 'promoterName',
     width: 200,
-  },
-  {
-    title: '厅房类型值',
-    dataIndex: 'code',
-    width: 180,
-  },
-  {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
   },
   {
     title: '创建时间',
@@ -30,8 +20,8 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'label',
-    label: '厅房类型名称',
+    field: 'roleName',
+    label: '角色名称',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -39,26 +29,32 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'label',
-    label: '厅房类型名称',
+    field: 'agree',
+    label: '是否同意',
     required: true,
-    component: 'Input',
-  },
-  {
-    field: 'code',
-    label: '厅房类型值',
-    required: true,
-    component: 'Input',
+    component: 'RadioGroup',
+    componentProps: {
+      options: [
+        {
+          label: '同意',
+          value: true,
+        },
+        {
+          label: '驳回',
+          value: false,
+        },
+      ],
+    },
   },
   {
     label: '备注',
     field: 'remark',
     component: 'InputTextArea',
   },
-  {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
-    component: 'Input',
-  },
+  // {
+  //   label: ' ',
+  //   field: 'menu',
+  //   slot: 'menu',
+  //   component: 'Input',
+  // },
 ];

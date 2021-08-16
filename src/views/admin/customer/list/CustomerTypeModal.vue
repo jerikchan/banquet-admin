@@ -7,8 +7,8 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { customerFormSchema } from './customer.data';
-  import { getCustomerTypeList, updateCustomer, addCustomer } from '/@/api/admin/customer';
+  import { customerTypeFormSchema } from './customer.data';
+  import { getCustomerTypeList, updateCustomerType } from '/@/api/admin/customer';
 
   export default defineComponent({
     name: 'CustomerModal',
@@ -16,11 +16,13 @@
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
+      const record = ref({});
       const idRef = ref('');
+      const toType = ref('');
 
       const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = useForm({
         labelWidth: 100,
-        schemas: customerFormSchema,
+        schemas: customerTypeFormSchema,
         showActionButtonGroup: false,
         actionColOptions: {
           span: 23,
@@ -31,6 +33,8 @@
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
+        record.value = data.record;
+        toType.value = data.toType;
 
         if (unref(isUpdate)) {
           idRef.value = data.record.id;
@@ -49,7 +53,15 @@
         ]);
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增客户' : '编辑客户'));
+      const getTitle = computed(() =>
+        toType.value === '2'
+          ? '转为意向'
+          : toType.value === '3'
+          ? '转为流失'
+          : toType.value === '5'
+          ? '转为成交'
+          : ''
+      );
 
       async function handleSubmit() {
         try {
@@ -57,14 +69,11 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
-          if (isUpdate.value) {
-            await updateCustomer({
-              ...values,
-              id: idRef.value,
-            });
-          } else {
-            await addCustomer(values);
-          }
+          await updateCustomerType({
+            customerId: record.value.id,
+            remark: values.remark,
+            type: unref(toType),
+          });
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });
         } finally {

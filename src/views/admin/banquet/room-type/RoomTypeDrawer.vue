@@ -28,16 +28,16 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList, updateBanquetType, addBanquetType } from '/@/api/admin/banquet';
+  import { getMenuList, updateRoomType, addRoomType } from '/@/api/admin/banquet';
 
   export default defineComponent({
-    name: 'BanquetTypeDrawer',
+    name: 'RoomTypeDrawer',
     components: { BasicDrawer, BasicForm, BasicTree },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const treeData = ref<TreeItem[]>([]);
-      let dicId = '';
+      const idRef = ref('');
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 90,
@@ -58,7 +58,7 @@
           setFieldsValue({
             ...data.record,
           });
-          dicId = data.record.dicId;
+          idRef.value = data.record.id;
         }
       });
 
@@ -70,12 +70,12 @@
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (isUpdate.value) {
-            await updateBanquetType({
+            await updateRoomType({
               ...values,
-              dicId,
+              id: unref(idRef),
             });
           } else {
-            await addBanquetType(values);
+            await addRoomType(values);
           }
           console.log(values);
           closeDrawer();

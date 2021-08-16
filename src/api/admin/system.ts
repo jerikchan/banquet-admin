@@ -55,7 +55,7 @@ export const addDept = (params?: DeptListItem) =>
 export const updateDept = (params?: DeptListItem) =>
   defHttp.post<DeptListGetResultModel>({ url: Api.UpdateDept, params }, { devUrl });
 
-export const deleteDept = (params?: { deptId: string }) =>
+export const deleteDept = (params?: { id: string }) =>
   defHttp.post<DeptListGetResultModel>({ url: Api.DeleteDept, params }, { devUrl });
 
 export const getRoleList = (params?: RolePageParams) =>
@@ -67,7 +67,7 @@ export const addRole = (params?: RoleParams) =>
 export const updateRole = (params?: RoleParams) =>
   defHttp.post<RoleListGetResultModel>({ url: Api.UpdateRole, params }, { devUrl });
 
-export const deleteRole = (params?: { roleId: string }) =>
+export const deleteRole = (params?: { id: string }) =>
   defHttp.post<RoleListGetResultModel>({ url: Api.DeleteRole, params }, { devUrl });
 
 export const getMenuList = (params?: MenuParams) =>

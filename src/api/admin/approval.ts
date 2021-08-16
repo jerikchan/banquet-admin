@@ -1,8 +1,10 @@
 import {
   FlowParams,
   MenuParams,
+  ReviewParams,
   FlowListGetResultModel,
   MenuListGetResultModel,
+  ReviewListGetResultModel,
 } from './model/approval';
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
@@ -15,6 +17,13 @@ enum Api {
   AddFlow = '/flow/add',
   UpdateFlow = '/flow/updateTemplateNodes',
   DeleteFlow = '/flow/delete',
+
+  GetReviewList = '/flow/findFlowsWait',
+  AddReview = '/flow/add',
+  UpdateReview = '/flow/approval/commit',
+  DeleteReview = '/flow/delete',
+
+  GetFormList = '/flow/findFlows',
 
   GetMenuList = '/system/getMenuList',
 }
@@ -66,3 +75,48 @@ export const deleteFlow = (params?: { dicId: string }) =>
 
 export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });
+
+export const getReviewList = (params: ReviewParams) =>
+  defHttp.get<ReviewListGetResultModel>(
+    {
+      url: Api.GetReviewList,
+      params,
+    },
+    { devUrl }
+  );
+
+export const addReview = (params?: ReviewParams) =>
+  defHttp.post<ReviewListGetResultModel>(
+    {
+      url: Api.AddReview,
+      params,
+    },
+    { devUrl }
+  );
+
+export const updateReview = (params?: ReviewParams) =>
+  defHttp.post<ReviewListGetResultModel>(
+    {
+      url: Api.UpdateReview,
+      params,
+    },
+    { devUrl }
+  );
+
+export const deleteReview = (params?: { dicId: string }) =>
+  defHttp.post<ReviewListGetResultModel>(
+    {
+      url: Api.DeleteReview,
+      params,
+    },
+    { devUrl }
+  );
+
+export const getFormList = (params: ReviewParams) =>
+  defHttp.get<ReviewListGetResultModel>(
+    {
+      url: Api.GetFormList,
+      params,
+    },
+    { devUrl }
+  );

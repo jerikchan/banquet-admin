@@ -79,7 +79,7 @@
       async function handleDelete(record: Recordable) {
         console.log(record);
         await deleteRole({
-          roleId: record.roleId,
+          id: record.id,
         });
         reload();
       }

@@ -14,6 +14,27 @@
               onClick: handleEdit.bind(null, record),
             },
             {
+              icon: 'ant-design:swap-outlined',
+              tooltip: '转为意向',
+              disabled: record.status === '1',
+              ifShow: record.customerType === '1',
+              onClick: handleTypeUpdate.bind(null, record, '2'),
+            },
+            {
+              icon: 'ant-design:swap-outlined',
+              tooltip: '转为成交',
+              disabled: record.status === '1',
+              ifShow: record.customerType === '2',
+              onClick: handleTypeUpdate.bind(null, record, '5'),
+            },
+            {
+              icon: 'ant-design:swap-outlined',
+              tooltip: '转为流失',
+              disabled: record.status === '1',
+              ifShow: record.customerType === '1' || record.customerType === '2',
+              onClick: handleTypeUpdate.bind(null, record, '3'),
+            },
+            {
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除此客户',
@@ -27,26 +48,36 @@
       </template>
     </BasicTable>
     <CustomerModal @register="registerModal" @success="handleSuccess" />
+    <CustomerTypeModal @register="registerTypeModal" @success="handleTypeSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getCustomerList } from '/@/api/admin/customer';
+  import { getCustomerList, deleteCustomer } from '/@/api/admin/customer';
   import { PageWrapper } from '/@/components/Page';
   import CustomerTypeTree from './CustomerTypeTree.vue';
 
   import { useModal } from '/@/components/Modal';
   import CustomerModal from './CustomerModal.vue';
+  import CustomerTypeModal from './CustomerTypeModal.vue';
 
   import { columns, searchFormSchema } from './customer.data';
 
   export default defineComponent({
     name: 'AccountManagement',
-    components: { BasicTable, PageWrapper, CustomerTypeTree, CustomerModal, TableAction },
+    components: {
+      BasicTable,
+      PageWrapper,
+      CustomerTypeTree,
+      CustomerModal,
+      TableAction,
+      CustomerTypeModal,
+    },
     setup() {
       const [registerModal, { openModal }] = useModal();
+      const [registerTypeModal, { openModal: openTypeModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '客户列表',
@@ -87,8 +118,17 @@
         });
       }
 
-      function handleDelete(record: Recordable) {
+      function handleTypeUpdate(record: Recordable, toType) {
+        openTypeModal(true, {
+          record,
+          toType,
+        });
+      }
+
+      async function handleDelete(record: Recordable) {
         console.log(record);
+        await deleteCustomer({ id: record.id });
+        reload();
       }
 
       function handleSuccess({ isUpdate, values }) {
@@ -102,20 +142,27 @@
         }
       }
 
-      function handleSelect(deptId = '') {
-        searchInfo.deptId = deptId;
+      function handleTypeSuccess(values) {
+        console.log(values);
+      }
+
+      function handleSelect(customerType = '') {
+        searchInfo.customerType = customerType;
         reload();
       }
 
       return {
         registerTable,
         registerModal,
+        registerTypeModal,
         handleCreate,
         handleEdit,
         handleDelete,
         handleSuccess,
+        handleTypeSuccess,
         handleSelect,
         searchInfo,
+        handleTypeUpdate,
       };
     },
   });

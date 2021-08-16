@@ -5,12 +5,28 @@ export type FlowParams = BasicPageParams & {
   nickName?: string;
 };
 
+export type ReviewParams = BasicPageParams & {
+  userName?: string;
+  nickName?: string;
+};
+
 export type MenuParams = {
   menuName?: string;
   status?: string;
 };
 
 export interface FlowListItem {
+  accountId: string;
+  userName: string;
+  email: string;
+  nickName: string;
+  role: number;
+  createTime: string;
+  remark: string;
+  status: number;
+}
+
+export interface ReviewListItem {
   accountId: string;
   userName: string;
   email: string;
@@ -37,3 +53,5 @@ export interface MenuListItem {
 export type FlowListGetResultModel = BasicFetchResult<FlowListItem>;
 
 export type MenuListGetResultModel = BasicFetchResult<MenuListItem>;
+
+export type ReviewListGetResultModel = BasicFetchResult<ReviewListItem>;

@@ -63,7 +63,7 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    label: ' ',
+    label: '',
     field: 'nodes',
     slot: 'nodes',
     component: 'Input',

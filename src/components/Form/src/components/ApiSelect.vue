@@ -137,7 +137,7 @@
         emit('options-change', unref(getOptions));
       }
 
-      function handleChange(_, ...args) {debugger
+      function handleChange(_, ...args) {
         emitData.value = args;
       }
 

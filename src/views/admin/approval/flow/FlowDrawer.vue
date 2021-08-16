@@ -10,18 +10,20 @@
     <BasicForm @register="registerForm">
       <template #nodes>
         <template v-for="(node, i) in nodeList" :key="node">
-          <ACascader
-            v-model:value="node.value"
-            :options="nodeOptions"
-            placeholder="please input domain"
-            style="width: 60%; margin-right: 8px"
-          />
-          <MinusCircleOutlined
-            v-if="i > 1"
-            class="dynamic-delete-button"
-            :disabled="i === 1"
-            @click="removeNode(node)"
-          />
+          <div style="margin-bottom: 15px">
+            <div style="display: inline-block; width: 90px">第{{ i + 1 }}审批人：</div>
+            <ACascader
+              v-model:value="node.value"
+              :options="nodeOptions"
+              placeholder="please input domain"
+              style="width: 60%; margin-right: 8px"
+            />
+            <MinusCircleOutlined
+              v-if="i > 0"
+              class="dynamic-delete-button"
+              @click="removeNode(node)"
+            />
+          </div>
         </template>
       </template>
       <template #add>
@@ -52,7 +54,7 @@
       const nodeList = ref<[{ value: string[] }]>([{ value: [] }]);
       const roleList = ref([]);
       const accountList = ref([]);
-      const flowId = ref('');
+      const idRef = ref('');
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 90,
@@ -73,8 +75,9 @@
           setFieldsValue({
             ...data.record,
           });
-          flowId.value = data.record.id;
-          const nodes = await getFlowNodes({ templateId: flowId.value });
+          idRef.value = data.record.id;
+
+          const nodes = (await getFlowNodes({ templateId: unref(idRef) })) as any;
           const _nodes = nodes.map((node) => {
             const { userId, roleId } = node;
             return {
@@ -98,7 +101,7 @@
               nodes: nodeList.value.map((node) => ({
                 [node.value[0] === 'role' ? 'roleId' : 'userId']: node.value[1],
               })),
-              templateId: flowId.value,
+              templateId: idRef.value,
             });
           } else {
             await addFlow({
@@ -122,20 +125,27 @@
         });
       }
 
+      function removeNode(node) {
+        const index = nodeList.value.indexOf(node);
+        if (index > -1) {
+          nodeList.value.splice(index, 1);
+        }
+      }
+
       const nodeOptions = computed(() => {
         return [
           {
             value: 'role',
             label: '角色',
-            children: roleList.value.map(role => ({
-              value: role.roleId,
-              label: role.roleName
+            children: (unref(roleList) as any).map((role) => ({
+              value: role.id,
+              label: role.roleName,
             })),
           },
           {
             value: 'account',
             label: '员工',
-            children: accountList.value.map(account => ({
+            children: (unref(accountList) as any).map((account) => ({
               value: account.id,
               label: account.realName,
             })),
@@ -150,6 +160,7 @@
         handleSubmit,
         nodeList,
         addNode,
+        removeNode,
         nodeOptions,
       };
     },

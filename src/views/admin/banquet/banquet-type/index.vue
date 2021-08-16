@@ -79,7 +79,7 @@
       async function handleDelete(record: Recordable) {
         console.log(record);
         await deleteBanquetType({
-          dicId: record.dicId,
+          id: record.id,
         });
         reload();
       }

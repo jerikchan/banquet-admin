@@ -13,11 +13,6 @@ export const columns: BasicColumn[] = [
     width: 180,
   },
   {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
-  },
-  {
     title: '创建时间',
     dataIndex: 'createTime',
     width: 180,
@@ -55,10 +50,10 @@ export const formSchema: FormSchema[] = [
     field: 'remark',
     component: 'InputTextArea',
   },
-  {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
-    component: 'Input',
-  },
+  // {
+  //   label: ' ',
+  //   field: 'menu',
+  //   slot: 'menu',
+  //   component: 'Input',
+  // },
 ];

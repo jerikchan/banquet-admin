@@ -63,7 +63,7 @@
           if (isUpdate.value) {
             await updateAccount({
               ...values,
-              accountId: rowId.value,
+              id: rowId.value,
             });
           } else {
             await addAccount(values);

@@ -37,7 +37,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const treeData = ref<TreeItem[]>([]);
-      let dicId = '';
+      const idRef = ref('');
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 90,
@@ -58,7 +58,7 @@
           setFieldsValue({
             ...data.record,
           });
-          dicId = data.record.dicId;
+          idRef.value = data.record.id;
         }
       });
 
@@ -72,7 +72,7 @@
           if (isUpdate.value) {
             await updateChannel({
               ...values,
-              dicId,
+              id: unref(idRef),
             });
           } else {
             await addChannel(values);

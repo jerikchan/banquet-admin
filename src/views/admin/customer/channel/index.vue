@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增厅房 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增获客渠道 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -79,7 +79,7 @@
       async function handleDelete(record: Recordable) {
         console.log(record);
         await deleteChannel({
-          dicId: record.dicId,
+          id: record.id,
         });
         reload();
       }
