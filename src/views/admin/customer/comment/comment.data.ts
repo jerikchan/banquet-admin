@@ -1,5 +1,5 @@
 import { isAccountExist } from '/@/api/demo/system';
-import { getCommentTypeList } from '/@/api/admin/customer';
+// import { getCommentTypeList } from '/@/api/admin/customer';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
@@ -74,17 +74,17 @@ export const commentFormSchema: FormSchema[] = [
       },
     ],
   },
-  {
-    label: '沟通类型',
-    field: 'type',
-    component: 'ApiSelect',
-    componentProps: {
-      api: getCommentTypeList,
-      labelField: 'label',
-      valueField: 'id',
-    },
-    required: true,
-  },
+  // {
+  //   label: '沟通类型',
+  //   field: 'type',
+  //   component: 'ApiSelect',
+  //   componentProps: {
+  //     api: getCommentTypeList,
+  //     labelField: 'label',
+  //     valueField: 'id',
+  //   },
+  //   required: true,
+  // },
   {
     field: 'realName',
     label: '昵称',

@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { commentFormSchema } from './comment.data';
-  import { getCommentTypeList, updateComment, addComment } from '/@/api/admin/comment';
+  import { updateComment, addComment } from '/@/api/admin/customer';
 
   export default defineComponent({
     name: 'CommentModal',
@@ -18,7 +18,7 @@
       const isUpdate = ref(true);
       const idRef = ref('');
 
-      const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
         schemas: commentFormSchema,
         showActionButtonGroup: false,
@@ -39,13 +39,13 @@
           });
         }
 
-        const treeData = await getCommentTypeList();
-        updateSchema([
-          {
-            field: 'type',
-            componentProps: { treeData },
-          },
-        ]);
+        // const treeData = await getCommentTypeList();
+        // updateSchema([
+        //   {
+        //     field: 'type',
+        //     componentProps: { treeData },
+        //   },
+        // ]);
       });
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增沟通' : '编辑沟通'));

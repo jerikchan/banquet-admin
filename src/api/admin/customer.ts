@@ -90,3 +90,15 @@ export const deleteCustomer = (params?: { id: string }) =>
 
 export const updateCustomerType = (params?: any) =>
   defHttp.post<CustomerListGetResultModel>({ url: Api.UpdateCustomerType, params }, { devUrl });
+
+export const getCommentList = (params?: CommentParams) =>
+  defHttp.get<CommentListGetResultModel>({ url: Api.GetCommentList, params }, { devUrl });
+
+export const addComment = (params?: CommentParams) =>
+  defHttp.post<CommentListGetResultModel>({ url: Api.AddComment, params }, { devUrl });
+
+export const updateComment = (params?: CommentParams) =>
+  defHttp.post<CommentListGetResultModel>({ url: Api.UpdateComment, params }, { devUrl });
+
+export const deleteComment = (params?: { id: string }) =>
+  defHttp.post<CommentListGetResultModel>({ url: Api.DeleteComment, params }, { devUrl });
