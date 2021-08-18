@@ -29,6 +29,13 @@
             },
             {
               icon: 'ant-design:swap-outlined',
+              tooltip: '合同下单',
+              disabled: record.status === '1',
+              ifShow: record.customerType === '2',
+              onClick: handleContractOpen.bind(null, record, '5'),
+            },
+            {
+              icon: 'ant-design:swap-outlined',
               tooltip: '转为流失',
               disabled: record.status === '1',
               ifShow: record.customerType === '1' || record.customerType === '2',
@@ -49,6 +56,7 @@
     </BasicTable>
     <CustomerModal @register="registerModal" @success="handleSuccess" />
     <CustomerTypeModal @register="registerTypeModal" @success="handleTypeSuccess" />
+    <ContractModal @register="registerContractModal" @success="handleContractSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -62,6 +70,7 @@
   import { useModal } from '/@/components/Modal';
   import CustomerModal from './CustomerModal.vue';
   import CustomerTypeModal from './CustomerTypeModal.vue';
+  import ContractModal from './ContractModal.vue';
 
   import { columns, searchFormSchema } from './customer.data';
 
@@ -72,12 +81,15 @@
       PageWrapper,
       CustomerTypeTree,
       CustomerModal,
+      ContractModal,
       TableAction,
       CustomerTypeModal,
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTypeModal, { openModal: openTypeModal }] = useModal();
+      const [registerContractModal, { openModal: openContractModal }] = useModal();
+      
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '客户列表',
@@ -125,6 +137,14 @@
         });
       }
 
+      function handleContractOpen(record: Recordable, toType) {
+        openContractModal(true, {
+          record,
+          isUpdate: false,
+          toType,
+        });
+      }
+
       async function handleDelete(record: Recordable) {
         console.log(record);
         await deleteCustomer({ id: record.id });
@@ -151,18 +171,25 @@
         reload();
       }
 
+      function handleContractSuccess(values) {
+        console.log(values);
+      }
+
       return {
         registerTable,
         registerModal,
         registerTypeModal,
+        registerContractModal,
         handleCreate,
         handleEdit,
         handleDelete,
         handleSuccess,
         handleTypeSuccess,
+        handleContractSuccess,
         handleSelect,
         searchInfo,
         handleTypeUpdate,
+        handleContractOpen,
       };
     },
   });
