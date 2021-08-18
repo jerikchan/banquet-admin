@@ -8,11 +8,6 @@
         <TableAction
           :actions="[
             {
-              icon: 'clarity:note-edit-line',
-              tooltip: '编辑沟通资料',
-              onClick: handleEdit.bind(null, record),
-            },
-            {
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除此沟通',
@@ -39,7 +34,8 @@
   import CommentModal from './CommentModal.vue';
 
   import { columns, searchFormSchema } from './comment.data';
-
+  import { deleteComment } from '/@/api/admin/customer';
+  
   export default defineComponent({
     name: 'CommentManagement',
     components: { BasicTable, PageWrapper, CommentModal, TableAction },
@@ -77,16 +73,10 @@
         });
       }
 
-      function handleEdit(record: Recordable) {
+      async function handleDelete(record: Recordable) {
         console.log(record);
-        openModal(true, {
-          record,
-          isUpdate: true,
-        });
-      }
-
-      function handleDelete(record: Recordable) {
-        console.log(record);
+        await deleteComment({ id: record.id });
+        reload();
       }
 
       function handleSuccess({ isUpdate, values }) {
@@ -109,7 +99,6 @@
         registerTable,
         registerModal,
         handleCreate,
-        handleEdit,
         handleDelete,
         handleSuccess,
         handleSelect,

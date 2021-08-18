@@ -54,12 +54,18 @@ export const customerFormSchema: FormSchema[] = [
     },
     required: true,
   },
+  {
+    label: '备注',
+    field: 'remark',
+    component: 'InputTextArea',
+    required: false,
+  },
 ];
 
 export const customerTypeFormSchema: FormSchema[] = [
   {
-    field: 'remark',
-    label: '备注',
+    field: 'nodeRemark',
+    label: '节点备注',
     component: 'InputTextArea',
   },
 ];

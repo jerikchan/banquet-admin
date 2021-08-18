@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { commentFormSchema } from './comment.data';
-  import { updateComment, addComment } from '/@/api/admin/customer';
+  import { addComment } from '/@/api/admin/customer';
 
   export default defineComponent({
     name: 'CommentModal',
@@ -57,10 +57,10 @@
           // TODO custom api
           console.log(values);
           if (isUpdate.value) {
-            await updateComment({
-              ...values,
-              id: unref(idRef),
-            });
+            // await updateComment({
+            //   ...values,
+            //   id: unref(idRef),
+            // });
           } else {
             await addComment(values);
           }

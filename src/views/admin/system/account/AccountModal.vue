@@ -44,6 +44,7 @@
           {
             field: 'pwd',
             show: !unref(isUpdate),
+            required: !unref(isUpdate),
           },
           {
             field: 'deptId',

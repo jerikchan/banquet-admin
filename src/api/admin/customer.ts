@@ -2,9 +2,11 @@ import {
   ChannelParams,
   MenuParams,
   CustomerParams,
+  CommentParams,
   ChannelListGetResultModel,
   MenuListGetResultModel,
   CustomerListGetResultModel,
+  CommentListGetResultModel,
 } from './model/customer';
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
@@ -22,6 +24,11 @@ enum Api {
   UpdateCustomer = '/customer/updateCustomer',
   DeleteCustomer = '/customer/deleteCustomer',
   UpdateCustomerType = '/customer/updateType',
+
+  GetCommentList = '/chat/findChatRecord',
+  AddComment = '/chat/add',
+  // UpdateComment = '/dic/update',
+  DeleteComment = '/chat/delete',
 
   GetMenuList = '/system/getMenuList',
 }
@@ -97,8 +104,8 @@ export const getCommentList = (params?: CommentParams) =>
 export const addComment = (params?: CommentParams) =>
   defHttp.post<CommentListGetResultModel>({ url: Api.AddComment, params }, { devUrl });
 
-export const updateComment = (params?: CommentParams) =>
-  defHttp.post<CommentListGetResultModel>({ url: Api.UpdateComment, params }, { devUrl });
+// export const updateComment = (params?: CommentParams) =>
+//   defHttp.post<CommentListGetResultModel>({ url: Api.UpdateComment, params }, { devUrl });
 
 export const deleteComment = (params?: { id: string }) =>
   defHttp.post<CommentListGetResultModel>({ url: Api.DeleteComment, params }, { devUrl });

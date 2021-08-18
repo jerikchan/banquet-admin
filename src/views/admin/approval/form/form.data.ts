@@ -8,6 +8,11 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '流程名',
+    dataIndex: 'flowName',
+    width: 200,
+  },
+  {
     title: '创建时间',
     dataIndex: 'createTime',
     width: 180,
@@ -20,8 +25,8 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'roleName',
-    label: '角色名称',
+    field: 'promoterName',
+    label: '发起人名称',
     component: 'Input',
     colProps: { span: 8 },
   },
