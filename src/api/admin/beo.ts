@@ -10,15 +10,15 @@ import { useGlobSetting } from '/@/hooks/setting';
 const { devUrl } = useGlobSetting();
 
 enum Api {
-  GetOrderist = '/agreement/find',
-  AddOrder = '/agreement/add',
-  UpdateOrder = '/agreement/update',
-  DeleteOrder = '/agreement/delete',
+  GetOrderist = '/beo/findBeoOrder',
+  AddOrder = '/beo/addBeoOrder',
+  UpdateOrder = '/beo/updateBeoOrder',
+  DeleteOrder = '/beo/deleteBeoOrder',
 
-  GetTaskist = '/agreement/find',
-  AddTask = '/agreement/add',
-  UpdateTask = '/agreement/update',
-  DeleteTask = '/agreement/delete',
+  GetTaskist = '/beo/findBeoTask',
+  AddTask = '/beo/addBeoTask',
+  UpdateTask = '/beo/updateBeoTask',
+  DeleteTask = '/beo/deleteBeoTask',
 }
 
 export const getOrderList = (params?: OrderParams) =>

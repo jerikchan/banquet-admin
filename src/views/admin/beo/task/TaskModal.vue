@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { taskFormSchema } from './task.data';
   import { addTask } from '/@/api/admin/beo';
+  import { getDeptList } from '/@/api/admin/system';
 
   export default defineComponent({
     name: 'TaskModal',
@@ -18,7 +19,7 @@
       const isUpdate = ref(true);
       const idRef = ref('');
 
-      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
         labelWidth: 100,
         schemas: taskFormSchema,
         showActionButtonGroup: false,
@@ -38,6 +39,12 @@
             ...data.record,
           });
         }
+
+        const treeData = await getDeptList();
+        updateSchema({
+          field: 'deptId',
+          componentProps: { treeData },
+        });
 
         // const treeData = await getTaskTypeList();
         // updateSchema([

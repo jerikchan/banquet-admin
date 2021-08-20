@@ -1,29 +1,29 @@
 // import { isAccountExist } from '/@/api/demo/system';
 // import { getAcceptTypeList } from '/@/api/admin/finance';
-import { getCustomerList } from '/@/api/admin/customer';
+import { getTotalList } from '/@/api/admin/finance';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '客户名称',
-    dataIndex: 'financeId',
+    title: '回款单编号',
+    dataIndex: 'returnCode',
     width: 120,
   },
   {
     title: '回款时间',
-    dataIndex: 'chatTime',
+    dataIndex: 'returnTime',
     width: 120,
   },
   {
-    title: '内容',
-    dataIndex: 'content',
+    title: '回款人',
+    dataIndex: 'returnMan',
     width: 120,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '回款金额',
+    dataIndex: 'returnMoney',
+    width: 100,
   },
 ];
 
@@ -38,18 +38,18 @@ export const searchFormSchema: FormSchema[] = [
 
 export const acceptFormSchema: FormSchema[] = [
   {
-    field: 'financeId',
-    label: '客户名称',
+    field: 'receivableId',
+    label: '应收款单',
     component: 'ApiSelect',
     componentProps: {
-      api: getCustomerList,
-      labelField: 'financeName',
+      api: getTotalList,
+      labelField: 'id',
       valueField: 'id',
     },
     required: true,
   },
   {
-    field: 'chatTime',
+    field: 'returnTime',
     label: '回款时间',
     component: 'DatePicker',
     componentProps: {
@@ -58,10 +58,21 @@ export const acceptFormSchema: FormSchema[] = [
     },
     required: true,
   },
-
   {
-    label: '内容',
-    field: 'content',
+    field: 'returnMan',
+    label: '回款人',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'returnMoney',
+    label: '回款金额',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '备注',
+    field: 'remark',
     component: 'InputTextArea',
     required: true,
   },

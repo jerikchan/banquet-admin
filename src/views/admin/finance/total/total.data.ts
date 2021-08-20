@@ -1,29 +1,49 @@
 // import { isAccountExist } from '/@/api/demo/system';
 // import { getTotalTypeList } from '/@/api/admin/finance';
-import { getCustomerList } from '/@/api/admin/customer';
+import { getContractList } from '/@/api/admin/contract';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '客户名称',
-    dataIndex: 'financeId',
+    title: '应收款编号',
+    dataIndex: 'receivablesCode',
     width: 120,
   },
   {
-    title: '应收款时间',
-    dataIndex: 'chatTime',
+    title: '合同编号',
+    dataIndex: 'agreementCode',
     width: 120,
   },
   {
-    title: '内容',
-    dataIndex: 'content',
+    title: '预计总款额',
+    dataIndex: 'preTotal',
     width: 120,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '实收款',
+    dataIndex: 'realTotal',
+    width: 120,
+  },
+  {
+    title: '最终收款时间',
+    dataIndex: 'lastTime',
+    width: 120,
+  },
+  {
+    title: '定金',
+    dataIndex: 'frontMoney',
+    width: 120,
+  },
+  {
+    title: '中款',
+    dataIndex: 'midMoney',
+    width: 120,
+  },
+  {
+    title: '尾款',
+    dataIndex: 'finalMoney',
+    width: 120,
   },
 ];
 
@@ -38,19 +58,19 @@ export const searchFormSchema: FormSchema[] = [
 
 export const totalFormSchema: FormSchema[] = [
   {
-    field: 'financeId',
-    label: '客户名称',
+    field: 'agreementId',
+    label: '合同',
     component: 'ApiSelect',
     componentProps: {
-      api: getCustomerList,
-      labelField: 'financeName',
+      api: getContractList,
+      labelField: 'id',
       valueField: 'id',
     },
     required: true,
   },
   {
-    field: 'chatTime',
-    label: '应收款时间',
+    field: 'lastTime',
+    label: '最后收款时间',
     component: 'DatePicker',
     componentProps: {
       showTime: true,
@@ -58,10 +78,45 @@ export const totalFormSchema: FormSchema[] = [
     },
     required: true,
   },
-
   {
-    label: '内容',
-    field: 'content',
+    label: '收款人',
+    field: 'receivableMan',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '预计总款',
+    field: 'preTotal',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '实际总款',
+    field: 'realTotal',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '定金',
+    field: 'frontMoney',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '中款',
+    field: 'midMoney',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '尾款',
+    field: 'finalMoney',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '备注',
+    field: 'remark',
     component: 'InputTextArea',
     required: true,
   },

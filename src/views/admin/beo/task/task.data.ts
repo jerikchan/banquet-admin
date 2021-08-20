@@ -1,29 +1,35 @@
 // import { isAccountExist } from '/@/api/demo/system';
 // import { getTaskTypeList } from '/@/api/admin/beo';
-import { getCustomerList } from '/@/api/admin/customer';
+
+import { getOrderList } from '/@/api/admin/beo';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '客户名称',
-    dataIndex: 'beoId',
+    title: '任务编号',
+    dataIndex: 'taskCode',
     width: 120,
   },
   {
-    title: '任务时间',
-    dataIndex: 'chatTime',
+    title: '执行部门',
+    dataIndex: 'deptName',
     width: 120,
   },
   {
-    title: '内容',
-    dataIndex: 'content',
+    title: '执行时间',
+    dataIndex: 'taskTime',
+    width: 120,
+  },
+  {
+    title: '任务状态',
+    dataIndex: 'taskStatus',
     width: 120,
   },
   {
     title: '创建时间',
     dataIndex: 'createTime',
-    width: 180,
+    width: 120,
   },
 ];
 
@@ -38,19 +44,33 @@ export const searchFormSchema: FormSchema[] = [
 
 export const taskFormSchema: FormSchema[] = [
   {
-    field: 'beoId',
-    label: '客户名称',
+    field: 'beoOrderId',
+    label: 'beo订单',
     component: 'ApiSelect',
     componentProps: {
-      api: getCustomerList,
-      labelField: 'beoName',
+      api: getOrderList,
+      labelField: 'orderName',
       valueField: 'id',
     },
     required: true,
   },
   {
-    field: 'chatTime',
-    label: '任务时间',
+    field: 'deptId',
+    label: '执行部门',
+    component: 'TreeSelect',
+    componentProps: {
+      replaceFields: {
+        title: 'deptName',
+        key: 'id',
+        value: 'id',
+      },
+      getPopupContainer: () => document.body,
+    },
+    required: true,
+  },
+  {
+    field: 'taskTime',
+    label: '执行时间',
     component: 'DatePicker',
     componentProps: {
       showTime: true,
@@ -60,7 +80,7 @@ export const taskFormSchema: FormSchema[] = [
   },
 
   {
-    label: '内容',
+    label: '执行内容',
     field: 'content',
     component: 'InputTextArea',
     required: true,
