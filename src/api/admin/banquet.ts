@@ -26,15 +26,15 @@ enum Api {
   UpdateRoomType = '/dic/update',
   DeleteRoomType = '/dic/delete',
 
-  GetRoomList = '/chat/findChatRecord',
-  AddRoom = '/chat/add',
+  GetRoomList = '/banquet/findRooms',
+  AddRoom = '/banquet/addRoom',
   // UpdateRoom = '/dic/update',
   DeleteRoom = '/chat/delete',
 
-  GetBanquetList = '/chat/findChatRecord',
-  AddBanquet = '/chat/add',
+  GetBanquetList = '/banquet/findRoomSchedules',
+  AddBanquet = '/banquet/addSchedule',
   // UpdateBanquet = '/dic/update',
-  DeleteBanquet = '/chat/delete',
+  DeleteBanquet = '/banquet/deleteSchedule',
 
   GetMenuList = '/system/getMenuList',
 }
