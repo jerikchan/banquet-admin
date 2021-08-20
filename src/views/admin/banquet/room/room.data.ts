@@ -7,17 +7,17 @@ import { FormSchema } from '/@/components/Table';
 export const columns: BasicColumn[] = [
   {
     title: '厅房名称',
-    dataIndex: 'customerId',
+    dataIndex: 'roomName',
     width: 120,
   },
   {
-    title: '沟通时间',
-    dataIndex: 'chatTime',
+    title: '厅房类型',
+    dataIndex: 'roomType',
     width: 120,
   },
   {
-    title: '内容',
-    dataIndex: 'content',
+    title: '宴会类型',
+    dataIndex: 'banquetType',
     width: 120,
   },
   {
@@ -29,7 +29,7 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'customerName',
+    field: 'roomName',
     label: '厅房名称',
     component: 'Input',
     colProps: { span: 8 },
@@ -38,8 +38,14 @@ export const searchFormSchema: FormSchema[] = [
 
 export const roomFormSchema: FormSchema[] = [
   {
-    field: 'customerId',
+    field: 'roomName',
     label: '厅房名称',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'roomType',
+    label: '厅房类型',
     component: 'ApiSelect',
     componentProps: {
       api: getCustomerList,
@@ -49,19 +55,8 @@ export const roomFormSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'chatTime',
-    label: '沟通时间',
-    component: 'DatePicker',
-    componentProps: {
-      showTime: true,
-      format: 'YYYY-MM-DD HH:mm:ss',
-    },
-    required: true,
-  },
-
-  {
-    label: '内容',
-    field: 'content',
+    label: '备注',
+    field: 'remark',
     component: 'InputTextArea',
     required: true,
   },

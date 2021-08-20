@@ -47,26 +47,31 @@ export interface RoomTypeListItem {
   status: number;
 }
 
+/**
+ * 厅房
+ */
 export interface RoomListItem {
-  accountId: string;
-  userName: string;
-  email: string;
-  nickName: string;
-  role: number;
+  id: string;
+  roomName: string;
+  banquetType: string;
+  roomType: string;
   createTime: string;
   remark: string;
-  status: number;
 }
 
+/**
+ * 厅房档期
+ */
 export interface BanquetListItem {
-  accountId: string;
-  userName: string;
-  email: string;
-  nickName: string;
-  role: number;
+  id: string;
+  roomId: string;
+  agreementId: string;
+  scheduleType: string;
+  banquetTime: string;
   createTime: string;
-  remark: string;
-  status: number;
+  setUpType: string;
+  desckCount: number;
+  backupDesk: number;
 }
 
 export interface MenuListItem {

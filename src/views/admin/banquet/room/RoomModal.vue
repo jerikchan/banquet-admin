@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { roomFormSchema } from './room.data';
-  import { addComment } from '/@/api/admin/customer';
+  import { addRoom } from '/@/api/admin/banquet';
 
   export default defineComponent({
     name: 'CommentModal',
@@ -62,7 +62,7 @@
             //   id: unref(idRef),
             // });
           } else {
-            await addComment(values);
+            await addRoom(values);
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });
