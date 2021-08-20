@@ -1,9 +1,13 @@
 import {
   BanquetTypeParams,
   RoomTypeParams,
+  RoomParams,
+  BanquetParams,
   MenuParams,
   BanquetTypeListGetResultModel,
   RoomTypeListGetResultModel,
+  RoomListGetResultModel,
+  BanquetListGetResultModel,
   MenuListGetResultModel,
 } from './model/banquet';
 import { defHttp } from '/@/utils/http/axios';
@@ -21,6 +25,16 @@ enum Api {
   AddRoomType = '/dic/add',
   UpdateRoomType = '/dic/update',
   DeleteRoomType = '/dic/delete',
+
+  GetRoomList = '/chat/findChatRecord',
+  AddRoom = '/chat/add',
+  // UpdateRoom = '/dic/update',
+  DeleteRoom = '/chat/delete',
+
+  GetBanquetList = '/chat/findChatRecord',
+  AddBanquet = '/chat/add',
+  // UpdateBanquet = '/dic/update',
+  DeleteBanquet = '/chat/delete',
 
   GetMenuList = '/system/getMenuList',
 }
@@ -99,3 +113,27 @@ export const deleteRoomType = (params?: { id: string }) =>
 
 export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });
+
+export const getRoomList = (params?: RoomParams) =>
+  defHttp.get<RoomListGetResultModel>({ url: Api.GetRoomList, params }, { devUrl });
+
+export const addRoom = (params?: RoomParams) =>
+  defHttp.post<RoomListGetResultModel>({ url: Api.AddRoom, params }, { devUrl });
+
+// export const updateRoom = (params?: RoomParams) =>
+//   defHttp.post<RoomListGetResultModel>({ url: Api.UpdateRoom, params }, { devUrl });
+
+export const deleteRoom = (params?: { id: string }) =>
+  defHttp.post<RoomListGetResultModel>({ url: Api.DeleteRoom, params }, { devUrl });
+
+export const getBanquetList = (params?: BanquetParams) =>
+  defHttp.get<BanquetListGetResultModel>({ url: Api.GetBanquetList, params }, { devUrl });
+
+export const addBanquet = (params?: BanquetParams) =>
+  defHttp.post<BanquetListGetResultModel>({ url: Api.AddBanquet, params }, { devUrl });
+
+// export const updateBanquet = (params?: BanquetParams) =>
+//   defHttp.post<BanquetListGetResultModel>({ url: Api.UpdateBanquet, params }, { devUrl });
+
+export const deleteBanquet = (params?: { id: string }) =>
+  defHttp.post<BanquetListGetResultModel>({ url: Api.DeleteBanquet, params }, { devUrl });

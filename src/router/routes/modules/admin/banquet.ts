@@ -26,11 +26,10 @@ const banquet: AppRouteModule = {
       path: 'banquet',
       name: 'BanquetList',
       meta: {
-        title: '宴会列表',
+        title: '档期列表',
         ignoreKeepAlive: false,
       },
-      // component: () => import('/@/views/admin/banquet/banquet/index.vue'),
-      component: () => import('/@/views/sys/exception/Exception.vue'),
+      component: () => import('/@/views/admin/banquet/banquet/index.vue'),
     },
     {
       path: 'room_type',
@@ -48,8 +47,7 @@ const banquet: AppRouteModule = {
         title: '厅房列表',
         ignoreKeepAlive: false,
       },
-      // component: () => import('/@/views/admin/banquet/room/index.vue'),
-      component: () => import('/@/views/sys/exception/Exception.vue'),
+      component: () => import('/@/views/admin/banquet/room/index.vue'),
     },
   ],
 };

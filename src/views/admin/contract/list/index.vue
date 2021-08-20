@@ -25,7 +25,7 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getContractList, deleteContract } from '/@/api/admin/contract';
 
-  import { columns, searchFormSchema } from './list.data';
+  import { columns, searchFormSchema } from './contract.data';
 
   export default defineComponent({
     name: 'ContractManagement',
