@@ -10,15 +10,15 @@ import { useGlobSetting } from '/@/hooks/setting';
 const { devUrl } = useGlobSetting();
 
 enum Api {
-  GetTotalist = '/agreement/find',
-  AddTotal = '/agreement/add',
-  UpdateTotal = '/agreement/update',
-  DeleteTotal = '/agreement/delete',
+  GetTotalist = '/finance/findReceivableInfo',
+  AddTotal = '/finance/addReceivableInfo',
+  UpdateTotal = '/finance/updateReceivableInfo',
+  DeleteTotal = '/finance/deleteReceivableInfo',
 
-  GetAcceptist = '/agreement/find',
-  AddAccept = '/agreement/add',
-  UpdateAccept = '/agreement/update',
-  DeleteAccept = '/agreement/delete',
+  GetAcceptist = '/finance/findReturnCollectionInfo',
+  AddAccept = '/finance/addReturnCollectionInfo',
+  UpdateAccept = '/finance/updateReturnCollectionInfo',
+  DeleteAccept = '/finance/deleteCollectionInfo',
 }
 
 export const getTotalList = (params?: TotalParams) =>

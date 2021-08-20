@@ -6,13 +6,22 @@ export type OrderParams = BasicPageParams & {
 
 export interface OrderListItem {
   id: string;
-  userName: string;
-  email: string;
-  nickName: string;
-  role: number;
+  orderName: string;
+  orderCode: string;
+  flowId: string;
+  createUserId: string;
   createTime: string;
-  remark: string;
-  status: number;
+  modifyTime: string;
+  status: string;
+  agreementId: string;
+  agreementCode: string;
+  managerId: string;
+  managerName: string;
+  managerMobile: string;
+  banquetTheme: string;
+  salesManId: string;
+  salesManName: string;
+  salesManMobile: string;
 }
 
 /**
@@ -28,13 +37,13 @@ export type TaskParams = BasicPageParams & {
 
 export interface TaskListItem {
   id: string;
-  userName: string;
-  email: string;
-  nickName: string;
-  role: number;
+  taskCode: string;
+  content: string;
+  deptId: string;
+  deptName: number;
+  taskTime: string;
   createTime: string;
-  remark: string;
-  status: number;
+  taskStatus: string;
 }
 
 /**
@@ -42,3 +51,5 @@ export interface TaskListItem {
  */
 
 export type TaskListGetResultModel = BasicFetchResult<TaskListItem>;
+
+export type OrderListGetResultModel = BasicFetchResult<OrderListItem>;

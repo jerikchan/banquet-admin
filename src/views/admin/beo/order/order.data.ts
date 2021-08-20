@@ -1,23 +1,33 @@
 // import { isAccountExist } from '/@/api/demo/system';
 // import { getOrderTypeList } from '/@/api/admin/beo';
-import { getCustomerList } from '/@/api/admin/customer';
+import { getAccountList } from '/@/api/admin/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '客户名称',
-    dataIndex: 'beoId',
+    title: '订单编号',
+    dataIndex: 'orderCode',
     width: 120,
   },
   {
-    title: '订单时间',
-    dataIndex: 'chatTime',
+    title: '宴会主题',
+    dataIndex: 'banquetTheme',
     width: 120,
   },
   {
-    title: '内容',
-    dataIndex: 'content',
+    title: '宴会时间',
+    dataIndex: 'banquetTime',
+    width: 120,
+  },
+  {
+    title: '管家',
+    dataIndex: 'managerName',
+    width: 120,
+  },
+  {
+    title: '销售名',
+    dataIndex: 'salesManName',
     width: 120,
   },
   {
@@ -38,19 +48,42 @@ export const searchFormSchema: FormSchema[] = [
 
 export const orderFormSchema: FormSchema[] = [
   {
-    field: 'beoId',
-    label: '客户名称',
+    label: '订单名称',
+    field: 'orderName',
+    component: 'Input',
+    required: false,
+  },
+  {
+    label: '宴会主题',
+    field: 'banquetTheme',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'managerId',
+    label: '选择管家',
     component: 'ApiSelect',
     componentProps: {
-      api: getCustomerList,
-      labelField: 'beoName',
+      api: getAccountList,
+      labelField: 'realName',
       valueField: 'id',
     },
     required: true,
   },
   {
-    field: 'chatTime',
-    label: '订单时间',
+    field: 'salesManId',
+    label: '选择销售',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getAccountList,
+      labelField: 'realName',
+      valueField: 'id',
+    },
+    required: true,
+  },
+  {
+    field: 'banquetTime',
+    label: '宴会时间',
     component: 'DatePicker',
     componentProps: {
       showTime: true,

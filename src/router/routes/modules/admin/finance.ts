@@ -10,7 +10,7 @@ const finance: AppRouteModule = {
   meta: {
     orderNo: 400,
     icon: 'ion:settings-outline',
-    title: 'BEO管理',
+    title: '财务管理',
   },
   children: [
     {
