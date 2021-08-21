@@ -19,6 +19,11 @@
                 confirm: handleDelete.bind(null, record),
               },
             },
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看角色详情',
+              onClick: handleRoleView.bind(null, record),
+            },
           ]"
         />
       </template>
@@ -37,11 +42,14 @@
 
   import { columns, searchFormSchema } from './role.data';
 
+  import { useGo } from '/@/hooks/web/usePage';
+
   export default defineComponent({
     name: 'RoleManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
+      const go = useGo();
       const [registerTable, { reload }] = useTable({
         title: '角色列表',
         api: getRoleList,
@@ -88,6 +96,11 @@
         reload();
       }
 
+      function handleRoleView(record: Recordable) {
+        // globalThis.deptInfo = record;
+        go('/system/role_detail/' + record.id);
+      }
+
       return {
         registerTable,
         registerDrawer,
@@ -95,6 +108,7 @@
         handleEdit,
         handleDelete,
         handleSuccess,
+        handleRoleView,
       };
     },
   });

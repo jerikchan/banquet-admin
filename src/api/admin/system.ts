@@ -25,11 +25,13 @@ enum Api {
   AddDept = '/dept/add',
   UpdateDept = '/dept/update',
   DeleteDept = '/dept/delete',
+  GetDeptInfo = '/dept/findDeptInfo',
 
   RolePageList = '/role/findRoleInfos',
   AddRole = '/role/add',
   UpdateRole = '/role/update',
   DeleteRole = '/role/delete',
+  GetRoleInfo = '/role/findRoleInfo',
 
   GetMenuList = '/system/getMenuList',
 }
@@ -58,6 +60,9 @@ export const updateDept = (params?: DeptListItem) =>
 export const deleteDept = (params?: { id: string }) =>
   defHttp.post<DeptListGetResultModel>({ url: Api.DeleteDept, params }, { devUrl });
 
+export const getDeptInfo = (params?: { id: string }) =>
+  defHttp.get<DeptListGetResultModel>({ url: Api.GetDeptInfo, params }, { devUrl });
+
 export const getRoleList = (params?: RolePageParams) =>
   defHttp.get<RolePageListGetResultModel>({ url: Api.RolePageList, params }, { devUrl });
 
@@ -69,6 +74,9 @@ export const updateRole = (params?: RoleParams) =>
 
 export const deleteRole = (params?: { id: string }) =>
   defHttp.post<RoleListGetResultModel>({ url: Api.DeleteRole, params }, { devUrl });
+
+export const getRoleInfo = (params?: { id: string }) =>
+  defHttp.get<RoleListGetResultModel>({ url: Api.GetRoleInfo, params }, { devUrl });
 
 export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });

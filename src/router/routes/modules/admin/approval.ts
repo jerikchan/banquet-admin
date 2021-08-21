@@ -40,6 +40,18 @@ const approval: AppRouteModule = {
       },
       component: () => import('/@/views/admin/approval/form/index.vue'),
     },
+    {
+      path: 'form_detail/:id',
+      name: 'FormManagementDetail',
+      meta: {
+        title: '与我相关详情',
+        ignoreKeepAlive: false,
+        hideMenu: true,
+        showMenu: false,
+        currentActiveMenu: '/approval/form',
+      },
+      component: () => import('/@/views/admin/approval/form/FormDetailModal.vue'),
+    },
   ],
 };
 
