@@ -4,47 +4,28 @@
     <BasicTable @register="registerTable" class="w-3/4 xl:w-4/5" :searchInfo="searchInfo">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate">新增客户</a-button>
+        <BasicUpload
+          :maxSize="20"
+          :maxNumber="10"
+          @change="handleUploadChange"
+          :api="uploadCustomer"
+          :showPreviewNumber="false"
+        />
       </template>
       <template #action="{ record }">
         <TableAction
           :actions="[
             {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              disabled: true,
+              onClick: handleCustomerDetail.bind(null, record),
+              ifShow: false,
+            },
+            {
               icon: 'clarity:note-edit-line',
               tooltip: '编辑客户资料',
               onClick: handleEdit.bind(null, record),
-            },
-            {
-              icon: 'ant-design:swap-outlined',
-              tooltip: '转为意向',
-              disabled: record.status === '1',
-              ifShow: record.customerType === '1',
-              onClick: handleTypeUpdate.bind(null, record, '2'),
-            },
-            {
-              icon: 'ant-design:swap-outlined',
-              tooltip: '转为成交',
-              disabled: record.status === '1',
-              ifShow: record.customerType === '2',
-              onClick: handleTypeUpdate.bind(null, record, '5'),
-            },
-            {
-              icon: 'ant-design:swap-outlined',
-              tooltip: '合同下单',
-              disabled: record.status === '1',
-              ifShow: record.customerType === '2',
-              onClick: handleContractOpen.bind(null, record, '5'),
-            },
-            {
-              icon: 'ant-design:swap-outlined',
-              tooltip: '分配销售',
-              onClick: handleAllocation.bind(null, record),
-            },
-            {
-              icon: 'ant-design:swap-outlined',
-              tooltip: '转为流失',
-              disabled: record.status === '1',
-              ifShow: record.customerType === '1' || record.customerType === '2',
-              onClick: handleTypeUpdate.bind(null, record, '3'),
             },
             {
               icon: 'ant-design:delete-outlined',
@@ -55,11 +36,29 @@
                 confirm: handleDelete.bind(null, record),
               },
             },
+          ]"
+          :dropDownActions="[
             {
-              icon: 'clarity:info-standard-line',
-              tooltip: '查看详情',
-              disabled: true,
-              onClick: handleCustomerDetail.bind(null, record),
+              label: '分配销售',
+              onClick: handleAllocation.bind(null, record),
+              disabled: record.status === '1',
+            },
+            {
+              label: '转为意向',
+              onClick: handleTypeUpdate.bind(null, record, '2'),
+              ifShow: !(!(record.customerType === '1') || record.status === '1'),
+            },
+            {
+              label: '合同下单',
+              ifShow: !(!(record.customerType === '2') || record.status === '1'),
+              onClick: handleContractOpen.bind(null, record, '5'),
+            },
+            {
+              label: '转为流失',
+              disabled:
+                !(record.customerType === '1' || record.customerType === '2') ||
+                record.status === '1',
+              onClick: handleTypeUpdate.bind(null, record, '3'),
             },
           ]"
         />
@@ -75,7 +74,7 @@
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getCustomerList, deleteCustomer } from '/@/api/admin/customer';
+  import { getCustomerList, deleteCustomer, uploadCustomer } from '/@/api/admin/customer';
   import { PageWrapper } from '/@/components/Page';
   import CustomerTypeTree from './CustomerTypeTree.vue';
 
@@ -89,6 +88,9 @@
 
   import { columns, searchFormSchema } from './customer.data';
 
+  import { useMessage } from '/@/hooks/web/useMessage';
+  import { BasicUpload } from '/@/components/Upload';
+
   export default defineComponent({
     name: 'AccountManagement',
     components: {
@@ -100,6 +102,7 @@
       TableAction,
       CustomerTypeModal,
       CustomerAllocationSalesModal,
+      BasicUpload,
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
@@ -108,6 +111,7 @@
 
       const [registerAllocationModal, { openModal: openAllocaitonModal }] = useModal();
       const go = useGo();
+      const { createMessage } = useMessage();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '客户列表',
@@ -189,6 +193,7 @@
 
       function handleTypeSuccess(values) {
         console.log(values);
+        reload();
       }
 
       function handleSelect(customerType = '') {
@@ -203,6 +208,10 @@
       function handleCustomerDetail(record: Recordable) {
         // globalThis.deptInfo = record;
         go('/approval/review_detail/' + record.id);
+      }
+
+      function handleUploadChange (list: string[]) {
+        createMessage.info(`已上传文件${JSON.stringify(list)}`);
       }
 
       return {
@@ -223,6 +232,8 @@
         handleContractOpen,
         handleAllocation,
         handleCustomerDetail,
+        uploadCustomer,
+        handleUploadChange,
       };
     },
   });

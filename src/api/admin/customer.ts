@@ -127,13 +127,13 @@ export const addComment = (params?: CommentParams) =>
 export const deleteComment = (params?: { id: string }) =>
   defHttp.post<CommentListGetResultModel>({ url: Api.DeleteComment, params }, { devUrl });
 
-export function uploadApi(
+export function uploadCustomer(
   params: UploadFileParams,
   onUploadProgress: (progressEvent: ProgressEvent) => void
 ) {
   return defHttp.uploadFile<UploadResultModel>(
     {
-      url: devUrl,
+      url: `${devUrl}/excel/importCustomerInfos`,
       onUploadProgress,
     },
     params

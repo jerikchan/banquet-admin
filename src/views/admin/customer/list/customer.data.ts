@@ -11,6 +11,16 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
+    title: '客户类型',
+    dataIndex: 'customerTypeStr',
+    width: 200,
+  },
+  {
+    title: '客户状态',
+    dataIndex: 'statusStr',
+    width: 200,
+  },
+  {
     title: '跟进销售',
     dataIndex: 'salesManagerName',
     width: 120,
@@ -34,11 +44,6 @@ export const columns: BasicColumn[] = [
     title: '第二联系人号码',
     dataIndex: 'secondManMobile',
     width: 120,
-  },
-  {
-    title: '客户类型',
-    dataIndex: 'customerType',
-    width: 200,
   },
 ];
 
