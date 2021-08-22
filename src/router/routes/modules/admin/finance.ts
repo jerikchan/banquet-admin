@@ -31,6 +31,30 @@ const finance: AppRouteModule = {
       },
       component: () => import('/@/views/admin/finance/accept/index.vue'),
     },
+    {
+      path: 'total_detail/:id',
+      name: 'TotalDetail',
+      meta: {
+        hideMenu: true,
+        title: '应收款单详情',
+        ignoreKeepAlive: true,
+        showMenu: false,
+        currentActiveMenu: '/finance/total',
+      },
+      component: () => import('/@/views/admin/finance/total/TotalDetailModal.vue'),
+    },
+    {
+      path: 'accept_detail/:id',
+      name: 'AcceptDetail',
+      meta: {
+        hideMenu: true,
+        title: '回款单详情',
+        ignoreKeepAlive: true,
+        showMenu: false,
+        currentActiveMenu: '/finance/accept',
+      },
+      component: () => import('/@/views/admin/finance/accept/AcceptDetailModal.vue'),
+    },
   ],
 };
 

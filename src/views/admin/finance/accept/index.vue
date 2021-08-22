@@ -16,6 +16,11 @@
                 confirm: handleDelete.bind(null, record),
               },
             },
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              onClick: handleView.bind(null, record),
+            },
           ]"
         />
       </template>
@@ -35,13 +40,16 @@
 
   import { columns, searchFormSchema } from './accept.data';
   import { deleteAccept } from '/@/api/admin/finance';
-  
+
+  import { useGo } from '/@/hooks/web/usePage';
+
   export default defineComponent({
     name: 'AcceptManagement',
     components: { BasicTable, PageWrapper, AcceptModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
+      const go = useGo();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '回款列表',
         api: getAcceptList,
@@ -95,6 +103,11 @@
         reload();
       }
 
+      function handleView(record: Recordable) {
+        // globalThis.deptInfo = record;
+        go('/finance/accept_detail/' + record.id);
+      }
+
       return {
         registerTable,
         registerModal,
@@ -102,6 +115,7 @@
         handleDelete,
         handleSuccess,
         handleSelect,
+        handleView,
         searchInfo,
       };
     },

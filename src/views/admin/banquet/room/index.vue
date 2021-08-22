@@ -16,6 +16,11 @@
                 confirm: handleDelete.bind(null, record),
               },
             },
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              onClick: handleView.bind(null, record),
+            },
           ]"
         />
       </template>
@@ -34,13 +39,16 @@
   import RoomModal from './RoomModal.vue';
 
   import { columns, searchFormSchema } from './room.data';
-  
+
+  import { useGo } from '/@/hooks/web/usePage';
+
   export default defineComponent({
     name: 'RoomManagement',
     components: { BasicTable, PageWrapper, RoomModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
+      const go = useGo();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '厅房列表',
         api: getRoomList,
@@ -94,6 +102,11 @@
         reload();
       }
 
+      function handleView(record: Recordable) {
+        // globalThis.deptInfo = record;
+        go('/banquet/room_detail/' + record.id);
+      }
+
       return {
         registerTable,
         registerModal,
@@ -101,6 +114,7 @@
         handleDelete,
         handleSuccess,
         handleSelect,
+        handleView,
         searchInfo,
       };
     },

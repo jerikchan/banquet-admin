@@ -30,11 +30,13 @@ enum Api {
   AddRoom = '/banquet/addRoom',
   // UpdateRoom = '/dic/update',
   DeleteRoom = '/chat/delete',
+  GetRoomInfo = '/banquet/findBanquetRoom',
 
   GetBanquetList = '/banquet/findRoomSchedules',
   AddBanquet = '/banquet/addSchedule',
   // UpdateBanquet = '/dic/update',
   DeleteBanquet = '/banquet/deleteSchedule',
+  GetBanquetInfo = '/banquet/findRoomSchedule',
 
   GetMenuList = '/system/getMenuList',
 }
@@ -116,6 +118,12 @@ export const getMenuList = (params?: MenuParams) =>
 
 export const getRoomList = (params?: RoomParams) =>
   defHttp.get<RoomListGetResultModel>({ url: Api.GetRoomList, params }, { devUrl });
+
+export const getRoomInfo = (params?: RoomParams) =>
+  defHttp.get<RoomListGetResultModel>({ url: Api.GetRoomInfo, params }, { devUrl });
+
+export const getBanquetInfo = (params?: RoomParams) =>
+  defHttp.get<RoomListGetResultModel>({ url: Api.GetBanquetInfo, params }, { devUrl });
 
 export const addRoom = (params?: RoomParams) =>
   defHttp.post<RoomListGetResultModel>({ url: Api.AddRoom, params }, { devUrl });

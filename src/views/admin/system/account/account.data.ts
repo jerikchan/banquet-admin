@@ -1,4 +1,3 @@
-import { isAccountExist } from '/@/api/demo/system';
 import { getRoleList } from '/@/api/admin/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
@@ -31,12 +30,12 @@ export const columns: BasicColumn[] = [
   // },
   {
     title: '角色',
-    dataIndex: 'roleId',
+    dataIndex: 'roleName',
     width: 200,
   },
   {
     title: '部门',
-    dataIndex: 'deptId',
+    dataIndex: 'deptName',
     width: 200,
   },
   {

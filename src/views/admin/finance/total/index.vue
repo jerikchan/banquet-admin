@@ -16,6 +16,11 @@
                 confirm: handleDelete.bind(null, record),
               },
             },
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看应收款详情',
+              onClick: handleView.bind(null, record),
+            },
           ]"
         />
       </template>
@@ -35,13 +40,15 @@
 
   import { columns, searchFormSchema } from './total.data';
   import { deleteTotal } from '/@/api/admin/finance';
-  
+  import { useGo } from '/@/hooks/web/usePage';
+
   export default defineComponent({
     name: 'TotalManagement',
     components: { BasicTable, PageWrapper, TotalModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
+      const go = useGo();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '应收款列表',
         api: getTotalList,
@@ -95,6 +102,11 @@
         reload();
       }
 
+      function handleView(record: Recordable) {
+        // globalThis.deptInfo = record;
+        go('/finance/total_detail/' + record.id);
+      }
+
       return {
         registerTable,
         registerModal,
@@ -102,6 +114,7 @@
         handleDelete,
         handleSuccess,
         handleSelect,
+        handleView,
         searchInfo,
       };
     },
