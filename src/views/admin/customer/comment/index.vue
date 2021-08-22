@@ -35,7 +35,7 @@
 
   import { columns, searchFormSchema } from './comment.data';
   import { deleteComment } from '/@/api/admin/customer';
-  
+
   export default defineComponent({
     name: 'CommentManagement',
     components: { BasicTable, PageWrapper, CommentModal, TableAction },
@@ -43,7 +43,7 @@
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
-        title: '沟通列表',
+        title: '跟进列表',
         api: getCommentList,
         rowKey: 'id',
         columns,
