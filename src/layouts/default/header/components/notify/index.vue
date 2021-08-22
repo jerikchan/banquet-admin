@@ -13,7 +13,7 @@
                 <span v-if="item.list.length !== 0">({{ item.list.length }})</span>
               </template>
               <!-- 绑定title-click事件的通知列表中标题是“可点击”的-->
-              <NoticeList :list="item.list" v-if="item.key === '1'" @title-click="onNoticeClick" />
+              <NoticeList :list="item.list" v-if="item.key === '2'" @title-click="onNoticeClick" />
               <NoticeList :list="item.list" v-else />
             </TabPane>
           </template>
@@ -29,28 +29,57 @@
   import { tabListData, ListItem } from './data';
   import NoticeList from './NoticeList.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  // import { useMessage } from '/@/hooks/web/useMessage';
+  import { getMessageList, updateMessage } from '/@/api/admin/notification';
 
   export default defineComponent({
     components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
     setup() {
       const { prefixCls } = useDesign('header-notify');
-      const { createMessage } = useMessage();
+      // const { createMessage } = useMessage();
       const listData = ref(tabListData);
+      let pollingTimer = null;
 
       const count = computed(() => {
         let count = 0;
-        for (let i = 0; i < tabListData.length; i++) {
-          count += tabListData[i].list.length;
+        for (let i = 0; i < listData.value.length; i++) {
+          count += listData.value[i].list.filter((n) => !n.titleDelete).length;
         }
         return count;
       });
 
-      function onNoticeClick(record: ListItem) {
-        createMessage.success('你点击了通知，ID=' + record.id);
-        // 可以直接将其标记为已读（为标题添加删除线）,此处演示的代码会切换删除线状态
-        record.titleDelete = !record.titleDelete;
+      async function onNoticeClick(record: ListItem) {
+        if (!record.titleDelete) {
+          await updateMessage({ id: record.id, status: '1' });
+          // record.titleDelete = !record.titleDelete;
+          await updateMessageList();
+        }
       }
+
+      async function updateMessageList() {
+        clearTimeout(pollingTimer);
+        
+        const list = await getMessageList();
+        listData.value[1].list = list.map((n) => {
+          return {
+            id: n.id,
+            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg',
+            title: n.content,
+            datetime: n.createTime,
+            type: '2',
+            clickClose: true,
+            // status: n.status,
+            titleDelete: n.status === '1',
+          };
+        });
+
+        // 轮询
+        pollingTimer = setTimeout(() => {
+          updateMessageList();
+        }, 10 * 1000);
+      }
+
+      updateMessageList();
 
       return {
         prefixCls,

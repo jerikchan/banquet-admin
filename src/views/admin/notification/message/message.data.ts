@@ -7,11 +7,6 @@ import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
-    title: '标题',
-    dataIndex: 'title',
-    width: 120,
-  },
-  {
     title: '内容',
     dataIndex: 'content',
     width: 180,
@@ -25,13 +20,13 @@ export const columns: BasicColumn[] = [
         record.pendingStatus = false;
       }
       return h(Switch, {
-        checked: record.status === '0',
-        checkedChildren: '已启用',
-        unCheckedChildren: '已禁用',
+        checked: record.status === '1',
+        checkedChildren: '已读',
+        unCheckedChildren: '未读',
         loading: record.pendingStatus,
         onChange(checked: boolean) {
           record.pendingStatus = true;
-          const newStatus = checked ? '0' : '1';
+          const newStatus = checked ? '1' : '0';
           const { createMessage } = useMessage();
           updateMessage({ id: record.id, status: newStatus })
             .then(() => {
@@ -56,12 +51,6 @@ export const columns: BasicColumn[] = [
 ];
 
 export const searchFormSchema: FormSchema[] = [
-  {
-    field: 'title',
-    label: '标题',
-    component: 'Input',
-    colProps: { span: 8 },
-  },
   {
     field: 'status',
     label: '类型',
