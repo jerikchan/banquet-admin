@@ -139,7 +139,7 @@
           createMessage.info(`已上传文件${JSON.stringify(list)}`);
         },
         register,
-        uploadApi,
+        // uploadApi,
       };
     },
   });
