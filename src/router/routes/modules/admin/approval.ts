@@ -52,6 +52,18 @@ const approval: AppRouteModule = {
       },
       component: () => import('/@/views/admin/approval/form/FormDetailModal.vue'),
     },
+    {
+      path: 'review_detail/:id',
+      name: 'ReviewDetail',
+      meta: {
+        title: '与我相关详情',
+        ignoreKeepAlive: false,
+        hideMenu: true,
+        showMenu: false,
+        currentActiveMenu: '/approval/review',
+      },
+      component: () => import('/@/views/admin/approval/review/ReviewDetailModal.vue'),
+    },
   ],
 };
 

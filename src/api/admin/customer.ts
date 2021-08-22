@@ -7,9 +7,11 @@ import {
   MenuListGetResultModel,
   CustomerListGetResultModel,
   CommentListGetResultModel,
+  UploadResultModel,
 } from './model/customer';
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
+import { UploadFileParams } from '/#/axios';
 
 const { devUrl } = useGlobSetting();
 
@@ -32,6 +34,8 @@ enum Api {
   DeleteComment = '/chat/delete',
 
   GetMenuList = '/system/getMenuList',
+
+  UploadCustomer = '/excel/importCustomerInfos',
 }
 
 export const getChannelList = (params: ChannelParams) =>
@@ -113,3 +117,16 @@ export const addComment = (params?: CommentParams) =>
 
 export const deleteComment = (params?: { id: string }) =>
   defHttp.post<CommentListGetResultModel>({ url: Api.DeleteComment, params }, { devUrl });
+
+export function uploadApi(
+  params: UploadFileParams,
+  onUploadProgress: (progressEvent: ProgressEvent) => void
+) {
+  return defHttp.uploadFile<UploadResultModel>(
+    {
+      url: devUrl,
+      onUploadProgress,
+    },
+    params
+  );
+}

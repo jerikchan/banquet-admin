@@ -63,6 +63,12 @@ export interface MenuListItem {
   permission: string;
 }
 
+export interface UploadApiResult {
+  message: string;
+  code: number;
+  url: string;
+}
+
 /**
  * @description: Request list return value
  */
@@ -73,3 +79,5 @@ export type CustomerListGetResultModel = BasicFetchResult<CustomerListItem>;
 export type CommentListGetResultModel = BasicFetchResult<CommentListItem>;
 
 export type MenuListGetResultModel = BasicFetchResult<MenuListItem>;
+
+export type UploadResultModel = BasicFetchResult<UploadApiResult>;

@@ -11,6 +11,11 @@
               icon: 'clarity:note-edit-line',
               onClick: handleEdit.bind(null, record),
             },
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              onClick: handleFlowView.bind(null, record),
+            },
           ]"
         />
       </template>
@@ -29,11 +34,14 @@
 
   import { columns, searchFormSchema } from './review.data';
 
+  import { useGo } from '/@/hooks/web/usePage';
+
   export default defineComponent({
     name: 'ReviewManagement',
     components: { BasicTable, ReviewDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
+      const go = useGo();
       const [registerTable, { reload }] = useTable({
         title: '待我审批',
         api: getReviewList,
@@ -80,6 +88,11 @@
         reload();
       }
 
+      function handleFlowView(record: Recordable) {
+        // globalThis.deptInfo = record;
+        go('/approval/review_detail/' + record.id);
+      }
+
       return {
         registerTable,
         registerDrawer,
@@ -87,6 +100,7 @@
         handleEdit,
         handleDelete,
         handleSuccess,
+        handleFlowView,
       };
     },
   });

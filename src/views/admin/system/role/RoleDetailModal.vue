@@ -63,9 +63,9 @@
       dataIndex: '电子邮箱',
     },
     {
-      title: 'remark',
+      title: '备注',
       width: 200,
-      dataIndex: '备注',
+      dataIndex: 'remark',
     },
   ];
 
@@ -104,6 +104,7 @@
         let res = await getRoleInfo({ id: id });
         mockData.roleName = res.roleName;
         mockData.createTime = res.createTime;
+        mockData.value = res.value;
       }
 
       handleData(roleId.value);
