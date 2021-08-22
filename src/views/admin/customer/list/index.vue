@@ -36,6 +36,11 @@
             },
             {
               icon: 'ant-design:swap-outlined',
+              tooltip: '分配销售',
+              onClick: handleAllocation.bind(null, record),
+            },
+            {
+              icon: 'ant-design:swap-outlined',
               tooltip: '转为流失',
               disabled: record.status === '1',
               ifShow: record.customerType === '1' || record.customerType === '2',
@@ -57,6 +62,7 @@
     <CustomerModal @register="registerModal" @success="handleSuccess" />
     <CustomerTypeModal @register="registerTypeModal" @success="handleTypeSuccess" />
     <ContractModal @register="registerContractModal" @success="handleContractSuccess" />
+    <CustomerAllocationSalesModal @register="registerAllocationModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -71,6 +77,7 @@
   import CustomerModal from './CustomerModal.vue';
   import CustomerTypeModal from './CustomerTypeModal.vue';
   import ContractModal from './ContractModal.vue';
+  import CustomerAllocationSalesModal from './CustomerAllocateModal.vue';
 
   import { columns, searchFormSchema } from './customer.data';
 
@@ -84,11 +91,14 @@
       ContractModal,
       TableAction,
       CustomerTypeModal,
+      CustomerAllocationSalesModal,
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTypeModal, { openModal: openTypeModal }] = useModal();
       const [registerContractModal, { openModal: openContractModal }] = useModal();
+
+      const [registerAllocationModal, { openModal: openAllocaitonModal }] = useModal();
 
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
@@ -137,6 +147,13 @@
         });
       }
 
+      function handleAllocation(record: Recordable) {
+        openAllocaitonModal(true, {
+          record,
+          isUpdate: true,
+        });
+      }
+
       function handleContractOpen(record: Recordable, toType) {
         openContractModal(true, {
           record,
@@ -180,6 +197,7 @@
         registerModal,
         registerTypeModal,
         registerContractModal,
+        registerAllocationModal,
         handleCreate,
         handleEdit,
         handleDelete,
@@ -190,6 +208,7 @@
         searchInfo,
         handleTypeUpdate,
         handleContractOpen,
+        handleAllocation,
       };
     },
   });

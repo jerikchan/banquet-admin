@@ -34,6 +34,8 @@ enum Api {
   GetRoleInfo = '/role/findRoleInfo',
 
   GetMenuList = '/system/getMenuList',
+
+  GetSalesList = '/account/findSales',
 }
 
 export const getAccountList = (params?: AccountParams) =>
@@ -80,3 +82,6 @@ export const getRoleInfo = (params?: { id: string }) =>
 
 export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });
+
+export const getSalesList = (params?: MenuParams) =>
+  defHttp.get<AccountListGetResultModel>({ url: Api.GetSalesList, params }, { devUrl });

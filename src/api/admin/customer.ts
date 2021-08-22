@@ -7,9 +7,11 @@ import {
   MenuListGetResultModel,
   CustomerListGetResultModel,
   CommentListGetResultModel,
+  UploadResultModel,
 } from './model/customer';
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
+import { UploadFileParams } from '/#/axios';
 
 const { devUrl } = useGlobSetting();
 
@@ -24,6 +26,7 @@ enum Api {
   UpdateCustomer = '/customer/updateCustomer',
   DeleteCustomer = '/customer/deleteCustomer',
   UpdateCustomerType = '/customer/updateType',
+  AllocationSales = 'customer/allocationSales',
 
   GetCommentList = '/chat/findChatRecord',
   AddComment = '/chat/add',
@@ -31,6 +34,8 @@ enum Api {
   DeleteComment = '/chat/delete',
 
   GetMenuList = '/system/getMenuList',
+
+  UploadCustomer = '/excel/importCustomerInfos',
 }
 
 export const getChannelList = (params: ChannelParams) =>
@@ -98,6 +103,9 @@ export const deleteCustomer = (params?: { id: string }) =>
 export const updateCustomerType = (params?: any) =>
   defHttp.post<CustomerListGetResultModel>({ url: Api.UpdateCustomerType, params }, { devUrl });
 
+export const allocationSales = (params?: any) =>
+  defHttp.post<CustomerListGetResultModel>({ url: Api.AllocationSales, params }, { devUrl });
+
 export const getCommentList = (params?: CommentParams) =>
   defHttp.get<CommentListGetResultModel>({ url: Api.GetCommentList, params }, { devUrl });
 
@@ -109,3 +117,16 @@ export const addComment = (params?: CommentParams) =>
 
 export const deleteComment = (params?: { id: string }) =>
   defHttp.post<CommentListGetResultModel>({ url: Api.DeleteComment, params }, { devUrl });
+
+export function uploadApi(
+  params: UploadFileParams,
+  onUploadProgress: (progressEvent: ProgressEvent) => void
+) {
+  return defHttp.uploadFile<UploadResultModel>(
+    {
+      url: devUrl,
+      onUploadProgress,
+    },
+    params
+  );
+}

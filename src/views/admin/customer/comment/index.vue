@@ -3,6 +3,14 @@
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate">新增沟通</a-button>
+        <BasicUpload
+          :maxSize="20"
+          :maxNumber="10"
+          @change="handleChange"
+          :api="uploadApi"
+          class="my-5"
+        />
+        <BasicForm @register="register" class="my-5" />
       </template>
       <template #action="{ record }">
         <TableAction
@@ -34,14 +42,41 @@
   import CommentModal from './CommentModal.vue';
 
   import { columns, searchFormSchema } from './comment.data';
-  import { deleteComment } from '/@/api/admin/customer';
+  import { deleteComment, uploadApi } from '/@/api/admin/customer';
+
+  import { BasicUpload } from '/@/components/Upload';
+  import { useMessage } from '/@/hooks/web/useMessage';
+  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+
+  const schemas: FormSchema[] = [
+    {
+      field: 'field1',
+      component: 'Upload',
+      label: '字段1',
+      colProps: {
+        span: 8,
+      },
+      rules: [{ required: true, message: '请选择上传文件' }],
+      componentProps: {
+        api: uploadApi,
+      },
+    },
+  ];
 
   export default defineComponent({
     name: 'CommentManagement',
-    components: { BasicTable, PageWrapper, CommentModal, TableAction },
+    components: { BasicTable, PageWrapper, CommentModal, TableAction, BasicUpload, BasicForm },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
+      const { createMessage } = useMessage();
+      const [register] = useForm({
+        labelWidth: 120,
+        schemas,
+        actionColOptions: {
+          span: 16,
+        },
+      });
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '跟进列表',
         api: getCommentList,
@@ -103,6 +138,11 @@
         handleSuccess,
         handleSelect,
         searchInfo,
+        handleChange: (list: string[]) => {
+          createMessage.info(`已上传文件${JSON.stringify(list)}`);
+        },
+        register,
+        uploadApi,
       };
     },
   });

@@ -1,8 +1,8 @@
 <template>
   <PageWrapper title="流程详细信息" contentBackground @back="goBack">
-    <!-- <template #extra>
-      <a-button type="primary"> 审核 </a-button>
-    </template> -->
+    <template #extra>
+      <a-button type="primary" @click="handleEdit"> 审核 </a-button>
+    </template>
     <Description
       size="middle"
       title="流程信息"
@@ -35,6 +35,7 @@
       </a-steps>
     </a-card>
     <BasicTable @register="registerTimeTable" @success="handleSuccess" />
+    <ReviewDrawer @register="registerDrawer" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -47,6 +48,8 @@
   import { Divider, Card, Descriptions, Steps } from 'ant-design-vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { BasicColumn } from '/@/components/Table/src/types/table';
+  import ReviewDrawer from './ReviewDrawer.vue';
+  import { useDrawer } from '/@/components/Drawer';
 
   const mockData: Recordable = reactive({
     userName: '',
@@ -70,7 +73,7 @@
     },
     {
       field: 'promoterName',
-      label: '发起人',
+      label: '发起人名称',
     },
     {
       field: 'customerName',
@@ -117,6 +120,7 @@
       [Steps.Step.name]: Steps.Step,
       [Divider.name]: Divider,
       [Card.name]: Card,
+      ReviewDrawer,
     },
     setup() {
       // debugger;
@@ -132,16 +136,18 @@
       }
 
       const [register] = useDescription({
-        title: '信息列表',
+        title: '待审核流程详情',
         data: mockData,
         schema: schema,
       });
+
+      const [registerDrawer, { openDrawer }] = useDrawer();
 
       async function handleData(id: string) {
         let res = await getFlowInfo({ id: id });
         let resultArr = await getWorkFlowFlowNodes({ flowId: id });
         console.log(resultArr);
-        mockData.promoterName = res.promoterName;
+        mockData.roleName = res.roleName;
         mockData.createTime = res.createTime;
         mockData.flowCode = res.flowCode;
         mockData.nodeOrder = res.nodeOrder - 1 + '';
@@ -189,6 +195,16 @@
         reload();
       }
 
+      function handleEdit(record: Recordable) {
+        record.id = flowId.value;
+        alert('页面内审核尚未测试完毕，暂不开放!');
+        return;
+        openDrawer(true, {
+          record,
+          isUpdate: true,
+        });
+      }
+
       return {
         schema,
         register,
@@ -200,6 +216,8 @@
         registerTimeTable,
         handleSuccess,
         listData,
+        handleEdit,
+        registerDrawer,
       };
     },
   });

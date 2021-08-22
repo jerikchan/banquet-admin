@@ -1,6 +1,8 @@
 import { getCustomerTypeList } from '/@/api/admin/customer';
+import { getRoomList } from '/@/api/admin/banquet';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { getSalesList } from '/@/api/admin/system';
 
 export const columns: BasicColumn[] = [
   {
@@ -140,8 +142,14 @@ export const contractFormSchema: FormSchema[] = [
   },
   {
     field: 'banquetRoomId',
-    label: '宴会厅房id',
-    component: 'DatePicker',
+    label: '宴会厅房',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getRoomList,
+      labelField: 'roomName',
+      valueField: 'id',
+    },
+    required: true,
   },
   {
     field: 'floorsDeskCount',
@@ -208,6 +216,25 @@ export const contractFormSchema: FormSchema[] = [
         },
       ],
     },
+  },
+  {
+    field: 'remark',
+    label: '备注',
+    component: 'InputTextArea',
+  },
+];
+
+export const customerAllocationFormSchema: FormSchema[] = [
+  {
+    field: 'salesManagerId',
+    label: '销售',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getSalesList,
+      labelField: 'realName',
+      valueField: 'id',
+    },
+    required: true,
   },
   {
     field: 'remark',

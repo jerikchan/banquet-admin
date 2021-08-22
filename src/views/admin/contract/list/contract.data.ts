@@ -3,24 +3,49 @@ import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '标题',
-    dataIndex: 'title',
-    width: 120,
-  },
-  {
-    title: '内容',
-    dataIndex: 'content',
+    title: '合同编号',
+    dataIndex: 'agreementCode',
     width: 180,
   },
   {
-    title: '类型',
+    title: '合同名称',
+    dataIndex: 'agreementName',
+    width: 180,
+  },
+  {
+    title: '宴会厅房',
+    dataIndex: 'banquetRoomName',
+    width: 180,
+  },
+  {
+    title: '保底桌数',
+    dataIndex: 'floorsDeskCount',
+    width: 180,
+  },
+  {
+    title: '单桌价格',
+    dataIndex: 'singlePrice',
+    width: 180,
+  },
+  {
+    title: '额外价格',
+    dataIndex: 'extraPrice',
+    width: 180,
+  },
+  {
+    title: '备用桌数',
+    dataIndex: 'backupDesk',
+    width: 180,
+  },
+  {
+    title: '定金',
+    dataIndex: 'frontMoney',
+    width: 180,
+  },
+  {
+    title: '状态',
     dataIndex: 'status',
     width: 180,
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 200,
   },
 ];
 
@@ -138,6 +163,11 @@ export const contractFormSchema: FormSchema[] = [
         },
       ],
     },
+  },
+  {
+    field: 'foods',
+    label: '菜品(预留项)',
+    component: 'InputTextArea',
   },
   {
     field: 'remark',
