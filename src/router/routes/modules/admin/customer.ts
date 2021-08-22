@@ -23,6 +23,15 @@ const customer: AppRouteModule = {
       component: () => import('/@/views/admin/customer/list/index.vue'),
     },
     {
+      path: 'list_detail/:id',
+      name: 'CustomerInfo',
+      meta: {
+        title: '客户详情',
+        ignoreKeepAlive: true,
+      },
+      component: () => import('/@/views/admin/customer/list/CustomerDetailModal.vue'),
+    },
+    {
       path: 'channel',
       name: 'ChannelManagement',
       meta: {

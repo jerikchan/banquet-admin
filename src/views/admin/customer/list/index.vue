@@ -55,6 +55,12 @@
                 confirm: handleDelete.bind(null, record),
               },
             },
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              disabled: true,
+              onClick: handleCustomerDetail.bind(null, record),
+            },
           ]"
         />
       </template>
@@ -79,6 +85,8 @@
   import ContractModal from './ContractModal.vue';
   import CustomerAllocationSalesModal from './CustomerAllocateModal.vue';
 
+  import { useGo } from '/@/hooks/web/usePage';
+
   import { columns, searchFormSchema } from './customer.data';
 
   export default defineComponent({
@@ -99,7 +107,7 @@
       const [registerContractModal, { openModal: openContractModal }] = useModal();
 
       const [registerAllocationModal, { openModal: openAllocaitonModal }] = useModal();
-
+      const go = useGo();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '客户列表',
@@ -192,6 +200,11 @@
         console.log(values);
       }
 
+      function handleCustomerDetail(record: Recordable) {
+        // globalThis.deptInfo = record;
+        go('/approval/review_detail/' + record.id);
+      }
+
       return {
         registerTable,
         registerModal,
@@ -209,6 +222,7 @@
         handleTypeUpdate,
         handleContractOpen,
         handleAllocation,
+        handleCustomerDetail,
       };
     },
   });
