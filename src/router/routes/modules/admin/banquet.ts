@@ -49,6 +49,30 @@ const banquet: AppRouteModule = {
       },
       component: () => import('/@/views/admin/banquet/room/index.vue'),
     },
+    {
+      path: 'room_detail/:id',
+      name: 'RoomDetail',
+      meta: {
+        hideMenu: true,
+        title: '厅房详细信息',
+        ignoreKeepAlive: true,
+        showMenu: false,
+        currentActiveMenu: '/banquet/room',
+      },
+      component: () => import('/@/views/admin/banquet/room/RoomDetailModal.vue'),
+    },
+    {
+      path: 'banquet_detail/:id',
+      name: 'BanquetDetail',
+      meta: {
+        hideMenu: true,
+        title: '档期详细信息',
+        ignoreKeepAlive: true,
+        showMenu: false,
+        currentActiveMenu: '/banquet/banquet',
+      },
+      component: () => import('/@/views/admin/banquet/banquet/BanquetDetailModal.vue'),
+    },
   ],
 };
 

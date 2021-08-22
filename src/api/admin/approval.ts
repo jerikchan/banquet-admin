@@ -17,11 +17,14 @@ enum Api {
   AddFlow = '/flow/add',
   UpdateFlow = '/flow/updateTemplateNodes',
   DeleteFlow = '/flow/delete',
+  GetFlowInfo = '/flow/findWorkFlowInfo',
 
   GetReviewList = '/flow/findFlowsWait',
   AddReview = '/flow/add',
   UpdateReview = '/flow/approval/commit',
   DeleteReview = '/flow/delete',
+
+  GetWorkFlowFlowNodes = '/flow/findFlowNodes',
 
   GetFormList = '/flow/findFlows',
 
@@ -116,6 +119,24 @@ export const getFormList = (params: ReviewParams) =>
   defHttp.get<ReviewListGetResultModel>(
     {
       url: Api.GetFormList,
+      params,
+    },
+    { devUrl }
+  );
+
+export const getFlowInfo = (params: ReviewParams) =>
+  defHttp.get<ReviewListGetResultModel>(
+    {
+      url: Api.GetFlowInfo,
+      params,
+    },
+    { devUrl }
+  );
+
+export const getWorkFlowFlowNodes = (params: ReviewParams) =>
+  defHttp.get<ReviewListGetResultModel>(
+    {
+      url: Api.GetWorkFlowFlowNodes,
       params,
     },
     { devUrl }

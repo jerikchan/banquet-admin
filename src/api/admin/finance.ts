@@ -14,15 +14,20 @@ enum Api {
   AddTotal = '/finance/addReceivableInfo',
   UpdateTotal = '/finance/updateReceivableInfo',
   DeleteTotal = '/finance/deleteReceivableInfo',
+  GetTotalInfo = '/finance/findReceivablesInfo',
 
   GetAcceptist = '/finance/findReturnCollectionInfo',
   AddAccept = '/finance/addReturnCollectionInfo',
   UpdateAccept = '/finance/updateReturnCollectionInfo',
   DeleteAccept = '/finance/deleteCollectionInfo',
+  GetAcceptInfo = '/finance/findSingleReturnCollectionInfo',
 }
 
 export const getTotalList = (params?: TotalParams) =>
   defHttp.get<TotalListGetResultModel>({ url: Api.GetTotalist, params }, { devUrl });
+
+export const getTotalInfo = (params?: TotalParams) =>
+  defHttp.get<TotalListGetResultModel>({ url: Api.GetTotalInfo, params }, { devUrl });
 
 export const addTotal = (params?: TotalParams) =>
   defHttp.post<TotalListGetResultModel>({ url: Api.AddTotal, params }, { devUrl });
@@ -32,6 +37,9 @@ export const updateTotal = (params?: TotalParams) =>
 
 export const deleteTotal = (params?: { id: string }) =>
   defHttp.post<TotalListGetResultModel>({ url: Api.DeleteTotal, params }, { devUrl });
+
+export const getAcceptInfo = (params?: AcceptParams) =>
+  defHttp.get<AcceptListGetResultModel>({ url: Api.GetAcceptInfo, params }, { devUrl });
 
 export const getAcceptList = (params?: AcceptParams) =>
   defHttp.get<AcceptListGetResultModel>({ url: Api.GetAcceptist, params }, { devUrl });

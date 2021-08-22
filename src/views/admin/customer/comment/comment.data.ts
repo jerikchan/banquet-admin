@@ -7,12 +7,17 @@ import { FormSchema } from '/@/components/Table';
 export const columns: BasicColumn[] = [
   {
     title: '客户名称',
-    dataIndex: 'customerId',
+    dataIndex: 'chatPersonName',
     width: 120,
   },
   {
-    title: '沟通时间',
+    title: '跟进时间',
     dataIndex: 'chatTime',
+    width: 120,
+  },
+  {
+    title: '跟进方式',
+    dataIndex: 'chatType',
     width: 120,
   },
   {
@@ -58,7 +63,22 @@ export const commentFormSchema: FormSchema[] = [
     },
     required: true,
   },
-
+  {
+    label: '跟进方式',
+    field: 'chatType',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '预计下次跟进',
+    field: 'preNextChatTime',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    required: true,
+  },
   {
     label: '内容',
     field: 'content',

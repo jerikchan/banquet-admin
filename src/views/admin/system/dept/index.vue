@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="deptMainList">
     <BasicTable @register="registerTable">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增部门 </a-button>
@@ -19,6 +19,11 @@
                 confirm: handleDelete.bind(null, record),
               },
             },
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看部门详情',
+              onClick: handleDeptView.bind(null, record),
+            },
           ]"
         />
       </template>
@@ -36,12 +41,14 @@
   import DeptModal from './DeptModal.vue';
 
   import { columns, searchFormSchema } from './dept.data';
+  import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
     name: 'DeptManagement',
     components: { BasicTable, DeptModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
+      const go = useGo();
       const [registerTable, { reload }] = useTable({
         title: '部门列表',
         api: getDeptList,
@@ -91,6 +98,11 @@
         reload();
       }
 
+      function handleDeptView(record: Recordable) {
+        // globalThis.deptInfo = record;
+        go('/system/dept_detail/' + record.id);
+      }
+
       return {
         registerTable,
         registerModal,
@@ -98,6 +110,7 @@
         handleEdit,
         handleDelete,
         handleSuccess,
+        handleDeptView,
       };
     },
   });

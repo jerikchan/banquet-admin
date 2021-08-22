@@ -1,4 +1,3 @@
-import { isAccountExist } from '/@/api/demo/system';
 import { getCustomerTypeList } from '/@/api/admin/customer';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
@@ -10,9 +9,29 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '跟进销售',
+    dataIndex: 'salesManagerName',
+    width: 120,
+  },
+  {
+    title: '意向宴会时间',
+    dataIndex: 'purposeTime',
+    width: 120,
+  },
+  {
+    title: '联系电话',
+    dataIndex: 'customerMobile',
+    width: 120,
+  },
+  {
+    title: '第二联系人',
+    dataIndex: 'secondMan',
+    width: 120,
+  },
+  {
+    title: '第二联系人号码',
+    dataIndex: 'secondManMobile',
+    width: 120,
   },
   {
     title: '客户类型',
@@ -53,6 +72,32 @@ export const customerFormSchema: FormSchema[] = [
       valueField: 'id',
     },
     required: true,
+  },
+  {
+    label: '客户号码',
+    field: 'customerMobile',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'purposeTime',
+    label: '意向日期',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+    },
+  },
+  {
+    label: '第二联系人',
+    field: 'secondMan',
+    component: 'Input',
+    required: false,
+  },
+  {
+    label: '第二联系人号码',
+    field: 'secondManMobile',
+    component: 'Input',
+    required: false,
   },
   {
     label: '备注',

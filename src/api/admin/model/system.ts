@@ -39,6 +39,7 @@ export interface DeptListItem {
   // createTime: string;
   remark: string;
   // status: number;
+  deptName: string;
 }
 
 export interface MenuListItem {

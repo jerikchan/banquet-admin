@@ -52,4 +52,4 @@ export interface TaskListItem {
 
 export type TaskListGetResultModel = BasicFetchResult<TaskListItem>;
 
-export type OrderListGetResultModel = BasicFetchResult<OrderListItem>;
+// export type OrderListGetResultModel = BasicFetchResult<OrderListItem>;

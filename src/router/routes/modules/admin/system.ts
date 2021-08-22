@@ -44,6 +44,18 @@ const system: AppRouteModule = {
       component: () => import('/@/views/admin/system/role/index.vue'),
     },
     {
+      path: 'role_detail/:id',
+      name: 'RoleDetail',
+      meta: {
+        hideMenu: true,
+        title: '角色详情',
+        ignoreKeepAlive: true,
+        showMenu: false,
+        currentActiveMenu: '/system/role',
+      },
+      component: () => import('/@/views/admin/system/role/RoleDetailModal.vue'),
+    },
+    {
       path: 'dept',
       name: 'DeptManagement',
       meta: {
@@ -51,6 +63,18 @@ const system: AppRouteModule = {
         ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/system/dept/index.vue'),
+    },
+    {
+      path: 'dept_detail/:id',
+      name: 'DeptDetail',
+      meta: {
+        hideMenu: true,
+        title: '部门详情',
+        ignoreKeepAlive: true,
+        showMenu: false,
+        currentActiveMenu: '/system/dept',
+      },
+      component: () => import('/@/views/admin/system/dept/DeptDetailModal.vue'),
     },
   ],
 };

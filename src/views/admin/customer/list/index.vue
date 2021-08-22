@@ -89,7 +89,7 @@
       const [registerModal, { openModal }] = useModal();
       const [registerTypeModal, { openModal: openTypeModal }] = useModal();
       const [registerContractModal, { openModal: openContractModal }] = useModal();
-      
+
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '客户列表',
@@ -109,7 +109,7 @@
           return info;
         },
         actionColumn: {
-          width: 120,
+          width: 200,
           title: '操作',
           dataIndex: 'action',
           slots: { customRender: 'action' },
