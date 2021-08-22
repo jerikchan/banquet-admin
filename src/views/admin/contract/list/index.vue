@@ -13,10 +13,16 @@
                 confirm: handleDelete.bind(null, record),
               },
             },
+            {
+              icon: 'ant-design:swap-outlined',
+              tooltip: '下BEO单',
+              onClick: handleOrder.bind(null, record),
+            },
           ]"
         />
       </template>
     </BasicTable>
+    <OrderModal @register="registerOrderModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
@@ -25,11 +31,14 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getContractList, deleteContract } from '/@/api/admin/contract';
 
+  import { useModal } from '/@/components/Modal';
+
   import { columns, searchFormSchema } from './contract.data';
+  import OrderModal from '/@/views/admin/beo/order/OrderModal.vue';
 
   export default defineComponent({
     name: 'ContractManagement',
-    components: { BasicTable, TableAction },
+    components: { BasicTable, TableAction, OrderModal },
     setup() {
       const [registerTable, { reload }] = useTable({
         title: '合同列表',
@@ -52,6 +61,8 @@
         },
       });
 
+      const [registerOrderModal, { openModal }] = useModal();
+
       function handleSuccess() {
         reload();
       }
@@ -62,10 +73,19 @@
         reload();
       }
 
+      function handleOrder(record: Recordable) {
+        openModal(true, {
+          record,
+          isUpdate: false,
+        });
+      }
+
       return {
         registerTable,
         handleSuccess,
         handleDelete,
+        registerOrderModal,
+        handleOrder,
       };
     },
   });

@@ -22,6 +22,7 @@
         <a-step title="完成" /> -->
         <a-step v-for="obj in listData" :key="obj">
           <template #description>
+            <div>审核角色:{{ obj.roleName }}</div>
             <div>{{ obj.realName }}</div>
             <p>{{ obj.content }}</p>
             <p>{{ obj.modifyTime }}</p>
@@ -53,7 +54,7 @@
 
   const schema: DescItem[] = [
     {
-      field: 'workFlowCode',
+      field: 'flowCode',
       label: '流程编号',
     },
     {
@@ -139,6 +140,7 @@
         console.log(resultArr);
         mockData.roleName = res.roleName;
         mockData.createTime = res.createTime;
+        mockData.flowCode = res.flowCode;
         mockData.nodeOrder = res.nodeOrder - 1 + '';
         console.log(mockData.noderOrder);
 

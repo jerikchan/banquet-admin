@@ -24,6 +24,7 @@ enum Api {
   UpdateCustomer = '/customer/updateCustomer',
   DeleteCustomer = '/customer/deleteCustomer',
   UpdateCustomerType = '/customer/updateType',
+  AllocationSales = 'customer/allocationSales',
 
   GetCommentList = '/chat/findChatRecord',
   AddComment = '/chat/add',
@@ -97,6 +98,9 @@ export const deleteCustomer = (params?: { id: string }) =>
 
 export const updateCustomerType = (params?: any) =>
   defHttp.post<CustomerListGetResultModel>({ url: Api.UpdateCustomerType, params }, { devUrl });
+
+export const allocationSales = (params?: any) =>
+  defHttp.post<CustomerListGetResultModel>({ url: Api.AllocationSales, params }, { devUrl });
 
 export const getCommentList = (params?: CommentParams) =>
   defHttp.get<CommentListGetResultModel>({ url: Api.GetCommentList, params }, { devUrl });
