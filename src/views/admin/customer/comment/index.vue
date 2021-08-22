@@ -3,14 +3,14 @@
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate">新增沟通</a-button>
-        <BasicUpload
+        <!-- <BasicUpload
           :maxSize="20"
           :maxNumber="10"
           @change="handleChange"
           :api="uploadApi"
           class="my-5"
         />
-        <BasicForm @register="register" class="my-5" />
+        <BasicForm @register="register" class="my-5" /> -->
       </template>
       <template #action="{ record }">
         <TableAction
@@ -44,9 +44,9 @@
   import { columns, searchFormSchema } from './comment.data';
   import { deleteComment, uploadApi } from '/@/api/admin/customer';
 
-  import { BasicUpload } from '/@/components/Upload';
+  // import { BasicUpload } from '/@/components/Upload';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { FormSchema, useForm } from '/@/components/Form/index';
 
   const schemas: FormSchema[] = [
     {
@@ -65,7 +65,7 @@
 
   export default defineComponent({
     name: 'CommentManagement',
-    components: { BasicTable, PageWrapper, CommentModal, TableAction, BasicUpload, BasicForm },
+    components: { BasicTable, PageWrapper, CommentModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});

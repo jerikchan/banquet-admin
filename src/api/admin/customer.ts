@@ -36,6 +36,7 @@ enum Api {
   GetMenuList = '/system/getMenuList',
 
   UploadCustomer = '/excel/importCustomerInfos',
+  GetCumstomerInfo = '/customer/findCustomerInfo',
 }
 
 export const getChannelList = (params: ChannelParams) =>
