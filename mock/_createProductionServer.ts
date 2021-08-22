@@ -1,4 +1,5 @@
 import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer';
+import Mock from 'mockjs';
 
 const modules = import.meta.globEager('./**/*.ts');
 
@@ -15,4 +16,8 @@ Object.keys(modules).forEach((key) => {
  */
 export function setupProdMockServer() {
   createProdMockServer(mockModules);
+}
+
+if (window._XMLHttpRequest) {
+  Mock.XHR.prototype.upload = window._XMLHttpRequest().upload;
 }

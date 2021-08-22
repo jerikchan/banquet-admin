@@ -1,6 +1,6 @@
 // import { isAccountExist } from '/@/api/demo/system';
 // import { getCommentTypeList } from '/@/api/admin/customer';
-import { getCustomerList } from '/@/api/admin/customer';
+import { getRoomTypeList } from '/@/api/admin/banquet';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
@@ -48,8 +48,8 @@ export const roomFormSchema: FormSchema[] = [
     label: '厅房类型',
     component: 'ApiSelect',
     componentProps: {
-      api: getCustomerList,
-      labelField: 'customerName',
+      api: getRoomTypeList,
+      labelField: 'label',
       valueField: 'id',
     },
     required: true,
