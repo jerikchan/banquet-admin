@@ -120,7 +120,7 @@ const setting: ProjectConfig = {
   multiTabsSetting: {
     cache: false,
     // Turn on
-    show: true,
+    show: false,
     // Is it possible to drag and drop sorting tabs
     canDrag: true,
     // Turn on quick actions
@@ -149,7 +149,7 @@ const setting: ProjectConfig = {
   },
 
   // Whether to enable KeepAlive cache is best to close during development, otherwise the cache needs to be cleared every time
-  openKeepAlive: true,
+  openKeepAlive: false,
 
   // Automatic screen lock time, 0 does not lock the screen. Unit minute default 0
   lockTime: 0,

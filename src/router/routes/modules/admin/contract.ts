@@ -18,7 +18,7 @@ const contract: AppRouteModule = {
       name: 'ContractList',
       meta: {
         title: '合同列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/contract/list/index.vue'),
     },

@@ -9,7 +9,8 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { contractFormSchema } from './customer.data';
   import { addContract } from '/@/api/admin/contract';
-
+  import { useMessage } from '/@/hooks/web/useMessage';
+  
   export default defineComponent({
     name: 'ContractModal',
     components: { BasicModal, BasicForm },
@@ -18,6 +19,7 @@
       const isUpdate = ref(true);
       const idRef = ref('');
       const recordRef = ref({});
+      const { createMessage } = useMessage();
 
       const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
         labelWidth: 100,
@@ -52,10 +54,15 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
-          await addContract({
-            customerId: values.customerId,
-            remark: values.remark,
-          });
+          if (!unref(isUpdate)) {
+            await addContract({
+              customerId: values.customerId,
+              remark: values.remark,
+            });
+            createMessage.success('新增合同成功');
+          } else {
+            createMessage.success('修改合同成功');
+          }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });
         } finally {

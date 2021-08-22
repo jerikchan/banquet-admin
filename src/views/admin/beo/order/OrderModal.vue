@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { orderFormSchema } from './order.data';
   import { addOrder } from '/@/api/admin/beo';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'OrderModal',
@@ -16,9 +17,11 @@
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
+      const isView = ref(false);
       const idRef = ref('');
+      const { createMessage } = useMessage();
 
-      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
         labelWidth: 100,
         schemas: orderFormSchema,
         showActionButtonGroup: false,
@@ -31,24 +34,26 @@
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
+        isView.value = !!data?.isView;
 
-        if (unref(isUpdate)) {
+        if (unref(isUpdate) || unref(isView)) {
           idRef.value = data.record.id;
           setFieldsValue({
             ...data.record,
           });
         }
 
-        // const treeData = await getOrderTypeList();
-        // updateSchema([
-        //   {
-        //     field: 'type',
-        //     componentProps: { treeData },
-        //   },
-        // ]);
+        updateSchema(
+          orderFormSchema.map((s) => ({
+            field: s.field,
+            componentProps: { disabled: unref(isView) },
+          }))
+        );
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增订单' : '编辑订单'));
+      const getTitle = computed(() =>
+        !unref(isView) ? (!unref(isUpdate) ? '新增订单' : '编辑订单') : '查看订单'
+      );
 
       async function handleSubmit() {
         try {
@@ -56,13 +61,16 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
-          if (isUpdate.value) {
-            // await updateOrder({
-            //   ...values,
-            //   id: unref(idRef),
-            // });
-          } else {
-            await addOrder(values);
+          if (!isView.value) {
+            if (isUpdate.value) {
+              // await updateOrder({
+              //   ...values,
+              //   id: unref(idRef),
+              // });
+            } else {
+              await addOrder(values);
+              createMessage.success('新增BEO单成功');
+            }
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

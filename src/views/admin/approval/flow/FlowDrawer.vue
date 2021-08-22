@@ -44,6 +44,7 @@
   import { updateFlow, addFlow, getFlowNodes } from '/@/api/admin/approval';
   import { getRoleList, getAccountList } from '/@/api/admin/system';
   import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'FlowDrawer',
@@ -55,6 +56,7 @@
       const roleList = ref([]);
       const accountList = ref([]);
       const idRef = ref('');
+      const { createMessage } = useMessage();
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 90,
@@ -103,6 +105,7 @@
               })),
               templateId: idRef.value,
             });
+            createMessage.success('编辑审批流程成功');
           } else {
             await addFlow({
               ...values,
@@ -110,6 +113,8 @@
                 [node.value[0] === 'role' ? 'roleId' : 'userId']: node.value[1],
               })),
             });
+
+            createMessage.success('新增审批流程成功');
           }
           console.log(values);
           closeDrawer();

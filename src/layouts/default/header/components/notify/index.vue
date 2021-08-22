@@ -23,20 +23,20 @@
   </div>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, ref } from 'vue';
+  import { computed, defineComponent, onUnmounted, ref } from 'vue';
   import { Popover, Tabs, Badge } from 'ant-design-vue';
   import { BellOutlined } from '@ant-design/icons-vue';
   import { tabListData, ListItem } from './data';
   import NoticeList from './NoticeList.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-  // import { useMessage } from '/@/hooks/web/useMessage';
+  import { useMessage } from '/@/hooks/web/useMessage';
   import { getMessageList, updateMessage } from '/@/api/admin/notification';
 
   export default defineComponent({
     components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
     setup() {
       const { prefixCls } = useDesign('header-notify');
-      // const { createMessage } = useMessage();
+      const { createMessage } = useMessage();
       const listData = ref(tabListData);
       let pollingTimer = null;
 
@@ -53,12 +53,14 @@
           await updateMessage({ id: record.id, status: '1' });
           // record.titleDelete = !record.titleDelete;
           await updateMessageList();
+
+          createMessage.success('已标记为已读消息');
         }
       }
 
       async function updateMessageList() {
         clearTimeout(pollingTimer);
-        
+
         const list = await getMessageList();
         listData.value[1].list = list.map((n) => {
           return {
@@ -76,8 +78,12 @@
         // 轮询
         pollingTimer = setTimeout(() => {
           updateMessageList();
-        }, 10 * 1000);
+        }, 30 * 1000);
       }
+
+      onUnmounted(() => {
+        clearTimeout(pollingTimer);
+      });
 
       updateMessageList();
 

@@ -14,12 +14,16 @@ enum Api {
   AddOrder = '/beo/addBeoOrder',
   UpdateOrder = '/beo/updateBeoOrder',
   DeleteOrder = '/beo/deleteBeoOrder',
+  GetOrder = '/beo/findBeoOrderInfo',
 
   GetTaskist = '/beo/findBeoTask',
   AddTask = '/beo/addBeoTask',
   UpdateTask = '/beo/updateBeoTask',
   DeleteTask = '/beo/deleteBeoTask',
 }
+
+export const getOrder = (params?: OrderParams) =>
+  defHttp.get<OrderListGetResultModel>({ url: Api.GetOrder, params }, { devUrl });
 
 export const getOrderList = (params?: OrderParams) =>
   defHttp.get<OrderListGetResultModel>({ url: Api.GetOrderist, params }, { devUrl });

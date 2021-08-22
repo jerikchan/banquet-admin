@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { commentFormSchema } from './comment.data';
   import { addComment } from '/@/api/admin/customer';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'CommentModal',
@@ -17,6 +18,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
+      const { createMessage } = useMessage();
 
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
@@ -63,6 +65,7 @@
             // });
           } else {
             await addComment(values);
+            createMessage.success('新增沟通成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

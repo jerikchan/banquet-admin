@@ -18,7 +18,7 @@ const finance: AppRouteModule = {
       name: 'TotalList',
       meta: {
         title: '应收款列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/finance/total/index.vue'),
     },
@@ -27,7 +27,7 @@ const finance: AppRouteModule = {
       name: 'AcceptList',
       meta: {
         title: '回款列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/finance/accept/index.vue'),
     },

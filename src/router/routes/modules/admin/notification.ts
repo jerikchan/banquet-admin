@@ -18,7 +18,7 @@ const notification: AppRouteModule = {
       name: 'MeesageManagement',
       meta: {
         title: '消息列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/notification/message/index.vue'),
     },

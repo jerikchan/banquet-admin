@@ -18,7 +18,7 @@ const approval: AppRouteModule = {
       name: 'FlowManagement',
       meta: {
         title: '流程配置',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/approval/flow/index.vue'),
     },
@@ -27,7 +27,7 @@ const approval: AppRouteModule = {
       name: 'ReviewManagement',
       meta: {
         title: '待我审核',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/approval/review/index.vue'),
     },
@@ -36,7 +36,7 @@ const approval: AppRouteModule = {
       name: 'FormManagement',
       meta: {
         title: '与我相关',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/approval/form/index.vue'),
     },
@@ -45,7 +45,7 @@ const approval: AppRouteModule = {
       name: 'FormManagementDetail',
       meta: {
         title: '与我相关详情',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
         hideMenu: true,
         showMenu: false,
         currentActiveMenu: '/approval/form',

@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { totalFormSchema } from './total.data';
   import { addTotal } from '/@/api/admin/finance';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'TotalModal',
@@ -17,6 +18,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
+      const { createMessage } = useMessage();
 
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
@@ -61,8 +63,10 @@
             //   ...values,
             //   id: unref(idRef),
             // });
+            createMessage.success('编辑应收款成功');
           } else {
             await addTotal(values);
+            createMessage.success('新增应收款成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

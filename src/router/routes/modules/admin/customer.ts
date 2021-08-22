@@ -18,7 +18,7 @@ const customer: AppRouteModule = {
       name: 'CustomerList',
       meta: {
         title: '客户列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/customer/list/index.vue'),
     },
@@ -27,7 +27,7 @@ const customer: AppRouteModule = {
       name: 'ChannelManagement',
       meta: {
         title: '获客渠道',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/customer/channel/index.vue'),
     },
@@ -36,7 +36,7 @@ const customer: AppRouteModule = {
       name: 'CommentManagement',
       meta: {
         title: '沟通记录',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/customer/comment/index.vue'),
     },

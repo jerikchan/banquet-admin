@@ -1,5 +1,5 @@
-import { getCustomerTypeList } from '/@/api/admin/customer';
 import { getRoomList } from '/@/api/admin/banquet';
+import { getAddCustomerTypeList } from '/@/api/admin/customer';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { getSalesList } from '/@/api/admin/system';
@@ -69,7 +69,7 @@ export const customerFormSchema: FormSchema[] = [
     field: 'customerType',
     component: 'ApiSelect',
     componentProps: {
-      api: getCustomerTypeList,
+      api: getAddCustomerTypeList,
       labelField: 'label',
       valueField: 'id',
     },

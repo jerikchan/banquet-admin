@@ -18,7 +18,7 @@ const system: AppRouteModule = {
       name: 'AccountManagement',
       meta: {
         title: '员工列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/system/account/index.vue'),
     },

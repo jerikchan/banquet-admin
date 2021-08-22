@@ -18,16 +18,29 @@ const beo: AppRouteModule = {
       name: 'OrderList',
       meta: {
         title: '订单列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/beo/order/index.vue'),
+    },
+    {
+      path: 'order_detail/:id',
+      name: 'OrderDetail',
+      meta: {
+        title: '订单详情',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/beo/order',
+      },
+      component: () => import('/@/views/admin/beo/order/OrderDetail.vue'),
     },
     {
       path: 'task',
       name: 'TaskList',
       meta: {
         title: '任务列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/beo/task/index.vue'),
     },

@@ -88,6 +88,14 @@ export const getCustomerTypeList = () =>
     ]);
   });
 
+export const getAddCustomerTypeList = () =>
+  new Promise((resolve) => {
+    resolve([
+      { label: '线索', id: '1' },
+      { label: '意向', id: '2' },
+    ]);
+  });
+
 export const getCustomerList = (params?: CustomerParams) =>
   defHttp.get<CustomerListGetResultModel>({ url: Api.GetCustomerList, params }, { devUrl });
 

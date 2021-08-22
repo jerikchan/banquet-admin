@@ -8,6 +8,15 @@
         <TableAction
           :actions="[
             {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              onClick: handleView.bind(null, record),
+            },
+            {
+              icon: 'clarity:note-edit-line',
+              onClick: handleEdit.bind(null, record),
+            },
+            {
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除此订单',
@@ -35,13 +44,15 @@
 
   import { columns, searchFormSchema } from './order.data';
   import { deleteOrder } from '/@/api/admin/beo';
-  
+  import { useGo } from '/@/hooks/web/usePage';
+
   export default defineComponent({
     name: 'OrderManagement',
     components: { BasicTable, PageWrapper, OrderModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
+      const go = useGo();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '订单列表',
         api: getOrderList,
@@ -95,6 +106,22 @@
         reload();
       }
 
+      function handleView(record: Recordable) {
+        // openModal(true, {
+        //   isUpdate: false,
+        //   isView: true,
+        //   record,
+        // });
+        go('/beo/order_detail/' + record.id);
+      }
+
+      function handleEdit(record: Recordable) {
+        openModal(true, {
+          isUpdate: true,
+          record,
+        });
+      }
+
       return {
         registerTable,
         registerModal,
@@ -102,6 +129,8 @@
         handleDelete,
         handleSuccess,
         handleSelect,
+        handleView,
+        handleEdit,
         searchInfo,
       };
     },

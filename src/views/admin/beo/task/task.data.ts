@@ -27,6 +27,11 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
+    title: 'beo订单',
+    dataIndex: 'beoOrderId',
+    width: 120,
+  },
+  {
     title: '创建时间',
     dataIndex: 'createTime',
     width: 120,
@@ -35,9 +40,14 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'beoName',
-    label: '客户名称',
-    component: 'Input',
+    field: 'beoOrderId',
+    label: 'beo订单',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getOrderList,
+      labelField: 'orderCode',
+      valueField: 'id',
+    },
     colProps: { span: 8 },
   },
 ];
@@ -49,7 +59,7 @@ export const taskFormSchema: FormSchema[] = [
     component: 'ApiSelect',
     componentProps: {
       api: getOrderList,
-      labelField: 'orderName',
+      labelField: 'orderCode',
       valueField: 'id',
     },
     required: true,

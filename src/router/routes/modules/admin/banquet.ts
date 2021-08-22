@@ -18,7 +18,7 @@ const banquet: AppRouteModule = {
       name: 'BanquetTypeManagement',
       meta: {
         title: '宴会类型管理',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/banquet/banquet-type/index.vue'),
     },
@@ -27,7 +27,7 @@ const banquet: AppRouteModule = {
       name: 'BanquetList',
       meta: {
         title: '档期列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/banquet/banquet/index.vue'),
     },
@@ -36,7 +36,7 @@ const banquet: AppRouteModule = {
       name: 'RoomTypeManagement',
       meta: {
         title: '厅房类型管理',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/banquet/room-type/index.vue'),
     },
@@ -45,7 +45,7 @@ const banquet: AppRouteModule = {
       name: 'RoomList',
       meta: {
         title: '厅房列表',
-        ignoreKeepAlive: false,
+        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/banquet/room/index.vue'),
     },

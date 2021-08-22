@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { accountFormSchema } from './account.data';
   import { getDeptList, updateAccount, addAccount } from '/@/api/admin/system';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'AccountModal',
@@ -17,6 +18,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const rowId = ref('');
+      const { createMessage } = useMessage();
 
       const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = useForm({
         labelWidth: 100,
@@ -66,8 +68,10 @@
               ...values,
               id: rowId.value,
             });
+            createMessage.success('编辑员工成功');
           } else {
             await addAccount(values);
+            createMessage.success('新增员工成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });

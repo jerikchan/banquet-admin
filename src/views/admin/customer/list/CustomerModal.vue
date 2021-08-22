@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { customerFormSchema } from './customer.data';
   import { getCustomerTypeList, updateCustomer, addCustomer } from '/@/api/admin/customer';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'CustomerModal',
@@ -17,6 +18,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
+      const { createMessage } = useMessage();
 
       const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = useForm({
         labelWidth: 100,
@@ -62,8 +64,10 @@
               ...values,
               id: idRef.value,
             });
+             createMessage.success('编辑客户成功');
           } else {
             await addCustomer(values);
+             createMessage.success('新增客户成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

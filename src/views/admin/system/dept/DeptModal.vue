@@ -8,8 +8,9 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './dept.data';
-
   import { getDeptList, addDept, updateDept } from '/@/api/admin/system';
+  import { useMessage } from '/@/hooks/web/useMessage';
+
   export default defineComponent({
     name: 'DeptModal',
     components: { BasicModal, BasicForm },
@@ -17,6 +18,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
+      const { createMessage } = useMessage();
 
       const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
         labelWidth: 100,
@@ -55,8 +57,10 @@
               ...values,
               id: unref(idRef),
             });
+            createMessage.success('编辑部门成功');
           } else {
             await addDept(values);
+            createMessage.success('新增部门成功');
           }
 
           closeModal();

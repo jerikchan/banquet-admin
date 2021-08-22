@@ -29,6 +29,7 @@
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
   import { getMenuList, updateRole, addRole } from '/@/api/admin/system';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'RoleDrawer',
@@ -38,6 +39,7 @@
       const isUpdate = ref(true);
       const treeData = ref<TreeItem[]>([]);
       const idRef = ref('');
+      const { createMessage } = useMessage();
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 90,
@@ -74,8 +76,10 @@
               ...values,
               id: unref(idRef),
             });
+            createMessage.success('编辑角色成功');
           } else {
             await addRole(values);
+            createMessage.success('新增角色成功');
           }
           console.log(values);
           closeDrawer();

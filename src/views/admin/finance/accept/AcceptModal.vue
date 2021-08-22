@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { acceptFormSchema } from './accept.data';
   import { addAccept } from '/@/api/admin/finance';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'AcceptModal',
@@ -17,6 +18,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
+      const { createMessage } = useMessage();
 
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
@@ -61,8 +63,10 @@
             //   ...values,
             //   id: unref(idRef),
             // });
+            createMessage.success('编辑回款成功');
           } else {
             await addAccept(values);
+            createMessage.success('新增回款成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });
