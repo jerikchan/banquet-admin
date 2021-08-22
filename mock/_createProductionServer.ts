@@ -19,5 +19,5 @@ export function setupProdMockServer() {
 }
 
 if (window._XMLHttpRequest) {
-  Mock.XHR.prototype.upload = window._XMLHttpRequest().upload;
+  Mock.XHR.prototype.upload = new window._XMLHttpRequest().upload;
 }

@@ -1,6 +1,6 @@
 // import { isAccountExist } from '/@/api/demo/system';
 // import { getCommentTypeList } from '/@/api/admin/customer';
-import { getRoomList } from '/@/api/admin/banquet';
+import { getRoomList, getScheduleTypeList } from '/@/api/admin/banquet';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
@@ -68,9 +68,9 @@ export const roomFormSchema: FormSchema[] = [
     label: '档期类型',
     component: 'ApiSelect',
     componentProps: {
-      api: getRoomList,
-      labelField: 'roomName',
-      valueField: 'id',
+      api: getScheduleTypeList,
+      labelField: 'label',
+      valueField: 'value',
     },
     required: true,
   },

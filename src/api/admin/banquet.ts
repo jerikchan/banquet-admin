@@ -145,3 +145,23 @@ export const addBanquet = (params?: BanquetParams) =>
 
 export const deleteBanquet = (params?: { id: string }) =>
   defHttp.post<BanquetListGetResultModel>({ url: Api.DeleteBanquet, params }, { devUrl });
+
+export const getScheduleTypeList = () =>
+  Promise.resolve([
+    {
+      value: '0',
+      label: '早上',
+    },
+    {
+      value: '1',
+      label: '中午',
+    },
+    {
+      value: '2',
+      label: '下午',
+    },
+    {
+      value: '3',
+      label: '晚上',
+    },
+  ]);
