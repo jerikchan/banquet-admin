@@ -26,8 +26,18 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '意向宴会时间',
+    title: '意向厅',
+    dataIndex: 'purposeRoom',
+    width: 120,
+  },
+  {
+    title: '意向时间',
     dataIndex: 'purposeTime',
+    width: 120,
+  },
+  {
+    title: '台数',
+    dataIndex: 'deskNo',
     width: 120,
   },
   {

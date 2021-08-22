@@ -42,7 +42,7 @@
   import CommentModal from './CommentModal.vue';
 
   import { columns, searchFormSchema } from './comment.data';
-  import { deleteComment, uploadApi } from '/@/api/admin/customer';
+  import { deleteComment } from '/@/api/admin/customer';
 
   // import { BasicUpload } from '/@/components/Upload';
   import { useMessage } from '/@/hooks/web/useMessage';
@@ -57,9 +57,6 @@
         span: 8,
       },
       rules: [{ required: true, message: '请选择上传文件' }],
-      componentProps: {
-        api: uploadApi,
-      },
     },
   ];
 
