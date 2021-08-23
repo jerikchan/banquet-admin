@@ -26,7 +26,7 @@ enum Api {
   UpdateCustomer = '/customer/updateCustomer',
   DeleteCustomer = '/customer/deleteCustomer',
   UpdateCustomerType = '/customer/updateType',
-  AllocationSales = 'customer/allocationSales',
+  AllocationSales = '/customer/allocationSales',
 
   GetCommentList = '/chat/findChatRecord',
   AddComment = '/chat/add',
