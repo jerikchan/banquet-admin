@@ -55,10 +55,7 @@
           // TODO custom api
           console.log(values);
           if (!unref(isUpdate)) {
-            await addContract({
-              customerId: values.customerId,
-              remark: values.remark,
-            });
+            await addContract(values);
             createMessage.success('新增合同成功');
           } else {
             createMessage.success('修改合同成功');
