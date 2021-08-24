@@ -5,6 +5,11 @@ export type ChannelParams = BasicPageParams & {
   nickName?: string;
 };
 
+export type CommentTypeParams = BasicPageParams & {
+  userName?: string;
+  nickName?: string;
+};
+
 export type CustomerParams = BasicPageParams & {
   userName?: string;
   nickName?: string;
@@ -21,6 +26,17 @@ export type MenuParams = {
 };
 
 export interface ChannelListItem {
+  accountId: string;
+  userName: string;
+  email: string;
+  nickName: string;
+  role: number;
+  createTime: string;
+  remark: string;
+  status: number;
+}
+
+export interface CommentTypeListItem {
   accountId: string;
   userName: string;
   email: string;
@@ -73,6 +89,8 @@ export interface UploadApiResult {
  * @description: Request list return value
  */
 export type ChannelListGetResultModel = BasicFetchResult<ChannelListItem>;
+
+export type CommentTypeListGetResultModel = BasicFetchResult<CommentTypeListItem>;
 
 export type CustomerListGetResultModel = BasicFetchResult<CustomerListItem>;
 

@@ -1,8 +1,10 @@
 import { getRoomList } from '/@/api/admin/banquet';
-import { getAddCustomerTypeList } from '/@/api/admin/customer';
+import { getCustomerTypeList } from '/@/api/admin/customer';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { getSalesList } from '/@/api/admin/system';
+import { getChannelList } from '/@/api/admin/customer';
+import { getBanquetList } from '/@/api/admin/banquet';
 
 export const columns: BasicColumn[] = [
   {
@@ -84,7 +86,19 @@ export const customerFormSchema: FormSchema[] = [
     field: 'customerType',
     component: 'ApiSelect',
     componentProps: {
-      api: getAddCustomerTypeList,
+      api: getCustomerTypeList,
+      labelField: 'label',
+      valueField: 'id',
+      disabled: true,
+    },
+    required: false,
+  },
+  {
+    label: '获客渠道',
+    field: 'customerSource',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getChannelList,
       labelField: 'label',
       valueField: 'id',
     },
@@ -97,12 +111,37 @@ export const customerFormSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'purposeTime',
-    label: '意向日期',
+    label: '是否进店',
+    field: 'isIn',
+    component: 'Switch',
+  },
+  {
+    field: 'inDate',
+    label: '进店日期',
     component: 'DatePicker',
     componentProps: {
       showTime: true,
     },
+  },
+  {
+    label: '餐标',
+    field: 'canBiao',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getChannelList,
+      labelField: 'label',
+      valueField: 'id',
+    },
+  },
+  {
+    field: 'purposeTime',
+    label: '意向日期',
+    component: 'DatePicker',
+  },
+  {
+    field: 'deskNo',
+    label: '意向桌数',
+    component: 'InputNumber',
   },
   {
     label: '第二联系人',
@@ -116,18 +155,18 @@ export const customerFormSchema: FormSchema[] = [
     component: 'Input',
     required: false,
   },
-  {
-    label: '备注',
-    field: 'remark',
-    component: 'InputTextArea',
-    required: false,
-  },
+  // {
+  //   label: '备注',
+  //   field: 'remark',
+  //   component: 'InputTextArea',
+  //   required: false,
+  // },
 ];
 
 export const customerTypeFormSchema: FormSchema[] = [
   {
     field: 'nodeRemark',
-    label: '节点备注',
+    label: '沟通内容',
     component: 'InputTextArea',
   },
 ];
@@ -154,6 +193,17 @@ export const contractFormSchema: FormSchema[] = [
     componentProps: {
       showTime: true,
     },
+  },
+  {
+    field: 'banquetSchedule',
+    label: '宴会档期',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getBanquetList,
+      labelField: 'roomName',
+      valueField: 'id',
+    },
+    required: true,
   },
   {
     field: 'banquetRoomId',

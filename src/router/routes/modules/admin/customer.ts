@@ -23,6 +23,19 @@ const customer: AppRouteModule = {
       component: () => import('/@/views/admin/customer/list/index.vue'),
     },
     {
+      path: 'customer_detail/:id',
+      name: 'CustomerDetail',
+      meta: {
+        title: '客户详情',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/customer/list',
+      },
+      component: () => import('/@/views/admin/customer/list/CustomerDetail.vue'),
+    },
+    {
       path: 'channel',
       name: 'ChannelManagement',
       meta: {
@@ -35,10 +48,19 @@ const customer: AppRouteModule = {
       path: 'comment',
       name: 'CommentManagement',
       meta: {
-        title: '沟通记录',
+        title: '跟进记录',
         ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/customer/comment/index.vue'),
+    },
+    {
+      path: 'comment_type',
+      name: 'CommentTypeManagement',
+      meta: {
+        title: '跟进方式',
+        ignoreKeepAlive: true,
+      },
+      component: () => import('/@/views/admin/customer/comment-type/index.vue'),
     },
   ],
 };

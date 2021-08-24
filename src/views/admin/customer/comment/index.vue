@@ -2,7 +2,7 @@
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增沟通</a-button>
+        <a-button type="primary" @click="handleCreate">新增跟进</a-button>
         <!-- <BasicUpload
           :maxSize="20"
           :maxNumber="10"
@@ -16,9 +16,14 @@
         <TableAction
           :actions="[
             {
+              icon: 'clarity:note-edit-line',
+              tooltip: '编辑跟进记录',
+              onClick: handleEdit.bind(null, record),
+            },
+            {
               icon: 'ant-design:delete-outlined',
               color: 'error',
-              tooltip: '删除此沟通',
+              tooltip: '删除此跟进',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -111,6 +116,13 @@
         reload();
       }
 
+      async function handleEdit(record: Recordable) {
+        openModal(true, {
+          isUpdate: true,
+          record,
+        });
+      }
+
       function handleSuccess({ isUpdate, values }) {
         if (isUpdate) {
           // 演示不刷新表格直接更新内部数据。
@@ -132,6 +144,7 @@
         registerModal,
         handleCreate,
         handleDelete,
+        handleEdit,
         handleSuccess,
         handleSelect,
         searchInfo,

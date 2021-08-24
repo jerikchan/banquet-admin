@@ -1,0 +1,122 @@
+<template>
+  <PageWrapper title="客户详情" contentBackground @back="goBack">
+    <Description size="middle" title="客户详情" :column="3" :data="desData" :schema="schema" />
+    <BasicTable @register="registerCommentTable" @success="handleSuccess" />
+  </PageWrapper>
+</template>
+<script lang="ts">
+  import { defineComponent, ref, reactive, h } from 'vue';
+  import { Description, DescItem, useDescription } from '/@/components/Description/index';
+  import { PageWrapper } from '/@/components/Page';
+  import { BasicTable, useTable } from '/@/components/Table';
+  import { useRoute } from 'vue-router';
+  import { useGo } from '/@/hooks/web/usePage';
+  import { Divider, Card, Descriptions, Steps } from 'ant-design-vue';
+  import { getCustomer, getCommentList } from '/@/api/admin/customer';
+  import { columns as commentColumns } from '/@/views/admin/customer/comment/comment.data';
+  // import { BasicColumn } from '/@/components/Table/src/types/table';
+
+  const desData: Recordable = reactive({});
+
+  const schema: DescItem[] = [
+    {
+      label: '客户名',
+      field: 'customerName',
+    },
+    {
+      label: '客户类型',
+      field: 'customerTypeStr',
+    },
+    {
+      label: '客户状态',
+      field: 'statusStr',
+    },
+    {
+      label: '跟进销售',
+      field: 'salesManagerName',
+    },
+    {
+      label: '意向厅',
+      field: 'purposeRoom',
+    },
+    {
+      label: '意向时间',
+      field: 'purposeTime',
+    },
+    {
+      label: '台数',
+      field: 'deskNo',
+    },
+    {
+      label: '联系电话',
+      field: 'customerMobile',
+    },
+    {
+      label: '第二联系人',
+      field: 'secondMan',
+    },
+    {
+      label: '第二联系人号码',
+      field: 'secondManMobile',
+    },
+  ];
+
+  export default defineComponent({
+    name: 'OrderDetail',
+    components: {
+      BasicTable,
+      Description,
+      PageWrapper,
+      [Descriptions.name]: Descriptions,
+      [Descriptions.Item.name]: Descriptions.Item,
+      [Steps.name]: Steps,
+      [Steps.Step.name]: Steps.Step,
+      [Divider.name]: Divider,
+      [Card.name]: Card,
+    },
+    setup() {
+      // debugger;
+      const route = useRoute();
+      const go = useGo();
+      // 此处可以得到ID
+      const idRef = ref(route.params?.id);
+      const currentKey = ref('detail');
+
+      function goBack() {
+        go('/customer/list');
+      }
+
+      async function handleData(id: string) {
+        const res = await getCustomer({ id: id });
+        Object.assign(desData, res);
+      }
+
+      handleData(idRef.value as string);
+
+      function handleSuccess() {
+        // reload();
+      }
+
+      const [registerCommentTable] = useTable({
+        title: '跟进记录',
+        columns: commentColumns,
+        pagination: false,
+        api: getCommentList.bind(null, { customerId: idRef.value }),
+        showIndexColumn: false,
+        scroll: { y: 300 },
+      });
+
+      return {
+        schema,
+        // register,
+        goBack,
+        currentKey,
+        idRef,
+        handleData,
+        desData,
+        registerCommentTable,
+        handleSuccess,
+      };
+    },
+  });
+</script>

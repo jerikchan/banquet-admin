@@ -18,9 +18,7 @@
             {
               icon: 'clarity:info-standard-line',
               tooltip: '查看详情',
-              disabled: true,
               onClick: handleCustomerDetail.bind(null, record),
-              ifShow: false,
             },
             {
               icon: 'clarity:note-edit-line',
@@ -39,26 +37,48 @@
           ]"
           :dropDownActions="[
             {
+              label: '新增记录',
+              onClick: handleCommentAdd.bind(null, record),
+            },
+            {
               label: '分配销售',
               onClick: handleAllocation.bind(null, record),
+              ifShow: !record.salesManagerId,
+              disabled: record.status === '1',
+            },
+            {
+              label: '撤销分配',
+              onClick: handleUnallocation.bind(null, record),
+              ifShow: !!record.salesManagerId,
               disabled: record.status === '1',
             },
             {
               label: '转为意向',
+              ifShow: record.customerType === '1' && !!record.salesManagerId,
               onClick: handleTypeUpdate.bind(null, record, '2'),
-              ifShow: !(!(record.customerType === '1') || record.status === '1'),
+              disabled: record.status === '1',
             },
             {
               label: '合同下单',
-              ifShow: !(!(record.customerType === '2') || record.status === '1'),
+              ifShow: record.customerType === '2',
               onClick: handleContractOpen.bind(null, record, '5'),
+              disabled: record.status === '1',
             },
             {
               label: '转为流失',
-              disabled:
-                !(record.customerType === '1' || record.customerType === '2') ||
-                record.status === '1',
+              ifShow:
+                (record.customerType === '2' || record.customerType === '5') &&
+                !!record.salesManagerId,
               onClick: handleTypeUpdate.bind(null, record, '3'),
+              disabled: record.status === '1',
+            },
+            {
+              label: '转为无效',
+              ifShow:
+                (record.customerType === '1' || record.customerType === '0') &&
+                !record.salesManagerId,
+              onClick: handleTypeUpdate.bind(null, record, '6'),
+              disabled: record.status === '1',
             },
           ]"
         />
@@ -68,13 +88,19 @@
     <CustomerTypeModal @register="registerTypeModal" @success="handleTypeSuccess" />
     <ContractModal @register="registerContractModal" @success="handleContractSuccess" />
     <CustomerAllocationSalesModal @register="registerAllocationModal" @success="handleSuccess" />
+    <CommentModal @register="registerCommentAddModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive } from 'vue';
+  import { defineComponent, reactive, h } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getCustomerList, deleteCustomer, uploadCustomer } from '/@/api/admin/customer';
+  import {
+    getCustomerList,
+    deleteCustomer,
+    uploadCustomer,
+    unallocationSales,
+  } from '/@/api/admin/customer';
   import { PageWrapper } from '/@/components/Page';
   import CustomerTypeTree from './CustomerTypeTree.vue';
 
@@ -83,6 +109,7 @@
   import CustomerTypeModal from './CustomerTypeModal.vue';
   import ContractModal from './ContractModal.vue';
   import CustomerAllocationSalesModal from './CustomerAllocateModal.vue';
+  import CommentModal from '/@/views/admin/customer/comment/CommentModal.vue';
 
   import { useGo } from '/@/hooks/web/usePage';
 
@@ -103,15 +130,17 @@
       CustomerTypeModal,
       CustomerAllocationSalesModal,
       BasicUpload,
+      CommentModal,
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTypeModal, { openModal: openTypeModal }] = useModal();
       const [registerContractModal, { openModal: openContractModal }] = useModal();
+      const [registerAllocationModal, { openModal: openAllocationnModal }] = useModal();
+      const [registerCommentAddModal, { openModal: openCommentAddnModal }] = useModal();
 
-      const [registerAllocationModal, { openModal: openAllocaitonModal }] = useModal();
       const go = useGo();
-      const { createMessage } = useMessage();
+      const { createMessage, createConfirm } = useMessage();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '客户列表',
@@ -160,9 +189,24 @@
       }
 
       function handleAllocation(record: Recordable) {
-        openAllocaitonModal(true, {
+        openAllocationnModal(true, {
           record,
           isUpdate: true,
+        });
+      }
+
+      function handleUnallocation(record: Recordable) {
+        createConfirm({
+          iconType: 'warning',
+          title: '是否确认撤销',
+          onOk: async () => {
+            try {
+              await unallocationSales({ customerId: record.id });
+              createMessage.success('撤销分配成功');
+            } catch {
+              createMessage.error('撤销分配失败');
+            }
+          },
         });
       }
 
@@ -206,13 +250,19 @@
       }
 
       function handleCustomerDetail(record: Recordable) {
-        // globalThis.deptInfo = record;
-        go('/approval/review_detail/' + record.id);
+        go('/customer/customer_detail/' + record.id);
       }
 
-      function handleUploadChange (list: string[]) {
+      function handleUploadChange(list: string[]) {
         createMessage.info(`已上传文件${JSON.stringify(list)}`);
         reload();
+      }
+
+      function handleCommentAdd(record: Recordable) {
+        openCommentAddnModal(true, {
+          record,
+          isUpdate: false,
+        });
       }
 
       return {
@@ -221,6 +271,7 @@
         registerTypeModal,
         registerContractModal,
         registerAllocationModal,
+        registerCommentAddModal,
         handleCreate,
         handleEdit,
         handleDelete,
@@ -232,9 +283,11 @@
         handleTypeUpdate,
         handleContractOpen,
         handleAllocation,
+        handleUnallocation,
         handleCustomerDetail,
         uploadCustomer,
         handleUploadChange,
+        handleCommentAdd,
       };
     },
   });

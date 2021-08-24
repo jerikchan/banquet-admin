@@ -3,6 +3,7 @@
 import { getCustomerList } from '/@/api/admin/customer';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { getCommentTypeList } from '/@/api/admin/customer';
 
 export const columns: BasicColumn[] = [
   {
@@ -55,7 +56,7 @@ export const commentFormSchema: FormSchema[] = [
   },
   {
     field: 'chatTime',
-    label: '沟通时间',
+    label: '跟进时间',
     component: 'DatePicker',
     componentProps: {
       showTime: true,
@@ -66,7 +67,12 @@ export const commentFormSchema: FormSchema[] = [
   {
     label: '跟进方式',
     field: 'chatType',
-    component: 'Input',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCommentTypeList,
+      labelField: 'label',
+      valueField: 'id',
+    },
     required: true,
   },
   {

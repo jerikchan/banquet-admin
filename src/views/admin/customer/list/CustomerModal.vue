@@ -41,12 +41,10 @@
           });
         }
 
-        const treeData = await getCustomerTypeList();
         updateSchema([
           {
             field: 'customerType',
-            componentProps: { treeData, disabled: unref(isUpdate) },
-            required: !unref(isUpdate),
+            ifShow: unref(isUpdate),
           },
         ]);
       });

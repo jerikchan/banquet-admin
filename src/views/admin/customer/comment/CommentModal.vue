@@ -20,7 +20,7 @@
       const idRef = ref('');
       const { createMessage } = useMessage();
 
-      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
         labelWidth: 100,
         schemas: commentFormSchema,
         showActionButtonGroup: false,
@@ -41,6 +41,18 @@
           });
         }
 
+        if (data.record.id) {
+          setFieldsValue({
+            customerId: data.record.id,
+          });
+          updateSchema([
+            {
+              field: 'customerId',
+              componentProps: { disabled: true },
+            },
+          ]);
+        }
+
         // const treeData = await getCommentTypeList();
         // updateSchema([
         //   {
@@ -50,7 +62,7 @@
         // ]);
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增沟通' : '编辑沟通'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增跟进' : '编辑跟进'));
 
       async function handleSubmit() {
         try {
@@ -65,7 +77,7 @@
             // });
           } else {
             await addComment(values);
-            createMessage.success('新增沟通成功');
+            createMessage.success('新增跟进成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });
