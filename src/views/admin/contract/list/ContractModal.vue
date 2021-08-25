@@ -9,7 +9,8 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { contractFormSchema } from './contract.data';
   import { addContract } from '/@/api/admin/contract';
-
+  import { useMessage } from '/@/hooks/web/useMessage';
+  
   export default defineComponent({
     name: 'ContractModal',
     components: { BasicModal, BasicForm },
@@ -17,8 +18,10 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
+      const recordRef = ref({});
+      const { createMessage } = useMessage();
 
-      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
         labelWidth: 100,
         schemas: contractFormSchema,
         showActionButtonGroup: false,
@@ -32,23 +35,18 @@
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
-        if (unref(isUpdate)) {
-          idRef.value = data.record.id;
+        if (!unref(isUpdate)) {
           setFieldsValue({
-            ...data.record,
+            status: '0',
           });
         }
-
-        // const treeData = await getContractTypeList();
-        // updateSchema([
-        //   {
-        //     field: 'type',
-        //     componentProps: { treeData },
-        //   },
-        // ]);
+        recordRef.value = data.record;
+        setFieldsValue({
+          customerId: data.record.id,
+        });
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增合同' : '编辑合同'));
+      const getTitle = computed(() => isUpdate.value ? '修改合同' : '新增合同');
 
       async function handleSubmit() {
         try {
@@ -56,13 +54,11 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
-          if (isUpdate.value) {
-            // await updateContract({
-            //   ...values,
-            //   id: unref(idRef),
-            // });
-          } else {
+          if (!unref(isUpdate)) {
             await addContract(values);
+            createMessage.success('新增合同成功');
+          } else {
+            createMessage.success('修改合同成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

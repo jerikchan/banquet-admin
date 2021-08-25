@@ -18,7 +18,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '跟进方式',
-    dataIndex: 'chatType',
+    dataIndex: 'chatTypeStr',
     width: 120,
   },
   {
@@ -51,6 +51,7 @@ export const commentFormSchema: FormSchema[] = [
       api: getCustomerList,
       labelField: 'customerName',
       valueField: 'id',
+      disabled: false,
     },
     required: true,
   },

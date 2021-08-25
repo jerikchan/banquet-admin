@@ -9,6 +9,9 @@ enum Api {
   AddContract = '/agreement/add',
   UpdateContract = '/agreement/update',
   DeleteContract = '/agreement/delete',
+
+  GetMealTypetist = '/dic/getMealTypeList',
+  GetFoodList = '/foods/findFoods',
 }
 
 export const getContractList = (params?: ContractParams) =>
@@ -22,3 +25,9 @@ export const updateContract = (params?: ContractParams) =>
 
 export const deleteContract = (params?: { id: string }) =>
   defHttp.post<ContractListGetResultModel>({ url: Api.DeleteContract, params }, { devUrl });
+
+export const getMealTypeList = (params?: ContractParams) =>
+  defHttp.get<ContractListGetResultModel>({ url: Api.GetMealTypetist, params }, { devUrl });
+
+export const getFoodList = (params?: ContractParams) =>
+  defHttp.get<ContractListGetResultModel>({ url: Api.GetFoodList, params }, { devUrl });

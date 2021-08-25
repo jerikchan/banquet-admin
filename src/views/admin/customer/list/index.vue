@@ -107,7 +107,7 @@
   import { useModal } from '/@/components/Modal';
   import CustomerModal from './CustomerModal.vue';
   import CustomerTypeModal from './CustomerTypeModal.vue';
-  import ContractModal from './ContractModal.vue';
+  import ContractModal from '/@/views/admin/contract/list/ContractModal.vue';
   import CustomerAllocationSalesModal from './CustomerAllocateModal.vue';
   import CommentModal from '/@/views/admin/customer/comment/CommentModal.vue';
 

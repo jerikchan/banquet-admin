@@ -1,6 +1,6 @@
 <template>
-  <PageWrapper title="订单的详细信息" contentBackground @back="goBack">
-    <Description size="middle" title="BEO订单" :column="3" :data="desData" :schema="schema" />
+  <PageWrapper title="BEO单的详细信息" contentBackground @back="goBack">
+    <Description size="middle" title="BEO单" :column="3" :data="desData" :schema="schema" />
     <!-- <BasicTable @register="registerTimeTable" @success="handleSuccess" /> -->
     <template v-for="task in desData.taskList || []" :key="task.id">
       <Description
@@ -28,7 +28,7 @@
   const schema: DescItem[] = [
     {
       field: 'orderCode',
-      label: '订单编号',
+      label: 'BEO单编号',
     },
     {
       field: 'agreementCode',
@@ -107,7 +107,7 @@
       }
 
       const [register] = useDescription({
-        title: '订单详情',
+        title: 'BEO单详情',
         data: desData,
         schema: schema,
       });

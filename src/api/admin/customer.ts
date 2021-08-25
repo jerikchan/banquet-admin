@@ -31,7 +31,7 @@ enum Api {
   UpdateCustomerType = '/customer/updateType',
   AllocationSales = '/customer/allocationSales',
   UnallocationSales = '/customer/cancelSales',
-  GetCustomerTypeList = '/customer/getCustomerTypeList',
+  GetCustomerTypeList = '/dic/getCustomerTypeList',
 
   GetCommentList = '/chat/findChatRecord',
   AddComment = '/chat/add',
@@ -89,16 +89,16 @@ export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });
 
 export const getCustomerTypeList = (params?: CustomerParams) =>
-  // defHttp.get<CustomerListGetResultModel>({ url: Api.GetCustomerTypeList, params }, { devUrl });
-  new Promise((resolve) => {
-    resolve([
-      { label: '待审核', id: '0' },
-      { label: '线索', id: '1' },
-      { label: '意向', id: '2' },
-      { label: '流失', id: '3' },
-      { label: '成交', id: '5' },
-    ]);
-  });
+  defHttp.get<CustomerListGetResultModel>({ url: Api.GetCustomerTypeList, params }, { devUrl });
+// new Promise((resolve) => {
+//   resolve([
+//     { label: '待审核', id: '0' },
+//     { label: '线索', id: '1' },
+//     { label: '意向', id: '2' },
+//     { label: '流失', id: '3' },
+//     { label: '成交', id: '5' },
+//   ]);
+// });
 
 export const getCustomerList = (params?: CustomerParams) =>
   defHttp.get<CustomerListGetResultModel>({ url: Api.GetCustomerList, params }, { devUrl });

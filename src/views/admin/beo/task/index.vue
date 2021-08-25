@@ -2,7 +2,7 @@
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增任务</a-button>
+        <a-button type="primary" @click="handleCreate">新增BEO任务</a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -10,7 +10,7 @@
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
-              tooltip: '删除此任务',
+              tooltip: '删除此BEO任务',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -43,7 +43,7 @@
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
-        title: '任务列表',
+        title: 'BEO任务列表',
         api: getTaskList,
         rowKey: 'id',
         columns,

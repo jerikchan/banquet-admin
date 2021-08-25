@@ -40,8 +40,8 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'beoOrderId',
-    label: 'beo订单',
+    field: 'beoTaskId',
+    label: '所属BEO单',
     component: 'ApiSelect',
     componentProps: {
       api: getOrderList,
@@ -55,7 +55,7 @@ export const searchFormSchema: FormSchema[] = [
 export const taskFormSchema: FormSchema[] = [
   {
     field: 'beoOrderId',
-    label: 'beo订单',
+    label: 'BEO单',
     component: 'ApiSelect',
     componentProps: {
       api: getOrderList,

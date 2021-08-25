@@ -40,11 +40,23 @@
           });
         }
 
+        if (data.isFrom) {
+          setFieldsValue({
+            beoOrderId: data.record.id,
+          });
+        }
+
         const treeData = await getDeptList();
-        updateSchema({
-          field: 'deptId',
-          componentProps: { treeData },
-        });
+        updateSchema([
+          {
+            field: 'deptId',
+            componentProps: { treeData },
+          },
+          {
+            field: 'beoOrderId',
+            componentProps: { disabled: data.isFrom },
+          },
+        ]);
 
         // const treeData = await getTaskTypeList();
         // updateSchema([

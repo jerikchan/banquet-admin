@@ -1,5 +1,12 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
+  <BasicModal
+    v-bind="$attrs"
+    @register="registerModal"
+    :title="getTitle"
+    @ok="handleSubmit"
+    :useWrapper="true"
+    width="700px"
+  >
     <BasicForm @register="registerForm" />
   </BasicModal>
 </template>
@@ -52,7 +59,7 @@
       });
 
       const getTitle = computed(() =>
-        !unref(isView) ? (!unref(isUpdate) ? '新增订单' : '编辑订单') : '查看订单'
+        !unref(isView) ? (!unref(isUpdate) ? '新增BEO单' : '编辑BEO单') : '查看BEO单'
       );
 
       async function handleSubmit() {

@@ -1,5 +1,8 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { getMealTypeList, getFoodList } from '/@/api/admin/contract';
+import { getRoomList, getBanquetList } from '/@/api/admin/banquet';
+import { uploadPicApi } from '/@/api/sys/upload';
 
 export const columns: BasicColumn[] = [
   {
@@ -8,44 +11,49 @@ export const columns: BasicColumn[] = [
     width: 180,
   },
   {
-    title: '合同名称',
-    dataIndex: 'agreementName',
-    width: 180,
-  },
-  {
     title: '宴会厅房',
     dataIndex: 'banquetRoomName',
     width: 180,
   },
   {
+    title: '餐别',
+    dataIndex: 'scheduleTypeStr',
+    width: 180,
+  },
+  {
+    title: '菜单菜品',
+    dataIndex: 'foodStr',
+    width: 180,
+  },
+  {
     title: '保底桌数',
     dataIndex: 'floorsDeskCount',
-    width: 180,
+    width: 90,
   },
   {
     title: '单桌价格',
     dataIndex: 'singlePrice',
-    width: 180,
+    width: 90,
   },
   {
     title: '额外价格',
     dataIndex: 'extraPrice',
-    width: 180,
+    width: 90,
   },
   {
     title: '备用桌数',
     dataIndex: 'backupDesk',
-    width: 180,
+    width: 90,
   },
   {
     title: '定金',
     dataIndex: 'frontMoney',
-    width: 180,
+    width: 90,
   },
   {
     title: '状态',
     dataIndex: 'status',
-    width: 180,
+    width: 90,
   },
 ];
 
@@ -92,11 +100,53 @@ export const contractFormSchema: FormSchema[] = [
     componentProps: {
       showTime: true,
     },
+    required: true,
+  },
+  {
+    field: 'banquetSchedule',
+    label: '宴会档期',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getBanquetList,
+      labelField: 'roomName',
+      valueField: 'id',
+    },
+    required: true,
   },
   {
     field: 'banquetRoomId',
-    label: '宴会厅房id',
-    component: 'DatePicker',
+    label: '宴会厅房',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getRoomList,
+      labelField: 'roomName',
+      valueField: 'id',
+    },
+    required: true,
+  },
+  {
+    label: '餐别',
+    field: 'scheduleType',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getMealTypeList,
+      labelField: 'label',
+      valueField: 'id',
+    },
+    required: false,
+  },
+  {
+    label: '菜单菜品',
+    field: 'food',
+    component: 'ApiTreeSelect',
+    componentProps: {
+      api: getFoodList,
+      replaceFields: {
+        title: 'name',
+        value: 'id',
+      },
+    },
+    required: false,
   },
   {
     field: 'floorsDeskCount',
@@ -165,9 +215,13 @@ export const contractFormSchema: FormSchema[] = [
     },
   },
   {
-    field: 'foods',
-    label: '菜品(预留项)',
-    component: 'InputTextArea',
+    field: 'file',
+    label: '合同照片',
+    component: 'Upload',
+    componentProps: {
+      api: uploadPicApi,
+      accept: ['png', 'jpg', 'jpeg'],
+    },
   },
   {
     field: 'remark',

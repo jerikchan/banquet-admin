@@ -249,7 +249,7 @@
         }
         const fileList: string[] = [];
 
-        for (const item of fileListRef.value) {
+        for (const item of fileListRef.value) {debugger
           const { status, responseData } = item;
           if (status === UploadResultStatus.SUCCESS && responseData) {
             fileList.push(responseData.url);

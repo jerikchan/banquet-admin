@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { commentFormSchema } from './comment.data';
-  import { addComment } from '/@/api/admin/customer';
+  import { addComment, updateComment } from '/@/api/admin/customer';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
@@ -39,27 +39,17 @@
           setFieldsValue({
             ...data.record,
           });
-        }
-
-        if (data.record.id) {
           setFieldsValue({
-            customerId: data.record.id,
+            customerId: data.record.customerId,
           });
-          updateSchema([
-            {
-              field: 'customerId',
-              componentProps: { disabled: true },
-            },
-          ]);
         }
 
-        // const treeData = await getCommentTypeList();
-        // updateSchema([
-        //   {
-        //     field: 'type',
-        //     componentProps: { treeData },
-        //   },
-        // ]);
+        updateSchema([
+          {
+            field: 'customerId',
+            componentProps: { disabled: unref(isUpdate) },
+          },
+        ]);
       });
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增跟进' : '编辑跟进'));
@@ -71,13 +61,14 @@
           // TODO custom api
           console.log(values);
           if (isUpdate.value) {
-            // await updateComment({
-            //   ...values,
-            //   id: unref(idRef),
-            // });
+            await updateComment({
+              ...values,
+              id: unref(idRef),
+            });
+            createMessage.success('修改记录成功');
           } else {
             await addComment(values);
-            createMessage.success('新增跟进成功');
+            createMessage.success('新增记录成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

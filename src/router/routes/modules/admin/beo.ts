@@ -17,7 +17,7 @@ const beo: AppRouteModule = {
       path: 'order',
       name: 'OrderList',
       meta: {
-        title: '订单列表',
+        title: 'BEO单',
         ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/beo/order/index.vue'),
@@ -26,7 +26,7 @@ const beo: AppRouteModule = {
       path: 'order_detail/:id',
       name: 'OrderDetail',
       meta: {
-        title: '订单详情',
+        title: 'BEO单详情',
         ignoreKeepAlive: true,
         hideMenu: true,
         showMenu: false,
@@ -39,7 +39,7 @@ const beo: AppRouteModule = {
       path: 'task',
       name: 'TaskList',
       meta: {
-        title: '任务列表',
+        title: 'BEO任务',
         ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/beo/task/index.vue'),

@@ -2,7 +2,7 @@
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增订单</a-button>
+        <a-button type="primary" @click="handleCreate">新增BEO单</a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -14,22 +14,30 @@
             },
             {
               icon: 'clarity:note-edit-line',
+              tooltip: '编辑',
               onClick: handleEdit.bind(null, record),
             },
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
-              tooltip: '删除此订单',
+              tooltip: '删除此BEO单',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
             },
           ]"
+          :dropDownActions="[
+            {
+              label: '新增BEO任务',
+              onClick: handleTaskModalOpen.bind(null, record),
+            },
+          ]"
         />
       </template>
     </BasicTable>
     <OrderModal @register="registerModal" @success="handleSuccess" />
+    <TaskModal @register="registerTaskModal" @success="handleTaskSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -46,15 +54,17 @@
   import { deleteOrder } from '/@/api/admin/beo';
   import { useGo } from '/@/hooks/web/usePage';
 
+  import TaskModal from '/@/views/admin/beo/task//TaskModal.vue';
+
   export default defineComponent({
     name: 'OrderManagement',
-    components: { BasicTable, PageWrapper, OrderModal, TableAction },
+    components: { BasicTable, PageWrapper, OrderModal, TableAction, TaskModal },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const go = useGo();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
-        title: '订单列表',
+        title: 'BEO单',
         api: getOrderList,
         rowKey: 'id',
         columns,
@@ -71,12 +81,22 @@
           return info;
         },
         actionColumn: {
-          width: 120,
+          width: 200,
           title: '操作',
           dataIndex: 'action',
           slots: { customRender: 'action' },
         },
       });
+
+      const [registerTaskModal, { openModal: openTaskModal }] = useModal();
+
+      function handleTaskModalOpen(record: Recordable) {
+        openTaskModal(true, {
+          isUpdate: false,
+          record,
+          isFrom: true,
+        });
+      }
 
       function handleCreate() {
         openModal(true, {
@@ -99,6 +119,10 @@
         } else {
           reload();
         }
+      }
+
+      function handleTaskSuccess() {
+        reload();
       }
 
       function handleSelect(deptId = '') {
@@ -125,9 +149,12 @@
       return {
         registerTable,
         registerModal,
+        handleTaskModalOpen,
+        registerTaskModal,
         handleCreate,
         handleDelete,
         handleSuccess,
+        handleTaskSuccess,
         handleSelect,
         handleView,
         handleEdit,
