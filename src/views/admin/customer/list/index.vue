@@ -3,14 +3,18 @@
     <CustomerTypeTree class="w-1/4 xl:w-1/5" @select="handleSelect" />
     <BasicTable @register="registerTable" class="w-3/4 xl:w-4/5" :searchInfo="searchInfo">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增客户</a-button>
-        <BasicUpload
-          :maxSize="20"
-          :maxNumber="10"
-          @change="handleUploadChange"
-          :api="uploadCustomer"
-          :showPreviewNumber="false"
-        />
+        <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
+          <a-button type="primary" @click="handleCreate">新增客户</a-button>
+        </Authority>
+        <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
+          <BasicUpload
+            :maxSize="20"
+            :maxNumber="10"
+            @change="handleUploadChange"
+            :api="uploadCustomer"
+            :showPreviewNumber="false"
+          />
+        </Authority>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -24,6 +28,7 @@
               icon: 'clarity:note-edit-line',
               tooltip: '编辑客户资料',
               onClick: handleEdit.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.BOOKER, RoleEnum.SALES],
             },
             {
               icon: 'ant-design:delete-outlined',
@@ -33,36 +38,42 @@
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
+              auth: [RoleEnum.SUPER],
             },
           ]"
           :dropDownActions="[
             {
               label: '新增记录',
               onClick: handleCommentAdd.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.BOOKER, RoleEnum.SALES],
             },
             {
-              label: '分配销售',
+              label: '分配跟进',
               onClick: handleAllocation.bind(null, record),
               ifShow: !record.salesManagerId,
               disabled: record.status === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
             },
             {
               label: '撤销分配',
               onClick: handleUnallocation.bind(null, record),
               ifShow: !!record.salesManagerId,
               disabled: record.status === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
             },
             {
               label: '转为意向',
               ifShow: record.customerType === '1' && !!record.salesManagerId,
               onClick: handleTypeUpdate.bind(null, record, '2'),
               disabled: record.status === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '合同下单',
               ifShow: record.customerType === '2',
               onClick: handleContractOpen.bind(null, record, '5'),
               disabled: record.status === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '转为流失',
@@ -71,6 +82,7 @@
                 !!record.salesManagerId,
               onClick: handleTypeUpdate.bind(null, record, '3'),
               disabled: record.status === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '转为无效',
@@ -79,6 +91,7 @@
                 !record.salesManagerId,
               onClick: handleTypeUpdate.bind(null, record, '6'),
               disabled: record.status === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
             },
           ]"
         />
@@ -117,6 +130,7 @@
 
   import { useMessage } from '/@/hooks/web/useMessage';
   import { BasicUpload } from '/@/components/Upload';
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   export default defineComponent({
     name: 'AccountManagement',
@@ -288,6 +302,7 @@
         uploadCustomer,
         handleUploadChange,
         handleCommentAdd,
+        RoleEnum,
       };
     },
   });

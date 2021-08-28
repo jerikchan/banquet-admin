@@ -108,7 +108,7 @@
 
       function goBack() {
         // 本例的效果时点击返回始终跳转到账号列表页，实际应用时可返回上一页
-        go('/banquet/room');
+        go('/banquet/banquet');
       }
 
       const [register] = useDescription({

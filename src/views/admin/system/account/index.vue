@@ -3,7 +3,9 @@
     <DeptTree class="w-1/4 xl:w-1/5" @select="handleSelect" />
     <BasicTable @register="registerTable" class="w-3/4 xl:w-4/5" :searchInfo="searchInfo">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增员工</a-button>
+        <Authority :value="[RoleEnum.SUPER, RoleEnum.MANAGER]">
+          <a-button type="primary" @click="handleCreate">新增员工</a-button>
+        </Authority>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -17,6 +19,7 @@
               icon: 'clarity:note-edit-line',
               tooltip: '编辑用户资料',
               onClick: handleEdit.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.MANAGER],
             },
             {
               icon: 'ant-design:delete-outlined',
@@ -26,6 +29,7 @@
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
+              auth: [RoleEnum.SUPER, RoleEnum.MANAGER],
             },
           ]"
         />
@@ -47,6 +51,7 @@
 
   import { columns, searchFormSchema } from './account.data';
   import { useGo } from '/@/hooks/web/usePage';
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   export default defineComponent({
     name: 'AccountManagement',
@@ -130,6 +135,7 @@
         handleSelect,
         handleView,
         searchInfo,
+        RoleEnum,
       };
     },
   });

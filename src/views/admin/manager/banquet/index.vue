@@ -7,6 +7,7 @@
             {
               icon: 'clarity:note-edit-line',
               onClick: handleEdit.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
             },
             {
               icon: 'clarity:info-standard-line',
@@ -32,6 +33,7 @@
 
   import { columns, searchFormSchema } from './manager.data';
   import { useGo } from '/@/hooks/web/usePage';
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   export default defineComponent({
     name: 'DeptManagement',
@@ -127,6 +129,7 @@
         // handleDelete,
         handleSuccess,
         handleDeptView,
+        RoleEnum,
       };
     },
   });

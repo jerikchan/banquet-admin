@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const contract: AppRouteModule = {
   path: '/contract',
@@ -11,6 +12,7 @@ const contract: AppRouteModule = {
     orderNo: 400,
     icon: 'ion:settings-outline',
     title: '合同管理',
+    roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES, RoleEnum.SALES_MANAGER],
   },
   children: [
     {

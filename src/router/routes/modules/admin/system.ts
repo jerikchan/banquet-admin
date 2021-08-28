@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const system: AppRouteModule = {
   path: '/system',
@@ -40,6 +41,7 @@ const system: AppRouteModule = {
       meta: {
         title: '角色管理',
         ignoreKeepAlive: true,
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER],
       },
       component: () => import('/@/views/admin/system/role/index.vue'),
     },

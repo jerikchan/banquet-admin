@@ -2,7 +2,9 @@
   <div id="deptMainList">
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增部门 </a-button>
+        <Authority :value="[RoleEnum.SUPER, RoleEnum.MANAGER]">
+          <a-button type="primary" @click="handleCreate"> 新增部门 </a-button>
+        </Authority>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -10,6 +12,7 @@
             {
               icon: 'clarity:note-edit-line',
               onClick: handleEdit.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.MANAGER],
             },
             {
               icon: 'ant-design:delete-outlined',
@@ -18,6 +21,7 @@
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
+              auth: [RoleEnum.SUPER, RoleEnum.MANAGER],
             },
             {
               icon: 'clarity:info-standard-line',
@@ -42,6 +46,7 @@
 
   import { columns, searchFormSchema } from './dept.data';
   import { useGo } from '/@/hooks/web/usePage';
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   export default defineComponent({
     name: 'DeptManagement',
@@ -111,6 +116,7 @@
         handleDelete,
         handleSuccess,
         handleDeptView,
+        RoleEnum,
       };
     },
   });

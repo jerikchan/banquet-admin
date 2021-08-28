@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const approval: AppRouteModule = {
   path: '/approval',
@@ -19,6 +20,7 @@ const approval: AppRouteModule = {
       meta: {
         title: '流程配置',
         ignoreKeepAlive: true,
+        roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/approval/flow/index.vue'),
     },

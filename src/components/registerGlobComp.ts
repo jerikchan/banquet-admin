@@ -9,6 +9,8 @@ import {
   Cascader,
 } from 'ant-design-vue';
 
+import { Authority } from '/@/components/Authority';
+
 const compList = [AntButton.Group];
 
 export function registerGlobComp(app: App) {
@@ -17,4 +19,6 @@ export function registerGlobComp(app: App) {
   });
 
   app.use(Input).use(Button).use(Layout).use(Cascader);
+
+  app.use(Authority);
 }
