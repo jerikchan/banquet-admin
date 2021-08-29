@@ -10,6 +10,8 @@ enum Api {
   AddPerformance = 'performance/add',
   UpdatePerformance = '/performance/update',
   DeletePerformance = '/performance/delete',
+  GetRatioInfos = '/ratio/findRatioInfos',
+  UpdateRatioInfo = '/ratio/updateRatio',
 }
 
 export const getPersonalPerformance = (params?: {}) =>
@@ -29,3 +31,9 @@ export const updatePerformance = (params?: {}) =>
 
 export const deletePerformance = (params?: { id: string }) =>
   defHttp.post<ManagerListGetResultModel>({ url: Api.DeletePerformance, params }, { devUrl });
+
+export const getRatioInfos = (params?: {}) =>
+  defHttp.get<ManagerListGetResultModel>({ url: Api.GetRatioInfos, params }, { devUrl });
+
+export const updateRatioInfo = (params?: {}) =>
+  defHttp.post<ManagerListGetResultModel>({ url: Api.UpdateRatioInfo, params }, { devUrl });

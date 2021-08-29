@@ -39,6 +39,15 @@ const manager: AppRouteModule = {
       },
       component: () => import('/@/views/admin/performance/dept/index.vue'),
     },
+    {
+      path: 'ratioPerformance',
+      name: 'ratioPerformanceFunc',
+      meta: {
+        title: '业绩系数设置',
+        ignoreKeepAlive: true,
+      },
+      component: () => import('/@/views/admin/performance/ratio/index.vue'),
+    },
   ],
 };
 
