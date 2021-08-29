@@ -2,7 +2,9 @@
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增回款</a-button>
+        <Authority :value="[RoleEnum.SUPER, RoleEnum.SALES]">
+          <a-button type="primary" @click="handleCreate">新增回款</a-button>
+        </Authority>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -15,6 +17,7 @@
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               icon: 'clarity:info-standard-line',
@@ -42,6 +45,7 @@
   import { deleteAccept } from '/@/api/admin/finance';
 
   import { useGo } from '/@/hooks/web/usePage';
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   export default defineComponent({
     name: 'AcceptManagement',
@@ -117,6 +121,7 @@
         handleSelect,
         handleView,
         searchInfo,
+        RoleEnum,
       };
     },
   });

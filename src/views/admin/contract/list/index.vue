@@ -12,11 +12,13 @@
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               icon: 'ant-design:swap-outlined',
               tooltip: '下BEO单',
               onClick: handleOrder.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
           ]"
         />
@@ -35,6 +37,7 @@
 
   import { columns, searchFormSchema } from './contract.data';
   import OrderModal from '/@/views/admin/beo/order/OrderModal.vue';
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   export default defineComponent({
     name: 'ContractManagement',
@@ -86,6 +89,7 @@
         handleDelete,
         registerOrderModal,
         handleOrder,
+        RoleEnum,
       };
     },
   });

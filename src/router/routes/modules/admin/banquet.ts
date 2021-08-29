@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const banquet: AppRouteModule = {
   path: '/banquet',
@@ -11,6 +12,13 @@ const banquet: AppRouteModule = {
     orderNo: 300,
     icon: 'ion:settings-outline',
     title: '宴会管理',
+    roles: [
+      RoleEnum.SUPER,
+      RoleEnum.MANAGER,
+      RoleEnum.SALES,
+      RoleEnum.SALES_MANAGER,
+      RoleEnum.FINANCE_MANAGER,
+    ],
   },
   children: [
     {
@@ -19,6 +27,7 @@ const banquet: AppRouteModule = {
       meta: {
         title: '宴会类型管理',
         ignoreKeepAlive: true,
+        roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/banquet/banquet-type/index.vue'),
     },
@@ -37,6 +46,7 @@ const banquet: AppRouteModule = {
       meta: {
         title: '厅房类型管理',
         ignoreKeepAlive: true,
+        roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/banquet/room-type/index.vue'),
     },

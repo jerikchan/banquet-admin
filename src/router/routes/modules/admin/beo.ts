@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const beo: AppRouteModule = {
   path: '/beo',
@@ -11,6 +12,15 @@ const beo: AppRouteModule = {
     orderNo: 400,
     icon: 'ion:settings-outline',
     title: 'BEO管理',
+    roles: [
+      RoleEnum.SUPER,
+      RoleEnum.MANAGER,
+      RoleEnum.SALES,
+      RoleEnum.SALES_MANAGER,
+      RoleEnum.HOUSEKEEPER_MANAGER,
+      RoleEnum.FINANCE_MANAGER,
+      RoleEnum.STAFF,
+    ],
   },
   children: [
     {

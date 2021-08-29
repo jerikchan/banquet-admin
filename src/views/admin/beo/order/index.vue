@@ -2,7 +2,9 @@
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增BEO单</a-button>
+        <Authority :value="[RoleEnum.SUPER, RoleEnum.SALES]">
+          <a-button type="primary" @click="handleCreate">新增BEO单</a-button>
+        </Authority>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -16,6 +18,7 @@
               icon: 'clarity:note-edit-line',
               tooltip: '编辑',
               onClick: handleEdit.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               icon: 'ant-design:delete-outlined',
@@ -25,12 +28,14 @@
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
           ]"
           :dropDownActions="[
             {
               label: '新增BEO任务',
               onClick: handleTaskModalOpen.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
           ]"
         />
@@ -55,6 +60,7 @@
   import { useGo } from '/@/hooks/web/usePage';
 
   import TaskModal from '/@/views/admin/beo/task//TaskModal.vue';
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   export default defineComponent({
     name: 'OrderManagement',
@@ -159,6 +165,7 @@
         handleView,
         handleEdit,
         searchInfo,
+        RoleEnum,
       };
     },
   });

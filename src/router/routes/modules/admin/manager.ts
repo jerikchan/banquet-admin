@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const manager: AppRouteModule = {
   path: '/master',
@@ -11,6 +12,13 @@ const manager: AppRouteModule = {
     orderNo: 1000,
     icon: 'ion:settings-outline',
     title: '管家管理',
+    roles: [
+      RoleEnum.SUPER,
+      RoleEnum.MANAGER,
+      RoleEnum.SALES,
+      RoleEnum.SALES_MANAGER,
+      RoleEnum.HOUSEKEEPER_MANAGER,
+    ],
   },
   children: [
     {

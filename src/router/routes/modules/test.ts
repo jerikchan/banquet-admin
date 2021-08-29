@@ -22,6 +22,15 @@ const dashboard: AppRouteModule = {
         title: '测试1',
       },
     },
+    {
+      path: 'permission',
+      name: 'PermissionTest',
+      component: () => import('/@/views/demo/permission/front/index.vue'),
+      meta: {
+        // affix: true,
+        title: '权限测试',
+      },
+    },
   ],
 };
 

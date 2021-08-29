@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const finance: AppRouteModule = {
   path: '/finance',
@@ -11,6 +12,14 @@ const finance: AppRouteModule = {
     orderNo: 400,
     icon: 'ion:settings-outline',
     title: '财务管理',
+    roles: [
+      RoleEnum.SUPER,
+      RoleEnum.MANAGER,
+      RoleEnum.SALES,
+      RoleEnum.SALES_MANAGER,
+      RoleEnum.HOUSEKEEPER_MANAGER,
+      RoleEnum.FINANCE_MANAGER,
+    ],
   },
   children: [
     {

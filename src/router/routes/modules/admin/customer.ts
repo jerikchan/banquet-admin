@@ -1,6 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const customer: AppRouteModule = {
   path: '/customer',
@@ -11,6 +12,13 @@ const customer: AppRouteModule = {
     orderNo: 200,
     icon: 'ion:settings-outline',
     title: '客户管理',
+    roles: [
+      RoleEnum.SUPER,
+      RoleEnum.MANAGER,
+      RoleEnum.BOOKER,
+      RoleEnum.SALES,
+      RoleEnum.SALES_MANAGER,
+    ],
   },
   children: [
     {
@@ -41,6 +49,7 @@ const customer: AppRouteModule = {
       meta: {
         title: '获客渠道',
         ignoreKeepAlive: true,
+        roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/customer/channel/index.vue'),
     },
@@ -59,6 +68,7 @@ const customer: AppRouteModule = {
       meta: {
         title: '跟进方式',
         ignoreKeepAlive: true,
+        roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/customer/comment-type/index.vue'),
     },
