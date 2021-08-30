@@ -17,7 +17,7 @@
             {
               icon: 'ant-design:swap-outlined',
               tooltip: '下BEO单',
-              disabled: record.status === '1',
+              disabled: record.status === '1' || record.status === '3',
               onClick: handleOrder.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
@@ -25,7 +25,7 @@
         />
       </template>
     </BasicTable>
-    <OrderModal @register="registerOrderModal" @success="handleSuccess" />
+    <!-- <OrderModal @register="registerOrderModal" @success="handleSuccess" /> -->
   </div>
 </template>
 <script lang="ts">
@@ -34,15 +34,18 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getContractList, deleteContract } from '/@/api/admin/contract';
 
-  import { useModal } from '/@/components/Modal';
+  // import { useModal } from '/@/components/Modal';
 
   import { columns, searchFormSchema } from './contract.data';
-  import OrderModal from '/@/views/admin/beo/order/OrderModal.vue';
+  // import OrderModal from '/@/views/admin/beo/order/OrderModal.vue';
+
   import { RoleEnum } from '/@/enums/roleEnum';
+
+  import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
     name: 'ContractManagement',
-    components: { BasicTable, TableAction, OrderModal },
+    components: { BasicTable, TableAction },
     setup() {
       const [registerTable, { reload }] = useTable({
         title: '合同列表',
@@ -65,7 +68,9 @@
         },
       });
 
-      const [registerOrderModal, { openModal }] = useModal();
+      const go = useGo();
+
+      // const [registerOrderModal, { openModal }] = useModal();
 
       function handleSuccess() {
         reload();
@@ -78,17 +83,18 @@
       }
 
       function handleOrder(record: Recordable) {
-        openModal(true, {
-          record,
-          isUpdate: false,
-        });
+        // openModal(true, {
+        //   record,
+        //   isUpdate: false,
+        // });
+        go('/beo/order_oper/' + record.id);
       }
 
       return {
         registerTable,
         handleSuccess,
         handleDelete,
-        registerOrderModal,
+        // registerOrderModal,
         handleOrder,
         RoleEnum,
       };

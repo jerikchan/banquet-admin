@@ -46,6 +46,19 @@ const beo: AppRouteModule = {
       component: () => import('/@/views/admin/beo/order/OrderDetail.vue'),
     },
     {
+      path: 'order_oper/:id',
+      name: 'OrderOper',
+      meta: {
+        title: 'BEO单下单',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/beo/order',
+      },
+      component: () => import('/@/views/admin/beo/order/BeoOrderModal.vue'),
+    },
+    {
       path: 'task',
       name: 'TaskList',
       meta: {
