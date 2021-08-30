@@ -10,7 +10,7 @@ const banquet: AppRouteModule = {
   redirect: '/banquet/banquet_type',
   meta: {
     orderNo: 300,
-    icon: 'ion:settings-outline',
+    icon: 'ph:wine',
     title: '宴会管理',
     roles: [
       RoleEnum.SUPER,
@@ -26,7 +26,7 @@ const banquet: AppRouteModule = {
       name: 'BanquetTypeManagement',
       meta: {
         title: '宴会类型管理',
-        ignoreKeepAlive: true,
+
         roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/banquet/banquet-type/index.vue'),
@@ -36,7 +36,6 @@ const banquet: AppRouteModule = {
       name: 'BanquetList',
       meta: {
         title: '档期列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/banquet/banquet/index.vue'),
     },
@@ -45,7 +44,7 @@ const banquet: AppRouteModule = {
       name: 'RoomTypeManagement',
       meta: {
         title: '厅房类型管理',
-        ignoreKeepAlive: true,
+
         roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/banquet/room-type/index.vue'),
@@ -55,7 +54,6 @@ const banquet: AppRouteModule = {
       name: 'RoomList',
       meta: {
         title: '厅房列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/banquet/room/index.vue'),
     },
@@ -65,7 +63,7 @@ const banquet: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '厅房详细信息',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/banquet/room',
       },
@@ -77,11 +75,21 @@ const banquet: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '档期详细信息',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/banquet/banquet',
       },
       component: () => import('/@/views/admin/banquet/banquet/BanquetDetailModal.vue'),
+    },
+    {
+      path: 'foods',
+      name: 'FoodTypeManagement',
+      meta: {
+        title: '菜单菜品',
+
+        roles: [RoleEnum.SUPER],
+      },
+      component: () => import('/@/views/admin/banquet/foods/index.vue'),
     },
   ],
 };

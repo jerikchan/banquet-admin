@@ -19,7 +19,6 @@ const system: AppRouteModule = {
       name: 'AccountManagement',
       meta: {
         title: '员工列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/system/account/index.vue'),
     },
@@ -29,7 +28,7 @@ const system: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '员工详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/system/account',
       },
@@ -40,7 +39,7 @@ const system: AppRouteModule = {
       name: 'RoleManagement',
       meta: {
         title: '角色管理',
-        ignoreKeepAlive: true,
+
         roles: [RoleEnum.SUPER, RoleEnum.MANAGER],
       },
       component: () => import('/@/views/admin/system/role/index.vue'),
@@ -51,7 +50,7 @@ const system: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '角色详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/system/role',
       },
@@ -62,7 +61,6 @@ const system: AppRouteModule = {
       name: 'DeptManagement',
       meta: {
         title: '部门管理',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/system/dept/index.vue'),
     },
@@ -72,7 +70,7 @@ const system: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '部门详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/system/dept',
       },

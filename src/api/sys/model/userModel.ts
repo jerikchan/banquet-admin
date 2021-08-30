@@ -1,3 +1,5 @@
+import { RoleEnum } from '/@/enums/roleEnum';
+
 /**
  * @description: Login interface parameters
  */
@@ -26,6 +28,7 @@ export interface LoginResultModel {
  * @description: Get user information return value
  */
 export interface GetUserInfoModel {
+  auth: RoleEnum[];
   roles: RoleInfo[];
   // 用户id
   userId: string | number;

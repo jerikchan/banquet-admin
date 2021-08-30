@@ -10,7 +10,7 @@ const contract: AppRouteModule = {
   redirect: '/contract/list',
   meta: {
     orderNo: 400,
-    icon: 'ion:settings-outline',
+    icon: 'icon-park-outline:agreement',
     title: '合同管理',
     roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES, RoleEnum.SALES_MANAGER],
   },
@@ -20,7 +20,6 @@ const contract: AppRouteModule = {
       name: 'ContractList',
       meta: {
         title: '合同列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/contract/list/index.vue'),
     },

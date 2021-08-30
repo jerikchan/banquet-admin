@@ -10,7 +10,7 @@ const customer: AppRouteModule = {
   redirect: '/customer/list',
   meta: {
     orderNo: 200,
-    icon: 'ion:settings-outline',
+    icon: 'ic:outline-account-box',
     title: '客户管理',
     roles: [
       RoleEnum.SUPER,
@@ -26,7 +26,6 @@ const customer: AppRouteModule = {
       name: 'CustomerList',
       meta: {
         title: '客户列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/customer/list/index.vue'),
     },
@@ -35,7 +34,7 @@ const customer: AppRouteModule = {
       name: 'CustomerDetail',
       meta: {
         title: '客户详情',
-        ignoreKeepAlive: true,
+
         hideMenu: true,
         showMenu: false,
         hideTab: true,
@@ -48,7 +47,7 @@ const customer: AppRouteModule = {
       name: 'ChannelManagement',
       meta: {
         title: '获客渠道',
-        ignoreKeepAlive: true,
+
         roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/customer/channel/index.vue'),
@@ -58,7 +57,6 @@ const customer: AppRouteModule = {
       name: 'CommentManagement',
       meta: {
         title: '跟进记录',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/customer/comment/index.vue'),
     },
@@ -67,7 +65,7 @@ const customer: AppRouteModule = {
       name: 'CommentTypeManagement',
       meta: {
         title: '跟进方式',
-        ignoreKeepAlive: true,
+
         roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/customer/comment-type/index.vue'),

@@ -1,16 +1,16 @@
 <template>
   <PageWrapper title="客户跟进记录表详情" contentBackground @back="goBack">
     <template #extra>
-      <div>
-        <a-button type="primary" @click="exportForm"> 导出表格 </a-button>
+      <div class="flex">
+        <a-button class="mr-2" type="primary" @click="exportForm"> 导出表格 </a-button>
+        <BasicUpload
+          :maxSize="20"
+          :maxNumber="10"
+          @change="handleUploadChange"
+          :api="uploadCustoemrFollowForm"
+          :showPreviewNumber="false"
+        />
       </div>
-      <BasicUpload
-        :maxSize="20"
-        :maxNumber="10"
-        @change="handleUploadChange"
-        :api="uploadCustoemrFollowForm"
-        :showPreviewNumber="false"
-      />
     </template>
     <Description
       size="middle"
@@ -122,8 +122,9 @@
       function exportForm() {
         // getCustomerFollowFormWord({ agreementId: mockData.agreementId });
         console.log(devUrl);
-        window.location.href =
-          devUrl + '/file/downloadCustomerFollowFormTemplate?agreementId=' + mockData.agreementId;
+        window.open(
+          devUrl + '/file/downloadCustomerFollowFormTemplate?agreementId=' + mockData.agreementId
+        );
       }
 
       function handleUploadChange() {

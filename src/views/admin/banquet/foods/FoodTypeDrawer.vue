@@ -10,13 +10,12 @@
     <BasicForm @register="registerForm">
       <template #menu="{ model, field }">
         <BasicTree
-          :data-field="field"
           v-model:value="model[field]"
           :treeData="treeData"
-          :replaceFields="{ title: 'title', key: 'key' }"
+          :replaceFields="{ title: 'menuName', key: 'id' }"
           checkable
           toolbar
-          title="权限分配"
+          title="菜单分配"
         />
       </template>
     </BasicForm>
@@ -25,25 +24,23 @@
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './role.data';
+  import { formSchema } from './foodType.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList, updateRole, addRole } from '/@/api/admin/system';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  import { getFoodMenuList, updateFoodType, addFoodType } from '/@/api/admin/banquet';
 
   export default defineComponent({
-    name: 'RoleDrawer',
+    name: 'FoodTypeDrawer',
     components: { BasicDrawer, BasicForm, BasicTree },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const treeData = ref<TreeItem[]>([]);
       const idRef = ref('');
-      const { createMessage } = useMessage();
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
-        labelWidth: 90,
+        labelWidth: 120,
         schemas: formSchema,
         showActionButtonGroup: false,
       });
@@ -53,12 +50,11 @@
         setDrawerProps({ confirmLoading: false });
         // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
         if (unref(treeData).length === 0) {
-          treeData.value = (await getMenuList()) as any as TreeItem[];
+          treeData.value = (await getFoodMenuList()) as any as TreeItem[];
         }
         isUpdate.value = !!data?.isUpdate;
 
         if (unref(isUpdate)) {
-          debugger
           setFieldsValue({
             ...data.record,
           });
@@ -66,24 +62,20 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增菜单菜品' : '编辑菜单菜品'));
 
       async function handleSubmit() {
         try {
           const values = await validate();
-          values.authInfoList = Array.from(values.authInfoList);
-          debugger
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (isUpdate.value) {
-            await updateRole({
+            await updateFoodType({
               ...values,
               id: unref(idRef),
             });
-            createMessage.success('编辑角色成功');
           } else {
-            await addRole(values);
-            createMessage.success('新增角色成功');
+            await addFoodType(values);
           }
           console.log(values);
           closeDrawer();

@@ -10,7 +10,7 @@ const approval: AppRouteModule = {
   redirect: '/approval/flow',
   meta: {
     orderNo: 400,
-    icon: 'ion:settings-outline',
+    icon: 'fluent:approval-app-32-regular',
     title: '审批管理',
   },
   children: [
@@ -19,7 +19,7 @@ const approval: AppRouteModule = {
       name: 'FlowManagement',
       meta: {
         title: '流程配置',
-        ignoreKeepAlive: true,
+
         roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/approval/flow/index.vue'),
@@ -29,7 +29,6 @@ const approval: AppRouteModule = {
       name: 'ReviewManagement',
       meta: {
         title: '待我审核',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/approval/review/index.vue'),
     },
@@ -38,7 +37,6 @@ const approval: AppRouteModule = {
       name: 'FormManagement',
       meta: {
         title: '与我相关',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/approval/form/index.vue'),
     },
@@ -47,7 +45,7 @@ const approval: AppRouteModule = {
       name: 'FormManagementDetail',
       meta: {
         title: '与我相关详情',
-        ignoreKeepAlive: true,
+
         hideMenu: true,
         showMenu: false,
         currentActiveMenu: '/approval/form',
@@ -59,7 +57,7 @@ const approval: AppRouteModule = {
       name: 'ReviewDetail',
       meta: {
         title: '与我相关详情',
-        ignoreKeepAlive: false,
+
         hideMenu: true,
         showMenu: false,
         currentActiveMenu: '/approval/review',

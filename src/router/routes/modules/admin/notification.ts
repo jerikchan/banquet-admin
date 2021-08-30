@@ -9,7 +9,7 @@ const notification: AppRouteModule = {
   redirect: '/notification/message',
   meta: {
     orderNo: 400,
-    icon: 'ion:settings-outline',
+    icon: 'carbon:notification',
     title: '通知管理',
   },
   children: [
@@ -18,7 +18,6 @@ const notification: AppRouteModule = {
       name: 'MeesageManagement',
       meta: {
         title: '消息列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/notification/message/index.vue'),
     },

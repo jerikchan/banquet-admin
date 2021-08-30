@@ -10,7 +10,7 @@ const manager: AppRouteModule = {
   redirect: '/performance/personal',
   meta: {
     orderNo: 1000,
-    icon: 'ion:settings-outline',
+    icon: 'grommet-icons:document-performance',
     title: '业绩模块',
     roles: [
       RoleEnum.SUPER,
@@ -26,7 +26,6 @@ const manager: AppRouteModule = {
       name: 'PersonalPerformanceFunc',
       meta: {
         title: '个人业绩',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/performance/personal/index.vue'),
     },
@@ -35,7 +34,6 @@ const manager: AppRouteModule = {
       name: 'PerformanceFunc',
       meta: {
         title: '业绩列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/performance/dept/index.vue'),
     },
@@ -44,7 +42,6 @@ const manager: AppRouteModule = {
       name: 'ratioPerformanceFunc',
       meta: {
         title: '业绩系数设置',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/performance/ratio/index.vue'),
     },

@@ -10,7 +10,7 @@ const manager: AppRouteModule = {
   redirect: '/master/manager',
   meta: {
     orderNo: 1000,
-    icon: 'ion:settings-outline',
+    icon: 'bi:house-door',
     title: '管家管理',
     roles: [
       RoleEnum.SUPER,
@@ -26,7 +26,6 @@ const manager: AppRouteModule = {
       name: 'ManagerManagerMent',
       meta: {
         title: '管家列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/manager/banquet/index.vue'),
     },
@@ -36,7 +35,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '客户跟进记录详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -48,7 +47,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '客户跟进记录修改',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -60,7 +59,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '套餐内容登记详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -72,7 +71,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '套餐内容登记修改',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -84,7 +83,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '人员派单登记详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -96,7 +95,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '人员派单登记修改',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -108,7 +107,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '试妆登记详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -120,7 +119,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '试妆登记修改',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -132,7 +131,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '司仪沟通登记详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -144,7 +143,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '司仪沟通登记修改',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -156,7 +155,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '家庭会议登记详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -168,7 +167,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '家庭会议登记修改',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -180,7 +179,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '婚礼注意事项筛查登记详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -192,7 +191,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '婚礼注意事项筛查登记修改',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },

@@ -13,7 +13,7 @@
                 <span v-if="item.list.length !== 0">({{ item.list.length }})</span>
               </template>
               <!-- 绑定title-click事件的通知列表中标题是“可点击”的-->
-              <NoticeList :list="item.list" v-if="item.key === '2'" @title-click="onNoticeClick" />
+              <NoticeList :list="item.list" v-if="item.key === '1'" @title-click="onNoticeClick" />
               <NoticeList :list="item.list" v-else />
             </TabPane>
           </template>
@@ -31,6 +31,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { getMessageList, updateMessage } from '/@/api/admin/notification';
+  import headerImg from '/@/assets/images/header.jpg';
 
   export default defineComponent({
     components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
@@ -62,10 +63,10 @@
         clearTimeout(pollingTimer);
 
         const list = await getMessageList();
-        listData.value[1].list = list.map((n) => {
+        listData.value[0].list = list.map((n) => {
           return {
             id: n.id,
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg',
+            avatar: n.avatar || headerImg,
             title: n.content,
             datetime: n.createTime,
             type: '2',

@@ -10,6 +10,11 @@ export type RoomTypeParams = BasicPageParams & {
   nickName?: string;
 };
 
+export type FoodTypeParams = BasicPageParams & {
+  userName?: string;
+  nickName?: string;
+};
+
 export type RoomParams = BasicPageParams & {
   userName?: string;
   nickName?: string;
@@ -46,6 +51,17 @@ export interface RoomTypeListItem {
   remark: string;
   status: number;
   value: string;
+}
+
+export interface FoodTypeListItem {
+  accountId: string;
+  userName: string;
+  email: string;
+  nickName: string;
+  role: number;
+  createTime: string;
+  remark: string;
+  status: number;
 }
 
 /**
@@ -91,6 +107,8 @@ export interface MenuListItem {
 export type BanquetTypeListGetResultModel = BasicFetchResult<BanquetTypeListItem>;
 
 export type RoomTypeListGetResultModel = BasicFetchResult<RoomTypeListItem>;
+
+export type FoodTypeListGetResultModel = BasicFetchResult<FoodTypeListItem>;
 
 export type RoomListGetResultModel = BasicFetchResult<RoomListItem>;
 
