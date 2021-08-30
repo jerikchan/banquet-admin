@@ -45,6 +45,7 @@ export interface RoomTypeListItem {
   createTime: string;
   remark: string;
   status: number;
+  value: string;
 }
 
 /**

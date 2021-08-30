@@ -46,6 +46,8 @@
   import { useGo } from '/@/hooks/web/usePage';
   import { RoleEnum } from '/@/enums/roleEnum';
 
+  import { useMessage } from '/@/hooks/web/useMessage';
+
   export default defineComponent({
     name: 'RoomManagement',
     components: { BasicTable, PageWrapper, RoomModal, TableAction },
@@ -53,6 +55,7 @@
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const go = useGo();
+      const { createMessage } = useMessage();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '厅房列表',
         api: getRoomList,
@@ -87,6 +90,7 @@
       async function handleDelete(record: Recordable) {
         console.log(record);
         await deleteRoom({ id: record.id });
+        createMessage.success('删除成功');
         reload();
       }
 

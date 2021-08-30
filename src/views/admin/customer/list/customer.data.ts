@@ -123,12 +123,13 @@ export const customerFormSchema: FormSchema[] = [
   {
     label: '餐标',
     field: 'canBiao',
-    component: 'ApiSelect',
-    componentProps: {
-      api: getChannelList,
-      labelField: 'label',
-      valueField: 'id',
-    },
+    component: 'Input',
+    // component: 'ApiSelect',
+    // componentProps: {
+    //   api: getChannelList,
+    //   labelField: 'label',
+    //   valueField: 'id',
+    // },
   },
   {
     field: 'purposeTime',

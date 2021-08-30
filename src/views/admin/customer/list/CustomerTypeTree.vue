@@ -6,7 +6,7 @@
       search
       :clickRowToExpand="false"
       :treeData="treeData"
-      :replaceFields="{ key: 'id', title: 'label' }"
+      :replaceFields="{ key: 'value', title: 'label' }"
       @select="handleSelect"
     />
   </div>
@@ -27,6 +27,7 @@
 
       async function fetch() {
         treeData.value = (await getCustomerTypeList()) as unknown as TreeItem[];
+        console.log(treeData.value);
       }
 
       function handleSelect(keys: string, e) {

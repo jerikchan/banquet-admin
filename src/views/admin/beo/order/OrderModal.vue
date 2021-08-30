@@ -28,7 +28,7 @@
       const idRef = ref('');
       const { createMessage } = useMessage();
 
-      const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
         schemas: orderFormSchema,
         showActionButtonGroup: false,
@@ -43,19 +43,23 @@
         isUpdate.value = !!data?.isUpdate;
         isView.value = !!data?.isView;
 
-        if (unref(isUpdate) || unref(isView)) {
-          idRef.value = data.record.id;
-          setFieldsValue({
-            ...data.record,
-          });
-        }
+        // if (unref(isUpdate) || unref(isView)) {
+        //   idRef.value = data.record.id;
+        //   setFieldsValue({
+        //     ...data.record,
+        //   });
+        // }
 
-        updateSchema(
-          orderFormSchema.map((s) => ({
-            field: s.field,
-            componentProps: { disabled: unref(isView) },
-          }))
-        );
+        // updateSchema(
+        //   orderFormSchema.map((s) => ({
+        //     field: s.field,
+        //     componentProps: { disabled: unref(isView) },
+        //   }))
+        // );
+        idRef.value = data.record.id;
+        setFieldsValue({
+          ...data.record,
+        });
       });
 
       const getTitle = computed(() =>

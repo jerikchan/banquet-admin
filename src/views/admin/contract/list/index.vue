@@ -17,6 +17,7 @@
             {
               icon: 'ant-design:swap-outlined',
               tooltip: '下BEO单',
+              disabled: record.status === '1',
               onClick: handleOrder.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },

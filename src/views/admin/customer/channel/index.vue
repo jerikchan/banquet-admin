@@ -37,10 +37,13 @@
 
   import { columns, searchFormSchema } from './channel.data';
 
+  import { useMessage } from '/@/hooks/web/useMessage';
+
   export default defineComponent({
     name: 'ChannelManagement',
     components: { BasicTable, ChannelDrawer, TableAction },
     setup() {
+      const { createMessage } = useMessage();
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
         title: '获客渠道列表',
@@ -82,6 +85,7 @@
           id: record.id,
         });
         reload();
+        createMessage.success('删除成功');
       }
 
       function handleSuccess() {

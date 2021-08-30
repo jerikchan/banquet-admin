@@ -100,7 +100,10 @@
     <CustomerModal @register="registerModal" @success="handleSuccess" />
     <CustomerTypeModal @register="registerTypeModal" @success="handleTypeSuccess" />
     <ContractModal @register="registerContractModal" @success="handleContractSuccess" />
-    <CustomerAllocationSalesModal @register="registerAllocationModal" @success="handleSuccess" />
+    <CustomerAllocationSalesModal
+      @register="registerAllocationModal"
+      @success="handleAllocationSuccess"
+    />
     <CommentModal @register="registerCommentAddModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
@@ -205,6 +208,7 @@
           onOk: async () => {
             try {
               await unallocationSales({ customerId: record.id });
+              reload();
               createMessage.success('撤销分配成功');
             } catch {
               createMessage.error('撤销分配失败');
@@ -234,6 +238,12 @@
           reload();
         }
       }
+
+      function handleAllocationSuccess() {
+        createMessage.success('分配销售成功!');
+        reload();
+      }
+
       function handleTypeSuccess(values) {
         console.log(values);
         reload();
@@ -281,6 +291,7 @@
         uploadCustomer,
         handleUploadChange,
         handleCommentAdd,
+        handleAllocationSuccess,
         RoleEnum,
       };
     },

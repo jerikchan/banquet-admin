@@ -10,7 +10,7 @@
   import { contractFormSchema } from './contract.data';
   import { addContract } from '/@/api/admin/contract';
   import { useMessage } from '/@/hooks/web/useMessage';
-  
+
   export default defineComponent({
     name: 'ContractModal',
     components: { BasicModal, BasicForm },
@@ -21,7 +21,7 @@
       const recordRef = ref({});
       const { createMessage } = useMessage();
 
-      const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
         schemas: contractFormSchema,
         showActionButtonGroup: false,
@@ -46,7 +46,7 @@
         });
       });
 
-      const getTitle = computed(() => isUpdate.value ? '修改合同' : '新增合同');
+      const getTitle = computed(() => (isUpdate.value ? '修改合同' : '新增合同'));
 
       async function handleSubmit() {
         try {

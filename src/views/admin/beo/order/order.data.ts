@@ -56,13 +56,23 @@ export const searchFormSchema: FormSchema[] = [
 export const orderFormSchema: FormSchema[] = [
   {
     field: 'agreementId',
-    label: '合同编号',
-    component: 'ApiSelect',
+    label: '合同id',
+    component: 'Input',
     componentProps: {
       // disabled: true,
-      api: getContractList,
-      labelField: 'agreementCode',
-      valueField: 'id',
+      // api: getContractList,
+      // labelField: 'agreementCode',
+      // valueField: 'id',
+    },
+    required: true,
+    show: false,
+  },
+  {
+    field: 'agreementCode',
+    label: '合同编号',
+    component: 'Input',
+    componentProps: {
+      disabled: true,
     },
     required: true,
   },

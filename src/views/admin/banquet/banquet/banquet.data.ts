@@ -11,14 +11,14 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '档期时间',
-    dataIndex: 'scheduleType',
+    title: '档期类型',
+    dataIndex: 'scheduleTypeStr',
     width: 120,
   },
   {
     title: '档期具体时间',
     dataIndex: 'banquetTime',
-    width: 120,
+    width: 180,
   },
   {
     title: '创建时间',
