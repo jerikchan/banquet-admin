@@ -115,12 +115,13 @@
           return {
             total: list.length,
             pageSize,
-            //size: 'small',
+            // size: 'small',
             current: unref(current),
             onChange(page) {
               current.value = page;
               emit('update:currentPage', page);
             },
+            simple: true,
           };
         } else {
           return false;

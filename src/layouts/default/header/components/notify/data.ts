@@ -24,7 +24,7 @@ export interface TabItem {
 export const tabListData: TabItem[] = [
   {
     key: '1',
-    name: '通知',
+    name: '消息',
     list: [
       // {
       //   id: '000000001',
@@ -112,7 +112,7 @@ export const tabListData: TabItem[] = [
   },
   {
     key: '2',
-    name: '消息',
+    name: '通知',
     list: [
       // {
       //   id: '000000006',

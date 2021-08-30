@@ -50,10 +50,10 @@ export const formSchema: FormSchema[] = [
     field: 'remark',
     component: 'InputTextArea',
   },
-  // {
-  //   label: ' ',
-  //   field: 'menu',
-  //   slot: 'menu',
-  //   component: 'Input',
-  // },
+  {
+    label: ' ',
+    field: 'authInfoList',
+    slot: 'menu',
+    component: 'Input',
+  },
 ];

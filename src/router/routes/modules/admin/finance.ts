@@ -10,7 +10,7 @@ const finance: AppRouteModule = {
   redirect: '/finance/total',
   meta: {
     orderNo: 400,
-    icon: 'ion:settings-outline',
+    icon: 'icon-park-outline:finance',
     title: '财务管理',
     roles: [
       RoleEnum.SUPER,
@@ -27,7 +27,6 @@ const finance: AppRouteModule = {
       name: 'TotalList',
       meta: {
         title: '应收款列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/finance/total/index.vue'),
     },
@@ -36,7 +35,6 @@ const finance: AppRouteModule = {
       name: 'AcceptList',
       meta: {
         title: '回款列表',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/finance/accept/index.vue'),
     },
@@ -46,7 +44,7 @@ const finance: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '应收款单详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/finance/total',
       },
@@ -58,7 +56,7 @@ const finance: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '回款单详情',
-        ignoreKeepAlive: true,
+
         showMenu: false,
         currentActiveMenu: '/finance/accept',
       },

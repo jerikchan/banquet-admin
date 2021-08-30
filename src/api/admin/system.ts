@@ -81,7 +81,17 @@ export const getRoleInfo = (params?: { id: string }) =>
   defHttp.get<RoleListGetResultModel>({ url: Api.GetRoleInfo, params }, { devUrl });
 
 export const getMenuList = (params?: MenuParams) =>
-  defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });
+  // defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });
+  Promise.resolve([
+    { title: '预定权限', key: 'booker' },
+    { title: '销售权限', key: 'sales' },
+    { title: '销售主管权限', key: 'sales_manager' },
+    { title: '管家主管权限', key: 'housekeeper_manager' },
+    { title: '财务主管权限', key: 'finance_manager' },
+    { title: '普通员工权限', key: 'staff' },
+    { title: '总经理权限', key: 'manager' },
+    { title: '超级管理员权限', key: 'super' },
+  ]);
 
 export const getSalesList = (params?: MenuParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.GetSalesList, params }, { devUrl });

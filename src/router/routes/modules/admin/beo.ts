@@ -10,7 +10,7 @@ const beo: AppRouteModule = {
   redirect: '/beo/order',
   meta: {
     orderNo: 400,
-    icon: 'ion:settings-outline',
+    icon: 'fe:list-order',
     title: 'BEO管理',
     roles: [
       RoleEnum.SUPER,
@@ -28,7 +28,6 @@ const beo: AppRouteModule = {
       name: 'OrderList',
       meta: {
         title: 'BEO单',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/beo/order/index.vue'),
     },
@@ -37,7 +36,7 @@ const beo: AppRouteModule = {
       name: 'OrderDetail',
       meta: {
         title: 'BEO单详情',
-        ignoreKeepAlive: true,
+
         hideMenu: true,
         showMenu: false,
         hideTab: true,
@@ -63,7 +62,6 @@ const beo: AppRouteModule = {
       name: 'TaskList',
       meta: {
         title: 'BEO任务',
-        ignoreKeepAlive: true,
       },
       component: () => import('/@/views/admin/beo/task/index.vue'),
     },

@@ -1,11 +1,13 @@
 import {
   BanquetTypeParams,
   RoomTypeParams,
+  FoodTypeParams,
   RoomParams,
   BanquetParams,
   MenuParams,
   BanquetTypeListGetResultModel,
   RoomTypeListGetResultModel,
+  FoodTypeListGetResultModel,
   RoomListGetResultModel,
   BanquetListGetResultModel,
   MenuListGetResultModel,
@@ -25,6 +27,12 @@ enum Api {
   AddRoomType = '/dic/add',
   UpdateRoomType = '/dic/update',
   DeleteRoomType = '/dic/delete',
+
+  GetFoodTypeList = '/foods/findFoods',
+  AddFoodType = '/foods/add',
+  UpdateFoodType = '/foods/update',
+  DeleteFoodType = '/foods/delete',
+  GetFoodMenuList = '/foods/findFoods',
 
   GetRoomList = '/banquet/findRooms',
   AddRoom = '/banquet/addRoom',
@@ -109,6 +117,51 @@ export const deleteRoomType = (params?: { id: string }) =>
     {
       url: Api.DeleteRoomType,
       params: { ...params, parentId: '402881847b2c2d77017b2c2edf340004' },
+    },
+    { devUrl }
+  );
+
+export const getFoodMenuList = (params: FoodTypeParams) =>
+  defHttp.get<FoodTypeListGetResultModel>(
+    {
+      url: Api.GetFoodMenuList,
+      params,
+    },
+    { devUrl }
+  );
+
+export const getFoodTypeList = (params: FoodTypeParams) =>
+  defHttp.get<FoodTypeListGetResultModel>(
+    {
+      url: Api.GetFoodTypeList,
+      params,
+    },
+    { devUrl }
+  );
+
+export const addFoodType = (params?: FoodTypeParams) =>
+  defHttp.post<FoodTypeListGetResultModel>(
+    {
+      url: Api.AddFoodType,
+      params,
+    },
+    { devUrl }
+  );
+
+export const updateFoodType = (params?: FoodTypeParams) =>
+  defHttp.post<FoodTypeListGetResultModel>(
+    {
+      url: Api.UpdateFoodType,
+      params,
+    },
+    { devUrl }
+  );
+
+export const deleteFoodType = (params?: { id: string }) =>
+  defHttp.post<FoodTypeListGetResultModel>(
+    {
+      url: Api.DeleteFoodType,
+      params,
     },
     { devUrl }
   );
