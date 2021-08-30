@@ -50,14 +50,14 @@ export const roomFormSchema: FormSchema[] = [
     componentProps: {
       api: getRoomTypeList,
       labelField: 'label',
-      valueField: 'id',
+      valueField: 'code',
     },
-    required: true,
+    required: false,
   },
   {
     label: '备注',
     field: 'remark',
     component: 'InputTextArea',
-    required: true,
+    required: false,
   },
 ];

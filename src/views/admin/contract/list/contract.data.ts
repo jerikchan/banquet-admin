@@ -1,7 +1,7 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { getMealTypeList, getFoodList } from '/@/api/admin/contract';
-import { getRoomList, getBanquetList } from '/@/api/admin/banquet';
+import { getFoodList } from '/@/api/admin/contract';
+import { getRoomList, getScheduleTypeList } from '/@/api/admin/banquet';
 import { uploadPicApi } from '/@/api/sys/upload';
 
 export const columns: BasicColumn[] = [
@@ -20,11 +20,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'scheduleTypeStr',
     width: 180,
   },
-  {
-    title: '菜单菜品',
-    dataIndex: 'foodStr',
-    width: 180,
-  },
+  // {
+  //   title: '菜单菜品',
+  //   dataIndex: 'foodStr',
+  //   width: 180,
+  // },
   {
     title: '保底桌数',
     dataIndex: 'floorsDeskCount',
@@ -52,7 +52,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '状态',
-    dataIndex: 'status',
+    dataIndex: 'statusStr',
     width: 90,
   },
 ];
@@ -89,6 +89,12 @@ export const contractFormSchema: FormSchema[] = [
     required: true,
   },
   {
+    field: 'agreementCode',
+    label: '合同编号',
+    component: 'Input',
+    required: true,
+  },
+  {
     field: 'mobile',
     label: '电话',
     component: 'Input',
@@ -103,13 +109,13 @@ export const contractFormSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'banquetSchedule',
-    label: '宴会档期',
+    field: 'scheduleType',
+    label: '档期类型',
     component: 'ApiSelect',
     componentProps: {
-      api: getBanquetList,
-      labelField: 'roomName',
-      valueField: 'id',
+      api: getScheduleTypeList,
+      labelField: 'label',
+      valueField: 'value',
     },
     required: true,
   },
@@ -124,17 +130,17 @@ export const contractFormSchema: FormSchema[] = [
     },
     required: true,
   },
-  {
-    label: '餐别',
-    field: 'scheduleType',
-    component: 'ApiSelect',
-    componentProps: {
-      api: getMealTypeList,
-      labelField: 'label',
-      valueField: 'id',
-    },
-    required: false,
-  },
+  // {
+  //   label: '餐别',
+  //   field: 'scheduleType',
+  //   component: 'ApiSelect',
+  //   componentProps: {
+  //     api: getMealTypeList,
+  //     labelField: 'label',
+  //     valueField: 'id',
+  //   },
+  //   required: false,
+  // },
   {
     label: '菜单菜品',
     field: 'food',

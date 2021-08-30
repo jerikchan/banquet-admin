@@ -12,10 +12,27 @@ enum Api {
 
   GetMealTypetist = '/dic/getMealTypeList',
   GetFoodList = '/foods/findFoods',
+
+  GetAgreementInfo = '/agreement/findAgreementInfo',
+  GetScheduleByAgreementId = '/banquet/findRoomScheduleByAgreementId',
+
+  GetFoodsInfos = '/foods/findFoods',
 }
 
 export const getContractList = (params?: ContractParams) =>
   defHttp.get<ContractListGetResultModel>({ url: Api.GetContractist, params }, { devUrl });
+
+export const getAgreementInfo = (params?: {}) =>
+  defHttp.get<ContractListGetResultModel>({ url: Api.GetAgreementInfo, params }, { devUrl });
+
+export const getFoodsInfos = (params?: {}) =>
+  defHttp.get<ContractListGetResultModel>({ url: Api.GetFoodsInfos, params }, { devUrl });
+
+export const getScheduleByAgreementId = (params?: {}) =>
+  defHttp.get<ContractListGetResultModel>(
+    { url: Api.GetScheduleByAgreementId, params },
+    { devUrl }
+  );
 
 export const addContract = (params?: ContractParams) =>
   defHttp.post<ContractListGetResultModel>({ url: Api.AddContract, params }, { devUrl });

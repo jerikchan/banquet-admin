@@ -29,7 +29,7 @@ enum Api {
   GetRoomList = '/banquet/findRooms',
   AddRoom = '/banquet/addRoom',
   // UpdateRoom = '/dic/update',
-  DeleteRoom = '/chat/delete',
+  DeleteRoom = '/banquet/deleteRoom',
   GetRoomInfo = '/banquet/findBanquetRoom',
 
   GetBanquetList = '/banquet/findRoomSchedules',
@@ -150,18 +150,18 @@ export const getScheduleTypeList = () =>
   Promise.resolve([
     {
       value: '0',
-      label: '早上',
+      label: '日间上午',
     },
     {
       value: '1',
-      label: '中午',
+      label: '午宴',
     },
     {
       value: '2',
-      label: '下午',
+      label: '日间下午',
     },
     {
       value: '3',
-      label: '晚上',
+      label: '晚宴',
     },
   ]);
