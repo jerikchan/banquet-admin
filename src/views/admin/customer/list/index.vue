@@ -105,8 +105,7 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, h } from 'vue';
-
+  import { defineComponent, reactive } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import {
     getCustomerList,
@@ -116,18 +115,14 @@
   } from '/@/api/admin/customer';
   import { PageWrapper } from '/@/components/Page';
   import CustomerTypeTree from './CustomerTypeTree.vue';
-
   import { useModal } from '/@/components/Modal';
   import CustomerModal from './CustomerModal.vue';
   import CustomerTypeModal from './CustomerTypeModal.vue';
   import ContractModal from '/@/views/admin/contract/list/ContractModal.vue';
   import CustomerAllocationSalesModal from './CustomerAllocateModal.vue';
   import CommentModal from '/@/views/admin/customer/comment/CommentModal.vue';
-
   import { useGo } from '/@/hooks/web/usePage';
-
   import { columns, searchFormSchema } from './customer.data';
-
   import { useMessage } from '/@/hooks/web/useMessage';
   import { BasicUpload } from '/@/components/Upload';
   import { RoleEnum } from '/@/enums/roleEnum';
@@ -152,7 +147,6 @@
       const [registerContractModal, { openModal: openContractModal }] = useModal();
       const [registerAllocationModal, { openModal: openAllocationnModal }] = useModal();
       const [registerCommentAddModal, { openModal: openCommentAddnModal }] = useModal();
-
       const go = useGo();
       const { createMessage, createConfirm } = useMessage();
       const searchInfo = reactive<Recordable>({});
@@ -180,13 +174,11 @@
           slots: { customRender: 'action' },
         },
       });
-
       function handleCreate() {
         openModal(true, {
           isUpdate: false,
         });
       }
-
       function handleEdit(record: Recordable) {
         console.log(record);
         openModal(true, {
@@ -194,21 +186,18 @@
           isUpdate: true,
         });
       }
-
       function handleTypeUpdate(record: Recordable, toType) {
         openTypeModal(true, {
           record,
           toType,
         });
       }
-
       function handleAllocation(record: Recordable) {
         openAllocationnModal(true, {
           record,
           isUpdate: true,
         });
       }
-
       function handleUnallocation(record: Recordable) {
         createConfirm({
           iconType: 'warning',
@@ -223,7 +212,6 @@
           },
         });
       }
-
       function handleContractOpen(record: Recordable, toType) {
         openContractModal(true, {
           record,
@@ -231,13 +219,11 @@
           toType,
         });
       }
-
       async function handleDelete(record: Recordable) {
         console.log(record);
         await deleteCustomer({ id: record.id });
         reload();
       }
-
       function handleSuccess({ isUpdate, values }) {
         if (isUpdate) {
           // 演示不刷新表格直接更新内部数据。
@@ -248,37 +234,30 @@
           reload();
         }
       }
-
       function handleTypeSuccess(values) {
         console.log(values);
         reload();
       }
-
       function handleSelect(customerType = '') {
         searchInfo.customerType = customerType;
         reload();
       }
-
       function handleContractSuccess(values) {
         console.log(values);
       }
-
       function handleCustomerDetail(record: Recordable) {
         go('/customer/customer_detail/' + record.id);
       }
-
       function handleUploadChange(list: string[]) {
         createMessage.info(`已上传文件${JSON.stringify(list)}`);
         reload();
       }
-
       function handleCommentAdd(record: Recordable) {
         openCommentAddnModal(true, {
           record,
           isUpdate: false,
         });
       }
-
       return {
         registerTable,
         registerModal,
