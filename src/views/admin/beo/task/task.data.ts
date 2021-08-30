@@ -23,7 +23,12 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '任务状态',
-    dataIndex: 'taskStatus',
+    dataIndex: 'taskStatusStr',
+    width: 120,
+  },
+  {
+    title: '数据状态',
+    dataIndex: 'statusStr',
     width: 120,
   },
   {

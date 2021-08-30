@@ -34,8 +34,17 @@
           :dropDownActions="[
             {
               label: '新增BEO任务',
+              disabled: true,
               onClick: handleTaskModalOpen.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
+            },
+            {
+              icon: 'clarity:note-edit-line',
+              tooltip: '发起beo单补充',
+              popConfirm: {
+                title: '是否发起beo单补充',
+                confirm: handleReplenish.bind(null, record),
+              },
             },
           ]"
         />
@@ -152,6 +161,10 @@
         });
       }
 
+      function handleReplenish(record: Recordable) {
+        go('/beo/order_replenish/' + record.id);
+      }
+
       return {
         registerTable,
         registerModal,
@@ -164,6 +177,7 @@
         handleSelect,
         handleView,
         handleEdit,
+        handleReplenish,
         searchInfo,
         RoleEnum,
       };
