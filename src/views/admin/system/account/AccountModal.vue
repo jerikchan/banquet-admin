@@ -10,6 +10,7 @@
   import { accountFormSchema } from './account.data';
   import { getDeptList, updateAccount, addAccount } from '/@/api/admin/system';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { encryptByMd5 } from '/@/utils/cipher';
 
   export default defineComponent({
     name: 'AccountModal',
@@ -45,7 +46,6 @@
         updateSchema([
           {
             field: 'pwd',
-            show: !unref(isUpdate),
             required: !unref(isUpdate),
           },
           {
@@ -63,6 +63,9 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
+          if (values.pwd) {
+            values.pwd = encryptByMd5(values.pwd);
+          }
           if (isUpdate.value) {
             await updateAccount({
               ...values,
