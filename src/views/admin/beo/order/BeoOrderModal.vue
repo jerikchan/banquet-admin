@@ -206,6 +206,7 @@
           // Object.defineProperty(submitValues, 'tasks', tasks);
           submitValues.tasks = tasks;
           submitValues.agreementId = submitValues.id;
+          delete submitValues.id;
           console.log(submitValues);
           await addOrderNew(submitValues);
           createMessage.success('新建成功!');
