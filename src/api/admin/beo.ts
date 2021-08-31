@@ -27,6 +27,9 @@ enum Api {
 export const getOrder = (params?: OrderParams) =>
   defHttp.get<OrderListGetResultModel>({ url: Api.GetOrder, params }, { devUrl });
 
+export const getBeoOrder = (params?: {}) =>
+  defHttp.get<OrderListGetResultModel>({ url: Api.GetOrder, params }, { devUrl });
+
 export const getOrderList = (params?: OrderParams) =>
   defHttp.get<OrderListGetResultModel>({ url: Api.GetOrderist, params }, { devUrl });
 

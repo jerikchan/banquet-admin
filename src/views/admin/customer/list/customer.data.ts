@@ -97,7 +97,7 @@ export const customerFormSchema: FormSchema[] = [
     componentProps: {
       api: getChannelList,
       labelField: 'label',
-      valueField: 'id',
+      valueField: 'code',
     },
     required: true,
   },

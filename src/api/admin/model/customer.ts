@@ -34,6 +34,7 @@ export interface ChannelListItem {
   createTime: string;
   remark: string;
   status: number;
+  value: string;
 }
 
 export interface CommentTypeListItem {

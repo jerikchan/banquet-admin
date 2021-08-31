@@ -124,7 +124,7 @@ export const getFormList = (params: ReviewParams) =>
     { devUrl }
   );
 
-export const getFlowInfo = (params: ReviewParams) =>
+export const getFlowInfo = (params: {}) =>
   defHttp.get<ReviewListGetResultModel>(
     {
       url: Api.GetFlowInfo,
@@ -133,7 +133,7 @@ export const getFlowInfo = (params: ReviewParams) =>
     { devUrl }
   );
 
-export const getWorkFlowFlowNodes = (params: ReviewParams) =>
+export const getWorkFlowFlowNodes = (params: {}) =>
   defHttp.get<ReviewListGetResultModel>(
     {
       url: Api.GetWorkFlowFlowNodes,
