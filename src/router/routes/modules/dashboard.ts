@@ -30,7 +30,7 @@ const dashboard: AppRouteModule = {
       meta: {
         // affix: true,
         title: t('routes.dashboard.analysis'),
-        auth: [RoleEnum.SUPER, RoleEnum.ANALYST],
+        roles: [RoleEnum.SUPER, RoleEnum.ANALYST],
       },
     },
     {
