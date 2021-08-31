@@ -8,10 +8,11 @@ import {
   AccountListGetResultModel,
   RolePageListGetResultModel,
   RoleListGetResultModel,
-  MenuListGetResultModel,
 } from './model/system';
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
+import { RoleEnum, RoleNameEnum } from '/@/enums/roleEnum';
+import { async } from 'rxjs';
 
 const { devUrl } = useGlobSetting();
 
@@ -33,9 +34,9 @@ enum Api {
   DeleteRole = '/role/delete',
   GetRoleInfo = '/role/findRoleInfo',
 
-  GetMenuList = '/system/getMenuList',
-
   GetSalesList = '/account/findSales',
+
+  AddAuth = '/auth/add',
 }
 
 export const getAccountList = (params?: AccountParams) =>
@@ -80,18 +81,23 @@ export const deleteRole = (params?: { id: string }) =>
 export const getRoleInfo = (params?: { id: string }) =>
   defHttp.get<RoleListGetResultModel>({ url: Api.GetRoleInfo, params }, { devUrl });
 
-export const getMenuList = (params?: MenuParams) =>
-  // defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });
-  Promise.resolve([
-    { title: '预定权限', key: 'booker' },
-    { title: '销售权限', key: 'sales' },
-    { title: '销售主管权限', key: 'sales_manager' },
-    { title: '管家主管权限', key: 'housekeeper_manager' },
-    { title: '财务主管权限', key: 'finance_manager' },
-    { title: '普通员工权限', key: 'staff' },
-    { title: '总经理权限', key: 'manager' },
-    { title: '超级管理员权限', key: 'super' },
-  ]);
+export const getAuthList = () =>
+  Promise.resolve(
+    Object.keys(RoleEnum).map((key) => ({
+      title: `${RoleNameEnum[key]}权限`,
+      key: RoleEnum[key],
+    }))
+  );
+
+export const addAuth = (params?: { name: string; value: string }) =>
+  defHttp.post<RoleListGetResultModel>({ url: Api.AddAuth, params }, { devUrl });
+
+// if (typeof window !== 'undefined') {
+//   (async () => {
+//     await addAuth({ name: RoleNameEnum.ANALYST, value: RoleEnum.ANALYST });
+//     debugger;
+//   })();
+// }
 
 export const getSalesList = (params?: MenuParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.GetSalesList, params }, { devUrl });

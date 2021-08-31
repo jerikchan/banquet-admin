@@ -29,7 +29,7 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList, updateRole, addRole } from '/@/api/admin/system';
+  import { getAuthList, updateRole, addRole } from '/@/api/admin/system';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
@@ -53,12 +53,11 @@
         setDrawerProps({ confirmLoading: false });
         // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
         if (unref(treeData).length === 0) {
-          treeData.value = (await getMenuList()) as any as TreeItem[];
+          treeData.value = (await getAuthList()) as any as TreeItem[];
         }
         isUpdate.value = !!data?.isUpdate;
 
         if (unref(isUpdate)) {
-          debugger
           setFieldsValue({
             ...data.record,
           });
@@ -72,7 +71,7 @@
         try {
           const values = await validate();
           values.authInfoList = Array.from(values.authInfoList);
-          debugger
+
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (isUpdate.value) {

@@ -1,28 +1,41 @@
 export enum RoleEnum {
-  // 超级管理员
   SUPER = 'super',
 
-  // 测试员
-  TEST = 'test',
+  // TEST = 'test',
 
-  // 总经理
   MANAGER = 'manager',
 
-  // 预订员
   BOOKER = 'booker',
 
-  // 销售
   SALES = 'sales',
 
-  // 销售主管、销售总监
   SALES_MANAGER = 'sales_manager',
 
-  // 管家主管
   HOUSEKEEPER_MANAGER = 'housekeeper_manager',
 
-  // 财务主管
   FINANCE_MANAGER = 'finance_manager',
 
-  // 普通部门员工
   STAFF = 'staff',
+
+  ANALYST = 'analyst',
+}
+
+export enum RoleNameEnum {
+  SUPER = '超级账号',
+
+  MANAGER = '总经理',
+
+  BOOKER = '预订员',
+
+  SALES = '销售',
+
+  SALES_MANAGER = '销售管理者',
+
+  HOUSEKEEPER_MANAGER = '管家管理者',
+
+  FINANCE_MANAGER = '财务管理者',
+
+  STAFF = '普通员工',
+
+  ANALYST = '数据分析员',
 }

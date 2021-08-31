@@ -4,7 +4,7 @@
 -->
 <template>
   <div class="anticon" :class="getAppLogoClass" @click="goHome">
-    <img src="../../../assets/images/logo_small.png" />
+    <SvgIcon name="logo" :class="getLogoClass" :size="iconSize" />
     <div class="ml-2 truncate md:opacity-100" :class="getTitleClass" v-show="showTitle">
       {{ title }}
     </div>
@@ -18,6 +18,7 @@
   import { useDesign } from '/@/hooks/web/useDesign';
   import { PageEnum } from '/@/enums/pageEnum';
   import { useUserStore } from '/@/store/modules/user';
+  import { SvgIcon } from '/@/components/Icon';
 
   const props = {
     /**
@@ -32,10 +33,13 @@
      * The title is also displayed when the menu is collapsed
      */
     alwaysShowTitle: { type: Boolean },
+
+    iconSize: { type: [Number, String], default: 24 },
   };
 
   export default defineComponent({
     name: 'AppLogo',
+    components: { SvgIcon },
     props: props,
     setup(props) {
       const { prefixCls } = useDesign('app-logo');
@@ -57,6 +61,8 @@
         },
       ]);
 
+      const getLogoClass = computed(() => [`${prefixCls}__logo`]);
+
       function goHome() {
         go(userStore.getUserInfo.homePath || PageEnum.BASE_HOME);
       }
@@ -64,6 +70,7 @@
       return {
         getAppLogoClass,
         getTitleClass,
+        getLogoClass,
         getCollapsedShowTitle,
         goHome,
         title,
@@ -102,6 +109,10 @@
       font-size: 16px;
       font-weight: 700;
       transition: all 0.5s;
+    }
+
+    &__logo {
+      color: @primary-color;
     }
   }
 </style>
