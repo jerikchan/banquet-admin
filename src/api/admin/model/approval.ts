@@ -35,6 +35,7 @@ export interface ReviewListItem {
   createTime: string;
   remark: string;
   status: number;
+  flowType: string;
 }
 
 export interface MenuListItem {

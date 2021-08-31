@@ -9,7 +9,36 @@
       :bordered="false"
       :column="2"
       :data="mockData"
-      :schema="schema"
+      :schema="flowSchema"
+    />
+    <Description
+      title="客户基本信息"
+      :collapseOptions="{ canExpand: false, helpMessage: '客户信息' }"
+      :column="3"
+      :data="customerInfoData"
+      :schema="customerInfoSchema"
+      v-if="mockData.customerId !== null"
+    />
+    <Description
+      title="合同基本信息"
+      :collapseOptions="{ canExpand: false, helpMessage: '合同信息' }"
+      :column="2"
+      :data="agreementInfoData"
+      :schema="agreementInfoSchema"
+      v-if="mockData.flowType === '11'"
+    />
+    <Description
+      title="BEO基本信息"
+      :collapseOptions="{ canExpand: false, helpMessage: 'beo信息' }"
+      :column="2"
+      :data="beoInfoData"
+      :schema="beoInfoSchema"
+      v-if="mockData.flowType === '20' || mockData.flowType === '21'"
+    />
+    <BasicTable
+      @register="registerBeoTaskTable"
+      @success="handleSuccess"
+      v-if="mockData.flowType === '20' || mockData.flowType === '21'"
     />
     <a-card title="流程进度" :bordered="false">
       <a-steps :current="mockData.nodeOrder" progress-dot size="small">
@@ -35,79 +64,45 @@
       </a-steps>
     </a-card>
     <BasicTable @register="registerTimeTable" @success="handleSuccess" />
-    <ReviewDrawer @register="registerDrawer" @success="handleSuccess" />
+    <ReviewDrawer @register="registerDrawer" @success="handleSuccessEvent" />
   </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref, reactive } from 'vue';
-  import { Description, DescItem, useDescription } from '/@/components/Description/index';
+  import { Description, useDescription } from '/@/components/Description/index';
   import { PageWrapper } from '/@/components/Page';
   import { useRoute } from 'vue-router';
   import { useGo } from '/@/hooks/web/usePage';
   import { getFlowInfo, getWorkFlowFlowNodes } from '/@/api/admin/approval';
+  import { getCustomer } from '/@/api/admin/customer';
   import { Divider, Card, Descriptions, Steps } from 'ant-design-vue';
   import { BasicTable, useTable } from '/@/components/Table';
-  import { BasicColumn } from '/@/components/Table/src/types/table';
   import ReviewDrawer from './ReviewDrawer.vue';
   import { useDrawer } from '/@/components/Drawer';
 
-  const mockData: Recordable = reactive({
-    userName: '',
-    nodeOrder: 100,
-  });
+  import { getAgreementInfo } from '/@/api/admin/contract';
+  import { getBeoOrder } from '/@/api/admin/beo';
+
+  import { useMessage } from '/@/hooks/web/useMessage';
+
+  import {
+    flowSchema,
+    customerInfoSchema,
+    refundTimeTableSchema,
+    agreementInfoSchema,
+    beoInfoSchema,
+    beoTaskListSchema,
+  } from './review.data';
+
+  const mockData: Recordable = reactive({});
 
   let listData: Recordable = reactive({});
 
-  const schema: DescItem[] = [
-    {
-      field: 'flowCode',
-      label: '流程编号',
-    },
-    {
-      field: 'flowName',
-      label: '流程名称',
-    },
-    {
-      field: 'flowTypeStr',
-      label: '流程类型',
-    },
-    {
-      field: 'promoterName',
-      label: '发起人名称',
-    },
-    {
-      field: 'customerName',
-      label: '相关客户',
-    },
-  ];
+  const customerInfoData: Recordable = reactive({});
 
-  const refundTimeTableSchema: BasicColumn[] = [
-    {
-      title: '名称',
-      width: 100,
-      dataIndex: 'realName',
-    },
-    {
-      title: '所属部门',
-      width: 100,
-      dataIndex: 'deptName',
-    },
-    {
-      title: '处理时间	',
-      width: 100,
-      dataIndex: 'modifyTime',
-    },
-    {
-      title: '处理内容',
-      width: 100,
-      dataIndex: 'content',
-    },
-    {
-      title: '处理状态',
-      width: 200,
-      dataIndex: 'statusStr',
-    },
-  ];
+  const agreementInfoData: Recordable = reactive({});
+
+  const beoInfoData: Recordable = reactive({});
 
   export default defineComponent({
     components: {
@@ -130,15 +125,17 @@
       const flowId = ref(route.params?.id);
       const currentKey = ref('detail');
 
+      const { createMessage } = useMessage();
+
       function goBack() {
         // 本例的效果时点击返回始终跳转到账号列表页，实际应用时可返回上一页
-        go('/approval/form');
+        go('/approval/review');
       }
 
       const [register] = useDescription({
         title: '待审核流程详情',
         data: mockData,
-        schema: schema,
+        schema: flowSchema,
       });
 
       const [registerDrawer, { openDrawer }] = useDrawer();
@@ -147,25 +144,34 @@
         let res = await getFlowInfo({ id: id });
         let resultArr = await getWorkFlowFlowNodes({ flowId: id });
         console.log(resultArr);
-        mockData.roleName = res.roleName;
-        mockData.createTime = res.createTime;
-        mockData.flowCode = res.flowCode;
+        Object.assign(mockData, res);
         mockData.nodeOrder = res.nodeOrder - 1 + '';
         console.log(mockData.noderOrder);
-
-        if (res.flowType === '1') {
-          mockData.flowTypeStr = '录入线索客资流程';
-        } else if (res.flowType === '2') {
-          mockData.flowTypeStr = '意向客资审核流程';
-        } else if (res.flowType === '3') {
-          mockData.flowTypeStr = '滑单流程';
-        } else if (res.flowType === '5') {
-          mockData.flowTypeStr = '成交客户审核流程';
-        } else if (res.flowType === '11') {
-          mockData.flowTypeStr = '宴会下单流程';
-        } else if (res.flowType === '6') {
-          mockData.flowTypeStr = '无效客资流程';
+        let type = res.flowType ? res.flowType : null;
+        let customerId = res.customerId;
+        let agreementId = res.agreementId;
+        let beoId = res.beoOrderId;
+        if (
+          type &&
+          (type === '1' || type === '2' || type === '3' || type === '5' || type === '6')
+        ) {
+          let detailsInfo = await getCustomer({ id: customerId });
+          Object.assign(customerInfoData, detailsInfo);
+        } else if (type === '11') {
+          let agreementInfo = await getAgreementInfo({ id: agreementId });
+          let detailsInfo = await getCustomer({ id: customerId });
+          Object.assign(customerInfoData, detailsInfo);
+          Object.assign(agreementInfoData, agreementInfo);
+        } else if (type === '20') {
+          let beoInfo = await getBeoOrder({ id: beoId });
+          Object.assign(beoInfoData, beoInfo);
+          setTableData(beoInfo.taskList);
         }
+
+        console.log(resultArr);
+        Object.assign(mockData, res);
+        mockData.nodeOrder = res.nodeOrder - 1 + '';
+        console.log(mockData.noderOrder);
 
         for (var i = 0; i < resultArr.length; i++) {
           if (resultArr[i].status === '0') {
@@ -191,14 +197,24 @@
         showIndexColumn: true,
       });
 
+      const [registerBeoTaskTable, { setTableData }] = useTable({
+        title: 'beo任务列表',
+        columns: beoTaskListSchema,
+        pagination: false,
+        showIndexColumn: true,
+      });
+
       function handleSuccess() {
         reload();
       }
 
+      function handleSuccessEvent() {
+        createMessage.success('操作成功!');
+        go('/approval/review');
+      }
+
       function handleEdit(record: Recordable) {
         record.id = flowId.value;
-        alert('页面内审核尚未测试完毕，暂不开放!');
-        return;
         openDrawer(true, {
           record,
           isUpdate: true,
@@ -206,18 +222,25 @@
       }
 
       return {
-        schema,
+        flowSchema,
+        customerInfoSchema,
         register,
         goBack,
         currentKey,
         flowId,
         handleData,
         mockData,
+        customerInfoData,
         registerTimeTable,
         handleSuccess,
         listData,
         handleEdit,
         registerDrawer,
+        agreementInfoSchema,
+        beoInfoSchema,
+        beoTaskListSchema,
+        registerBeoTaskTable,
+        handleSuccessEvent,
       };
     },
   });
