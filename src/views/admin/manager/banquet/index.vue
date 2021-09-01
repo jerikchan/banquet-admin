@@ -6,13 +6,16 @@
           :actions="[
             {
               icon: 'clarity:note-edit-line',
+              tooltip: '编辑',
               onClick: handleEdit.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
+              ifShow: !record.children,
             },
             {
               icon: 'clarity:info-standard-line',
-              tooltip: '查看部门详情',
+              tooltip: '查看详情',
               onClick: handleDeptView.bind(null, record),
+              ifShow: !record.children,
             },
           ]"
         />

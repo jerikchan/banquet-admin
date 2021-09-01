@@ -1,16 +1,16 @@
 <template>
   <PageWrapper title="人员派单登记表详情" contentBackground @back="goBack">
     <template #extra>
-      <div>
-        <a-button type="primary" @click="exportForm"> 导出表格 </a-button>
+      <div class="flex">
+        <a-button class="mr-2"type="primary" @click="exportForm"> 导出表格 </a-button>
+        <BasicUpload
+          :maxSize="20"
+          :maxNumber="10"
+          @change="handleUploadChange"
+          :api="uploadSendPersonForm"
+          :showPreviewNumber="false"
+        />
       </div>
-      <BasicUpload
-        :maxSize="20"
-        :maxNumber="10"
-        @change="handleUploadChange"
-        :api="uploadSendPersonForm"
-        :showPreviewNumber="false"
-      />
     </template>
     <Description
       size="middle"

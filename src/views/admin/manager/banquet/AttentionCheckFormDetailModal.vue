@@ -1,16 +1,16 @@
 <template>
   <PageWrapper title="婚礼注意事项筛查表详情" contentBackground @back="goBack">
     <template #extra>
-      <div>
-        <a-button type="primary" @click="exportForm"> 导出表格 </a-button>
+      <div class="flex">
+        <a-button class="mr-2" type="primary" @click="exportForm"> 导出表格 </a-button>
+        <BasicUpload
+          :maxSize="20"
+          :maxNumber="10"
+          @change="handleUploadChange"
+          :api="uploadAttentionCheckForm"
+          :showPreviewNumber="false"
+        />
       </div>
-      <BasicUpload
-        :maxSize="20"
-        :maxNumber="10"
-        @change="handleUploadChange"
-        :api="uploadAttentionCheckForm"
-        :showPreviewNumber="false"
-      />
     </template>
     <Description
       size="middle"
