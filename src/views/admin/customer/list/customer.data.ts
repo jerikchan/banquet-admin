@@ -3,6 +3,7 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { getSalesList } from '/@/api/admin/system';
 import { getChannelList } from '/@/api/admin/customer';
+import { getCommentTypeList } from '/@/api/admin/customer';
 
 export const columns: BasicColumn[] = [
   {
@@ -13,6 +14,11 @@ export const columns: BasicColumn[] = [
   {
     title: '客户类型',
     dataIndex: 'customerTypeStr',
+    width: 200,
+  },
+  {
+    title: '获客渠道',
+    dataIndex: 'customerSource',
     width: 200,
   },
   {
@@ -163,9 +169,33 @@ export const customerFormSchema: FormSchema[] = [
 
 export const customerTypeFormSchema: FormSchema[] = [
   {
+    field: 'chatRealTime',
+    label: '本次跟进时间',
+    component: 'DatePicker',
+    required: true,
+  },
+  {
+    field: 'preNextChatTime',
+    label: '预计下次跟进日',
+    component: 'DatePicker',
+    required: true,
+  },
+  {
+    field: 'chatType',
+    label: '沟通方式',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCommentTypeList,
+      labelField: 'label',
+      valueField: 'code',
+    },
+    required: true,
+  },
+  {
     field: 'nodeRemark',
-    label: '沟通内容',
+    label: '跟进内容',
     component: 'InputTextArea',
+    required: true,
   },
 ];
 
