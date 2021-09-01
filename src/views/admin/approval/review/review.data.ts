@@ -182,7 +182,7 @@ export const agreementInfoSchema: DescItem[] = [
   },
   {
     field: 'banquetPrice',
-    label: '婚宴价格',
+    label: '婚庆价格',
   },
   {
     field: 'afterDiscountTotal',
@@ -237,7 +237,7 @@ export const beoInfoSchema: DescItem[] = [
   },
   {
     field: 'banquetPrice',
-    label: '婚宴价格',
+    label: '婚庆价格',
   },
   {
     field: 'beforeDiscountTotal',

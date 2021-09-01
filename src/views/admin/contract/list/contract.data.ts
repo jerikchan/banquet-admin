@@ -166,7 +166,7 @@ export const contractFormSchema: FormSchema[] = [
   },
   {
     field: 'banquetPrice',
-    label: '宴会价格',
+    label: '婚庆价格',
     component: 'InputNumber',
   },
   {
