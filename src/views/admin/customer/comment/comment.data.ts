@@ -13,8 +13,8 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '跟进时间',
-    dataIndex: 'chatTime',
-    width: 120,
+    dataIndex: 'chatRealTime',
+    width: 180,
   },
   {
     title: '跟进方式',
@@ -25,6 +25,11 @@ export const columns: BasicColumn[] = [
     title: '内容',
     dataIndex: 'content',
     width: 120,
+  },
+  {
+    title: '预计下次跟进时间',
+    dataIndex: 'preNextChatTime',
+    width: 180,
   },
   {
     title: '创建时间',
@@ -56,7 +61,7 @@ export const commentFormSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'chatTime',
+    field: 'chatRealTime',
     label: '跟进时间',
     component: 'DatePicker',
     componentProps: {
@@ -72,7 +77,7 @@ export const commentFormSchema: FormSchema[] = [
     componentProps: {
       api: getCommentTypeList,
       labelField: 'label',
-      valueField: 'id',
+      valueField: 'code',
     },
     required: true,
   },

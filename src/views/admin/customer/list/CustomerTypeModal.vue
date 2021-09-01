@@ -69,11 +69,22 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
-          await updateCustomerType({
-            customerId: record.value.id,
-            remark: values.remark,
-            type: unref(toType),
-          });
+          if (unref(toType) === '2') {
+            await updateCustomerType({
+              customerId: record.value.id,
+              nodeRemark: values.nodeRemark,
+              chatType: values.chatType,
+              chatRealTime: values.chatRealTime,
+              preNextChatTime: values.preNextChatTime,
+              type: unref(toType),
+            });
+          } else {
+            await updateCustomerType({
+              customerId: record.value.id,
+              nodeRemark: values.remark,
+              type: unref(toType),
+            });
+          }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });
         } finally {

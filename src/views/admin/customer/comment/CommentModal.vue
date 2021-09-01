@@ -33,7 +33,6 @@
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
-
         if (unref(isUpdate)) {
           idRef.value = data.record.id;
           setFieldsValue({
@@ -41,6 +40,11 @@
           });
           setFieldsValue({
             customerId: data.record.customerId,
+          });
+        }
+        if (data.record.customerCode) {
+          setFieldsValue({
+            customerId: data.record.id,
           });
         }
 
