@@ -17,6 +17,11 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '获客渠道',
+    dataIndex: 'customerSource',
+    width: 200,
+  },
+  {
     title: '客户状态',
     dataIndex: 'statusStr',
     width: 200,
