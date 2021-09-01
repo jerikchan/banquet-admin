@@ -3,15 +3,19 @@
     <GrowCard :loading="loading" class="enter-y" />
     <div class="!my-4 md:flex enter-y">
       <PerfCard :loading="loading" class="h-300px w-full md:w-1/3 !md:mr-4" />
-      <SalesCard :loading="loading" class="h-300px w-full md:w-2/3 !md:mr-4 !md:mt-0 !mt-4" />
+      <SalesCard :loading="loading" class="w-full md:w-2/3 !md:mr-4 !md:mt-0 !mt-4" />
     </div>
-    <SiteAnalysis class="!my-4 enter-y" :loading="loading" />
+    <!-- <SiteAnalysis class="!my-4 enter-y" :loading="loading" /> -->
+
+    <div class="!my-4 md:flex enter-y">
+      <!-- <VisitRadar class="w-full md:w-1/3" :loading="loading" /> -->
+      <ChannelAnalysis class="w-full md:w-1/2" :loading="loading" />
+      <ChannelAnalysis class="w-full md:w-1/2 !md:mx-4 !md:my-0 !my-4" :loading="loading" />
+    </div>
 
     <div class="md:flex enter-y">
-      <VisitRadar class="w-full md:w-1/3" :loading="loading" />
-
-      <VisitSource class="md:w-1/3 !md:mx-4 !md:my-0 !my-4 w-full" :loading="loading" />
-      <SalesProductPie class="w-full md:w-1/3" :loading="loading" />
+      <SkipOrderAnalysis class="w-full md:w-1/2" :loading="loading" />
+      <SkipOrderAnalysis class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full" :loading="loading" />
     </div>
   </div>
 </template>
@@ -24,6 +28,8 @@
   import VisitSource from './components/VisitSource.vue';
   import VisitRadar from './components/VisitRadar.vue';
   import SalesProductPie from './components/SalesProductPie.vue';
+  import ChannelAnalysis from './components/ChannelAnalysis.vue';
+  import SkipOrderAnalysis from './components/SkipOrderAnalysis.vue';
 
   export default defineComponent({
     components: {
@@ -34,6 +40,8 @@
       VisitRadar,
       VisitSource,
       SalesProductPie,
+      ChannelAnalysis,
+      SkipOrderAnalysis,
     },
     setup() {
       const loading = ref(true);

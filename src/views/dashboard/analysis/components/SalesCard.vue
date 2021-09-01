@@ -1,6 +1,6 @@
 <template>
   <Card title="销售排行榜" v-bind="$attrs">
-    <BasicTable @register="registerTable" class="overflow-hidden h-200px" />
+    <BasicTable @register="registerTable" />
   </Card>
 </template>
 <script lang="ts">
@@ -23,8 +23,8 @@
         rowKey: 'id',
         columns: salesColumns,
         pagination: false,
-        // canResize: true,
         showIndexColumn: false,
+        maxHeight: 300,
       });
 
       function handleView() {
