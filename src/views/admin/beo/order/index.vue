@@ -17,8 +17,8 @@
             {
               icon: 'clarity:note-edit-line',
               tooltip: '编辑',
-              onClick: handleEdit.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+              onClick: handleReplenish.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.SALES, RoleEnum.HOUSEKEEPER_MANAGER],
             },
             {
               icon: 'ant-design:delete-outlined',
@@ -29,22 +29,6 @@
                 confirm: handleDelete.bind(null, record),
               },
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
-            },
-          ]"
-          :dropDownActions="[
-            {
-              label: '新增BEO任务',
-              disabled: true,
-              onClick: handleTaskModalOpen.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
-            },
-            {
-              icon: 'clarity:note-edit-line',
-              tooltip: '发起beo单补充',
-              popConfirm: {
-                title: '是否发起beo单补充',
-                confirm: handleReplenish.bind(null, record),
-              },
             },
           ]"
         />
