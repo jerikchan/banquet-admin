@@ -52,6 +52,8 @@ enum Api {
   UpdateSiYiChatForm = '/form/saveSiYiChatForm',
 
   UpdateAttentCheckForm = '/form/saveAttentionCheckForm',
+
+  AllocationManager = '/beo/allocationManagers',
 }
 
 export const getFormList = (params?: ManagerParams) =>
@@ -213,3 +215,6 @@ export const updateFamilyMeetingForm = (params?: {}) =>
 
 export const updateAttentCheckForm = (params?: {}) =>
   defHttp.post<ManagerListGetResultModel>({ url: Api.UpdateAttentCheckForm, params }, { devUrl });
+
+export const allocationManager = (params?: any) =>
+  defHttp.post<{}>({ url: Api.AllocationManager, params }, { devUrl });
