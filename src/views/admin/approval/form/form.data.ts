@@ -185,6 +185,10 @@ export const agreementInfoSchema: DescItem[] = [
     label: '婚宴价格',
   },
   {
+    field: 'beforeDiscountTotal',
+    label: '优惠后总价',
+  },
+  {
     field: 'afterDiscountTotal',
     label: '优惠后总价',
   },
