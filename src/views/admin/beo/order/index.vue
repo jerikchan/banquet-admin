@@ -17,8 +17,13 @@
             {
               icon: 'clarity:note-edit-line',
               tooltip: '编辑',
-              onClick: handleReplenish.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.SALES, RoleEnum.HOUSEKEEPER_MANAGER],
+              onClick: handleEdit.bind(null, record),
+              auth: [
+                RoleEnum.SUPER,
+                RoleEnum.SALES,
+                RoleEnum.HOUSEKEEPER_MANAGER,
+                RoleEnum.HOUSEKEEPER,
+              ],
             },
             {
               icon: 'ant-design:delete-outlined',
@@ -31,10 +36,32 @@
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
           ]"
+          :dropDownActions="[
+            {
+              label: '分配管家',
+              onClick: handleManager.bind(null, record),
+              ifShow: !record.salesManagerId,
+              disabled: record.status === '1' || record.managerId !== null,
+            },
+            {
+              label: '发起补充流程',
+              popConfirm: {
+                title: '是否发起BEO补充流程',
+                confirm: handleReplenish.bind(null, record),
+              },
+              auth: [
+                RoleEnum.SUPER,
+                RoleEnum.SALES,
+                RoleEnum.HOUSEKEEPER_MANAGER,
+                RoleEnum.HOUSEKEEPER,
+              ],
+            },
+          ]"
         />
       </template>
     </BasicTable>
     <OrderModal @register="registerModal" @success="handleSuccess" />
+    <BeoOrderAllocationManagerModal @register="registerManagerModal" @success="handleSuccess" />
     <TaskModal @register="registerTaskModal" @success="handleTaskSuccess" />
   </PageWrapper>
 </template>
@@ -42,7 +69,7 @@
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getOrderList } from '/@/api/admin/beo';
+  import { getOrderList, createManagerFlow } from '/@/api/admin/beo';
   import { PageWrapper } from '/@/components/Page';
 
   import { useModal } from '/@/components/Modal';
@@ -55,13 +82,25 @@
   import TaskModal from '/@/views/admin/beo/task//TaskModal.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
 
+  import { useMessage } from '/@/hooks/web/useMessage';
+
+  import BeoOrderAllocationManagerModal from './BeoOrderAllocationModal.vue';
+
   export default defineComponent({
     name: 'OrderManagement',
-    components: { BasicTable, PageWrapper, OrderModal, TableAction, TaskModal },
+    components: {
+      BasicTable,
+      PageWrapper,
+      OrderModal,
+      TableAction,
+      TaskModal,
+      BeoOrderAllocationManagerModal,
+    },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const go = useGo();
+      const { createMessage } = useMessage();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: 'BEO单',
         api: getOrderList,
@@ -88,6 +127,8 @@
       });
 
       const [registerTaskModal, { openModal: openTaskModal }] = useModal();
+
+      const [registerManagerModal, { openModal: openManagerModal }] = useModal();
 
       function handleTaskModalOpen(record: Recordable) {
         openTaskModal(true, {
@@ -139,14 +180,25 @@
       }
 
       function handleEdit(record: Recordable) {
-        openModal(true, {
-          isUpdate: true,
-          record,
-        });
+        // openModal(true, {
+        //   isUpdate: true,
+        //   record,
+        // });
+        go('/beo/order_edit/' + record.id);
       }
 
-      function handleReplenish(record: Recordable) {
-        go('/beo/order_replenish/' + record.id);
+      async function handleReplenish(record: Recordable) {
+        // go('/beo/order_replenish/' + record.id);
+        await createManagerFlow(record);
+        createMessage.success('操作成功');
+        reload();
+      }
+
+      function handleManager(record: Recordable) {
+        openManagerModal(true, {
+          isUpdate: false,
+          record,
+        });
       }
 
       return {
@@ -154,6 +206,7 @@
         registerModal,
         handleTaskModalOpen,
         registerTaskModal,
+        registerManagerModal,
         handleCreate,
         handleDelete,
         handleSuccess,
@@ -162,6 +215,7 @@
         handleView,
         handleEdit,
         handleReplenish,
+        handleManager,
         searchInfo,
         RoleEnum,
       };

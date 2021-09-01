@@ -12,7 +12,7 @@ import {
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
 import { RoleEnum, RoleNameEnum } from '/@/enums/roleEnum';
-import { async } from 'rxjs';
+// import { async } from 'rxjs';
 
 const { devUrl } = useGlobSetting();
 
@@ -35,6 +35,7 @@ enum Api {
   GetRoleInfo = '/role/findRoleInfo',
 
   GetSalesList = '/account/findSales',
+  GetHouseKeeperList = '/account/findHouseKeeper',
 
   AddAuth = '/auth/add',
 }
@@ -101,3 +102,6 @@ export const addAuth = (params?: { name: string; value: string }) =>
 
 export const getSalesList = (params?: MenuParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.GetSalesList, params }, { devUrl });
+
+export const getHouseKeeperList = (params?: {}) =>
+  defHttp.get<AccountListGetResultModel>({ url: Api.GetHouseKeeperList, params }, { devUrl });

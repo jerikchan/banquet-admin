@@ -71,6 +71,19 @@ const beo: AppRouteModule = {
       component: () => import('/@/views/admin/beo/order/BeoOrderReplenishModal.vue'),
     },
     {
+      path: 'order_edit/:id',
+      name: 'OrderEditModal',
+      meta: {
+        title: 'BEO单编辑',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/beo/order',
+      },
+      component: () => import('/@/views/admin/beo/order/BeoOrderEditModal.vue'),
+    },
+    {
       path: 'task',
       name: 'TaskList',
       meta: {

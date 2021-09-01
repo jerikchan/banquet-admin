@@ -1,4 +1,4 @@
-// import { isAccountExist } from '/@/api/demo/system';
+import { getHouseKeeperList } from '/@/api/admin/system';
 // import { getOrderTypeList } from '/@/api/admin/beo';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
@@ -22,6 +22,11 @@ export const columns: BasicColumn[] = [
   {
     title: '宴会时间',
     dataIndex: 'banquetTime',
+    width: 120,
+  },
+  {
+    title: '当前管家',
+    dataIndex: 'managerName',
     width: 120,
   },
   {
@@ -229,5 +234,24 @@ export const beoTaskFormSchema: FormSchema[] = [
     colProps: {
       offset: 2,
     },
+  },
+];
+
+export const managerAllocationSchema: FormSchema[] = [
+  {
+    field: 'managerId',
+    label: '销售',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getHouseKeeperList,
+      labelField: 'realName',
+      valueField: 'id',
+    },
+    required: true,
+  },
+  {
+    field: 'remark',
+    label: '备注',
+    component: 'InputTextArea',
   },
 ];
