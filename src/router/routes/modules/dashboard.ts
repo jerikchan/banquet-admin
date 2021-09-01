@@ -33,24 +33,24 @@ const dashboard: AppRouteModule = {
         roles: [RoleEnum.SUPER, RoleEnum.ANALYST],
       },
     },
-    {
-      path: 'test1',
-      name: 'Test1',
-      component: () => import('/@/views/demo/table/FetchTable.vue'),
-      meta: {
-        // affix: true,
-        title: '组件测试',
-      },
-    },
-    {
-      path: 'test2',
-      name: 'Test2',
-      component: () => import('/@/views/demo/permission/front/index.vue'),
-      meta: {
-        // affix: true,
-        title: '权限测试',
-      },
-    },
+    // {
+    //   path: 'test1',
+    //   name: 'Test1',
+    //   component: () => import('/@/views/demo/table/FetchTable.vue'),
+    //   meta: {
+    //     // affix: true,
+    //     title: '组件测试',
+    //   },
+    // },
+    // {
+    //   path: 'test2',
+    //   name: 'Test2',
+    //   component: () => import('/@/views/demo/permission/front/index.vue'),
+    //   meta: {
+    //     // affix: true,
+    //     title: '权限测试',
+    //   },
+    // },
   ],
 };
 

@@ -1,19 +1,25 @@
 <template>
   <div class="p-4">
     <GrowCard :loading="loading" class="enter-y" />
+    <div class="!my-4 md:flex enter-y">
+      <PerfCard :loading="loading" class="h-300px w-full md:w-1/3 !md:mr-4" />
+      <SalesCard :loading="loading" class="h-300px w-full md:w-2/3 !md:mr-4 !md:mt-0 !mt-4" />
+    </div>
     <SiteAnalysis class="!my-4 enter-y" :loading="loading" />
 
     <div class="md:flex enter-y">
-      <VisitRadar class="md:w-1/3 w-full" :loading="loading" />
+      <VisitRadar class="w-full md:w-1/3" :loading="loading" />
 
       <VisitSource class="md:w-1/3 !md:mx-4 !md:my-0 !my-4 w-full" :loading="loading" />
-      <SalesProductPie class="md:w-1/3 w-full" :loading="loading" />
+      <SalesProductPie class="w-full md:w-1/3" :loading="loading" />
     </div>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
   import GrowCard from './components/GrowCard.vue';
+  import PerfCard from './components/PerfCard.vue';
+  import SalesCard from './components/SalesCard.vue';
   import SiteAnalysis from './components/SiteAnalysis.vue';
   import VisitSource from './components/VisitSource.vue';
   import VisitRadar from './components/VisitRadar.vue';
@@ -22,6 +28,8 @@
   export default defineComponent({
     components: {
       GrowCard,
+      PerfCard,
+      SalesCard,
       SiteAnalysis,
       VisitRadar,
       VisitSource,

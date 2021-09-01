@@ -1,19 +1,20 @@
 <template>
   <Card title="最新动态" v-bind="$attrs">
     <template #extra>
-      <a-button type="link" size="small">更多</a-button>
+      <a-button type="link" size="small" @click="handleView">更多</a-button>
     </template>
     <List item-layout="horizontal" :data-source="items">
       <template #renderItem="{ item }">
         <ListItem>
           <ListItemMeta>
             <template #description>
-              {{ item.date }}
+              {{ item.createTime }}
             </template>
             <!-- eslint-disable-next-line -->
-            <template #title> {{ item.name }} <span v-html="item.desc"> </span> </template>
+            <template #title> {{ item.name }} <span v-html="item.content"> </span> </template>
             <template #avatar>
-              <Icon :icon="item.avatar" :size="30" />
+              <!-- <Icon :icon="headerImg" :size="30" /> -->
+              <Avatar :src="headerImg" />
             </template>
           </ListItemMeta>
         </ListItem>
@@ -22,17 +23,32 @@
   </Card>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref } from 'vue';
 
-  import { Card, List } from 'ant-design-vue';
-  import { dynamicInfoItems } from './data';
+  import { Card, List, Avatar } from 'ant-design-vue';
   import headerImg from '/@/assets/images/header.jpg';
-  import { Icon } from '/@/components/Icon';
+  // import { Icon } from '/@/components/Icon';
+  import { getMessageList } from '/@/api/admin/notification';
+  import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
-    components: { Card, List, ListItem: List.Item, ListItemMeta: List.Item.Meta, Icon },
+    components: { Card, List, ListItem: List.Item, ListItemMeta: List.Item.Meta, Avatar, },
     setup() {
-      return { items: dynamicInfoItems, headerImg };
+      const go = useGo();
+      const items = ref([]);
+      (async () => {
+        const list = await getMessageList({
+          pageSize: 5,
+          page: 1,
+        });
+        items.value = list as any;
+      })();
+
+      function handleView() {
+        go('/notification/message');
+      }
+
+      return { items, headerImg, handleView };
     },
   });
 </script>

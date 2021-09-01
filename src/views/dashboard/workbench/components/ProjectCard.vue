@@ -1,35 +1,71 @@
 <template>
-  <Card title="项目" v-bind="$attrs">
+  <Card title="待审批" v-bind="$attrs">
     <template #extra>
-      <a-button type="link" size="small">更多</a-button>
+      <a-button type="link" size="small" @click="handleView">更多</a-button>
     </template>
-
-    <template v-for="item in items" :key="item">
-      <CardGrid class="!md:w-1/3 !w-full">
-        <span class="flex">
-          <Icon :icon="item.icon" :color="item.color" size="30" />
-          <span class="text-lg ml-4">{{ item.title }}</span>
-        </span>
-        <div class="flex mt-2 h-10 text-secondary"> {{ item.desc }} </div>
-        <div class="flex justify-between text-secondary">
-          <span>{{ item.group }}</span>
-          <span>{{ item.date }}</span>
-        </div>
-      </CardGrid>
-    </template>
+    <BasicTable @register="registerTable">
+      <template #action="{ record }">
+        <TableAction
+          :actions="[
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              onClick: handleViewDetail.bind(null, record),
+            },
+          ]"
+        />
+      </template>
+    </BasicTable>
   </Card>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-
-  import { Card } from 'ant-design-vue';
-  import { Icon } from '/@/components/Icon';
   import { groupItems } from './data';
+  import { BasicTable, useTable, TableAction } from '/@/components/Table';
+  import { getReviewList } from '/@/api/admin/approval';
+  import { columns } from '/@/views/admin/approval/review/review.data';
+  import { Card } from 'ant-design-vue';
+  import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
-    components: { Card, CardGrid: Card.Grid, Icon },
+    components: {
+      Card,
+      BasicTable,
+      TableAction,
+    },
     setup() {
-      return { items: groupItems };
+      const go = useGo();
+      const [registerTable] = useTable({
+        api: getReviewList,
+        rowKey: 'id',
+        columns,
+        formConfig: {
+          labelWidth: 120,
+          autoSubmitOnEnter: true,
+        },
+        actionColumn: {
+          width: 50,
+          title: '操作',
+          dataIndex: 'action',
+          slots: { customRender: 'action' },
+        },
+        pagination: false,
+      });
+
+      function handleView() {
+        go('/approval/review');
+      }
+
+      function handleViewDetail(record: Recordable) {
+        go('/approval/review_detail/' + record.id);
+      }
+
+      return {
+        items: groupItems,
+        handleView,
+        handleViewDetail,
+        registerTable,
+      };
     },
   });
 </script>
