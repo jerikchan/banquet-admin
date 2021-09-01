@@ -158,10 +158,12 @@
           let detailsInfo = await getCustomer({ id: customerId });
           Object.assign(customerInfoData, detailsInfo);
         } else if (type === '11') {
+          debugger;
           let agreementInfo = await getAgreementInfo({ id: agreementId });
           let detailsInfo = await getCustomer({ id: customerId });
           Object.assign(customerInfoData, detailsInfo);
           Object.assign(agreementInfoData, agreementInfo);
+          console.log('test');
         } else if (type === '20') {
           let beoInfo = await getBeoOrder({ id: beoId });
           Object.assign(beoInfoData, beoInfo);
@@ -237,6 +239,8 @@
         handleEdit,
         registerDrawer,
         agreementInfoSchema,
+        agreementInfoData,
+        beoInfoData,
         beoInfoSchema,
         beoTaskListSchema,
         registerBeoTaskTable,
