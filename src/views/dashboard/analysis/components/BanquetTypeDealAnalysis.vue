@@ -1,5 +1,5 @@
 <template>
-  <Card title="获客渠道获客数量" :loading="loading">
+  <Card title="本月各宴会类型签单金额占比" :loading="loading">
     <div ref="chartRef" :style="{ width, height }"></div>
   </Card>
 </template>
@@ -8,7 +8,7 @@
 
   import { Card } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
-  import { getChannelAnalysis } from '/@/api/admin/analysis';
+  import { getBanquetTypeDealAnalysis } from '/@/api/admin/analysis';
 
   export default defineComponent({
     components: { Card },
@@ -29,7 +29,7 @@
       const data = ref<any>({});
 
       (async () => {
-        data.value = await getChannelAnalysis();
+        data.value = await getBanquetTypeDealAnalysis();
       })();
 
       watch(

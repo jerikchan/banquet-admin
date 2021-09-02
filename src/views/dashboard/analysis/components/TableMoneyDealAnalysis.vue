@@ -1,5 +1,5 @@
 <template>
-  <Card title="滑单数量" :loading="loading">
+  <Card title="本月已签单均桌价统计" :loading="loading">
     <div ref="chartRef" :style="{ height, width }"></div>
   </Card>
 </template>
@@ -8,7 +8,7 @@
 
   import { Card } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
-  import { getSkipOrderAnalysis } from '/@/api/admin/analysis';
+  import { getTableMoneyDealAnalysis } from '/@/api/admin/analysis';
 
   import { basicProps } from './props';
   export default defineComponent({
@@ -19,7 +19,7 @@
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
       const data = ref<any>({});
       (async () => {
-        data.value = await getSkipOrderAnalysis();
+        data.value = await getTableMoneyDealAnalysis();
       })();
 
       watch(

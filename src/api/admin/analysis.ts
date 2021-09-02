@@ -5,9 +5,30 @@ const { devUrl } = useGlobSetting();
 
 enum Api {
   GetChannelAnalysis = '/analysis/channel',
+
   GetSkipOrderAnalysis = '/analysis/skipOrder',
   GetGrowListAnalysis = '/analysis/growList',
   GetSalesRankList = '/analysis/findSalesMonthRankList',
+
+  GetGoWhereAnalysis = '/analysis/goWhere',
+
+  GetBanquetTypeDealAnalysis = '/analysis/banquetTypeDeal',
+  GetBanquetTypeBookAnalysis = '/analysis/banquetTypeBook',
+
+  GetTableNumberDealAnalysis = '/analysis/tableNumberDeal',
+  GetTableMoneyDealAnalysis = '/analysis/tableMoneyDeal',
+
+  GetRoomBookAnalysis = '/analysis/roomBook',
+  GetFoodBookAnalysis = '/analysis/foodBook',
+
+  GetBanquetTypeNumBookAnalysis = '/analysis/banquetTypeNumBook',
+  GetDealMoneyAnalysis = '/analysis/dealMoney',
+
+  GetDealDiscountAnalysis = '/analysis/dealDiscount',
+  GetDealDiscountPercentAnalysis = '/analysis/dealDiscountPercent',
+
+  GetDealPercentAnalysis = '/analysis/dealPercent',
+  GetInviteAnalysis = '/analysis/invite',
 }
 
 export const getChannelAnalysis = (params?: any) =>
@@ -41,6 +62,123 @@ export const getSkipOrderAnalysis = (params?: any) =>
   defHttp.get(
     {
       url: Api.GetSkipOrderAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getGoWhereAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetGoWhereAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getBanquetTypeDealAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetBanquetTypeDealAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getBanquetTypeBookAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetBanquetTypeBookAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getTableNumberDealAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetTableNumberDealAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getTableMoneyDealAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetTableMoneyDealAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getRoomBookAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetRoomBookAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getFoodBookAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetFoodBookAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getBanquetTypeNumBookAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetBanquetTypeNumBookAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getDealMoneyAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetDealMoneyAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getDealDiscountAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetDealDiscountAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getDealDiscountPercentAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetDealDiscountPercentAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getDealPercentAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetDealPercentAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getInviteAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetInviteAnalysis,
       params,
     }
     // { devUrl }

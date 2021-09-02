@@ -1,7 +1,7 @@
 import { MockMethod } from 'vite-plugin-mock';
 import { resultSuccess, resultError } from '../_util';
 
-const channelList = () => {
+const channelData = () => {
   const list = [] as any;
   for (let index = 0; index < 5; index++) {
     list.push({
@@ -9,10 +9,11 @@ const channelList = () => {
       value: Math.ceil(Math.random() * 1000),
     });
   }
-  return list;
+  const data = { list };
+  return data;
 };
 
-const skipOrderList = () => {
+const skipOrderData = () => {
   const list = [] as any;
   for (let index = 0; index < 5; index++) {
     list.push({
@@ -30,7 +31,7 @@ export default [
     timeout: 1000,
     method: 'get',
     response: () => {
-      return resultSuccess(channelList);
+      return resultSuccess(channelData);
     },
   },
   {
@@ -38,7 +39,111 @@ export default [
     timeout: 1000,
     method: 'get',
     response: () => {
-      return resultSuccess(skipOrderList);
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/goWhere',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/banquetTypeDeal',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(channelData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/banquetTypeBook',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/tableNumberDeal',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/tableMoneyDeal',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/roomBook',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/foodBook',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/banquetTypeNumBook',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/dealMoney',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/dealDiscount',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/dealDiscountPercent',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(channelData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/dealPercent',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/invite',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(skipOrderData);
     },
   },
 ] as MockMethod[];

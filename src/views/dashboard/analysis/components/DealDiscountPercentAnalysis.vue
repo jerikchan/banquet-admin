@@ -1,13 +1,14 @@
 <template>
-  <Card title="成交占比" :loading="loading">
+  <Card title="统计本月签单优惠比率" :loading="loading">
     <div ref="chartRef" :style="{ width, height }"></div>
   </Card>
 </template>
 <script lang="ts">
-  import { defineComponent, Ref, ref, watch } from 'vue';
+  import { defineComponent, Ref, ref, unref, watch } from 'vue';
 
   import { Card } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
+  import { getDealDiscountPercentAnalysis } from '/@/api/admin/analysis';
 
   export default defineComponent({
     components: { Card },
@@ -22,13 +23,19 @@
         default: '300px',
       },
     },
-    setup(props) {
+    setup() {
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
+      const data = ref<any>({});
+
+      (async () => {
+        data.value = await getDealDiscountPercentAnalysis();
+      })();
+
       watch(
-        () => props.loading,
+        () => data.value,
         () => {
-          if (props.loading) {
+          if (!unref(data).list) {
             return;
           }
           setOptions({
@@ -38,16 +45,17 @@
 
             series: [
               {
-                name: '访问来源',
+                name: '获客渠道',
                 type: 'pie',
                 radius: '80%',
                 center: ['50%', '50%'],
                 color: ['#5ab1ef', '#b6a2de', '#67e0e3', '#2ec7c9'],
                 data: [
-                  { value: 500, name: '电子产品' },
-                  { value: 310, name: '服装' },
-                  { value: 274, name: '化妆品' },
-                  { value: 400, name: '家居' },
+                  ...unref(data).list,
+                  // { value: 500, name: '电子产品' },
+                  // { value: 310, name: '服装' },
+                  // { value: 274, name: '化妆品' },
+                  // { value: 400, name: '家居' },
                 ].sort(function (a, b) {
                   return a.value - b.value;
                 }),
