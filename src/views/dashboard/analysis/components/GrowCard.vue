@@ -14,13 +14,13 @@
         </template>
 
         <div class="flex justify-between px-4 py-4">
-          <CountTo :suffix="item.unit" :startVal="1" :endVal="item.value" class="text-2xl" />
+          <CountTo :suffix="item.unit" :startVal="0" :endVal="item.value || 0" class="text-2xl" />
           <Icon :icon="item.icon" :size="40" />
         </div>
 
         <div class="flex justify-between p-2 px-4">
           <span>{{ item.totalTitle }}</span>
-          <CountTo :suffix="item.unit" :startVal="1" :endVal="item.total" />
+          <CountTo :suffix="item.unit" :startVal="0" :endVal="item.total || 0" />
         </div>
       </Card>
     </template>
@@ -35,16 +35,15 @@
 
   import { getGrowListAnalysis } from '/@/api/admin/analysis';
 
-  let growCardList: Recordable = reactive({});
 
   export default defineComponent({
     components: { CountTo, Tag, Card, Icon },
     setup() {
+      const growCardList = reactive([]);
+
       async function findGrowCardList() {
-        let arr = await getGrowListAnalysis();
-        for (var i = 0, len = arr.length; i < len; i++) {
-          growCardList[i] = arr[i];
-        }
+        const list: [] = await getGrowListAnalysis();
+        growCardList.push(...list);
       }
       findGrowCardList();
 
