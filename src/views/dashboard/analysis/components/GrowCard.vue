@@ -35,7 +35,6 @@
 
   import { getGrowListAnalysis } from '/@/api/admin/analysis';
 
-
   export default defineComponent({
     components: { CountTo, Tag, Card, Icon },
     setup() {

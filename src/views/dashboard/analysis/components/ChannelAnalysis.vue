@@ -30,7 +30,7 @@
 
       (async () => {
         data.value = await getChannelAnalysis();
-        debugger
+        debugger;
       })();
 
       watch(
