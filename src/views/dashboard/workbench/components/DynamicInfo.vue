@@ -28,20 +28,22 @@
   import { Card, List, Avatar } from 'ant-design-vue';
   import headerImg from '/@/assets/images/header.jpg';
   // import { Icon } from '/@/components/Icon';
-  import { getMessageList } from '/@/api/admin/notification';
+  // import { getMessageList } from '/@/api/admin/notification';
+  import { getLatestTrendsInfo } from '/@/api/admin/system';
   import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
-    components: { Card, List, ListItem: List.Item, ListItemMeta: List.Item.Meta, Avatar, },
+    components: { Card, List, ListItem: List.Item, ListItemMeta: List.Item.Meta, Avatar },
     setup() {
       const go = useGo();
       const items = ref([]);
       (async () => {
-        const list = await getMessageList({
-          pageSize: 5,
+        const list = await getLatestTrendsInfo({
+          pageSize: 10,
           page: 1,
         });
-        items.value = list as any;
+        debugger;
+        items.value = list.items as any;
       })();
 
       function handleView() {

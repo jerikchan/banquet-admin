@@ -36,8 +36,12 @@ enum Api {
 
   GetSalesList = '/account/findSales',
   GetHouseKeeperList = '/account/findHouseKeeper',
+  GetLatestTrendsInfo = '/latest/findLatest',
+  GetBacklogs = '/backlog/findBackLogsNative',
 
   AddAuth = '/auth/add',
+
+  UpdateBackLogStatus = '/backlog/updateStatus',
 }
 
 export const getAccountList = (params?: AccountParams) =>
@@ -48,6 +52,9 @@ export const addAccount = (params?: AccountParams) =>
 
 export const updateAccount = (params?: AccountParams) =>
   defHttp.post<AccountListGetResultModel>({ url: Api.UpdateAccount, params }, { devUrl });
+
+export const updateBackLogStatus = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.UpdateBackLogStatus, params }, { devUrl });
 
 export const deleteAccount = (params?: { id: string }) =>
   defHttp.post<AccountListGetResultModel>({ url: Api.DeleteAccount, params }, { devUrl });
@@ -105,3 +112,9 @@ export const getSalesList = (params?: MenuParams) =>
 
 export const getHouseKeeperList = (params?: {}) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.GetHouseKeeperList, params }, { devUrl });
+
+export const getLatestTrendsInfo = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetLatestTrendsInfo, params }, { devUrl });
+
+export const getBacklogs = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetBacklogs, params }, { devUrl });

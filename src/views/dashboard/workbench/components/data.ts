@@ -1,3 +1,5 @@
+import { BasicColumn } from '/@/components/Table';
+
 interface GroupItem {
   title: string;
   icon: string;
@@ -152,5 +154,28 @@ export const groupItems: GroupItem[] = [
     desc: '路是走出来的，而不是空想出来的。',
     group: '架构组',
     date: '2021-04-01',
+  },
+];
+
+export const backlogColumns: BasicColumn[] = [
+  {
+    title: '待办事项名称',
+    dataIndex: 'name',
+    width: 200,
+  },
+  {
+    title: '待办时间',
+    dataIndex: 'backlogTime',
+    width: 200,
+  },
+  {
+    title: '待办内容',
+    dataIndex: 'content',
+    width: 200,
+  },
+  {
+    title: '状态',
+    dataIndex: 'statusStr',
+    width: 100,
   },
 ];

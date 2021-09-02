@@ -27,17 +27,28 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, reactive } from 'vue';
 
   import { CountTo } from '/@/components/CountTo/index';
   import { Icon } from '/@/components/Icon';
   import { Tag, Card } from 'ant-design-vue';
 
-  import { growCardList } from '../data';
+  import { getGrowListAnalysis } from '/@/api/admin/analysis';
+
+  let growCardList: Recordable = reactive({});
+
   export default defineComponent({
     components: { CountTo, Tag, Card, Icon },
     setup() {
-      return { growCardList };
+      async function findGrowCardList() {
+        let arr = await getGrowListAnalysis();
+        for (var i = 0, len = arr.length; i < len; i++) {
+          growCardList[i] = arr[i];
+        }
+      }
+      findGrowCardList();
+
+      return { growCardList, findGrowCardList };
     },
   });
 </script>

@@ -6,14 +6,15 @@
         <ProjectCard :loading="loading" class="enter-y" />
       </div>
       <div class="w-full lg:w-3/10 enter-y">
+        <EncourageModal :loading="loading" class="enter-y" />
+      </div>
+    </div>
+    <div class="lg:flex">
+      <div class="w-full lg:w-7/10 !mr-4 enter-y">
+        <BacklogCard :loading="loading" class="enter-y" />
+      </div>
+      <div class="w-full lg:w-3/10 enter-y">
         <DynamicInfo :loading="loading" class="enter-y" />
-        <!-- <QuickNav :loading="loading" class="enter-y" />
-
-        <Card class="!my-4 enter-y" :loading="loading">
-          <img class="mx-auto xl:h-50 h-30" src="../../../assets/svg/illustration.svg" />
-        </Card>
-
-        <SaleRadar :loading="loading" class="enter-y" /> -->
       </div>
     </div>
   </PageWrapper>
@@ -21,23 +22,27 @@
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
 
-  import { Card } from 'ant-design-vue';
+  // import { Card } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
   import WorkbenchHeader from './components/WorkbenchHeader.vue';
   import ProjectCard from './components/ProjectCard.vue';
-  import QuickNav from './components/QuickNav.vue';
+  // import QuickNav from './components/QuickNav.vue';
   import DynamicInfo from './components/DynamicInfo.vue';
-  import SaleRadar from './components/SaleRadar.vue';
+  // import SaleRadar from './components/SaleRadar.vue';
+  import BacklogCard from './components/BacklogCard.vue';
+  import EncourageModal from './components/EncourageModal.vue';
 
   export default defineComponent({
     components: {
       PageWrapper,
       WorkbenchHeader,
       ProjectCard,
-      QuickNav,
+      // QuickNav,
       DynamicInfo,
-      SaleRadar,
-      Card,
+      // SaleRadar,
+      // Card,
+      BacklogCard,
+      EncourageModal,
     },
     setup() {
       const loading = ref(true);
