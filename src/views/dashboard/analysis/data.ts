@@ -67,23 +67,23 @@ export const growCardList: GrowCardItem[] = [
 
 export const salesColumns: BasicColumn[] = [
   {
-    title: '排行',
-    dataIndex: 'id',
-    width: 100,
-  },
-  {
     title: '姓名',
-    dataIndex: 'realName',
+    dataIndex: 'name',
     width: 200,
   },
   {
-    title: '签单数',
-    dataIndex: 'count',
+    title: '签单额',
+    dataIndex: 'signMoney',
     width: 150,
   },
   {
-    title: '签单额',
-    dataIndex: 'amount',
+    title: '完成额',
+    dataIndex: 'finishMoney',
+    width: 150,
+  },
+  {
+    title: '总额',
+    dataIndex: 'total',
     width: 150,
   },
 ];

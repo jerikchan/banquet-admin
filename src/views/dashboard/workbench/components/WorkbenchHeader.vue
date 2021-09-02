@@ -3,7 +3,7 @@
     <Avatar :src="userinfo.avatar || headerImg" :size="72" class="!mx-auto !block" />
     <div class="flex flex-col justify-center mt-2 md:ml-6 md:mt-0">
       <h1 class="md:text-lg text-md">早安, {{ userinfo.realName }}, 开始您一天的工作吧！</h1>
-      <span class="text-secondary"> 今日晴，20℃ - 32℃！ </span>
+      <!-- <span class="text-secondary"> 今日晴，20℃ - 32℃！ </span> -->
     </div>
     <div class="flex justify-end flex-1 mt-4 md:mt-0">
       <!-- <div class="flex flex-col justify-center text-right">
