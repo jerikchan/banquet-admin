@@ -70,6 +70,26 @@ const customer: AppRouteModule = {
       },
       component: () => import('/@/views/admin/customer/comment-type/index.vue'),
     },
+    {
+      path: 'cancel_direction',
+      name: 'CancelDirectionManager',
+      meta: {
+        title: '流失去向配置',
+
+        roles: [RoleEnum.SUPER],
+      },
+      component: () => import('/@/views/admin/customer/cancel-direction/index.vue'),
+    },
+    {
+      path: 'cancel_reason',
+      name: 'CancelReasonManager',
+      meta: {
+        title: '流失原因配置',
+
+        roles: [RoleEnum.SUPER],
+      },
+      component: () => import('/@/views/admin/customer/cancel-reason/index.vue'),
+    },
   ],
 };
 

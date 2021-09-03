@@ -20,10 +20,10 @@
       const go = useGo();
       const [registerTable] = useTable({
         api: getSalesRankList,
-        rowKey: 'name',
+        rowKey: 'id',
         columns: salesColumns,
         pagination: false,
-        showIndexColumn: false,
+        showIndexColumn: true,
         maxHeight: 300,
       });
 

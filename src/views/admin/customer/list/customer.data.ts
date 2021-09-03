@@ -1,4 +1,8 @@
-import { getCustomerTypeList } from '/@/api/admin/customer';
+import {
+  getCustomerTypeList,
+  getCancelDirectionList,
+  getCancelResonList,
+} from '/@/api/admin/customer';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { getSalesList } from '/@/api/admin/system';
@@ -215,5 +219,36 @@ export const customerAllocationFormSchema: FormSchema[] = [
     field: 'remark',
     label: '备注',
     component: 'InputTextArea',
+  },
+];
+
+export const customerCancelFormSchema: FormSchema[] = [
+  {
+    field: 'cancelDirection',
+    label: '流失去向',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCancelDirectionList,
+      labelField: 'label',
+      valueField: 'code',
+    },
+    required: true,
+  },
+  {
+    field: 'cancelReason',
+    label: '流失原因',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCancelResonList,
+      labelField: 'label',
+      valueField: 'code',
+    },
+    required: true,
+  },
+  {
+    field: 'remark',
+    label: '备注',
+    component: 'InputTextArea',
+    required: false,
   },
 ];

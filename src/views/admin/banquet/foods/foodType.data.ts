@@ -25,6 +25,7 @@ export const columns: BasicColumn[] = [
   {
     title: '菜单属于哪个菜品',
     dataIndex: 'parentId',
+    ifShow: false,
   },
 ];
 

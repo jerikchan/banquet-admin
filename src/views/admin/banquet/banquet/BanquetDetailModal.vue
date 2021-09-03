@@ -119,23 +119,10 @@
 
       async function handleData(id: string) {
         let res = await getBanquetInfo({ id: id });
-        mockData.banquetTime = res.banquetTime;
-        mockData.scheduleType = res.scheduleType;
-        mockData.setUpType = res.setUpType;
-        mockData.deskCount = res.deskCount;
-        mockData.backupDesk = res.backupDesk;
-        mockData.remark = res.remark;
+        Object.assign(mockData, res);
       }
 
       handleData(banquetId.value);
-
-      // const [registerTimeTable, { reload }] = useTable({
-      //   title: '厅房档期',
-      //   columns: refundTimeTableSchema,
-      //   pagination: false,
-      //   api: getBanquetList.bind(null, { roomId: roomId.value }),
-      //   showIndexColumn: true,
-      // });
 
       function handleSuccess() {
         // reload();

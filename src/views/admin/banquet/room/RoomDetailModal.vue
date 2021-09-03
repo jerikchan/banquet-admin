@@ -22,9 +22,7 @@
   import { BasicTable, useTable } from '/@/components/Table';
   import { BasicColumn } from '/@/components/Table/src/types/table';
 
-  const mockData: Recordable = reactive({
-    userName: '',
-  });
+  const mockData: Recordable = reactive({});
 
   const schema: DescItem[] = [
     {
@@ -115,11 +113,7 @@
 
       async function handleData(id: string) {
         let res = await getRoomInfo({ id: id });
-        mockData.roomName = res.roomName;
-        mockData.banquetType = res.banquetType;
-        mockData.roomType = res.roomType;
-        mockData.createTime = res.createTime;
-        mockData.remark = res.remark;
+        Object.assign(mockData, res);
       }
 
       handleData(roomId.value);
@@ -127,8 +121,11 @@
       const [registerTimeTable, { reload }] = useTable({
         title: '厅房档期',
         columns: refundTimeTableSchema,
-        pagination: false,
-        api: getBanquetList.bind(null, { roomId: roomId.value }),
+        pagination: true,
+        api: getBanquetList,
+        beforeFetch: function (params) {
+          params.roomId = roomId.value;
+        },
         showIndexColumn: true,
       });
 
