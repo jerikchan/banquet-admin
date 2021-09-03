@@ -8,11 +8,17 @@
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除此合同',
+              disabled: record.status === '1',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
+            },
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看部门详情',
+              onClick: handleAgreementInfoView.bind(null, record),
             },
             {
               icon: 'ant-design:swap-outlined',
@@ -90,10 +96,15 @@
         go('/beo/order_oper/' + record.id);
       }
 
+      function handleAgreementInfoView(record: Recordable) {
+        go('/contract/contract_detail/' + record.id);
+      }
+
       return {
         registerTable,
         handleSuccess,
         handleDelete,
+        handleAgreementInfoView,
         // registerOrderModal,
         handleOrder,
         RoleEnum,

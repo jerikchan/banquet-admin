@@ -23,6 +23,17 @@ const contract: AppRouteModule = {
       },
       component: () => import('/@/views/admin/contract/list/index.vue'),
     },
+    {
+      path: 'contract_detail/:id',
+      name: 'ContracDetail',
+      meta: {
+        hideMenu: true,
+        title: '合同详情',
+        showMenu: false,
+        currentActiveMenu: '/contract/list',
+      },
+      component: () => import('/@/views/admin/contract/list/ContractDetailModal.vue'),
+    },
   ],
 };
 

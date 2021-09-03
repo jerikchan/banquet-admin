@@ -28,24 +28,19 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive } from 'vue';
-
   import { CountTo } from '/@/components/CountTo/index';
   import { Icon } from '/@/components/Icon';
   import { Tag, Card } from 'ant-design-vue';
-
   import { getGrowListAnalysis } from '/@/api/admin/analysis';
-
   export default defineComponent({
     components: { CountTo, Tag, Card, Icon },
     setup() {
       const growCardList = reactive([]);
-
       async function findGrowCardList() {
         const list: [] = await getGrowListAnalysis();
         growCardList.push(...list);
       }
       findGrowCardList();
-
       return { growCardList, findGrowCardList };
     },
   });
