@@ -35,6 +35,22 @@
       :schema="beoInfoSchema"
       v-if="mockData.flowType === '20' || mockData.flowType === '21'"
     />
+    <Description
+      title="应收款信息"
+      :collapseOptions="{ canExpand: false, helpMessage: '应收款信息' }"
+      :column="2"
+      :data="receivableInfoData"
+      :schema="receivableInfoFormSchema"
+      v-if="mockData.flowType === '30'"
+    />
+    <Description
+      title="回款信息"
+      :collapseOptions="{ canExpand: false, helpMessage: '回款信息' }"
+      :column="2"
+      :data="returnCollectionData"
+      :schema="returnCollectionFormSchema"
+      v-if="mockData.flowType === '30'"
+    />
     <BasicTable
       @register="registerBeoTaskTable"
       @success="handleSuccess"
@@ -82,6 +98,7 @@
 
   import { getAgreementInfo } from '/@/api/admin/contract';
   import { getBeoOrder } from '/@/api/admin/beo';
+  import { getAcceptInfo, getTotalInfo } from '/@/api/admin/finance';
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
@@ -92,6 +109,8 @@
     agreementInfoSchema,
     beoInfoSchema,
     beoTaskListSchema,
+    returnCollectionFormSchema,
+    receivableInfoFormSchema,
   } from './form.data';
 
   const mockData: Recordable = reactive({});
@@ -103,6 +122,10 @@
   const agreementInfoData: Recordable = reactive({});
 
   const beoInfoData: Recordable = reactive({});
+
+  const returnCollectionData: Recordable = reactive({});
+
+  const receivableInfoData: Recordable = reactive({});
 
   export default defineComponent({
     components: {
@@ -151,6 +174,7 @@
         let customerId = res.customerId;
         let agreementId = res.agreementId;
         let beoId = res.beoOrderId;
+        let returnId = res.returnCollectionId;
         if (
           type &&
           (type === '1' || type === '2' || type === '3' || type === '5' || type === '6')
@@ -172,6 +196,11 @@
           let beoInfo = await getBeoOrder({ id: beoId });
           Object.assign(beoInfoData, beoInfo);
           setTableData(beoInfo.taskList);
+        } else if (type === '30') {
+          let returnCollection = await getAcceptInfo({ id: returnId });
+          let receivableInfo = await getTotalInfo({ id: returnCollection.receivableId });
+          Object.assign(returnCollectionData, returnCollection);
+          Object.assign(receivableInfoData, receivableInfo);
         }
 
         console.log(resultArr);
@@ -244,11 +273,15 @@
         registerDrawer,
         agreementInfoSchema,
         agreementInfoData,
+        returnCollectionFormSchema,
+        returnCollectionData,
         beoInfoData,
         beoInfoSchema,
         beoTaskListSchema,
         registerBeoTaskTable,
         handleSuccessEvent,
+        receivableInfoFormSchema,
+        receivableInfoData,
       };
     },
   });

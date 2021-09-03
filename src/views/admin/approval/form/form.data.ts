@@ -284,3 +284,65 @@ export const beoTaskListSchema: BasicColumn[] = [
     dataIndex: 'statusStr',
   },
 ];
+
+export const returnCollectionFormSchema: DescItem[] = [
+  {
+    label: '回款单编号',
+    field: 'code',
+  },
+  {
+    label: '回款时间',
+    field: 'returnTime',
+  },
+  {
+    label: '回款金额',
+    field: 'returnMoney',
+  },
+  {
+    label: '回款人',
+    field: 'returnMan',
+  },
+  {
+    label: '备注',
+    field: 'remark',
+  },
+];
+
+export const receivableInfoFormSchema: DescItem[] = [
+  {
+    label: '单据编号',
+    field: 'code',
+  },
+  {
+    label: '合同编号',
+    field: 'agreementCode',
+  },
+  {
+    label: '单据类型',
+    field: 'dataType',
+  },
+  {
+    label: '预计总款额',
+    field: 'preTotal',
+  },
+  {
+    label: '实收款',
+    field: 'realTotal',
+  },
+  {
+    label: '最终收款时间',
+    field: 'lastTime',
+  },
+  {
+    label: '定金',
+    field: 'frontMoney',
+  },
+  {
+    label: '中款',
+    field: 'midMoney',
+  },
+  {
+    label: '尾款',
+    field: 'finalMoney',
+  },
+];

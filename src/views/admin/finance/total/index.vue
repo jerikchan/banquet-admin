@@ -25,10 +25,18 @@
               onClick: handleView.bind(null, record),
             },
           ]"
+          :dropDownActions="[
+            {
+              label: '发起回款',
+              ifShow: !record.returnTime,
+              onClick: handleAccept.bind(null, record),
+            },
+          ]"
         />
       </template>
     </BasicTable>
     <TotalModal @register="registerModal" @success="handleSuccess" />
+    <AcceptModal @register="registerAcceptModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -40,6 +48,7 @@
 
   import { useModal } from '/@/components/Modal';
   import TotalModal from './TotalModal.vue';
+  import AcceptModal from '/@/views/admin/finance/total/AcceptModal.vue';
 
   import { columns, searchFormSchema } from './total.data';
   import { deleteTotal } from '/@/api/admin/finance';
@@ -48,9 +57,10 @@
 
   export default defineComponent({
     name: 'TotalManagement',
-    components: { BasicTable, PageWrapper, TotalModal, TableAction },
+    components: { BasicTable, PageWrapper, TotalModal, TableAction, AcceptModal },
     setup() {
       const [registerModal, { openModal }] = useModal();
+      const [registerAcceptModal, { openModal: openAcceptModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const go = useGo();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
@@ -111,12 +121,19 @@
         go('/finance/total_detail/' + record.id);
       }
 
+      function handleAccept(record: Recordable) {
+        openAcceptModal(true, { ...record });
+        reload();
+      }
+
       return {
         registerTable,
         registerModal,
+        registerAcceptModal,
         handleCreate,
         handleDelete,
         handleSuccess,
+        handleAccept,
         handleSelect,
         handleView,
         searchInfo,

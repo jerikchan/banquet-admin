@@ -7,19 +7,19 @@
   import { defineComponent, ref, computed, unref, reactive } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { acceptFormSchema } from './accept.data';
+  import { acceptFormSchema } from './total.data';
   import { addAccept } from '/@/api/admin/finance';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
-    name: 'AcceptModal',
+    name: 'ReceivableAcceptModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
       const { createMessage } = useMessage();
-      const receivable = reactive({ receivableId: '' });
+      const receivable = reactive({ id: '' });
 
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
@@ -42,8 +42,11 @@
           });
         }
 
-        if (data.record.receivableId) {
-          Object.assign(receivable, data.record);
+        if (data.id) {
+          Object.assign(receivable, data);
+          setFieldsValue({
+            ...data,
+          });
         }
 
         // const treeData = await getAcceptTypeList();
@@ -70,8 +73,8 @@
             // });
             createMessage.success('编辑回款成功');
           } else {
-            if (receivable.receivableId) {
-              values.receivableId = receivable.receivableId;
+            if (receivable.id) {
+              values.receivableId = receivable.id;
             }
             await addAccept(values);
             createMessage.success('新增回款成功');

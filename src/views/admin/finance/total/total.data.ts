@@ -6,13 +6,23 @@ import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '应收款编号',
-    dataIndex: 'receivablesCode',
+    title: '单据编号',
+    dataIndex: 'code',
     width: 120,
   },
   {
     title: '合同编号',
     dataIndex: 'agreementCode',
+    width: 120,
+  },
+  {
+    title: '单据类型',
+    dataIndex: 'dataType',
+    width: 120,
+  },
+  {
+    title: '回款金额',
+    dataIndex: 'returnMoney',
     width: 120,
   },
   {
@@ -49,8 +59,8 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'financeName',
-    label: '客户名称',
+    field: 'agreementCode',
+    label: '合同编号',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -119,5 +129,54 @@ export const totalFormSchema: FormSchema[] = [
     field: 'remark',
     component: 'InputTextArea',
     required: true,
+  },
+];
+
+export const acceptFormSchema: FormSchema[] = [
+  {
+    field: 'code',
+    label: '对应应收款',
+    component: 'Input',
+    componentProps: {
+      disabled: true,
+    },
+    required: false,
+  },
+  {
+    field: 'agreementCode',
+    label: '对应合同',
+    component: 'Input',
+    componentProps: {
+      disabled: true,
+    },
+    required: false,
+  },
+  {
+    field: 'returnTime',
+    label: '回款时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    required: true,
+  },
+  {
+    field: 'returnMan',
+    label: '回款人',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'returnMoney',
+    label: '回款金额',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '备注',
+    field: 'remark',
+    component: 'InputTextArea',
+    required: false,
   },
 ];
