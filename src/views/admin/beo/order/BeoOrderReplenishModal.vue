@@ -198,7 +198,7 @@
           Object.assign(temp, getManagerValues());
           tasks.push(temp);
           temp = {};
-          temp.deptName = '厨师部';
+          temp.deptName = '厨政部';
           Object.assign(temp, getKitchenValues());
           tasks.push(temp);
           temp = {};
@@ -260,7 +260,7 @@
               setServeValues({
                 ...temp,
               });
-            } else if (temp.deptName && temp.deptName === '厨师部') {
+            } else if (temp.deptName && temp.deptName === '厨政部') {
               setKitchenValues({
                 ...temp,
               });

@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { updateFormSchema } from './ratio.data';
-  import { updateRatioInfo } from '/@/api/admin/performance';
+  import { addRatioInfo, updateRatioInfo } from '/@/api/admin/performance';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
@@ -40,14 +40,6 @@
             ...data.record,
           });
         }
-
-        // const treeData = await getAcceptTypeList();
-        // updateSchema([
-        //   {
-        //     field: 'type',
-        //     componentProps: { treeData },
-        //   },
-        // ]);
       });
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增系数' : '编辑系数'));
@@ -56,7 +48,6 @@
         try {
           const values = await validate();
           setModalProps({ confirmLoading: true });
-          // TODO custom api
           console.log(values);
           if (isUpdate.value) {
             await updateRatioInfo({
@@ -65,8 +56,8 @@
             });
             createMessage.success('编辑系数成功');
           } else {
-            // await addAccept(values);
-            // createMessage.success('新增系数成功');
+            await addRatioInfo(values);
+            createMessage.success('新增系数成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

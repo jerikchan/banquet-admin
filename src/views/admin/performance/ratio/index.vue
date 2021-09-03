@@ -1,6 +1,11 @@
 <template>
   <div id="ratioPerformanceMainList">
     <BasicTable @register="registerTable">
+      <template #toolbar>
+        <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
+          <a-button type="primary" @click="handleCreate">新增系数</a-button>
+        </Authority>
+      </template>
       <template #action="{ record }">
         <TableAction
           :actions="[
@@ -20,13 +25,11 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  // import { deleteDept, getDeptList } from '/@/api/admin/system';
   import { getRatioInfos } from '/@/api/admin/performance';
 
   import RatioModal from './RatioModal.vue';
 
   import { columns, searchFormSchema } from './ratio.data';
-  // import { useGo } from '/@/hooks/web/usePage';
   import { RoleEnum } from '/@/enums/roleEnum';
 
   import { useModal } from '/@/components/Modal';
@@ -94,7 +97,6 @@
         registerTable,
         registerModal,
         handleCreate,
-        // handleDelete,
         handleSuccess,
         handleEdit,
         RoleEnum,
