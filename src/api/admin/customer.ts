@@ -47,6 +47,11 @@ enum Api {
 
   UploadCustomer = '/excel/importCustomerInfos',
   GetCumstomerInfo = '/customer/findCustomerInfo',
+
+  GetDicList = '/dic/findDic',
+  DeleteDicInfo = '/dic/delete',
+  AddDicInfo = '/dic/add',
+  UpdateDicInfo = '/dic/update',
 }
 
 export const getChannelList = (params: ChannelParams) =>
@@ -54,6 +59,51 @@ export const getChannelList = (params: ChannelParams) =>
     {
       url: Api.GetChannelList,
       params: { ...params, parentId: '402881847b2c2d77017b2c2eb4c70003' },
+    },
+    { devUrl }
+  );
+
+export const getCancelDirectionList = (params: {}) =>
+  defHttp.get<{}>(
+    {
+      url: Api.GetDicList,
+      params: { ...params, identifyCode: 'cancel_direction' },
+    },
+    { devUrl }
+  );
+
+export const getCancelResonList = (params: {}) =>
+  defHttp.get<{}>(
+    {
+      url: Api.GetDicList,
+      params: { ...params, identifyCode: 'cancel_reason' },
+    },
+    { devUrl }
+  );
+
+export const deleteDicInfo = (params?: {}) =>
+  defHttp.post<{}>(
+    {
+      url: Api.AddChannel,
+      params: { ...params },
+    },
+    { devUrl }
+  );
+
+export const updateDicInfo = (params?: {}) =>
+  defHttp.post<{}>(
+    {
+      url: Api.UpdateDicInfo,
+      params: { ...params },
+    },
+    { devUrl }
+  );
+
+export const addDicInfo = (params?: {}) =>
+  defHttp.post<{}>(
+    {
+      url: Api.AddDicInfo,
+      params: { ...params },
     },
     { devUrl }
   );

@@ -80,7 +80,7 @@
               ifShow:
                 (record.customerType === '2' || record.customerType === '5') &&
                 !!record.salesManagerId,
-              onClick: handleTypeUpdate.bind(null, record, '3'),
+              onClick: handleTypeUpdateCancel.bind(null, record, '3'),
               disabled: record.status === '1',
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
@@ -98,6 +98,7 @@
       </template>
     </BasicTable>
     <CustomerModal @register="registerModal" @success="handleSuccess" />
+    <CustomerCancelModal @register="registerCancelModal" @success="handleSuccess" />
     <CustomerTypeModal @register="registerTypeModal" @success="handleTypeSuccess" />
     <ContractModal @register="registerContractModal" @success="handleContractSuccess" />
     <CustomerAllocationSalesModal
@@ -124,6 +125,7 @@
   import ContractModal from '/@/views/admin/contract/list/ContractModal.vue';
   import CustomerAllocationSalesModal from './CustomerAllocateModal.vue';
   import CommentModal from '/@/views/admin/customer/comment/CommentModal.vue';
+  import CustomerCancelModal from './CustomerCancelModal.vue';
   import { useGo } from '/@/hooks/web/usePage';
   import { columns, searchFormSchema } from './customer.data';
   import { useMessage } from '/@/hooks/web/useMessage';
@@ -143,12 +145,14 @@
       CustomerAllocationSalesModal,
       BasicUpload,
       CommentModal,
+      CustomerCancelModal,
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTypeModal, { openModal: openTypeModal }] = useModal();
       const [registerContractModal, { openModal: openContractModal }] = useModal();
       const [registerAllocationModal, { openModal: openAllocationnModal }] = useModal();
+      const [registerCancelModal, { openModal: openCancelModal }] = useModal();
       const [registerCommentAddModal, { openModal: openCommentAddnModal }] = useModal();
       const go = useGo();
       const { createMessage, createConfirm } = useMessage();
@@ -195,6 +199,14 @@
           toType,
         });
       }
+
+      function handleTypeUpdateCancel(record: Recordable, toType) {
+        openCancelModal(true, {
+          record,
+          toType,
+        });
+      }
+
       function handleAllocation(record: Recordable) {
         openAllocationnModal(true, {
           record,
@@ -275,6 +287,7 @@
         registerContractModal,
         registerAllocationModal,
         registerCommentAddModal,
+        registerCancelModal,
         handleCreate,
         handleEdit,
         handleDelete,
@@ -292,6 +305,7 @@
         handleUploadChange,
         handleCommentAdd,
         handleAllocationSuccess,
+        handleTypeUpdateCancel,
         RoleEnum,
       };
     },
