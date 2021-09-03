@@ -37,6 +37,8 @@ export enum RoleNameEnum {
 
   FINANCE_MANAGER = '财务管理者',
 
+  SALES_OFFICER = '销售总监',
+
   STAFF = '普通员工',
 
   ANALYST = '数据分析员',
