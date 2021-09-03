@@ -266,6 +266,7 @@
       }
       function handleContractSuccess(values) {
         console.log(values);
+        reload();
       }
       function handleCustomerDetail(record: Recordable) {
         go('/customer/customer_detail/' + record.id);

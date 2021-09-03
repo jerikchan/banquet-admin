@@ -101,3 +101,48 @@ export const taskFormSchema: FormSchema[] = [
     required: true,
   },
 ];
+
+export const taskAcceptFormSchema: FormSchema[] = [
+  {
+    field: 'beoOrderId',
+    label: 'BEO单',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getOrderList,
+      labelField: 'orderCode',
+      valueField: 'id',
+    },
+    required: true,
+  },
+  {
+    field: 'deptId',
+    label: '执行部门',
+    component: 'TreeSelect',
+    componentProps: {
+      replaceFields: {
+        title: 'deptName',
+        key: 'id',
+        value: 'id',
+      },
+      getPopupContainer: () => document.body,
+    },
+    required: true,
+  },
+  {
+    field: 'taskTime',
+    label: '执行时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    required: true,
+  },
+
+  {
+    label: '执行内容',
+    field: 'content',
+    component: 'InputTextArea',
+    required: true,
+  },
+];

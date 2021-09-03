@@ -222,6 +222,7 @@
       }
 
       async function handleData(id: string) {
+        debugger;
         res = await getAgreementInfo({ id: id });
         setFieldsValue({
           ...res,

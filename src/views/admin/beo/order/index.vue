@@ -18,6 +18,7 @@
               icon: 'clarity:note-edit-line',
               tooltip: '编辑',
               onClick: handleEdit.bind(null, record),
+              disabled: record.status === '1',
               auth: [
                 RoleEnum.SUPER,
                 RoleEnum.SALES,
@@ -29,6 +30,7 @@
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除此BEO单',
+              disabled: record.status === '1',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -41,10 +43,12 @@
               label: '分配管家',
               onClick: handleManager.bind(null, record),
               ifShow: !record.salesManagerId,
-              disabled: record.status === '1' || record.managerId !== null,
+              disabled: record.status === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
             },
             {
               label: '发起补充流程',
+              disabled: record.status === '1',
               popConfirm: {
                 title: '是否发起BEO补充流程',
                 confirm: handleReplenish.bind(null, record),

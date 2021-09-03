@@ -185,6 +185,8 @@
       const agreementId = ref(route.params?.id);
       let res, foods, foodsId;
 
+      debugger;
+
       async function submitAll() {
         try {
           let submitValues = {},
@@ -240,8 +242,8 @@
       }
 
       async function handleData(id: string) {
+        debugger;
         res = await getOrder({ id: id });
-
         let tasks = res.taskInfoList;
         if (tasks) {
           let temp;
