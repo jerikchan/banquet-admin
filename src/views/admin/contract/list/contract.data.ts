@@ -3,6 +3,7 @@ import { FormSchema } from '/@/components/Table';
 import { getFoodList } from '/@/api/admin/contract';
 import { getRoomList, getScheduleTypeList } from '/@/api/admin/banquet';
 import { uploadPicApi } from '/@/api/sys/upload';
+import { DescItem } from '/@/components/Description/index';
 
 export const columns: BasicColumn[] = [
   {
@@ -233,5 +234,52 @@ export const contractFormSchema: FormSchema[] = [
     field: 'remark',
     label: '备注',
     component: 'InputTextArea',
+  },
+];
+
+export const agreemetnDetailSchema: DescItem[] = [
+  {
+    field: 'agreementCode',
+    label: '合同编号',
+  },
+  {
+    field: 'customerName',
+    label: '客户姓名',
+  },
+  {
+    field: 'salesManName',
+    label: '销售名称',
+  },
+  {
+    field: 'salesMobile',
+    label: '销售号码',
+  },
+  {
+    field: 'banquetRoomName',
+    label: '厅房名称',
+  },
+  {
+    field: 'banquetTime',
+    label: '宴会时间',
+  },
+  {
+    field: 'singlePrice',
+    label: '单桌价格',
+  },
+  {
+    field: 'banquetPrice',
+    label: '婚庆价格',
+  },
+  {
+    field: 'afterDiscountTotal',
+    label: '优惠后总价',
+  },
+  {
+    field: 'floorsDeskCount',
+    label: '保底桌数',
+  },
+  {
+    field: 'backupDesk',
+    label: '备用桌数',
   },
 ];

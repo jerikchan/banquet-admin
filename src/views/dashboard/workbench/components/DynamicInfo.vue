@@ -42,7 +42,6 @@
           pageSize: 10,
           page: 1,
         });
-        debugger;
         items.value = list.items as any;
       })();
 

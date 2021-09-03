@@ -14,7 +14,7 @@
   export default defineComponent({
     components: { Card },
     props: basicProps,
-    setup(props) {
+    setup() {
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
       const data = ref<any>({});

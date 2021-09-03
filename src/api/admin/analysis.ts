@@ -63,8 +63,8 @@ export const getSkipOrderAnalysis = (params?: any) =>
     {
       url: Api.GetSkipOrderAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getGoWhereAnalysis = (params?: any) =>
@@ -72,8 +72,8 @@ export const getGoWhereAnalysis = (params?: any) =>
     {
       url: Api.GetGoWhereAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getBanquetTypeDealAnalysis = (params?: any) =>
@@ -81,8 +81,8 @@ export const getBanquetTypeDealAnalysis = (params?: any) =>
     {
       url: Api.GetBanquetTypeDealAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getBanquetTypeBookAnalysis = (params?: any) =>
@@ -90,8 +90,8 @@ export const getBanquetTypeBookAnalysis = (params?: any) =>
     {
       url: Api.GetBanquetTypeBookAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getTableNumberDealAnalysis = (params?: any) =>
@@ -99,8 +99,8 @@ export const getTableNumberDealAnalysis = (params?: any) =>
     {
       url: Api.GetTableNumberDealAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getTableMoneyDealAnalysis = (params?: any) =>
@@ -108,8 +108,8 @@ export const getTableMoneyDealAnalysis = (params?: any) =>
     {
       url: Api.GetTableMoneyDealAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getRoomBookAnalysis = (params?: any) =>
@@ -117,8 +117,8 @@ export const getRoomBookAnalysis = (params?: any) =>
     {
       url: Api.GetRoomBookAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getFoodBookAnalysis = (params?: any) =>
@@ -126,8 +126,8 @@ export const getFoodBookAnalysis = (params?: any) =>
     {
       url: Api.GetFoodBookAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getBanquetTypeNumBookAnalysis = (params?: any) =>
@@ -144,8 +144,8 @@ export const getDealMoneyAnalysis = (params?: any) =>
     {
       url: Api.GetDealMoneyAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getDealDiscountAnalysis = (params?: any) =>
@@ -153,8 +153,8 @@ export const getDealDiscountAnalysis = (params?: any) =>
     {
       url: Api.GetDealDiscountAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getDealDiscountPercentAnalysis = (params?: any) =>
@@ -162,8 +162,8 @@ export const getDealDiscountPercentAnalysis = (params?: any) =>
     {
       url: Api.GetDealDiscountPercentAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getDealPercentAnalysis = (params?: any) =>
@@ -171,8 +171,8 @@ export const getDealPercentAnalysis = (params?: any) =>
     {
       url: Api.GetDealPercentAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getInviteAnalysis = (params?: any) =>
@@ -180,6 +180,6 @@ export const getInviteAnalysis = (params?: any) =>
     {
       url: Api.GetInviteAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );

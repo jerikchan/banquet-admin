@@ -168,6 +168,10 @@
           let beoInfo = await getBeoOrder({ id: beoId });
           Object.assign(beoInfoData, beoInfo);
           setTableData(beoInfo.taskList);
+        } else if (type === '21') {
+          let beoInfo = await getBeoOrder({ id: beoId });
+          Object.assign(beoInfoData, beoInfo);
+          setTableData(beoInfo.taskList);
         }
 
         console.log(resultArr);

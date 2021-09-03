@@ -14,7 +14,7 @@
   export default defineComponent({
     components: { Card },
     props: basicProps,
-    setup(props) {
+    setup() {
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
       const data = ref<any>({});
@@ -41,7 +41,7 @@
             grid: { left: '1%', right: '1%', top: '2  %', bottom: 0, containLabel: true },
             xAxis: {
               type: 'category',
-              data: data.value.list.map(({ salesName }) => salesName),
+              data: data.value.list.map(({ directionName }) => directionName),
             },
             yAxis: {
               type: 'value',
@@ -50,7 +50,7 @@
             },
             series: [
               {
-                data: data.value.list.map(({ customerNum }) => customerNum),
+                data: data.value.list.map(({ directionNum }) => directionNum),
                 type: 'bar',
                 barMaxWidth: 80,
               },
