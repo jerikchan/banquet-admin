@@ -21,6 +21,18 @@
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
           ]"
+          :dropDownActions="[
+            {
+              label: '接收任务',
+              onClick: acceptTask.bind(null, record),
+              disabled: record.status === '1' || record.taskStatus === '1',
+            },
+            {
+              label: '完成任务',
+              onClick: finishTask.bind(null, record),
+              disabled: record.status === '1' || record.taskStatus === '5',
+            },
+          ]"
         />
       </template>
     </BasicTable>
@@ -38,8 +50,10 @@
   import TaskModal from './TaskModal.vue';
 
   import { columns, searchFormSchema } from './task.data';
-  import { deleteTask } from '/@/api/admin/beo';
+  import { deleteTask, updateTask } from '/@/api/admin/beo';
   import { RoleEnum } from '/@/enums/roleEnum';
+
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'TaskManagement',
@@ -47,6 +61,7 @@
     setup() {
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
+      const { createMessage } = useMessage();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: 'BEO任务列表',
         api: getTaskList,
@@ -95,6 +110,16 @@
         }
       }
 
+      async function acceptTask(record: Recordable) {
+        await updateTask({ id: record.id, taskStatus: '1' });
+        createMessage.success('接收任务成功');
+      }
+
+      async function finishTask(record: Recordable) {
+        await updateTask({ id: record.id, taskStatus: '5' });
+        createMessage.success('操作成功');
+      }
+
       function handleSelect(deptId = '') {
         searchInfo.deptId = deptId;
         reload();
@@ -107,6 +132,8 @@
         handleDelete,
         handleSuccess,
         handleSelect,
+        acceptTask,
+        finishTask,
         searchInfo,
         RoleEnum,
       };

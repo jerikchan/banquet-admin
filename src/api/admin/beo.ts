@@ -54,8 +54,8 @@ export const getTaskList = (params?: TaskParams) =>
 export const addTask = (params?: TaskParams) =>
   defHttp.post<TaskListGetResultModel>({ url: Api.AddTask, params }, { devUrl });
 
-export const updateTask = (params?: TaskParams) =>
-  defHttp.post<TaskListGetResultModel>({ url: Api.UpdateTask, params }, { devUrl });
+export const updateTask = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.UpdateTask, params }, { devUrl });
 
 export const deleteTask = (params?: { id: string }) =>
   defHttp.post<TaskListGetResultModel>({ url: Api.DeleteTask, params }, { devUrl });

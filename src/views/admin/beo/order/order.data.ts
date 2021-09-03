@@ -151,9 +151,10 @@ export const roomScheduleFormSchema: FormSchema[] = [
   {
     field: 'banquetTime',
     label: '时间',
-    component: 'Input',
+    component: 'DatePicker',
     componentProps: {
-      disabled: true,
+      disabled: false,
+      showTime: true,
     },
     required: false,
   },
@@ -162,7 +163,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
     label: '宴会厅',
     component: 'Input',
     componentProps: {
-      disabled: true,
+      disabled: false,
     },
     required: false,
     colProps: {
@@ -175,7 +176,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
     component: 'Input',
     required: false,
     componentProps: {
-      disabled: true,
+      disabled: false,
     },
     colProps: {
       offset: 2,
@@ -187,7 +188,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
     component: 'Input',
     required: false,
     componentProps: {
-      disabled: true,
+      disabled: false,
     },
   },
   {
@@ -240,7 +241,7 @@ export const beoTaskFormSchema: FormSchema[] = [
 export const managerAllocationSchema: FormSchema[] = [
   {
     field: 'managerId',
-    label: '销售',
+    label: '选择管家',
     component: 'ApiSelect',
     componentProps: {
       api: getHouseKeeperList,
@@ -249,9 +250,9 @@ export const managerAllocationSchema: FormSchema[] = [
     },
     required: true,
   },
-  {
-    field: 'remark',
-    label: '备注',
-    component: 'InputTextArea',
-  },
+  // {
+  //   field: 'remark',
+  //   label: '备注',
+  //   component: 'InputTextArea',
+  // },
 ];

@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { taskFormSchema } from './task.data';
-  import { addTask } from '/@/api/admin/beo';
+  import { addTask, updateTask } from '/@/api/admin/beo';
   import { getDeptList } from '/@/api/admin/system';
 
   export default defineComponent({
@@ -76,10 +76,10 @@
           // TODO custom api
           console.log(values);
           if (isUpdate.value) {
-            // await updateTask({
-            //   ...values,
-            //   id: unref(idRef),
-            // });
+            await updateTask({
+              ...values,
+              id: unref(idRef),
+            });
           } else {
             await addTask(values);
           }
