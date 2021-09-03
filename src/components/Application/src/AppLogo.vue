@@ -34,7 +34,7 @@
      */
     alwaysShowTitle: { type: Boolean },
 
-    iconSize: { type: [Number, String], default: 24 },
+    iconSize: { type: [Number, String], default: 32 },
   };
 
   export default defineComponent({

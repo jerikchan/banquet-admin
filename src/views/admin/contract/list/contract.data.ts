@@ -60,22 +60,10 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'title',
-    label: '标题',
+    field: 'agreementCode',
+    label: '合同编号',
     component: 'Input',
     colProps: { span: 8 },
-  },
-  {
-    field: 'status',
-    label: '类型',
-    component: 'Select',
-    colProps: { span: 8 },
-    componentProps: {
-      options: [
-        { label: '已读', value: '1' },
-        { label: '未读', value: '0' },
-      ],
-    },
   },
 ];
 

@@ -15,6 +15,8 @@ export enum RoleEnum {
 
   FINANCE_MANAGER = 'finance_manager',
 
+  SALES_OFFICER = 'sales_officer',
+
   STAFF = 'staff',
 
   ANALYST = 'analyst',

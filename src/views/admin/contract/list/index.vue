@@ -1,9 +1,14 @@
 <template>
-  <div>
+  <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTable @register="registerTable">
       <template #action="{ record }">
         <TableAction
           :actions="[
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看合同详情',
+              onClick: handleAgreementInfoView.bind(null, record),
+            },
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
@@ -13,16 +18,12 @@
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
+          ]"
+          :dropDownActions="[
             {
-              icon: 'clarity:info-standard-line',
-              tooltip: '查看部门详情',
-              onClick: handleAgreementInfoView.bind(null, record),
-            },
-            {
-              icon: 'ant-design:swap-outlined',
-              tooltip: '下BEO单',
+              label: '下BEO单',
               disabled: record.status === '1' || record.status === '3',
               onClick: handleOrder.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
@@ -32,11 +33,11 @@
       </template>
     </BasicTable>
     <!-- <OrderModal @register="registerOrderModal" @success="handleSuccess" /> -->
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-
+  import { PageWrapper } from '/@/components/Page';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getContractList, deleteContract } from '/@/api/admin/contract';
 
@@ -51,7 +52,7 @@
 
   export default defineComponent({
     name: 'ContractManagement',
-    components: { BasicTable, TableAction },
+    components: { PageWrapper, BasicTable, TableAction },
     setup() {
       const [registerTable, { reload }] = useTable({
         title: '合同列表',
@@ -66,11 +67,10 @@
         bordered: true,
         showIndexColumn: true,
         actionColumn: {
-          width: 80,
+          width: 160,
           title: '操作',
           dataIndex: 'action',
           slots: { customRender: 'action' },
-          fixed: undefined,
         },
       });
 
