@@ -16,6 +16,16 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '起始时间',
+    dataIndex: 'startTime',
+    width: 200,
+  },
+  {
+    title: '结束时间',
+    dataIndex: 'endTime',
+    width: 200,
+  },
+  {
     title: '系数修改人',
     dataIndex: 'modifyName',
     width: 180,
@@ -43,9 +53,22 @@ export const searchFormSchema: FormSchema[] = [
 
 export const updateFormSchema: FormSchema[] = [
   {
+    field: 'name',
+    label: '档期名称',
+    component: 'Input',
+    required: true,
+  },
+  {
     field: 'ratio',
     label: '系数',
     component: 'Input',
+    required: true,
+  },
+  {
+    field: 'ratioTime',
+    component: 'RangePicker',
+    label: '档期时间',
+    required: true,
   },
 ];
 

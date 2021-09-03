@@ -7,7 +7,8 @@ const { devUrl } = useGlobSetting();
 enum Api {
   GetPersonalPerformance = '/performance/findPrivate',
   GetPerformances = '/performance/findPerformance',
-  AddPerformance = 'performance/add',
+  AddPerformance = '/performance/add',
+  AddRatioInfo = '/ratio/addRatio',
   UpdatePerformance = '/performance/update',
   DeletePerformance = '/performance/delete',
   GetRatioInfos = '/ratio/findRatioInfos',
@@ -25,6 +26,9 @@ export const getPerformances = (params?: {}) =>
 
 export const addPerformance = (params?: {}) =>
   defHttp.post<ManagerListGetResultModel>({ url: Api.AddPerformance, params }, { devUrl });
+
+export const addRatioInfo = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.AddRatioInfo, params }, { devUrl });
 
 export const updatePerformance = (params?: {}) =>
   defHttp.post<ManagerListGetResultModel>({ url: Api.UpdatePerformance, params }, { devUrl });
