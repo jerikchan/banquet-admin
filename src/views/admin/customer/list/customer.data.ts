@@ -26,6 +26,11 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '获客时间',
+    dataIndex: 'createTime',
+    width: 200,
+  },
+  {
     title: '客户状态',
     dataIndex: 'statusStr',
     width: 200,
@@ -72,7 +77,25 @@ export const searchFormSchema: FormSchema[] = [
     field: 'customerName',
     label: '客户名',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 5 },
+  },
+  {
+    field: 'salesName',
+    label: '销售名',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getSalesList,
+      labelField: 'realName',
+      valueField: 'realName',
+      disabled: false,
+    },
+    colProps: { span: 5 },
+  },
+  {
+    label: '客户号码',
+    field: 'customerMobile',
+    component: 'Input',
+    colProps: { span: 5 },
   },
 ];
 
@@ -161,6 +184,15 @@ export const customerFormSchema: FormSchema[] = [
     label: '第二联系人号码',
     field: 'secondManMobile',
     component: 'Input',
+    required: false,
+  },
+  {
+    field: 'createTime',
+    label: '录入日期',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+    },
     required: false,
   },
   // {
