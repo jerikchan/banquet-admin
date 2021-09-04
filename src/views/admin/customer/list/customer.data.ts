@@ -278,12 +278,12 @@ export const customerCancelFormSchema: FormSchema[] = [
     },
     required: true,
   },
-  {
-    field: 'remark',
-    label: '备注',
-    component: 'InputTextArea',
-    required: false,
-  },
+  // {
+  //   field: 'remark',
+  //   label: '备注',
+  //   component: 'InputTextArea',
+  //   required: false,
+  // },
 ];
 
 export const InvalidReasonFormSchema: FormSchema[] = [

@@ -1,12 +1,12 @@
 <template>
   <PageWrapper title="客户详情" contentBackground @back="goBack">
-    <Description size="middle" title="客户详情" :column="3" :data="desData" :schema="schema" />
+    <Description size="middle" :column="3" title="客户详情" :data="desData" :schema="schema" />
     <BasicTable @register="registerCommentTable" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, reactive, h } from 'vue';
-  import { Description, DescItem, useDescription } from '/@/components/Description/index';
+  import { defineComponent, ref, reactive } from 'vue';
+  import { Description, DescItem } from '/@/components/Description/index';
   import { PageWrapper } from '/@/components/Page';
   import { BasicTable, useTable } from '/@/components/Table';
   import { useRoute } from 'vue-router';
@@ -59,6 +59,21 @@
       label: '第二联系人号码',
       field: 'secondManMobile',
     },
+    {
+      label: '流失去向',
+      field: 'cancelDirectionStr',
+      show: (data) => data.customerType === '3',
+    },
+    {
+      label: '流失原因',
+      field: 'cancelReasonStr',
+      show: (data) => data.customerType === '3',
+    },
+    {
+      label: '无效原因',
+      field: 'invalidReason',
+      show: (data) => data.customerType === '6',
+    },
   ];
 
   export default defineComponent({
@@ -81,6 +96,11 @@
       // 此处可以得到ID
       const idRef = ref(route.params?.id);
       const currentKey = ref('detail');
+      // const [register] = useDescription({
+      //   title: '客户详情',
+      //   data: desData,
+      //   schema: schema,
+      // });
 
       function goBack() {
         go('/customer/list');
