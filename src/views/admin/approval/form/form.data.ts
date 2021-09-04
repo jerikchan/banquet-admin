@@ -121,6 +121,21 @@ export const customerInfoSchema: DescItem[] = [
     field: 'canBiao',
     label: '餐标',
   },
+  {
+    label: '流失去向',
+    field: 'cancelDirection',
+    show: (data) => data.flowType === '3',
+  },
+  {
+    label: '流失原因',
+    field: 'cancelReason',
+    show: (data) => data.flowType === '3',
+  },
+  {
+    label: '无效原因',
+    field: 'invalidReason',
+    show: (data) => data.flowType === '6',
+  },
 ];
 
 export const refundTimeTableSchema: BasicColumn[] = [

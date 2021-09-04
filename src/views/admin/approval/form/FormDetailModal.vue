@@ -181,6 +181,7 @@
         ) {
           let detailsInfo = await getCustomer({ id: customerId });
           Object.assign(customerInfoData, detailsInfo);
+          customerInfoData.flowType = type;
         } else if (type === '11') {
           debugger;
           let agreementInfo = await getAgreementInfo({ id: agreementId });

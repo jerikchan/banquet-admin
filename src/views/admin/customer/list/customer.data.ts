@@ -163,7 +163,7 @@ export const customerFormSchema: FormSchema[] = [
       labelField: 'label',
       valueField: 'id',
     },
-    required: true,
+    required: false,
   },
   {
     field: 'purposeTime',
