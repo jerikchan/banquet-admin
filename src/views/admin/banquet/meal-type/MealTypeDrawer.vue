@@ -8,7 +8,7 @@
     @ok="handleSubmit"
   >
     <BasicForm @register="registerForm">
-      <!-- <template #menu="{ model, field }">
+      <template #menu="{ model, field }">
         <BasicTree
           v-model:value="model[field]"
           :treeData="treeData"
@@ -17,28 +17,30 @@
           toolbar
           title="菜单分配"
         />
-      </template> -->
+      </template>
     </BasicForm>
   </BasicDrawer>
 </template>
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './foodType.data';
+  import { formSchema } from './meal-type.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
+  import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { updateFoodType, addFoodType } from '/@/api/admin/banquet';
+  import { getMenuList, updateBanquetType, addBanquetType } from '/@/api/admin/banquet';
 
   export default defineComponent({
-    name: 'FoodTypeDrawer',
-    components: { BasicDrawer, BasicForm },
+    name: 'BanquetTypeDrawer',
+    components: { BasicDrawer, BasicForm, BasicTree },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
+      const treeData = ref<TreeItem[]>([]);
       const idRef = ref('');
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
-        labelWidth: 120,
+        labelWidth: 90,
         schemas: formSchema,
         showActionButtonGroup: false,
       });
@@ -46,7 +48,10 @@
       const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
         resetFields();
         setDrawerProps({ confirmLoading: false });
-
+        // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
+        if (unref(treeData).length === 0) {
+          treeData.value = (await getMenuList()) as any as TreeItem[];
+        }
         isUpdate.value = !!data?.isUpdate;
 
         if (unref(isUpdate)) {
@@ -57,7 +62,7 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增菜单菜品' : '编辑菜单菜品'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增宴会类型' : '编辑宴会类型'));
 
       async function handleSubmit() {
         try {
@@ -65,12 +70,12 @@
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (isUpdate.value) {
-            await updateFoodType({
+            await updateBanquetType({
               ...values,
               id: unref(idRef),
             });
           } else {
-            await addFoodType(values);
+            await addBanquetType(values);
           }
           console.log(values);
           closeDrawer();
@@ -85,6 +90,7 @@
         registerForm,
         getTitle,
         handleSubmit,
+        treeData,
       };
     },
   });

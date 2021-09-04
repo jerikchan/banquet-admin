@@ -50,7 +50,7 @@
             {
               label: '分配跟进',
               onClick: handleAllocation.bind(null, record),
-              ifShow: !record.salesManagerId,
+              ifShow: record.customerType === '1' && !record.salesManagerId,
               disabled: record.status === '1',
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
             },
@@ -89,7 +89,7 @@
               ifShow:
                 (record.customerType === '1' || record.customerType === '0') &&
                 !record.salesManagerId,
-              onClick: handleTypeUpdate.bind(null, record, '6'),
+              onClick: handleInvalid.bind(null, record, '6'),
               disabled: record.status === '1',
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
             },
@@ -106,6 +106,7 @@
       @success="handleAllocationSuccess"
     />
     <CommentModal @register="registerCommentAddModal" @success="handleSuccess" />
+    <CustomerInvalidModal @register="registerInvalidModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -131,9 +132,10 @@
   import { useMessage } from '/@/hooks/web/useMessage';
   import { BasicUpload } from '/@/components/Upload';
   import { RoleEnum } from '/@/enums/roleEnum';
+  import CustomerInvalidModal from './CustomerInvalidModal.vue';
 
   export default defineComponent({
-    name: 'AccountManagement',
+    name: 'CustomerManagement',
     components: {
       BasicTable,
       PageWrapper,
@@ -146,6 +148,7 @@
       BasicUpload,
       CommentModal,
       CustomerCancelModal,
+      CustomerInvalidModal,
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
@@ -154,6 +157,8 @@
       const [registerAllocationModal, { openModal: openAllocationnModal }] = useModal();
       const [registerCancelModal, { openModal: openCancelModal }] = useModal();
       const [registerCommentAddModal, { openModal: openCommentAddnModal }] = useModal();
+      const [registerInvalidModal, { openModal: openInvalidModal }] = useModal();
+
       const go = useGo();
       const { createMessage, createConfirm } = useMessage();
       const searchInfo = reactive<Recordable>({});
@@ -230,7 +235,11 @@
       }
       function handleContractOpen(record: Recordable, toType) {
         openContractModal(true, {
-          record,
+          record: {
+            ...record,
+            id: '',
+            customerId: record.id,
+          },
           isUpdate: false,
           toType,
         });
@@ -281,6 +290,14 @@
           isUpdate: false,
         });
       }
+      function handleInvalid(record: Recordable, toType) {
+        openInvalidModal(true, {
+          record,
+          toType,
+          isUpdate: true,
+        });
+      }
+
       return {
         registerTable,
         registerModal,
@@ -308,6 +325,8 @@
         handleAllocationSuccess,
         handleTypeUpdateCancel,
         RoleEnum,
+        handleInvalid,
+        registerInvalidModal,
       };
     },
   });

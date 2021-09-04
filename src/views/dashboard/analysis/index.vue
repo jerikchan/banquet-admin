@@ -10,7 +10,11 @@
 
     <div class="!my-4 md:flex enter-y">
       <ChannelAnalysis class="w-full md:w-1/2" :loading="loading" />
-      <ChannelAnalysis2 class="w-full md:w-1/2 !md:mx-4 !md:my-0 !my-4" :loading="loading" />
+      <!-- <ChannelAnalysis2 class="w-full md:w-1/2 !md:mx-4 !md:my-0 !my-4" :loading="loading" /> -->
+      <DealDiscountPercentAnalysis
+        class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+        :loading="loading"
+      />
     </div>
 
     <div class="!my-4 md:flex enter-y">
@@ -40,15 +44,11 @@
 
     <div class="!my-4 md:flex enter-y">
       <DealDiscountAnalysis class="w-full md:w-1/2" :loading="loading" />
-      <DealDiscountPercentAnalysis
-        class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
-        :loading="loading"
-      />
+      <InviteAnalysis class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full" :loading="loading" />
     </div>
 
     <div class="!my-4 md:flex enter-y">
       <DealPercentAnalysis class="w-full md:w-1/2" :loading="loading" />
-      <InviteAnalysis class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full" :loading="loading" />
     </div>
   </div>
 </template>
@@ -58,7 +58,7 @@
   import PerfCard from './components/PerfCard.vue';
   import SalesCard from './components/SalesCard.vue';
   import ChannelAnalysis from './components/ChannelAnalysis.vue';
-  import ChannelAnalysis2 from './components/ChannelAnalysis2.vue';
+  // import ChannelAnalysis2 from './components/ChannelAnalysis2.vue';
   import SkipOrderAnalysis from './components/SkipOrderAnalysis.vue';
   import SkipGoWhere from './components/SkipGoWhere.vue';
   import BanquetTypeDealAnalysis from './components/BanquetTypeDealAnalysis.vue';
@@ -80,7 +80,7 @@
       PerfCard,
       SalesCard,
       ChannelAnalysis,
-      ChannelAnalysis2,
+      // ChannelAnalysis2,
       SkipOrderAnalysis,
       SkipGoWhere,
       BanquetTypeDealAnalysis,

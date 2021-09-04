@@ -7,23 +7,22 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { contractFormSchema } from './contract.data';
-  import { addContract } from '/@/api/admin/contract';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  import { InvalidReasonFormSchema } from './customer.data';
+  import { updateCustomerType } from '/@/api/admin/customer';
 
   export default defineComponent({
-    name: 'ContractModal',
+    name: 'CustomerCancelModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
+      const record = ref<any>({});
       const idRef = ref('');
-      const recordRef = ref({});
-      const { createMessage } = useMessage();
+      const toType = ref('');
 
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
-        schemas: contractFormSchema,
+        schemas: InvalidReasonFormSchema,
         showActionButtonGroup: false,
         actionColOptions: {
           span: 23,
@@ -34,21 +33,18 @@
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
+        record.value = data.record;
+        toType.value = data.toType;
 
-        if (!unref(isUpdate)) {
+        if (unref(isUpdate)) {
+          idRef.value = data.record.id;
           setFieldsValue({
-            status: '0',
+            ...data.record,
           });
         }
-        recordRef.value = data.record;
-        setFieldsValue({
-          customerId: data.record.customerId,
-          customerName: data.record.customerName,
-          customerMobile: data.record.customerMobile,
-        });
       });
 
-      const getTitle = computed(() => (isUpdate.value ? '修改合同' : '新增合同'));
+      const getTitle = computed(() => '转为无效');
 
       async function handleSubmit() {
         try {
@@ -56,12 +52,11 @@
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
-          if (!unref(isUpdate)) {
-            await addContract(values);
-            createMessage.success('新增合同成功');
-          } else {
-            createMessage.success('修改合同成功');
-          }
+          await updateCustomerType({
+            customerId: record.value.id,
+            invalidReason: values.invalidReason,
+            type: unref(toType),
+          });
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });
         } finally {

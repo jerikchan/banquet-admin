@@ -8,6 +8,7 @@ import { FormSchema } from '/@/components/Table';
 import { getSalesList } from '/@/api/admin/system';
 import { getChannelList } from '/@/api/admin/customer';
 import { getCommentTypeList } from '/@/api/admin/customer';
+import { getMealTypeList } from '/@/api/admin/banquet';
 
 export const columns: BasicColumn[] = [
   {
@@ -155,14 +156,14 @@ export const customerFormSchema: FormSchema[] = [
   },
   {
     label: '餐标',
-    field: 'canBiao',
-    component: 'Input',
-    // component: 'ApiSelect',
-    // componentProps: {
-    //   api: getChannelList,
-    //   labelField: 'label',
-    //   valueField: 'id',
-    // },
+    field: 'mealType',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getMealTypeList,
+      labelField: 'label',
+      valueField: 'id',
+    },
+    required: true,
   },
   {
     field: 'purposeTime',
@@ -289,12 +290,7 @@ export const InvalidReasonFormSchema: FormSchema[] = [
   {
     field: 'invalidReason',
     label: '无效原因',
-    component: 'ApiSelect',
-    componentProps: {
-      api: getCancelDirectionList,
-      labelField: 'label',
-      valueField: 'code',
-    },
+    component: 'InputTextArea',
     required: true,
   },
 ];

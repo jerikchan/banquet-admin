@@ -91,6 +91,16 @@ const banquet: AppRouteModule = {
       },
       component: () => import('/@/views/admin/banquet/foods/index.vue'),
     },
+    {
+      path: 'meal_type',
+      name: 'MealTypeManagement',
+      meta: {
+        title: '餐标列表',
+
+        roles: [RoleEnum.SUPER],
+      },
+      component: () => import('/@/views/admin/banquet/meal-type/index.vue'),
+    },
   ],
 };
 

@@ -1,3 +1,4 @@
+import { getFoodMenuList } from '/@/api/admin/banquet';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
@@ -70,17 +71,15 @@ export const formSchema: FormSchema[] = [
     component: 'Checkbox',
   },
   {
-    field: 'parentId',
     label: '所属菜单',
-    required: true,
-    component: 'TreeSelect',
+    field: 'parentId',
+    component: 'ApiSelect',
     componentProps: {
-      replaceFields: {
-        title: 'name',
-        key: 'id',
-        value: 'id',
-      },
-      getPopupContainer: () => document.body,
+      api: getFoodMenuList,
+      labelField: 'name',
+      valueField: 'id',
     },
+    required: ({ values }) => values.isChild,
+    ifShow: ({ values }) => values.isChild,
   },
 ];

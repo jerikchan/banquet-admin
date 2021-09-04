@@ -1,9 +1,11 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { getFoodList } from '/@/api/admin/contract';
-import { getRoomList, getScheduleTypeList } from '/@/api/admin/banquet';
+import { getBanquetTypeList, getRoomList, getScheduleTypeList } from '/@/api/admin/banquet';
 import { uploadPicApi } from '/@/api/sys/upload';
 import { DescItem } from '/@/components/Description/index';
+import { h } from 'vue';
+import { Image } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -70,12 +72,31 @@ export const searchFormSchema: FormSchema[] = [
 export const contractFormSchema: FormSchema[] = [
   {
     field: 'customerId',
-    label: '客户',
+    label: '客户id',
     component: 'Input',
     componentProps: {
       disabled: true,
     },
     required: true,
+    ifShow: false,
+  },
+  {
+    field: 'customerName',
+    label: '客户名',
+    component: 'Input',
+    componentProps: {
+      disabled: true,
+    },
+    required: false,
+  },
+  {
+    field: 'customerMobile',
+    label: '联系电话',
+    component: 'Input',
+    componentProps: {
+      disabled: true,
+    },
+    required: false,
   },
   {
     field: 'agreementCode',
@@ -83,11 +104,11 @@ export const contractFormSchema: FormSchema[] = [
     component: 'Input',
     required: true,
   },
-  {
-    field: 'mobile',
-    label: '电话',
-    component: 'Input',
-  },
+  // {
+  //   field: 'mobile',
+  //   label: '电话',
+  //   component: 'Input',
+  // },
   {
     field: 'banquetTime',
     label: '宴会日期',
@@ -103,6 +124,17 @@ export const contractFormSchema: FormSchema[] = [
     component: 'ApiSelect',
     componentProps: {
       api: getScheduleTypeList,
+      labelField: 'label',
+      valueField: 'value',
+    },
+    required: true,
+  },
+  {
+    field: 'banquetType',
+    label: '宴会类型',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getBanquetTypeList,
       labelField: 'label',
       valueField: 'value',
     },
@@ -141,74 +173,82 @@ export const contractFormSchema: FormSchema[] = [
         value: 'id',
       },
     },
-    required: false,
+    required: true,
   },
   {
     field: 'floorsDeskCount',
     label: '保底桌数',
     component: 'InputNumber',
+    required: true,
   },
   {
     field: 'singlePrice',
     label: '单桌价格',
     component: 'InputNumber',
+    required: true,
   },
   {
     field: 'banquetPrice',
     label: '婚庆价格',
     component: 'InputNumber',
+    required: true,
   },
   {
     field: 'extraPrice',
     label: '格外费用',
     component: 'InputNumber',
+    required: true,
   },
   {
     field: 'beforeDiscountTotal',
     label: '优惠前总价',
     component: 'InputNumber',
+    required: true,
   },
   {
     field: 'afterDiscountTotal',
     label: '优惠后总价',
     component: 'InputNumber',
+    required: true,
   },
   {
     field: 'backupDesk',
     label: '备用桌数',
     component: 'InputNumber',
+    required: true,
   },
   {
     field: 'frontMoney',
     label: '定金',
     component: 'InputNumber',
+    required: true,
   },
-  {
-    field: 'status',
-    label: '合同状态',
-    component: 'Select',
-    componentProps: {
-      disabled: true,
-      options: [
-        {
-          label: '未审核',
-          value: '0',
-        },
-        {
-          label: '审核中',
-          value: '1',
-        },
-        {
-          label: '审核不通过',
-          value: '3',
-        },
-        {
-          label: ' 审核通过',
-          value: '5',
-        },
-      ],
-    },
-  },
+  // {
+  //   field: 'status',
+  //   label: '合同状态',
+  //   component: 'Select',
+  //   componentProps: {
+  //     disabled: true,
+  //     options: [
+  //       {
+  //         label: '未审核',
+  //         value: '0',
+  //       },
+  //       {
+  //         label: '审核中',
+  //         value: '1',
+  //       },
+  //       {
+  //         label: '审核不通过',
+  //         value: '3',
+  //       },
+  //       {
+  //         label: ' 审核通过',
+  //         value: '5',
+  //       },
+  //     ],
+  //   },
+  // },
   {
     field: 'file',
     label: '合同照片',
@@ -217,6 +257,7 @@ export const contractFormSchema: FormSchema[] = [
       api: uploadPicApi,
       accept: ['png', 'jpg', 'jpeg'],
     },
+    required: true,
   },
   {
     field: 'remark',
@@ -269,5 +310,18 @@ export const agreemetnDetailSchema: DescItem[] = [
   {
     field: 'backupDesk',
     label: '备用桌数',
+  },
+  {
+    field: 'file',
+    label: '合同照片',
+    render: (val = ['https://i.gtimg.cn/club/item/face/img/2/16022_100.gif']) => {
+      return h(
+        'div',
+        null,
+        val.map((src) => {
+          return h(Image, { src });
+        })
+      );
+    },
   },
 ];

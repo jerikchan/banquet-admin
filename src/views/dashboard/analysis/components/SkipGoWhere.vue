@@ -53,6 +53,18 @@
                 data: data.value.list.map(({ directionNum }) => directionNum),
                 type: 'bar',
                 barMaxWidth: 80,
+                itemStyle: {
+                  normal: {
+                    label: {
+                      show: true,
+                      position: 'top',
+                      textStyle: {
+                        color: '#666',
+                        fontSize: 14,
+                      },
+                    },
+                  },
+                },
               },
             ],
           });
