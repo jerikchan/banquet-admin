@@ -1,7 +1,20 @@
 <template>
   <PageWrapper title="婚礼注意事项筛查记录修改" contentBackground @back="goBack">
     <a-card title="信息修改" :bordered="false">
-      <BasicForm @register="register" />
+      <BasicForm @register="register">
+        <template #[fileInfo.key] v-for="fileInfo in fileInfos" :key="fileInfo.key">
+          <a-upload
+            listType="picture-card"
+            v-model:fileList="fileInfo.data"
+            :customRequest="uploadPicApiCustom"
+          >
+            <div v-if="fileInfo.data.length < 1">
+              <PlusOutlined />
+              <div class="ant-upload-text">上传</div>
+            </div>
+          </a-upload>
+        </template>
+      </BasicForm>
     </a-card>
 
     <template #rightFooter>
@@ -12,7 +25,7 @@
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, ref, reactive, unref } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   // import { schemas, taskSchemas } from './data';
   import { Card } from 'ant-design-vue';
@@ -23,17 +36,45 @@
   import { useRoute } from 'vue-router';
 
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { PlusOutlined } from '@ant-design/icons-vue';
+  import { uploadPicApiCustom } from '/@/api/sys/upload';
 
   export default defineComponent({
     name: 'FormHightPage',
-    components: { BasicForm, PageWrapper, [Card.name]: Card },
+    components: { BasicForm, PageWrapper, [Card.name]: Card, PlusOutlined },
     setup() {
       // const tableRef = ref<{ getDataSource: () => any } | null>(null);
       ref('oper');
       const go = useGo();
       const route = useRoute();
-      const deptId = ref(route.params?.id);
+      const deptId = ref<any>(route.params?.id);
       const { createMessage } = useMessage();
+      const fileInfos = reactive<any>(
+        [
+          'siYiCaiPaiTimeId',
+          'siYiDaoDaTimeId',
+          'huaZhuangShiTimeId',
+          'sheYingShiTimeId',
+          'sheXiangShiTimeId',
+          'xinRenDiZhiId',
+          'hunCheTimeId',
+          'xiWeiContentId',
+          'haiBaoId',
+          'taiKaId',
+          'zhiShiPaiId',
+          'midMoneyId',
+          'yiShiDaoJuId',
+          'hunCheHuaTimeId',
+          'qinPengCaiYiId',
+          'daJianTimeId',
+        ].map((key) => {
+          return {
+            key,
+            data: [],
+          };
+        })
+      );
+
       let res;
       const [register, { setFieldsValue, getFieldsValue }] = useForm({
         labelCol: {
@@ -51,10 +92,24 @@
           let submitValues = getFieldsValue();
           console.log(submitValues);
           submitValues.id = deptId.value;
-          await updateAttentCheckForm(submitValues);
+          const fileInfoRecord = fileInfos.reduce((acc, fileInfo) => {
+            const data = unref(fileInfo.data);
+            acc[fileInfo.key] =
+              data && Array.isArray(data) && data.length
+                ? data.map((info) => info?.response?.uid || info.uid)
+                : null;
+            return acc;
+          }, {});
+          await updateAttentCheckForm({
+            ...submitValues,
+            ...fileInfoRecord,
+          });
           handleData(submitValues.id);
           createMessage.success('修改成功');
-        } catch (error) {}
+        } catch (error) {
+          createMessage.error('修改失败');
+          throw error;
+        }
       }
 
       function resetAll() {
@@ -77,7 +132,7 @@
 
       handleData(deptId.value);
 
-      return { register, submitAll, goBack, handleData, resetAll };
+      return { register, submitAll, goBack, handleData, resetAll, uploadPicApiCustom, fileInfos };
     },
   });
 </script>

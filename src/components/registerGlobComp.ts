@@ -7,6 +7,7 @@ import {
   Input,
   Layout,
   Cascader,
+  Upload,
 } from 'ant-design-vue';
 
 import { Authority } from '/@/components/Authority';
@@ -18,7 +19,7 @@ export function registerGlobComp(app: App) {
     app.component(comp.name || comp.displayName, comp);
   });
 
-  app.use(Input).use(Button).use(Layout).use(Cascader);
+  app.use(Input).use(Button).use(Layout).use(Cascader).use(Upload);
 
   app.use(Authority);
 }

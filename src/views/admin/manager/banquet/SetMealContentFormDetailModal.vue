@@ -24,7 +24,7 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, reactive } from 'vue';
+  import { defineComponent, ref, reactive, h } from 'vue';
   import { Description, DescItem, useDescription } from '/@/components/Description/index';
   import { PageWrapper } from '/@/components/Page';
   import { useRoute } from 'vue-router';
@@ -35,6 +35,7 @@
   import { BasicUpload } from '/@/components/Upload';
 
   import { useGlobSetting } from '/@/hooks/setting';
+  import { Upload } from 'ant-design-vue';
 
   const mockData: Recordable = reactive({
     userName: '',
@@ -106,20 +107,73 @@
       label: '迎宾区',
     },
     {
+      field: 'yingBinQuId',
+      label: '迎宾区凭证',
+      render: (val) =>
+        h(Upload, {
+          listType: 'picture-card',
+          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+          fileList: val,
+        }),
+    },
+    {
       field: 'qianDaoQu',
       label: '签到区',
+    },
+    {
+      field: 'qianDaoQuId',
+      label: '签到区凭证',
+      render: (val) =>
+        h(Upload, {
+          listType: 'picture-card',
+          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+          fileList: val,
+        }),
     },
     {
       field: 'yiShiQu',
       label: '仪式区',
     },
     {
+      field: 'yiShiQuId',
+      label: '仪式区凭证',
+      render: (val) =>
+        h(Upload, {
+          listType: 'picture-card',
+          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+          fileList: val,
+        }),
+    },
+    {
       field: 'wuTaiQu',
       label: '舞台区',
     },
     {
+      field: 'wuTaiQuId',
+      label: '舞台区凭证',
+      render: (val) =>
+        h(Upload, {
+          listType: 'picture-card',
+          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+          fileList: val,
+        }),
+    },
+    {
       field: 'caoPing',
-      label: '草坪或仪式区',
+      label: '草坪',
+    },
+    {
+      field: 'caoPingId',
+      label: '草坪凭证',
+      render: (val) =>
+        h(Upload, {
+          listType: 'picture-card',
+          showUploadList: {
+            showPreviewIcon: true,
+            showRemoveIcon: false,
+          },
+          fileList: val,
+        }),
     },
     {
       field: 'xianHuaHuaYi',

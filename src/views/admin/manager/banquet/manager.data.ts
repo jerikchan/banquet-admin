@@ -243,6 +243,12 @@ export const setMealContentFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'yingBinQuId',
+    component: 'Input',
+    label: '迎宾区凭证',
+    slot: 'yingBinQuId',
+  },
+  {
     field: 'qianDaoQu',
     component: 'InputTextArea',
     label: '签到区',
@@ -251,6 +257,12 @@ export const setMealContentFormSchema: FormSchema[] = [
       rows: 2,
     },
     required: false,
+  },
+  {
+    field: 'qianDaoQuId',
+    component: 'Input',
+    label: '签到区凭证',
+    slot: 'qianDaoQuId',
   },
   {
     field: 'yiShiQu',
@@ -263,6 +275,12 @@ export const setMealContentFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'yiShiQuId',
+    component: 'Input',
+    label: '仪式区凭证',
+    slot: 'yiShiQuId',
+  },
+  {
     field: 'wuTaiQu',
     component: 'InputTextArea',
     label: '舞台区',
@@ -273,6 +291,12 @@ export const setMealContentFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'wuTaiQuId',
+    component: 'Input',
+    label: '舞台区凭证',
+    slot: 'wuTaiQuId',
+  },
+  {
     field: 'caoPing',
     component: 'InputTextArea',
     label: '草坪',
@@ -281,6 +305,12 @@ export const setMealContentFormSchema: FormSchema[] = [
       rows: 2,
     },
     required: false,
+  },
+  {
+    field: 'caoPingId',
+    component: 'Input',
+    label: '草坪区凭证',
+    slot: 'caoPingId',
   },
   {
     field: 'tianPin',
@@ -779,6 +809,12 @@ export const attentionCheckFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'siYiCaiPaiTimeId',
+    label: '仪式彩排时间凭证',
+    component: 'Input',
+    slot: 'siYiCaiPaiTimeId',
+  },
+  {
     field: 'siYiDaoDaTime',
     label: '司仪到达时间',
     component: 'DatePicker',
@@ -786,6 +822,12 @@ export const attentionCheckFormSchema: FormSchema[] = [
       showTime: true,
     },
     required: false,
+  },
+  {
+    field: 'siYiDaoDaTimeId',
+    label: '司仪到达时间凭证',
+    component: 'Input',
+    slot: 'siYiDaoDaTimeId',
   },
   {
     field: 'huaZhuangShiTime',
@@ -797,6 +839,12 @@ export const attentionCheckFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'huaZhuangShiTimeId',
+    label: '化妆师到场时间凭证',
+    component: 'Input',
+    slot: 'huaZhuangShiTimeId',
+  },
+  {
     field: 'sheYingShiTime',
     label: '摄影师到达时间',
     component: 'DatePicker',
@@ -804,6 +852,12 @@ export const attentionCheckFormSchema: FormSchema[] = [
       showTime: true,
     },
     required: false,
+  },
+  {
+    field: 'sheYingShiTimeId',
+    label: '摄影师到达时间凭证',
+    component: 'Input',
+    slot: 'sheYingShiTimeId',
   },
   {
     field: 'sheXiangShiTime',
@@ -815,10 +869,22 @@ export const attentionCheckFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'sheXiangShiTimeId',
+    label: '摄像师到达时间凭证',
+    component: 'Input',
+    slot: 'sheXiangShiTimeId',
+  },
+  {
     field: 'xinRenDiZhi',
     label: '新人地址',
     component: 'Input',
     required: false,
+  },
+  {
+    field: 'xinRenDiZhiId',
+    label: '新人地址凭证',
+    component: 'Input',
+    slot: 'xinRenDiZhiId',
   },
   {
     field: 'hunCheTime',
@@ -830,10 +896,22 @@ export const attentionCheckFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'hunCheTimeId',
+    label: '婚车到达时间凭证',
+    component: 'Input',
+    slot: 'hunCheTimeId',
+  },
+  {
     field: 'xiWeiContent',
     label: '席位图制作情况',
     component: 'Input',
     required: false,
+  },
+  {
+    field: 'xiWeiContentId',
+    label: '席位图制作情况凭证',
+    component: 'Input',
+    slot: 'xiWeiContentId',
   },
   {
     field: 'haiBao',
@@ -842,10 +920,22 @@ export const attentionCheckFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'haiBaoId',
+    label: '海报制作情况凭证',
+    component: 'Input',
+    slot: 'haiBaoId',
+  },
+  {
     field: 'taiKa',
     label: '台卡制作情况',
     component: 'Input',
     required: false,
+  },
+  {
+    field: 'taiKaId',
+    label: '台卡制作情况凭证',
+    component: 'Input',
+    slot: 'taiKaId',
   },
   {
     field: 'zhiShiPai',
@@ -854,16 +944,34 @@ export const attentionCheckFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'zhiShiPaiId',
+    label: '指示牌制作情况凭证',
+    component: 'Input',
+    slot: 'zhiShiPaiId',
+  },
+  {
     field: 'midMoney',
     label: '中期款收取情况',
     component: 'Input',
     required: false,
   },
   {
+    field: 'midMoneyId',
+    label: '中期款收取情况凭证',
+    component: 'Input',
+    slot: 'midMoneyId',
+  },
+  {
     field: 'yiShiDaoJu',
     label: '仪式道具准备情况',
     component: 'Input',
     required: false,
+  },
+  {
+    field: 'yiShiDaoJuId',
+    label: '仪式道具准备情况凭证',
+    component: 'Input',
+    slot: 'yiShiDaoJuId',
   },
   {
     field: 'hunCheHuaTime',
@@ -875,10 +983,22 @@ export const attentionCheckFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'hunCheHuaTimeId',
+    label: '婚车花扎花时间凭证',
+    component: 'Input',
+    slot: 'hunCheHuaTimeId',
+  },
+  {
     field: 'qinPengCaiYi',
     label: '亲朋才艺音乐准备情况',
     component: 'Input',
     required: false,
+  },
+  {
+    field: 'qinPengCaiYiId',
+    label: '亲朋才艺音乐准备情况凭证',
+    component: 'Input',
+    slot: 'qinPengCaiYiId',
   },
   {
     field: 'daJianTime',
@@ -888,5 +1008,11 @@ export const attentionCheckFormSchema: FormSchema[] = [
       showTime: true,
     },
     required: false,
+  },
+  {
+    field: 'daJianTimeId',
+    label: '搭建团队搭建时间凭证',
+    component: 'Input',
+    slot: 'daJianTimeId',
   },
 ];
