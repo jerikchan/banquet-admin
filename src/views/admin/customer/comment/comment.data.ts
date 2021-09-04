@@ -24,7 +24,7 @@ export const columns: BasicColumn[] = [
   {
     title: '内容',
     dataIndex: 'content',
-    width: 120,
+    width: 300,
   },
   {
     title: '预计下次跟进时间',
