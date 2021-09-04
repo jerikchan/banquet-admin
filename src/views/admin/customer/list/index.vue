@@ -256,6 +256,7 @@
           const result = updateTableDataRecord(values.id, values);
           console.log(result);
         } else {
+          createMessage.success('操作成功');
           reload();
         }
       }
@@ -294,7 +295,7 @@
         openInvalidModal(true, {
           record,
           toType,
-          isUpdate: true,
+          isUpdate: false,
         });
       }
 
