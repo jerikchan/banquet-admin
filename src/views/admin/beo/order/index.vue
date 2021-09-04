@@ -35,7 +35,7 @@
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
               },
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
           ]"
           :dropDownActions="[

@@ -284,3 +284,17 @@ export const customerCancelFormSchema: FormSchema[] = [
     required: false,
   },
 ];
+
+export const InvalidReasonFormSchema: FormSchema[] = [
+  {
+    field: 'invalidReason',
+    label: '无效原因',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCancelDirectionList,
+      labelField: 'label',
+      valueField: 'code',
+    },
+    required: true,
+  },
+];
