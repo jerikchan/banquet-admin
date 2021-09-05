@@ -21,6 +21,10 @@ enum Api {
   UpdateAccept = '/finance/updateReturnCollectionInfo',
   DeleteAccept = '/finance/deleteCollectionInfo',
   GetAcceptInfo = '/finance/findSingleReturnCollectionInfo',
+
+  GetReturnTypeList = '/dic/findDic',
+
+  GetReceivablesInfo = '/finance/findReceivablesInfoByAgreementId',
 }
 
 export const getTotalList = (params?: TotalParams) =>
@@ -28,6 +32,15 @@ export const getTotalList = (params?: TotalParams) =>
 
 export const getTotalInfo = (params?: TotalParams) =>
   defHttp.get<TotalListGetResultModel>({ url: Api.GetTotalInfo, params }, { devUrl });
+
+export const getReceivablesInfo = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetReceivablesInfo, params }, { devUrl });
+
+export const getReturnTypeList = (params?: {}) =>
+  defHttp.get<{}>(
+    { url: Api.GetReturnTypeList, params: { ...params, identifyCode: 'money_type' } },
+    { devUrl }
+  );
 
 export const addTotal = (params?: TotalParams) =>
   defHttp.post<TotalListGetResultModel>({ url: Api.AddTotal, params }, { devUrl });

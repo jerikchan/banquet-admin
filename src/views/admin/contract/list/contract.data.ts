@@ -14,6 +14,11 @@ export const columns: BasicColumn[] = [
     width: 180,
   },
   {
+    title: '客户名称',
+    dataIndex: 'customerName',
+    width: 180,
+  },
+  {
     title: '宴会厅房',
     dataIndex: 'banquetRoomName',
     width: 180,
@@ -21,6 +26,11 @@ export const columns: BasicColumn[] = [
   {
     title: '餐别',
     dataIndex: 'scheduleTypeStr',
+    width: 180,
+  },
+  {
+    title: '录入时间',
+    dataIndex: 'createTime',
     width: 180,
   },
   // {
@@ -56,7 +66,7 @@ export const columns: BasicColumn[] = [
   {
     title: '状态',
     dataIndex: 'statusStr',
-    width: 90,
+    width: 140,
   },
 ];
 
@@ -120,7 +130,7 @@ export const contractFormSchema: FormSchema[] = [
   },
   {
     field: 'scheduleType',
-    label: '档期类型',
+    label: '餐别',
     component: 'ApiSelect',
     componentProps: {
       api: getScheduleTypeList,
@@ -136,7 +146,7 @@ export const contractFormSchema: FormSchema[] = [
     componentProps: {
       api: getBanquetTypeList,
       labelField: 'label',
-      valueField: 'value',
+      valueField: 'code',
     },
     required: true,
   },
@@ -280,10 +290,6 @@ export const agreemetnDetailSchema: DescItem[] = [
     label: '销售名称',
   },
   {
-    field: 'salesMobile',
-    label: '销售号码',
-  },
-  {
     field: 'banquetRoomName',
     label: '厅房名称',
   },
@@ -298,6 +304,10 @@ export const agreemetnDetailSchema: DescItem[] = [
   {
     field: 'banquetPrice',
     label: '婚庆价格',
+  },
+  {
+    field: 'beforeDiscountTotal',
+    label: '优惠前总价',
   },
   {
     field: 'afterDiscountTotal',

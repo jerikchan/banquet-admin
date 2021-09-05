@@ -180,10 +180,6 @@ export const agreementInfoSchema: DescItem[] = [
     label: '销售名称',
   },
   {
-    field: 'salesMobile',
-    label: '销售号码',
-  },
-  {
     field: 'banquetRoomName',
     label: '厅房名称',
   },
@@ -198,6 +194,10 @@ export const agreementInfoSchema: DescItem[] = [
   {
     field: 'banquetPrice',
     label: '婚庆价格',
+  },
+  {
+    field: 'beforeDiscountTotal',
+    label: '优惠前总价',
   },
   {
     field: 'afterDiscountTotal',
@@ -219,10 +219,6 @@ export const beoInfoSchema: DescItem[] = [
     label: 'beo单号',
   },
   {
-    field: 'agreementCode',
-    label: '合同编号',
-  },
-  {
     field: 'salesManName',
     label: '销售名称',
   },
@@ -237,38 +233,6 @@ export const beoInfoSchema: DescItem[] = [
   {
     field: 'managerMobile',
     label: '管家号码',
-  },
-  {
-    field: 'banquetRoomName',
-    label: '厅房名称',
-  },
-  {
-    field: 'banquetTime',
-    label: '宴会时间',
-  },
-  {
-    field: 'singlePrice',
-    label: '单桌价格',
-  },
-  {
-    field: 'banquetPrice',
-    label: '婚庆价格',
-  },
-  {
-    field: 'beforeDiscountTotal',
-    label: '优惠后总价',
-  },
-  {
-    field: 'afterDiscountTotal',
-    label: '优惠后总价',
-  },
-  {
-    field: 'floorsDeskCount',
-    label: '保底桌数',
-  },
-  {
-    field: 'backupDesk',
-    label: '备用桌数',
   },
 ];
 
@@ -359,5 +323,32 @@ export const receivableInfoFormSchema: DescItem[] = [
   {
     label: '尾款',
     field: 'finalMoney',
+  },
+];
+
+export const roomScheduleFormSchema: DescItem[] = [
+  {
+    field: 'banquetTime',
+    label: '时间',
+  },
+  {
+    field: 'roomName',
+    label: '宴会厅',
+  },
+  {
+    field: 'banquetType',
+    label: '宴会类型',
+  },
+  {
+    field: 'setUpType',
+    label: '摆桌形式',
+  },
+  {
+    field: 'deskCount',
+    label: '桌数',
+  },
+  {
+    field: 'backupDesk',
+    label: '备桌数',
   },
 ];

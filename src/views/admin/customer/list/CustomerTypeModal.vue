@@ -76,6 +76,9 @@
               chatType: values.chatType,
               chatRealTime: values.chatRealTime,
               preNextChatTime: values.preNextChatTime,
+              roomId: values.roomId,
+              banquetType: values.banquetType,
+              canBie: values.canBie,
               type: unref(toType),
             });
           } else {

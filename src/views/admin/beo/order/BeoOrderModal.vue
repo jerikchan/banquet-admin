@@ -3,13 +3,13 @@
     <a-card title="基本信息" :bordered="true">
       <BasicForm @register="register" />
     </a-card>
-    <a-divider />
     <a-card title="档期信息" :bordered="true">
       <BasicForm @register="registerSchedule" />
     </a-card>
-    <a-divider />
+    <a-card title="财务信息" :bordered="true">
+      <BasicForm @register="registerBeoFinance" />
+    </a-card>
     <BasicTable @register="registerTimeTable" />
-    <a-divider />
     <CollapseContainer title="管家部BEO内容">
       <BasicForm @register="registerTaskManager" />
     </CollapseContainer>
@@ -45,12 +45,16 @@
     roomScheduleFormSchema,
     foodsColumn,
     beoTaskFormSchema,
+    beoFinanceFormSchema,
   } from './order.data';
   import { Card } from 'ant-design-vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { CollapseContainer } from '/@/components/Container/index';
 
   import { getAgreementInfo, getScheduleByAgreementId, getFoodsInfos } from '/@/api/admin/contract';
+
+  import { getReceivablesInfo } from '/@/api/admin/finance';
+
   import { addOrderNew } from '/@/api/admin/beo';
 
   import { useGo } from '/@/hooks/web/usePage';
@@ -80,6 +84,17 @@
           span: 6,
         },
         schemas: roomScheduleFormSchema,
+        showActionButtonGroup: false,
+      });
+
+      const [
+        registerBeoFinance,
+        { setFieldsValue: setFieldsFinanceValue, getFieldsValue: getFieldFinanceValue },
+      ] = useForm({
+        baseColProps: {
+          span: 6,
+        },
+        schemas: beoFinanceFormSchema,
         showActionButtonGroup: false,
       });
 
@@ -167,12 +182,13 @@
       let res, foods, foodsId;
 
       async function submitAll() {
-        debugger;
+        // debugger;
         try {
           let submitValues = {},
             tasks = [];
           Object.assign(submitValues, getBasciValues());
           Object.assign(submitValues, getScheduleValues());
+          Object.assign(submitValues, getFieldFinanceValue());
           let temp = {};
           // Object.defineProperty(temp, 'deptName', '管家部');
           temp.deptName = '管家部';
@@ -209,6 +225,7 @@
           delete submitValues.id;
 
           console.log(submitValues);
+          submitValues.beoType = '执行beo单';
           await addOrderNew(submitValues);
           createMessage.success('新建成功!');
           go('/beo/order');
@@ -222,7 +239,7 @@
       }
 
       async function handleData(id: string) {
-        debugger;
+        // debugger;
         res = await getAgreementInfo({ id: id });
         setFieldsValue({
           ...res,
@@ -238,6 +255,11 @@
 
         foods = await getFoodsInfos({ parentId: foodsId });
         setTableData(foods);
+
+        res = await getReceivablesInfo({ id: id });
+        setFieldsFinanceValue({
+          ...res,
+        });
       }
 
       handleData(agreementId.value);
@@ -256,6 +278,7 @@
         registerTaskMutiple,
         registerTaskBuy,
         registerTaskFinance,
+        registerBeoFinance,
       };
     },
   });

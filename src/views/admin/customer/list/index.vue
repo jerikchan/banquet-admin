@@ -27,6 +27,7 @@
             {
               icon: 'clarity:note-edit-line',
               tooltip: '编辑客户资料',
+              disabled: record.status === '1',
               onClick: handleEdit.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER, RoleEnum.SALES],
             },
@@ -34,6 +35,7 @@
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除此客户',
+              disabled: record.status === '1',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),

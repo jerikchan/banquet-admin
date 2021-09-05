@@ -28,7 +28,7 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList, updateBanquetType, addBanquetType } from '/@/api/admin/banquet';
+  import { getMenuList, updateMealType, addMealType } from '/@/api/admin/banquet';
 
   export default defineComponent({
     name: 'BanquetTypeDrawer',
@@ -70,12 +70,12 @@
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (isUpdate.value) {
-            await updateBanquetType({
+            await updateMealType({
               ...values,
               id: unref(idRef),
             });
           } else {
-            await addBanquetType(values);
+            await addMealType(values);
           }
           console.log(values);
           closeDrawer();

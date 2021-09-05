@@ -3,6 +3,7 @@
 import { getContractList } from '/@/api/admin/contract';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { getReturnTypeList } from '/@/api/admin/finance';
 
 export const columns: BasicColumn[] = [
   {
@@ -21,6 +22,11 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
+    title: '回款类型',
+    dataIndex: 'returnType',
+    width: 120,
+  },
+  {
     title: '回款金额',
     dataIndex: 'returnMoney',
     width: 120,
@@ -36,9 +42,9 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '最终收款时间',
-    dataIndex: 'lastTime',
-    width: 120,
+    title: '创建时间',
+    dataIndex: 'createTime',
+    width: 180,
   },
   {
     title: '定金',
@@ -53,6 +59,11 @@ export const columns: BasicColumn[] = [
   {
     title: '尾款',
     dataIndex: 'finalMoney',
+    width: 120,
+  },
+  {
+    title: '状态',
+    dataIndex: 'statusStr',
     width: 120,
   },
 ];
@@ -165,6 +176,17 @@ export const acceptFormSchema: FormSchema[] = [
     field: 'returnMan',
     label: '回款人',
     component: 'Input',
+    required: true,
+  },
+  {
+    field: 'returnType',
+    label: '款项类型',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getReturnTypeList,
+      labelField: 'label',
+      valueField: 'value',
+    },
     required: true,
   },
   {
