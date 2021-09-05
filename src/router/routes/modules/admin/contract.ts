@@ -36,6 +36,7 @@ const contract: AppRouteModule = {
         hideMenu: true,
         title: '合同详情',
         showMenu: false,
+        hideTab: true,
         currentActiveMenu: '/contract/list',
       },
       component: () => import('/@/views/admin/contract/list/ContractDetailModal.vue'),

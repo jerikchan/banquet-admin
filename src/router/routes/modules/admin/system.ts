@@ -28,7 +28,7 @@ const system: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '员工详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/system/account',
       },
@@ -50,7 +50,7 @@ const system: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '角色详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/system/role',
       },
@@ -70,7 +70,7 @@ const system: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '部门详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/system/dept',
       },

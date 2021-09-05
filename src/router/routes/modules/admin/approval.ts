@@ -45,7 +45,7 @@ const approval: AppRouteModule = {
       name: 'FormManagementDetail',
       meta: {
         title: '与我相关详情',
-
+        hideTab: true,
         hideMenu: true,
         showMenu: false,
         currentActiveMenu: '/approval/form',
@@ -57,7 +57,7 @@ const approval: AppRouteModule = {
       name: 'ReviewDetail',
       meta: {
         title: '与我相关详情',
-
+        hideTab: true,
         hideMenu: true,
         showMenu: false,
         currentActiveMenu: '/approval/review',

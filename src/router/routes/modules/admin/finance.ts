@@ -44,7 +44,7 @@ const finance: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '应收款单详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/finance/total',
       },
@@ -56,7 +56,7 @@ const finance: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '回款单详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/finance/accept',
       },
