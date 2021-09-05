@@ -1,15 +1,15 @@
 <template>
-  <PageWrapper class="high-form" title="已完成BEO下单" content=" 完成婚礼指令单" @back="goBack">
+  <PageWrapper class="high-form" title="BEO下单" content=" 婚礼指令单" @back="goBack">
     <a-card title="基本信息" :bordered="true">
       <BasicForm @register="register" />
     </a-card>
-    <a-divider />
     <a-card title="档期信息" :bordered="true">
       <BasicForm @register="registerSchedule" />
     </a-card>
-    <a-divider />
+    <a-card title="财务信息" :bordered="true">
+      <BasicForm @register="registerBeoFinance" />
+    </a-card>
     <BasicTable @register="registerTimeTable" />
-    <a-divider />
     <CollapseContainer title="管家部BEO内容">
       <BasicForm @register="registerTaskManager" />
     </CollapseContainer>
@@ -45,13 +45,17 @@
     roomScheduleFormSchema,
     foodsColumn,
     beoTaskFormSchema,
+    beoFinanceFormSchema,
   } from './order.data';
   import { Card } from 'ant-design-vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { CollapseContainer } from '/@/components/Container/index';
 
   import { getAgreementInfo, getScheduleByAgreementId, getFoodsInfos } from '/@/api/admin/contract';
-  import { addOrderNew } from '/@/api/admin/beo';
+
+  import { getReceivablesInfo } from '/@/api/admin/finance';
+
+  import { addOrderFinish, getBeoOrderByAgreementId } from '/@/api/admin/beo';
 
   import { useGo } from '/@/hooks/web/usePage';
   import { useRoute } from 'vue-router';
@@ -59,7 +63,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
-    name: 'BeoOrderModal',
+    name: 'BeFinishoOrderModal',
     components: { BasicForm, PageWrapper, [Card.name]: Card, BasicTable, CollapseContainer },
     setup() {
       const { createMessage } = useMessage();
@@ -80,6 +84,17 @@
           span: 6,
         },
         schemas: roomScheduleFormSchema,
+        showActionButtonGroup: false,
+      });
+
+      const [
+        registerBeoFinance,
+        { setFieldsValue: setFieldsFinanceValue, getFieldsValue: getFieldFinanceValue },
+      ] = useForm({
+        baseColProps: {
+          span: 6,
+        },
+        schemas: beoFinanceFormSchema,
         showActionButtonGroup: false,
       });
 
@@ -167,12 +182,13 @@
       let res, foods, foodsId;
 
       async function submitAll() {
-        debugger;
+        // debugger;
         try {
           let submitValues = {},
             tasks = [];
           Object.assign(submitValues, getBasciValues());
           Object.assign(submitValues, getScheduleValues());
+          Object.assign(submitValues, getFieldFinanceValue());
           let temp = {};
           // Object.defineProperty(temp, 'deptName', '管家部');
           temp.deptName = '管家部';
@@ -205,14 +221,15 @@
           temp = {};
           // Object.defineProperty(submitValues, 'tasks', tasks);
           submitValues.tasks = tasks;
-          submitValues.agreementId = submitValues.id;
+          // submitValues.agreementId = submitValues.id;
+          submitValues.agreementId = agreementId.value;
           delete submitValues.id;
 
           console.log(submitValues);
-          submitValues.beoType = '普通beo单';
-          await addOrderNew(submitValues);
+          submitValues.beoType = '完结beo单';
+          await addOrderFinish(submitValues);
           createMessage.success('新建成功!');
-          go('/beo/order');
+          go('/beo/finish');
         } catch (error) {
           console.error(error);
         }
@@ -225,8 +242,11 @@
       async function handleData(id: string) {
         // debugger;
         res = await getAgreementInfo({ id: id });
+
+        let tempRes = await getBeoOrderByAgreementId({ agreementId: res.id });
+
         setFieldsValue({
-          ...res,
+          ...tempRes,
         });
 
         foodsId = res.foodsId;
@@ -239,6 +259,11 @@
 
         foods = await getFoodsInfos({ parentId: foodsId });
         setTableData(foods);
+
+        res = await getReceivablesInfo({ id: id });
+        setFieldsFinanceValue({
+          ...res,
+        });
       }
 
       handleData(agreementId.value);
@@ -257,6 +282,7 @@
         registerTaskMutiple,
         registerTaskBuy,
         registerTaskFinance,
+        registerBeoFinance,
       };
     },
   });

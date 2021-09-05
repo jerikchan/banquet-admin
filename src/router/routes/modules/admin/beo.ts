@@ -113,6 +113,19 @@ const beo: AppRouteModule = {
       },
       component: () => import('/@/views/admin/beo/task/index.vue'),
     },
+    {
+      path: 'task_detail/:id',
+      name: 'TaskDetailModal',
+      meta: {
+        title: 'BEO任务详情',
+
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/beo/task',
+      },
+      component: () => import('/@/views/admin/beo/task/TaskDetailModal.vue'),
+    },
   ],
 };
 

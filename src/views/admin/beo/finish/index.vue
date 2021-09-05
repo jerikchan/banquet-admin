@@ -122,6 +122,9 @@
           console.log('handleSearchInfoFn', info);
           return info;
         },
+        beforeFetch: function (params) {
+          params.beoType = '完结beo单';
+        },
         actionColumn: {
           width: 200,
           title: '操作',

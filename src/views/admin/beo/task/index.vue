@@ -20,6 +20,11 @@
               },
               auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              onClick: handleView.bind(null, record),
+            },
           ]"
           :dropDownActions="[
             {
@@ -55,6 +60,8 @@
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
+  import { useGo } from '/@/hooks/web/usePage';
+
   export default defineComponent({
     name: 'TaskManagement',
     components: { BasicTable, PageWrapper, TaskModal, TableAction },
@@ -62,6 +69,7 @@
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const { createMessage } = useMessage();
+      const go = useGo();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: 'BEO任务列表',
         api: getTaskList,
@@ -125,6 +133,15 @@
         reload();
       }
 
+      function handleView(record: Recordable) {
+        // openModal(true, {
+        //   isUpdate: false,
+        //   isView: true,
+        //   record,
+        // });
+        go('/beo/task_detail/' + record.id);
+      }
+
       return {
         registerTable,
         registerModal,
@@ -134,6 +151,7 @@
         handleSelect,
         acceptTask,
         finishTask,
+        handleView,
         searchInfo,
         RoleEnum,
       };

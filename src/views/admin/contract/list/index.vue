@@ -13,7 +13,7 @@
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除此合同',
-              disabled: record.status === '1',
+              disabled: record.status === '1' || record.finishStatus === '5',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -24,13 +24,15 @@
           :dropDownActions="[
             {
               label: '下BEO单',
-              disabled: record.status === '1' || record.status === '3',
+              disabled:
+                record.status === '1' || record.status === '3' || record.finishStatus === '5',
               onClick: handleOrder.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '下完成BEO单',
-              disabled: record.status === '1' || record.status === '3',
+              disabled:
+                record.status === '1' || record.status === '3' || record.finishStatus === '5',
               onClick: handleFinishOrder.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },

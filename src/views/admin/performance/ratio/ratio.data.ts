@@ -11,11 +11,6 @@ export const columns: BasicColumn[] = [
     align: 'left',
   },
   {
-    title: '系数档期类型',
-    dataIndex: 'scheduleTypeStr',
-    width: 200,
-  },
-  {
     title: '起始时间',
     dataIndex: 'startTime',
     width: 200,
@@ -26,18 +21,18 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
-    title: '系数修改人',
-    dataIndex: 'modifyName',
-    width: 180,
-  },
-  {
-    title: '系数修改时间',
-    dataIndex: 'modifyTime',
-    width: 180,
-  },
-  {
     title: '系数值',
     dataIndex: 'ratio',
+    width: 180,
+  },
+  {
+    title: '活动系数',
+    dataIndex: 'shakyRatio',
+    width: 180,
+  },
+  {
+    title: '完成系数',
+    dataIndex: 'finishRatio',
     width: 180,
   },
 ];
@@ -61,6 +56,18 @@ export const updateFormSchema: FormSchema[] = [
   {
     field: 'ratio',
     label: '系数',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'shakyRatio',
+    label: '活动系数',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'finishRatio',
+    label: '完成系数',
     component: 'Input',
     required: true,
   },

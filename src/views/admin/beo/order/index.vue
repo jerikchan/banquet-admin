@@ -43,12 +43,12 @@
               label: '分配管家',
               onClick: handleManager.bind(null, record),
               ifShow: !record.salesManagerId,
-              disabled: record.status === '1' || record.beoStatus === 5,
+              disabled: record.status === '1' || record.beoStatus === '5',
               auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
             },
             {
               label: '发起补充流程',
-              disabled: record.status === '1' || record.beoStatus === 5,
+              disabled: record.status === '1' || record.beoStatus === '5',
               popConfirm: {
                 title: '是否发起BEO补充流程',
                 confirm: handleReplenish.bind(null, record),
@@ -121,6 +121,9 @@
         handleSearchInfoFn(info) {
           console.log('handleSearchInfoFn', info);
           return info;
+        },
+        beforeFetch: function (params) {
+          params.beoType = '执行beo单';
         },
         actionColumn: {
           width: 200,

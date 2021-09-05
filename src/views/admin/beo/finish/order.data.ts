@@ -107,10 +107,7 @@ export const orderFormSchema: FormSchema[] = [
     field: 'banquetTheme',
     label: '宴会主题',
     component: 'Input',
-    required: false,
-    componentProps: {
-      disabled: true,
-    },
+    required: true,
     colProps: {
       offset: 2,
     },
@@ -120,9 +117,6 @@ export const orderFormSchema: FormSchema[] = [
     label: '销售名称',
     component: 'Input',
     required: false,
-    componentProps: {
-      disabled: true,
-    },
     colProps: {
       offset: 2,
     },
@@ -132,9 +126,6 @@ export const orderFormSchema: FormSchema[] = [
     label: '销售联系电话',
     component: 'Input',
     required: false,
-    componentProps: {
-      disabled: true,
-    },
   },
   {
     field: 'managerName',
@@ -143,9 +134,6 @@ export const orderFormSchema: FormSchema[] = [
     required: false,
     colProps: {
       offset: 2,
-    },
-    componentProps: {
-      disabled: true,
     },
   },
   {
@@ -156,9 +144,6 @@ export const orderFormSchema: FormSchema[] = [
     colProps: {
       offset: 2,
     },
-    componentProps: {
-      disabled: true,
-    },
   },
 ];
 
@@ -168,7 +153,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
     label: '时间',
     component: 'DatePicker',
     componentProps: {
-      disabled: true,
+      disabled: false,
       showTime: true,
     },
     required: false,
@@ -178,7 +163,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
     label: '宴会厅',
     component: 'Input',
     componentProps: {
-      disabled: true,
+      disabled: false,
     },
     required: false,
     colProps: {
@@ -191,7 +176,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
     component: 'Input',
     required: false,
     componentProps: {
-      disabled: true,
+      disabled: false,
     },
     colProps: {
       offset: 2,
@@ -203,31 +188,31 @@ export const roomScheduleFormSchema: FormSchema[] = [
     component: 'Input',
     required: false,
     componentProps: {
-      disabled: true,
+      disabled: false,
     },
   },
   {
     field: 'deskCount',
     label: '桌数',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     colProps: {
       offset: 2,
     },
     componentProps: {
-      disabled: true,
+      disabled: false,
     },
   },
   {
     field: 'backupDesk',
     label: '备桌数',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     colProps: {
       offset: 2,
     },
     componentProps: {
-      disabled: true,
+      disabled: false,
     },
   },
 ];
@@ -239,7 +224,6 @@ export const beoTaskFormSchema: FormSchema[] = [
     component: 'DatePicker',
     componentProps: {
       showTime: true,
-      disabled: true,
     },
     required: false,
   },
@@ -250,9 +234,6 @@ export const beoTaskFormSchema: FormSchema[] = [
     required: false,
     colProps: {
       offset: 2,
-    },
-    componentProps: {
-      disabled: true,
     },
   },
 ];
@@ -274,4 +255,73 @@ export const managerAllocationSchema: FormSchema[] = [
   //   label: '备注',
   //   component: 'InputTextArea',
   // },
+];
+
+export const beoFinanceFormSchema: FormSchema[] = [
+  {
+    label: '收款人',
+    field: 'receivableMan',
+    component: 'Input',
+    required: false,
+    componentProps: {
+      disabled: true,
+    },
+  },
+  {
+    label: '预计总收款',
+    field: 'preTotal',
+    component: 'Input',
+    required: false,
+    colProps: {
+      offset: 2,
+    },
+    componentProps: {
+      disabled: true,
+    },
+  },
+  {
+    label: '实收款',
+    field: 'realTotal',
+    component: 'Input',
+    required: false,
+    colProps: {
+      offset: 2,
+    },
+    componentProps: {
+      disabled: true,
+    },
+  },
+  {
+    label: '定金',
+    field: 'frontMoney',
+    component: 'Input',
+    required: false,
+    componentProps: {
+      disabled: true,
+    },
+  },
+  {
+    label: '中款',
+    field: 'midMoney',
+    component: 'Input',
+    required: false,
+    colProps: {
+      offset: 2,
+    },
+    componentProps: {
+      disabled: true,
+    },
+  },
+  {
+    label: '尾款',
+    field: 'finalMoney',
+    component: 'Input',
+    required: false,
+    colProps: {
+      offset: 2,
+    },
+    componentProps: {
+      disabled: true,
+    },
+  },
 ];

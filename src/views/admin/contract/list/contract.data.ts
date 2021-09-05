@@ -68,6 +68,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'statusStr',
     width: 140,
   },
+  {
+    title: '完成状态',
+    dataIndex: 'finishStatusStr',
+    width: 140,
+  },
 ];
 
 export const searchFormSchema: FormSchema[] = [

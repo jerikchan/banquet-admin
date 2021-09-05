@@ -22,10 +22,22 @@ enum Api {
   DeleteTask = '/beo/deleteBeoTask',
 
   CreateManagerFlow = '/beo/createManagerFlow',
+
+  GetBeoTask = '/beo/findBeoTaskInfo',
+
+  AddOrderFinish = '/beo/addBeoOrderFinish',
+
+  GetBeoOrderByAgreementId = '/beo/findBeoOrderInfoByAgreementId',
 }
 
 export const getOrder = (params?: OrderParams) =>
   defHttp.get<OrderListGetResultModel>({ url: Api.GetOrder, params }, { devUrl });
+
+export const getBeoOrderByAgreementId = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetBeoOrderByAgreementId, params }, { devUrl });
+
+export const getBeoTask = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetBeoTask, params }, { devUrl });
 
 export const getBeoOrder = (params?: {}) =>
   defHttp.get<OrderListGetResultModel>({ url: Api.GetOrder, params }, { devUrl });
@@ -41,6 +53,9 @@ export const createManagerFlow = (params?: {}) =>
 
 export const addOrderNew = (params?: {}) =>
   defHttp.post<OrderListGetResultModel>({ url: Api.AddOrder, params }, { devUrl });
+
+export const addOrderFinish = (params?: {}) =>
+  defHttp.post<OrderListGetResultModel>({ url: Api.AddOrderFinish, params }, { devUrl });
 
 export const updateOrder = (params?: OrderParams) =>
   defHttp.post<OrderListGetResultModel>({ url: Api.UpdateOrder, params }, { devUrl });
