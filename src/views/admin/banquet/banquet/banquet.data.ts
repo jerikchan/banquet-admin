@@ -6,6 +6,11 @@ import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
+    title: '合同编号',
+    dataIndex: 'agreementCode',
+    width: 120,
+  },
+  {
     title: '厅房名称',
     dataIndex: 'roomName',
     width: 120,

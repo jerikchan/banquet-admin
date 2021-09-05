@@ -242,7 +242,7 @@
       }
 
       async function handleData(id: string) {
-        debugger;
+        // debugger;
         res = await getOrder({ id: id });
         let tasks = res.taskInfoList;
         if (tasks) {
@@ -261,7 +261,7 @@
               setServeValues({
                 ...temp,
               });
-            } else if (temp.deptName && temp.deptName === '厨师部') {
+            } else if (temp.deptName && temp.deptName === '厨政部') {
               setKitchenValues({
                 ...temp,
               });
@@ -282,9 +282,10 @@
         }
 
         let agreementInfo = await getAgreementInfo({ id: res.agreementId });
+        agreementInfo.banquetTheme = res.banquetTheme;
 
         setFieldsValue({
-          ...agreementInfo,
+          ...res,
         });
 
         foodsId = agreementInfo.foodsId;

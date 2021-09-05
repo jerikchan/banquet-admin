@@ -25,7 +25,7 @@
       :column="2"
       :data="agreementInfoData"
       :schema="agreementInfoSchema"
-      v-if="mockData.flowType === '11'"
+      v-if="mockData.flowType === '11' || mockData.flowType === '20' || mockData.flowType === '21'"
     />
     <Description
       title="BEO基本信息"
@@ -41,7 +41,7 @@
       :column="2"
       :data="receivableInfoData"
       :schema="receivableInfoFormSchema"
-      v-if="mockData.flowType === '30'"
+      v-if="mockData.flowType === '30' || mockData.flowType === '20' || mockData.flowType === '21'"
     />
     <Description
       title="回款信息"
@@ -98,7 +98,8 @@
 
   import { getAgreementInfo } from '/@/api/admin/contract';
   import { getBeoOrder } from '/@/api/admin/beo';
-  import { getAcceptInfo, getTotalInfo } from '/@/api/admin/finance';
+  import { getAcceptInfo, getTotalInfo, getReceivablesInfo } from '/@/api/admin/finance';
+  import { getRoomScheduleByAgreementId } from '/@/api/admin/banquet';
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
@@ -111,6 +112,7 @@
     beoTaskListSchema,
     returnCollectionFormSchema,
     receivableInfoFormSchema,
+    roomScheduleFormSchema,
   } from './form.data';
 
   const mockData: Recordable = reactive({});
@@ -126,6 +128,8 @@
   const returnCollectionData: Recordable = reactive({});
 
   const receivableInfoData: Recordable = reactive({});
+
+  const roomScheduleData: Recordable = reactive({});
 
   export default defineComponent({
     components: {
@@ -191,11 +195,23 @@
           console.log('test');
         } else if (type === '20') {
           let beoInfo = await getBeoOrder({ id: beoId });
+          let agreementInfo = await getAgreementInfo({ id: beoInfo.agreementId });
+          let roomScheduleInfo = await getRoomScheduleByAgreementId({ id: beoInfo.agreementId });
+          let receivableInfo = await getReceivablesInfo({ id: beoInfo.agreementId });
           Object.assign(beoInfoData, beoInfo);
+          Object.assign(agreementInfoData, agreementInfo);
+          Object.assign(roomScheduleData, roomScheduleInfo);
+          Object.assign(receivableInfoData, receivableInfo);
           setTableData(beoInfo.taskList);
         } else if (type === '21') {
           let beoInfo = await getBeoOrder({ id: beoId });
+          let agreementInfo = await getAgreementInfo({ id: beoInfo.agreementId });
+          let roomScheduleInfo = await getRoomScheduleByAgreementId({ id: beoInfo.agreementId });
+          let receivableInfo = await getReceivablesInfo({ id: beoInfo.agreementId });
           Object.assign(beoInfoData, beoInfo);
+          Object.assign(agreementInfoData, agreementInfo);
+          Object.assign(roomScheduleData, roomScheduleInfo);
+          Object.assign(receivableInfoData, receivableInfo);
           setTableData(beoInfo.taskList);
         } else if (type === '30') {
           let returnCollection = await getAcceptInfo({ id: returnId });
@@ -283,6 +299,8 @@
         handleSuccessEvent,
         receivableInfoFormSchema,
         receivableInfoData,
+        roomScheduleFormSchema,
+        roomScheduleData,
       };
     },
   });

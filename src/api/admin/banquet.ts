@@ -53,7 +53,7 @@ enum Api {
 
   GetMenuList = '/system/getMenuList',
 
-  GetRoomScheduleByAgreementId = '/banquet/findRoomSchduleByAgreementId',
+  GetRoomScheduleByAgreementId = '/banquet/findRoomScheduleByAgreementId',
 }
 
 export const getBanquetTypeList = (params: BanquetTypeParams) =>

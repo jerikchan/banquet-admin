@@ -128,7 +128,7 @@ export const orderFormSchema: FormSchema[] = [
     },
   },
   {
-    field: 'salesMobile',
+    field: 'salesManMobile',
     label: '销售联系电话',
     component: 'Input',
     required: false,

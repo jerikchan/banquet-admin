@@ -223,7 +223,7 @@ export const beoInfoSchema: DescItem[] = [
     label: '销售名称',
   },
   {
-    field: 'salesMobile',
+    field: 'salesManMobile',
     label: '销售号码',
   },
   {

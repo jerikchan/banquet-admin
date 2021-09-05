@@ -43,18 +43,13 @@
       :schema="roomScheduleFormSchema"
       v-if="mockData.flowType === '20' || mockData.flowType === '21'"
     />
-    <BasicTable
-      @register="registerBeoTaskTable"
-      @success="handleSuccess"
-      v-if="mockData.flowType === '20' || mockData.flowType === '21'"
-    />
     <Description
       title="应收款信息"
       :collapseOptions="{ canExpand: false, helpMessage: '应收款信息' }"
       :column="2"
       :data="receivableInfoData"
       :schema="receivableInfoFormSchema"
-      v-if="mockData.flowType === '30'"
+      v-if="mockData.flowType === '30' || mockData.flowType === '20' || mockData.flowType === '21'"
     />
     <Description
       title="回款信息"
@@ -63,6 +58,11 @@
       :data="returnCollectionData"
       :schema="returnCollectionFormSchema"
       v-if="mockData.flowType === '30'"
+    />
+    <BasicTable
+      @register="registerBeoTaskTable"
+      @success="handleSuccess"
+      v-if="mockData.flowType === '20' || mockData.flowType === '21'"
     />
     <a-card title="流程进度" :bordered="false">
       <a-steps :current="mockData.nodeOrder" progress-dot size="small">
@@ -106,7 +106,7 @@
 
   import { getAgreementInfo } from '/@/api/admin/contract';
   import { getBeoOrder } from '/@/api/admin/beo';
-  import { getAcceptInfo, getTotalInfo } from '/@/api/admin/finance';
+  import { getAcceptInfo, getTotalInfo, getReceivablesInfo } from '/@/api/admin/finance';
   import { getRoomScheduleByAgreementId } from '/@/api/admin/banquet';
 
   import { useMessage } from '/@/hooks/web/useMessage';
@@ -205,14 +205,21 @@
           let beoInfo = await getBeoOrder({ id: beoId });
           let agreementInfo = await getAgreementInfo({ id: beoInfo.agreementId });
           let roomScheduleInfo = await getRoomScheduleByAgreementId({ id: beoInfo.agreementId });
+          let receivableInfo = await getReceivablesInfo({ id: beoInfo.agreementId });
           Object.assign(beoInfoData, beoInfo);
           Object.assign(agreementInfoData, agreementInfo);
           Object.assign(roomScheduleData, roomScheduleInfo);
+          Object.assign(receivableInfoData, receivableInfo);
           setTableData(beoInfo.taskList);
         } else if (type === '21') {
           let beoInfo = await getBeoOrder({ id: beoId });
+          let agreementInfo = await getAgreementInfo({ id: beoInfo.agreementId });
+          let roomScheduleInfo = await getRoomScheduleByAgreementId({ id: beoInfo.agreementId });
+          let receivableInfo = await getReceivablesInfo({ id: beoInfo.agreementId });
           Object.assign(beoInfoData, beoInfo);
-          setTableData(beoInfo.taskList);
+          Object.assign(agreementInfoData, agreementInfo);
+          Object.assign(roomScheduleData, roomScheduleInfo);
+          Object.assign(receivableInfoData, receivableInfo);
         } else if (type === '30') {
           let returnCollection = await getAcceptInfo({ id: returnId });
           let receivableInfo = await getTotalInfo({ id: returnCollection.receivableId });

@@ -122,7 +122,7 @@ export const orderFormSchema: FormSchema[] = [
     },
   },
   {
-    field: 'salesMobile',
+    field: 'salesManMobile',
     label: '销售联系电话',
     component: 'Input',
     required: false,
@@ -194,7 +194,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
   {
     field: 'deskCount',
     label: '桌数',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     colProps: {
       offset: 2,
@@ -206,7 +206,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
   {
     field: 'backupDesk',
     label: '备桌数',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     colProps: {
       offset: 2,
