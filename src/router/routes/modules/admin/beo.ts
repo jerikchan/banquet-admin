@@ -20,6 +20,7 @@ const beo: AppRouteModule = {
       RoleEnum.HOUSEKEEPER_MANAGER,
       RoleEnum.FINANCE_MANAGER,
       RoleEnum.STAFF,
+      RoleEnum.BOOKER,
     ],
   },
   children: [

@@ -12,7 +12,13 @@ const contract: AppRouteModule = {
     orderNo: 400,
     icon: 'icon-park-outline:agreement',
     title: '合同管理',
-    roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES, RoleEnum.SALES_MANAGER],
+    roles: [
+      RoleEnum.SUPER,
+      RoleEnum.MANAGER,
+      RoleEnum.SALES,
+      RoleEnum.SALES_MANAGER,
+      RoleEnum.BOOKER,
+    ],
   },
   children: [
     {

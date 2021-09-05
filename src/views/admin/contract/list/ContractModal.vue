@@ -1,26 +1,48 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
-    <BasicForm @register="registerForm" />
+    <BasicForm @register="registerForm">
+      <template #[fileInfo.key] v-for="fileInfo in fileInfos" :key="fileInfo.key">
+        <a-upload
+          listType="picture-card"
+          v-model:fileList="fileInfo.data"
+          :customRequest="uploadPicApiCustom"
+        >
+          <div v-if="fileInfo.data.length < 1">
+            <PlusOutlined />
+            <div class="ant-upload-text">上传</div>
+          </div>
+        </a-upload>
+      </template></BasicForm
+    >
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref } from 'vue';
+  import { defineComponent, ref, computed, unref, reactive } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { contractFormSchema } from './contract.data';
   import { addContract } from '/@/api/admin/contract';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { PlusOutlined } from '@ant-design/icons-vue';
+  import { uploadPicApiCustom } from '/@/api/sys/upload';
 
   export default defineComponent({
     name: 'ContractModal',
-    components: { BasicModal, BasicForm },
+    components: { BasicModal, BasicForm, PlusOutlined },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
-      const recordRef = ref({});
+      const recordRef = ref<any>({});
       const { createMessage } = useMessage();
-
+      const fileInfos = reactive<any>(
+        ['file'].map((key) => {
+          return {
+            key,
+            data: [],
+          };
+        })
+      );
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
         schemas: contractFormSchema,
@@ -41,7 +63,7 @@
           });
         }
         recordRef.value = data.record;
-        setFieldsValue({
+        const values = Object.entries({
           customerId: data.record.customerId,
           customerName: data.record.customerName,
           customerMobile: data.record.customerMobile,
@@ -50,13 +72,28 @@
           scheduleType: data.record.canBie,
           floorsDeskCount: data.record.deskNo,
           banquetTime: data.record.purposeTime,
-        });
+        }).reduce((acc, cur) => {
+          if (cur[1]) {
+            acc[cur[0]] = cur[1];
+          }
+          return acc;
+        }, {});
+        setFieldsValue(values);
       });
 
       const getTitle = computed(() => (isUpdate.value ? '修改合同' : '新增合同'));
 
       async function handleSubmit() {
         try {
+          const fileInfoRecord = fileInfos.reduce((acc, fileInfo) => {
+            const data = unref(fileInfo.data);
+            acc[fileInfo.key] =
+              data && Array.isArray(data) && data.length
+                ? data.map((info) => info?.response?.uid || info.uid)
+                : null;
+            return acc;
+          }, {});
+          setFieldsValue(fileInfoRecord);
           const values = await validate();
           values.customerId = recordRef.value.customerId;
           setModalProps({ confirmLoading: true });
@@ -75,7 +112,7 @@
         }
       }
 
-      return { registerModal, registerForm, getTitle, handleSubmit };
+      return { registerModal, registerForm, getTitle, handleSubmit, fileInfos, uploadPicApiCustom };
     },
   });
 </script>

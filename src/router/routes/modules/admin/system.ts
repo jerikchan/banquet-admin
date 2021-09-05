@@ -32,7 +32,7 @@ const system: AppRouteModule = {
         showMenu: false,
         currentActiveMenu: '/system/account',
       },
-      component: () => import('/@/views/demo/system/account/AccountDetail.vue'),
+      component: () => import('/@/views/admin/system/account/AccountDetail.vue'),
     },
     {
       path: 'role',

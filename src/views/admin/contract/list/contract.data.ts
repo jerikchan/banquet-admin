@@ -2,7 +2,7 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { getFoodList } from '/@/api/admin/contract';
 import { getBanquetTypeList, getRoomList, getScheduleTypeList } from '/@/api/admin/banquet';
-import { uploadPicApi } from '/@/api/sys/upload';
+// import { uploadPicApi } from '/@/api/sys/upload';
 import { DescItem } from '/@/components/Description/index';
 import { h } from 'vue';
 import { Image } from 'ant-design-vue';
@@ -259,13 +259,23 @@ export const contractFormSchema: FormSchema[] = [
   //     ],
   //   },
   // },
+  // {
+  //   field: 'file',
+  //   label: '合同照片',
+  //   component: 'Upload',
+  //   componentProps: {
+  //     api: uploadPicApi,
+  //     accept: ['png', 'jpg', 'jpeg'],
+  //   },
+  //   required: true,
+  // },
   {
     field: 'file',
     label: '合同照片',
-    component: 'Upload',
-    componentProps: {
-      api: uploadPicApi,
-      accept: ['png', 'jpg', 'jpeg'],
+    component: 'Input',
+    slot: 'file',
+    itemProps: {
+      autoLink: false,
     },
     required: true,
   },
