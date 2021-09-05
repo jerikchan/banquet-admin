@@ -21,6 +21,8 @@ enum Api {
   AddAccount = '/account/add',
   UpdateAccount = '/account/update',
   DeleteAccount = '/account/delete',
+  FindUserInfo = '/account/findUserInfo',
+  UpdatePassword = '/account/updatePwd',
 
   DeptList = '/dept/get/tree',
   AddDept = '/dept/add',
@@ -46,6 +48,12 @@ enum Api {
 
 export const getAccountList = (params?: AccountParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.GetAccountList, params }, { devUrl });
+
+export const findUserInfo = (params?: AccountParams) =>
+  defHttp.get<AccountListGetResultModel>({ url: Api.FindUserInfo, params }, { devUrl });
+
+export const updatePassword = (params: { oldPwd: string; newPwd: string }) =>
+  defHttp.post<AccountListGetResultModel>({ url: Api.UpdatePassword, params }, { devUrl });
 
 export const addAccount = (params?: AccountParams) =>
   defHttp.post<AccountListGetResultModel>({ url: Api.AddAccount, params }, { devUrl });

@@ -1,6 +1,7 @@
 import { getRoleList } from '/@/api/admin/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { DescItem } from '/@/components/Description/index';
 
 export const columns: BasicColumn[] = [
   {
@@ -141,5 +142,36 @@ export const accountFormSchema: FormSchema[] = [
     label: '备注',
     field: 'remark',
     component: 'InputTextArea',
+  },
+];
+
+export const accountDetailSchema: DescItem[] = [
+  {
+    label: '用户名',
+    field: 'userName',
+  },
+  {
+    label: '昵称',
+    field: 'realName',
+  },
+  {
+    label: '邮箱',
+    field: 'email',
+  },
+  {
+    label: '手机号',
+    field: 'mobile',
+  },
+  {
+    label: '角色',
+    field: 'roleName',
+  },
+  {
+    label: '部门',
+    field: 'deptName',
+  },
+  {
+    label: '备注',
+    field: 'remark',
   },
 ];

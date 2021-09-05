@@ -5,7 +5,7 @@ import { getBanquetTypeList, getRoomList, getScheduleTypeList } from '/@/api/adm
 // import { uploadPicApi } from '/@/api/sys/upload';
 import { DescItem } from '/@/components/Description/index';
 import { h } from 'vue';
-import { Image } from 'ant-design-vue';
+import { Upload } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -334,14 +334,11 @@ export const agreemetnDetailSchema: DescItem[] = [
   {
     field: 'file',
     label: '合同照片',
-    render: (val = ['https://i.gtimg.cn/club/item/face/img/2/16022_100.gif']) => {
-      return h(
-        'div',
-        null,
-        val.map((src) => {
-          return h(Image, { src });
-        })
-      );
-    },
+    render: (val) =>
+      h(Upload, {
+        listType: 'picture-card',
+        showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+        fileList: val,
+      }),
   },
 ];

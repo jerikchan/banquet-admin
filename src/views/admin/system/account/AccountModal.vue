@@ -45,6 +45,12 @@
         const treeData = await getDeptList();
         updateSchema([
           {
+            field: 'userName',
+            componentProps: {
+              disabled: unref(isUpdate),
+            },
+          },
+          {
             field: 'pwd',
             required: !unref(isUpdate),
           },

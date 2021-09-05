@@ -76,6 +76,14 @@ const system: AppRouteModule = {
       },
       component: () => import('/@/views/admin/system/dept/DeptDetailModal.vue'),
     },
+    {
+      path: 'personal',
+      name: 'PersonalManagement',
+      meta: {
+        title: '个人设置',
+      },
+      component: () => import('/@/views/admin/system/personal/index.vue'),
+    },
   ],
 };
 
