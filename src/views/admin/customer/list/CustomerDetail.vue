@@ -37,7 +37,7 @@
     },
     {
       label: '意向厅',
-      field: 'purposeRoom',
+      field: 'banquetRoom',
     },
     {
       label: '意向时间',

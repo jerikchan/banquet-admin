@@ -12,7 +12,9 @@
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
-              tooltip: '删除此应收款',
+              tooltip: '删除',
+              disabled: record.status === '5' || record.status === '1',
+              ifShow: dataType === '回款',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),

@@ -180,10 +180,6 @@ export const agreementInfoSchema: DescItem[] = [
     label: '销售名称',
   },
   {
-    field: 'salesMobile',
-    label: '销售号码',
-  },
-  {
     field: 'banquetRoomName',
     label: '厅房名称',
   },
@@ -198,6 +194,10 @@ export const agreementInfoSchema: DescItem[] = [
   {
     field: 'banquetPrice',
     label: '婚庆价格',
+  },
+  {
+    field: 'beforeDiscountTotal',
+    label: '优惠前总价',
   },
   {
     field: 'beforeDiscountTotal',

@@ -52,6 +52,8 @@ enum Api {
   GetBanquetInfo = '/banquet/findRoomSchedule',
 
   GetMenuList = '/system/getMenuList',
+
+  GetRoomScheduleByAgreementId = '/banquet/findRoomSchduleByAgreementId',
 }
 
 export const getBanquetTypeList = (params: BanquetTypeParams) =>
@@ -230,6 +232,9 @@ export const deleteRoom = (params?: { id: string }) =>
 
 export const getBanquetList = (params?: BanquetParams) =>
   defHttp.get<BanquetListGetResultModel>({ url: Api.GetBanquetList, params }, { devUrl });
+
+export const getRoomScheduleByAgreementId = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetRoomScheduleByAgreementId, params }, { devUrl });
 
 export const addBanquet = (params?: BanquetParams) =>
   defHttp.post<BanquetListGetResultModel>({ url: Api.AddBanquet, params }, { devUrl });

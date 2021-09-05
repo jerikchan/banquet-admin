@@ -28,6 +28,12 @@
               onClick: handleOrder.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
+            {
+              label: '下完成BEO单',
+              disabled: record.status === '1' || record.status === '3',
+              onClick: handleFinishOrder.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+            },
           ]"
         />
       </template>
@@ -100,6 +106,10 @@
         go('/contract/contract_detail/' + record.id);
       }
 
+      function handleFinishOrder(record: Recordable) {
+        go('/beo/order_edit_finish/' + record.id);
+      }
+
       return {
         registerTable,
         handleSuccess,
@@ -107,6 +117,7 @@
         handleAgreementInfoView,
         // registerOrderModal,
         handleOrder,
+        handleFinishOrder,
         RoleEnum,
       };
     },

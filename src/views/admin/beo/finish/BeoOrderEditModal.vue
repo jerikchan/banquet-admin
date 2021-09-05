@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper class="high-form" title="BEO下单" content=" 婚礼指令单" @back="goBack">
+  <PageWrapper class="high-form" title="已完成BEO下单" content=" 完成婚礼指令单" @back="goBack">
     <a-card title="基本信息" :bordered="true">
       <BasicForm @register="register" />
     </a-card>
@@ -50,8 +50,8 @@
   import { BasicTable, useTable } from '/@/components/Table';
   import { CollapseContainer } from '/@/components/Container/index';
 
-  import { getScheduleByAgreementId, getFoodsInfos, getAgreementInfo } from '/@/api/admin/contract';
-  import { getOrder, updateOrder } from '/@/api/admin/beo';
+  import { getAgreementInfo, getScheduleByAgreementId, getFoodsInfos } from '/@/api/admin/contract';
+  import { addOrderNew } from '/@/api/admin/beo';
 
   import { useGo } from '/@/hooks/web/usePage';
   import { useRoute } from 'vue-router';
@@ -59,7 +59,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
-    name: 'BeoOrderEditModal',
+    name: 'BeoOrderModal',
     components: { BasicForm, PageWrapper, [Card.name]: Card, BasicTable, CollapseContainer },
     setup() {
       const { createMessage } = useMessage();
@@ -92,10 +92,7 @@
       });
 
       // 管家部
-      const [
-        registerTaskManager,
-        { setFieldsValue: setManagerValues, getFieldsValue: getManagerValues },
-      ] = useForm({
+      const [registerTaskManager, { getFieldsValue: getManagerValues }] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -105,10 +102,7 @@
       });
 
       // 厨师部
-      const [
-        registerTaskKitchen,
-        { setFieldsValue: setKitchenValues, getFieldsValue: getKitchenValues },
-      ] = useForm({
+      const [registerTaskKitchen, { getFieldsValue: getKitchenValues }] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -118,10 +112,7 @@
       });
 
       // 服务部
-      const [
-        registerTaskServe,
-        { setFieldsValue: setServeValues, getFieldsValue: getServeValues },
-      ] = useForm({
+      const [registerTaskServe, { getFieldsValue: getServeValues }] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -131,10 +122,7 @@
       });
 
       // 工程部
-      const [
-        registerTaskProject,
-        { setFieldsValue: setProjectValues, getFieldsValue: getProjectValues },
-      ] = useForm({
+      const [registerTaskProject, { getFieldsValue: getProjectValues }] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -144,10 +132,7 @@
       });
 
       // 综合部
-      const [
-        registerTaskMutiple,
-        { setFieldsValue: setMutipleValues, getFieldsValue: getMutipleValues },
-      ] = useForm({
+      const [registerTaskMutiple, { getFieldsValue: getMutipleValues }] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -157,21 +142,17 @@
       });
 
       // 采购部
-      const [registerTaskBuy, { setFieldsValue: setBuyValues, getFieldsValue: getBuyValues }] =
-        useForm({
-          labelWidth: 120,
-          baseColProps: {
-            span: 10,
-          },
-          schemas: beoTaskFormSchema,
-          showActionButtonGroup: false,
-        });
+      const [registerTaskBuy, { getFieldsValue: getBuyValues }] = useForm({
+        labelWidth: 120,
+        baseColProps: {
+          span: 10,
+        },
+        schemas: beoTaskFormSchema,
+        showActionButtonGroup: false,
+      });
 
       // 财务部
-      const [
-        registerTaskFinance,
-        { setFieldsValue: setFiananceValues, getFieldsValue: getFinanceValues },
-      ] = useForm({
+      const [registerTaskFinance, { getFieldsValue: getFinanceValues }] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -185,9 +166,8 @@
       const agreementId = ref(route.params?.id);
       let res, foods, foodsId;
 
-      // debugger;
-
       async function submitAll() {
+        debugger;
         try {
           let submitValues = {},
             tasks = [];
@@ -199,7 +179,7 @@
           Object.assign(temp, getManagerValues());
           tasks.push(temp);
           temp = {};
-          temp.deptName = '厨师部';
+          temp.deptName = '厨政部';
           Object.assign(temp, getKitchenValues());
           tasks.push(temp);
           temp = {};
@@ -225,12 +205,13 @@
           temp = {};
           // Object.defineProperty(submitValues, 'tasks', tasks);
           submitValues.tasks = tasks;
-          // submitValues.agreementId = submitValues.id;
-          // delete submitValues.id;
-          submitValues.id = agreementId.value;
+          submitValues.agreementId = submitValues.id;
+          delete submitValues.id;
+
           console.log(submitValues);
-          await updateOrder(submitValues);
-          createMessage.success('补充成功!');
+          submitValues.beoType = '普通beo单';
+          await addOrderNew(submitValues);
+          createMessage.success('新建成功!');
           go('/beo/order');
         } catch (error) {
           console.error(error);
@@ -238,58 +219,19 @@
       }
 
       function goBack() {
-        go('/beo/order');
+        go('/contract/list');
       }
 
       async function handleData(id: string) {
-        debugger;
-        res = await getOrder({ id: id });
-        let tasks = res.taskInfoList;
-        if (tasks) {
-          let temp;
-          for (let i = 0, len = tasks.length; i < len; i++) {
-            temp = tasks[i];
-            if (temp.deptName && temp.deptName === '采购部') {
-              setBuyValues({
-                ...temp,
-              });
-            } else if (temp.deptName && temp.deptName === '综合部') {
-              setMutipleValues({
-                ...temp,
-              });
-            } else if (temp.deptName && temp.deptName === '服务部') {
-              setServeValues({
-                ...temp,
-              });
-            } else if (temp.deptName && temp.deptName === '厨师部') {
-              setKitchenValues({
-                ...temp,
-              });
-            } else if (temp.deptName && temp.deptName === '工程部') {
-              setProjectValues({
-                ...temp,
-              });
-            } else if (temp.deptName && temp.deptName === '管家部') {
-              setManagerValues({
-                ...temp,
-              });
-            } else if (temp.deptName && temp.deptName === '财务部') {
-              setFiananceValues({
-                ...temp,
-              });
-            }
-          }
-        }
-
-        let agreementInfo = await getAgreementInfo({ id: res.agreementId });
-
+        // debugger;
+        res = await getAgreementInfo({ id: id });
         setFieldsValue({
-          ...agreementInfo,
+          ...res,
         });
 
-        foodsId = agreementInfo.foodsId;
+        foodsId = res.foodsId;
 
-        res = await getScheduleByAgreementId({ id: agreementInfo.id });
+        res = await getScheduleByAgreementId({ id: id });
 
         setFieldsValueSchedule({
           ...res,

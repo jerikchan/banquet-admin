@@ -45,6 +45,11 @@
           customerId: data.record.customerId,
           customerName: data.record.customerName,
           customerMobile: data.record.customerMobile,
+          banquetType: data.record.banquetType,
+          banquetRoomId: data.record.roomId,
+          scheduleType: data.record.canBie,
+          floorsDeskCount: data.record.deskNo,
+          banquetTime: data.record.purposeTime,
         });
       });
 
@@ -53,6 +58,7 @@
       async function handleSubmit() {
         try {
           const values = await validate();
+          values.customerId = recordRef.value.customerId;
           setModalProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);

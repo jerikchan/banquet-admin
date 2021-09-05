@@ -32,6 +32,14 @@ const beo: AppRouteModule = {
       component: () => import('/@/views/admin/beo/order/index.vue'),
     },
     {
+      path: 'finish',
+      name: 'FinishOrderList',
+      meta: {
+        title: '已完成BEO单',
+      },
+      component: () => import('/@/views/admin/beo/finish/index.vue'),
+    },
+    {
       path: 'order_detail/:id',
       name: 'OrderDetail',
       meta: {
@@ -82,6 +90,19 @@ const beo: AppRouteModule = {
         currentActiveMenu: '/beo/order',
       },
       component: () => import('/@/views/admin/beo/order/BeoOrderEditModal.vue'),
+    },
+    {
+      path: 'order_edit_finish/:id',
+      name: 'OrderFinishEditModal',
+      meta: {
+        title: '已完成BEO单编辑',
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/beo/finish',
+      },
+      component: () => import('/@/views/admin/beo/finish/BeoOrderEditModal.vue'),
     },
     {
       path: 'task',

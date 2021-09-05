@@ -8,7 +8,12 @@ import { FormSchema } from '/@/components/Table';
 import { getSalesList } from '/@/api/admin/system';
 import { getChannelList } from '/@/api/admin/customer';
 import { getCommentTypeList } from '/@/api/admin/customer';
-import { getMealTypeList } from '/@/api/admin/banquet';
+import {
+  getMealTypeList,
+  getBanquetTypeList,
+  getRoomList,
+  getScheduleTypeList,
+} from '/@/api/admin/banquet';
 
 export const columns: BasicColumn[] = [
   {
@@ -43,7 +48,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '意向厅',
-    dataIndex: 'purposeRoom',
+    dataIndex: 'banquetRoom',
     width: 120,
   },
   {
@@ -156,12 +161,12 @@ export const customerFormSchema: FormSchema[] = [
   },
   {
     label: '餐标',
-    field: 'mealType',
+    field: 'canBiao',
     component: 'ApiSelect',
     componentProps: {
       api: getMealTypeList,
       labelField: 'label',
-      valueField: 'id',
+      valueField: 'code',
     },
     required: false,
   },
@@ -233,6 +238,39 @@ export const customerTypeFormSchema: FormSchema[] = [
     label: '跟进内容',
     component: 'InputTextArea',
     required: true,
+  },
+  {
+    field: 'roomId',
+    label: '意向厅房',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getRoomList,
+      labelField: 'roomName',
+      valueField: 'id',
+    },
+    required: false,
+  },
+  {
+    field: 'banquetType',
+    label: '宴会类型',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getBanquetTypeList,
+      labelField: 'label',
+      valueField: 'code',
+    },
+    required: false,
+  },
+  {
+    field: 'canBie',
+    label: '餐别',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getScheduleTypeList,
+      labelField: 'label',
+      valueField: 'value',
+    },
+    required: false,
   },
 ];
 
