@@ -1,8 +1,8 @@
 <template>
   <Card title="最新动态" v-bind="$attrs">
-    <template #extra>
+    <!-- <template #extra>
       <a-button type="link" size="small" @click="handleView">更多</a-button>
-    </template>
+    </template> -->
     <List item-layout="horizontal" :data-source="items">
       <template #renderItem="{ item }">
         <ListItem>
@@ -30,26 +30,30 @@
   // import { Icon } from '/@/components/Icon';
   // import { getMessageList } from '/@/api/admin/notification';
   import { getLatestTrendsInfo } from '/@/api/admin/system';
-  import { useGo } from '/@/hooks/web/usePage';
+  // import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
     components: { Card, List, ListItem: List.Item, ListItemMeta: List.Item.Meta, Avatar },
     setup() {
-      const go = useGo();
+      // const go = useGo();
       const items = ref([]);
       (async () => {
-        const list = await getLatestTrendsInfo({
+        const list: any = await getLatestTrendsInfo({
           pageSize: 10,
           page: 1,
         });
-        items.value = list.items as any;
+        items.value = list.items;
       })();
 
-      function handleView() {
-        go('/notification/message');
-      }
+      // function handleView() {
+      //   go('/notification/message');
+      // }
 
-      return { items, headerImg, handleView };
+      return {
+        items,
+        headerImg,
+        // handleView,
+      };
     },
   });
 </script>

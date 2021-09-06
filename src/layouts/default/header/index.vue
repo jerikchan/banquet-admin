@@ -35,7 +35,9 @@
     <div :class="`${prefixCls}-action`">
       <AppSearch :class="`${prefixCls}-action__item `" v-if="getShowSearch" />
 
-      <ErrorAction v-if="getUseErrorHandle" :class="`${prefixCls}-action__item error-action`" />
+      <Authority :value="[RoleEnum.SUPER]">
+        <ErrorAction v-if="getUseErrorHandle" :class="`${prefixCls}-action__item error-action`" />
+      </Authority>
 
       <Notify v-if="getShowNotice" :class="`${prefixCls}-action__item notify-item`" />
 
@@ -80,6 +82,7 @@
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   import { useLocale } from '/@/locales/useLocale';
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   export default defineComponent({
     name: 'LayoutHeader',
@@ -192,6 +195,7 @@
         getShowSettingButton,
         getShowSetting,
         getShowSearch,
+        RoleEnum,
       };
     },
   });

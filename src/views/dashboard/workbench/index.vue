@@ -4,19 +4,19 @@
     <div class="lg:flex">
       <div class="lg:w-7/10 w-full !mr-4 enter-y">
         <ProjectCard :loading="loading" class="enter-y" />
+        <BacklogCard :loading="loading" class="!my-4 enter-y" />
       </div>
       <div class="w-full lg:w-3/10 enter-y">
         <EncourageModal :loading="loading" class="enter-y" />
+        <DynamicInfo :loading="loading" class="!my-4 enter-y" />
       </div>
     </div>
-    <div class="lg:flex">
+    <!-- <div class="my-4 lg:flex">
       <div class="w-full lg:w-7/10 !mr-4 enter-y">
-        <BacklogCard :loading="loading" class="enter-y" />
       </div>
       <div class="w-full lg:w-3/10 enter-y">
-        <DynamicInfo :loading="loading" class="enter-y" />
       </div>
-    </div>
+    </div> -->
   </PageWrapper>
 </template>
 <script lang="ts">

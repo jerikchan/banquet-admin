@@ -84,6 +84,15 @@ const system: AppRouteModule = {
       },
       component: () => import('/@/views/admin/system/personal/index.vue'),
     },
+    {
+      path: 'error_log',
+      name: 'ErrorHandler',
+      meta: {
+        title: '错误日志',
+        roles: [RoleEnum.SUPER],
+      },
+      component: () => import('/@/views/sys/error-log/index.vue'),
+    },
   ],
 };
 

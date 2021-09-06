@@ -121,12 +121,22 @@
         setFieldsValue({
           ...res,
         });
+        fileInfos.forEach((fileInfo) => {
+          if (res[fileInfo.key]) {
+            fileInfo.data = res[fileInfo.key];
+          }
+        });
       }
 
       async function handleData(id: string) {
         res = await getAttentionCheckFormDetail({ id: id });
         setFieldsValue({
           ...res,
+        });
+        fileInfos.forEach((fileInfo) => {
+          if (res[fileInfo.key]) {
+            fileInfo.data = res[fileInfo.key];
+          }
         });
       }
 

@@ -10,6 +10,11 @@
               onClick: handleAgreementInfoView.bind(null, record),
             },
             {
+              icon: 'clarity:note-edit-line',
+              tooltip: '修改合同',
+              onClick: handleUpdate.bind(null, record),
+            },
+            {
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除此合同',
@@ -19,6 +24,7 @@
                 confirm: handleDelete.bind(null, record),
               },
               auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
+              ifShow: false,
             },
           ]"
           :dropDownActions="[
@@ -41,6 +47,7 @@
       </template>
     </BasicTable>
     <!-- <OrderModal @register="registerOrderModal" @success="handleSuccess" /> -->
+    <ContractModal @register="registerContractModal" @success="handleContractSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -48,8 +55,8 @@
   import { PageWrapper } from '/@/components/Page';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getContractList, deleteContract } from '/@/api/admin/contract';
-
-  // import { useModal } from '/@/components/Modal';
+  import ContractModal from './ContractModal.vue';
+  import { useModal } from '/@/components/Modal';
 
   import { columns, searchFormSchema } from './contract.data';
   // import OrderModal from '/@/views/admin/beo/order/OrderModal.vue';
@@ -60,8 +67,9 @@
 
   export default defineComponent({
     name: 'ContractManagement',
-    components: { PageWrapper, BasicTable, TableAction },
+    components: { PageWrapper, BasicTable, TableAction, ContractModal },
     setup() {
+      const [registerContractModal, { openModal: openContractModal }] = useModal();
       const [registerTable, { reload }] = useTable({
         title: '合同列表',
         api: getContractList,
@@ -96,6 +104,17 @@
         reload();
       }
 
+      function handleUpdate(record: Recordable) {
+        openContractModal(true, {
+          record,
+          isUpdate: true,
+        });
+      }
+
+      function handleContractSuccess() {
+        reload();
+      }
+
       function handleOrder(record: Recordable) {
         // openModal(true, {
         //   record,
@@ -121,6 +140,9 @@
         handleOrder,
         handleFinishOrder,
         RoleEnum,
+        handleUpdate,
+        registerContractModal,
+        handleContractSuccess,
       };
     },
   });

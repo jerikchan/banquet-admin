@@ -7,10 +7,12 @@ import { formatToDateTime } from '/@/utils/dateUtil';
 import projectSetting from '/@/settings/projectSetting';
 
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
+import { logError, getLogErrorList } from '/@/api/sys/error';
 
 export interface ErrorLogState {
   errorLogInfoList: Nullable<ErrorLogInfo[]>;
   errorLogListCount: number;
+  remoteErrorLogInfoList: Nullable<ErrorLogInfo[]>;
 }
 
 export const useErrorLogStore = defineStore({
@@ -18,16 +20,26 @@ export const useErrorLogStore = defineStore({
   state: (): ErrorLogState => ({
     errorLogInfoList: null,
     errorLogListCount: 0,
+    remoteErrorLogInfoList: null,
   }),
   getters: {
     getErrorLogInfoList(): ErrorLogInfo[] {
-      return this.errorLogInfoList || [];
+      return [...(this.errorLogInfoList || []), ...(this.remoteErrorLogInfoList || [])];
     },
     getErrorLogListCount(): number {
       return this.errorLogListCount;
     },
   },
   actions: {
+    async getLogErrorList() {
+      try {
+        if (!this.remoteErrorLogInfoList) {
+          const data = await getLogErrorList();
+          const list = data.list.map((v) => JSON.parse(v));
+          this.remoteErrorLogInfoList = list;
+        }
+      } catch {}
+    },
     addErrorLogInfo(info: ErrorLogInfo) {
       const item = {
         ...info,
@@ -35,6 +47,11 @@ export const useErrorLogStore = defineStore({
       };
       this.errorLogInfoList = [item, ...(this.errorLogInfoList || [])];
       this.errorLogListCount += 1;
+
+      // 发送到服务端
+      try {
+        logError({ json: JSON.stringify(item) });
+      } catch {}
     },
 
     setErrorLogListCount(count: number): void {

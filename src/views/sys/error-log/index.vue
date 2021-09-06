@@ -68,6 +68,8 @@
       });
       const [registerModal, { openModal }] = useModal();
 
+      errorLogStore.getLogErrorList();
+
       watch(
         () => errorLogStore.getErrorLogInfoList,
         (list) => {

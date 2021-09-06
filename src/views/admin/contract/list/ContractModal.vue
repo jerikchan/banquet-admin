@@ -8,7 +8,7 @@
           :customRequest="uploadPicApiCustom"
           @change="onFileChange(fileInfo, $event)"
         >
-          <div v-if="fileInfo.data.length < 1">
+          <div v-if="fileInfo.data.length < 4">
             <PlusOutlined />
             <div class="ant-upload-text">上传</div>
           </div>
@@ -22,7 +22,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { contractFormSchema } from './contract.data';
-  import { addContract } from '/@/api/admin/contract';
+  import { addContract, updateContract } from '/@/api/admin/contract';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PlusOutlined } from '@ant-design/icons-vue';
   import { uploadPicApiCustom } from '/@/api/sys/upload';
@@ -63,23 +63,24 @@
             status: '0',
           });
         }
+        if (unref(isUpdate)) {
+          idRef.value = data.record.id;
+        }
+
         recordRef.value = data.record;
-        const values = Object.entries({
-          customerId: data.record.customerId,
-          customerName: data.record.customerName,
-          customerMobile: data.record.customerMobile,
-          banquetType: data.record.banquetType,
-          banquetRoomId: data.record.roomId,
-          scheduleType: data.record.canBie,
-          floorsDeskCount: data.record.deskNo,
-          banquetTime: data.record.purposeTime,
-        }).reduce((acc, cur) => {
+        const values = Object.entries(data.record).reduce((acc, cur) => {
           if (cur[1]) {
             acc[cur[0]] = cur[1];
           }
           return acc;
         }, {});
         setFieldsValue(values);
+
+        fileInfos.forEach((fileInfo) => {
+          if (data.record[fileInfo.key]) {
+            fileInfo.data = data.record[fileInfo.key];
+          }
+        });
       });
 
       const getTitle = computed(() => (isUpdate.value ? '修改合同' : '新增合同'));
@@ -108,6 +109,10 @@
             await addContract(values);
             createMessage.success('新增合同成功');
           } else {
+            await updateContract({
+              ...values,
+              id: idRef.value,
+            });
             createMessage.success('修改合同成功');
           }
           closeModal();

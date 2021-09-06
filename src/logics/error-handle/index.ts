@@ -75,6 +75,10 @@ function vueErrorHandler(err: Error, vm: any, info: string) {
     detail: info,
     url: window.location.href,
   });
+
+  if (import.meta.env.DEV) {
+    console.error(err);
+  }
 }
 
 /**
@@ -170,6 +174,10 @@ export function setupErrorHandle(app: App) {
   if (!useErrorHandle) {
     return;
   }
+  // if (import.meta.env.DEV) {
+  //   return;
+  // }
+
   // Vue exception monitoring;
   app.config.errorHandler = vueErrorHandler;
 

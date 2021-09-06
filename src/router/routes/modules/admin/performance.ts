@@ -11,7 +11,7 @@ const manager: AppRouteModule = {
   meta: {
     orderNo: 1000,
     icon: 'grommet-icons:document-performance',
-    title: '业绩模块',
+    title: '绩效管理',
     roles: [
       RoleEnum.SUPER,
       RoleEnum.MANAGER,
