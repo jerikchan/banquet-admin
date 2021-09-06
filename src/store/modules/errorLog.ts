@@ -32,13 +32,11 @@ export const useErrorLogStore = defineStore({
   },
   actions: {
     async getLogErrorList() {
-      try {
-        if (!this.remoteErrorLogInfoList) {
-          const data = await getLogErrorList();
-          const list = data.list.map((v) => JSON.parse(v));
-          this.remoteErrorLogInfoList = list;
-        }
-      } catch {}
+      if (!this.remoteErrorLogInfoList) {
+        const data = await getLogErrorList();
+        const list = data.list.map((v) => JSON.parse(v));
+        this.remoteErrorLogInfoList = list;
+      }
     },
     addErrorLogInfo(info: ErrorLogInfo) {
       const item = {
@@ -49,9 +47,10 @@ export const useErrorLogStore = defineStore({
       this.errorLogListCount += 1;
 
       // 发送到服务端
-      try {
-        logError({ json: JSON.stringify(item) });
-      } catch {}
+      logError(
+        { json: JSON.stringify(item) },
+        { isLogErrorRequest: true, isReturnNativeResponse: true }
+      );
     },
 
     setErrorLogListCount(count: number): void {

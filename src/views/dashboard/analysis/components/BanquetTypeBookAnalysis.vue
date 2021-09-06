@@ -1,6 +1,8 @@
 <template>
   <Card title="各宴会类型预定金额" :loading="loading">
-    <div ref="chartRef" :style="{ height, width }"></div>
+    <div ref="chartRef" class="flex items-center justify-center" :style="{ width, height }">
+      <a-empty v-if="!data.list" />
+    </div>
   </Card>
 </template>
 <script lang="ts">
@@ -70,7 +72,7 @@
           });
         }
       );
-      return { chartRef };
+      return { chartRef, data };
     },
   });
 </script>

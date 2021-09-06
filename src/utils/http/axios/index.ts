@@ -159,9 +159,12 @@ const transform: AxiosTransform = {
    */
   responseInterceptorsCatch: (error: any) => {
     const { t } = useI18n();
+    const { response, code, message, config } = error || {};
+    if (config?.requestOptions?.isLogErrorRequest) {
+      return;
+    }
     const errorLogStore = useErrorLogStoreWithOut();
     errorLogStore.addAjaxErrorInfo(error);
-    const { response, code, message, config } = error || {};
     const errorMessageMode = config?.requestOptions?.errorMessageMode || 'none';
     const msg: string = response?.data?.error?.message ?? '';
     const err: string = error?.toString?.() ?? '';
@@ -200,7 +203,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // authentication schemes，e.g: Bearer
         // authenticationScheme: 'Bearer',
         authenticationScheme: '',
-        timeout: isProdMode() ? 10 * 1000 : undefined,
+        timeout: isProdMode() ? 10 * 1000 : 10 * 1000,
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
         // 接口可能会有通用的地址部分，可以统一抽取出来
@@ -234,6 +237,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           ignoreCancelToken: true,
           // 是否携带token
           withToken: true,
+          // 是否是错误统计接口
+          isLogErrorRequest: false,
         },
       },
       opt || {}
