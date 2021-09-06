@@ -1,6 +1,8 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { DescItem } from '/@/components/Description/index';
+import { h } from 'vue';
+import { Upload } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -214,6 +216,16 @@ export const agreementInfoSchema: DescItem[] = [
   {
     field: 'backupDesk',
     label: '备用桌数',
+  },
+  {
+    field: 'file',
+    label: '合同照片',
+    render: (val) =>
+      h(Upload, {
+        listType: 'picture-card',
+        showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+        fileList: val,
+      }),
   },
 ];
 
