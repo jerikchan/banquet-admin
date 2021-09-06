@@ -1,6 +1,6 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { getFoodList } from '/@/api/admin/contract';
+// import { getFoodList } from '/@/api/admin/contract';
 import { getBanquetTypeList, getRoomList, getScheduleTypeList } from '/@/api/admin/banquet';
 // import { uploadPicApi } from '/@/api/sys/upload';
 import { DescItem } from '/@/components/Description/index';
@@ -177,19 +177,19 @@ export const contractFormSchema: FormSchema[] = [
   //   },
   //   required: false,
   // },
-  {
-    label: '菜单菜品',
-    field: 'food',
-    component: 'ApiTreeSelect',
-    componentProps: {
-      api: getFoodList,
-      replaceFields: {
-        title: 'name',
-        value: 'id',
-      },
-    },
-    required: true,
-  },
+  // {
+  //   label: '菜单菜品',
+  //   field: 'food',
+  //   component: 'ApiTreeSelect',
+  //   componentProps: {
+  //     api: getFoodList,
+  //     replaceFields: {
+  //       title: 'name',
+  //       value: 'id',
+  //     },
+  //   },
+  //   required: true,
+  // },
   {
     field: 'floorsDeskCount',
     label: '保底桌数',
