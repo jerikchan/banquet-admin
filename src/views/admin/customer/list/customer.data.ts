@@ -171,12 +171,12 @@ export const customerFormSchema: FormSchema[] = [
     required: false,
   },
   {
-    field: 'purposeTime',
+    field: 'banquetTime',
     label: '意向日期',
     component: 'DatePicker',
   },
   {
-    field: 'deskNo',
+    field: 'floorsDeskCount',
     label: '意向桌数',
     component: 'InputNumber',
   },

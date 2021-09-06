@@ -182,7 +182,6 @@
       let res, foods, foodsId;
 
       async function submitAll() {
-        // debugger;
         try {
           let submitValues = {},
             tasks = [];

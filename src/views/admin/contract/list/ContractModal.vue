@@ -57,7 +57,7 @@
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
-
+        debugger;
         if (!unref(isUpdate)) {
           setFieldsValue({
             status: '0',
