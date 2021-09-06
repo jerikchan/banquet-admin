@@ -7,6 +7,7 @@
             listType="picture-card"
             v-model:fileList="fileInfo.data"
             :customRequest="uploadPicApiCustom"
+            @change="onFileChange(fileInfo, $event)"
           >
             <div v-if="fileInfo.data.length < 1">
               <PlusOutlined />
@@ -87,6 +88,10 @@
         showActionButtonGroup: false,
       });
 
+      function onFileChange(fileInfo, { fileList }) {
+        fileInfo.data = fileList.map((fileInfo) => fileInfo.response || fileInfo);
+      }
+
       async function submitAll() {
         try {
           let submitValues = getFieldsValue();
@@ -132,7 +137,16 @@
 
       handleData(deptId.value);
 
-      return { register, submitAll, goBack, handleData, resetAll, uploadPicApiCustom, fileInfos };
+      return {
+        register,
+        submitAll,
+        goBack,
+        handleData,
+        resetAll,
+        uploadPicApiCustom,
+        fileInfos,
+        onFileChange,
+      };
     },
   });
 </script>

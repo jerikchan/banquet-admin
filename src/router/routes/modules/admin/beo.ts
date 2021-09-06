@@ -45,7 +45,6 @@ const beo: AppRouteModule = {
       name: 'OrderDetail',
       meta: {
         title: 'BEO单详情',
-
         hideMenu: true,
         showMenu: false,
         hideTab: true,

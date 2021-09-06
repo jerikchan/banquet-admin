@@ -6,6 +6,7 @@
           listType="picture-card"
           v-model:fileList="fileInfo.data"
           :customRequest="uploadPicApiCustom"
+          @change="onFileChange(fileInfo, $event)"
         >
           <div v-if="fileInfo.data.length < 1">
             <PlusOutlined />
@@ -83,6 +84,10 @@
 
       const getTitle = computed(() => (isUpdate.value ? '修改合同' : '新增合同'));
 
+      function onFileChange(fileInfo, { fileList }) {
+        fileInfo.data = fileList.map((fileInfo) => fileInfo.response || fileInfo);
+      }
+
       async function handleSubmit() {
         try {
           const fileInfoRecord = fileInfos.reduce((acc, fileInfo) => {
@@ -112,7 +117,15 @@
         }
       }
 
-      return { registerModal, registerForm, getTitle, handleSubmit, fileInfos, uploadPicApiCustom };
+      return {
+        registerModal,
+        registerForm,
+        getTitle,
+        handleSubmit,
+        fileInfos,
+        uploadPicApiCustom,
+        onFileChange,
+      };
     },
   });
 </script>
