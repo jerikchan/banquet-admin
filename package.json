@@ -1,6 +1,6 @@
 {
   "name": "banquet-admin",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "scripts": {
     "test": "esno ./build/script/postBuild.ts",
     "bootstrap": "yarn install",
