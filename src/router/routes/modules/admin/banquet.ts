@@ -44,7 +44,6 @@ const banquet: AppRouteModule = {
       name: 'RoomTypeManagement',
       meta: {
         title: '厅房类型管理',
-
         roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/banquet/room-type/index.vue'),
@@ -63,7 +62,7 @@ const banquet: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '厅房详细信息',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/banquet/room',
       },
@@ -75,7 +74,7 @@ const banquet: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '档期详细信息',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/banquet/banquet',
       },
@@ -86,7 +85,6 @@ const banquet: AppRouteModule = {
       name: 'FoodTypeManagement',
       meta: {
         title: '菜单菜品',
-
         roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/banquet/foods/index.vue'),
@@ -96,7 +94,6 @@ const banquet: AppRouteModule = {
       name: 'MealTypeManagement',
       meta: {
         title: '餐标列表',
-
         roles: [RoleEnum.SUPER],
       },
       component: () => import('/@/views/admin/banquet/meal-type/index.vue'),

@@ -35,7 +35,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '客户跟进记录详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -47,7 +47,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '客户跟进记录修改',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -59,7 +59,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '套餐内容登记详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -71,7 +71,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '套餐内容登记修改',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -83,7 +83,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '人员派单登记详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -95,7 +95,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '人员派单登记修改',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -107,7 +107,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '试妆登记详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -119,7 +119,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '试妆登记修改',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -131,7 +131,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '司仪沟通登记详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -143,7 +143,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '司仪沟通登记修改',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -155,7 +155,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '家庭会议登记详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -167,7 +167,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '家庭会议登记修改',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -179,7 +179,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '婚礼注意事项筛查登记详情',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
@@ -191,7 +191,7 @@ const manager: AppRouteModule = {
       meta: {
         hideMenu: true,
         title: '婚礼注意事项筛查登记修改',
-
+        hideTab: true,
         showMenu: false,
         currentActiveMenu: '/master/manager',
       },
