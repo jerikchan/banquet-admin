@@ -6,6 +6,7 @@ import { getBanquetTypeList, getRoomList, getScheduleTypeList } from '/@/api/adm
 import { DescItem } from '/@/components/Description/index';
 import { h } from 'vue';
 import { Upload } from 'ant-design-vue';
+import { getSalesList } from '/@/api/admin/system';
 
 export const columns: BasicColumn[] = [
   {
@@ -80,7 +81,31 @@ export const searchFormSchema: FormSchema[] = [
     field: 'agreementCode',
     label: '合同编号',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 6 },
+  },
+  {
+    field: 'roomName',
+    label: '厅房',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getRoomList,
+      labelField: 'roomName',
+      valueField: 'roomName',
+    },
+    colProps: { span: 4 },
+    required: false,
+  },
+  {
+    field: 'salesId',
+    label: '销售',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getSalesList,
+      labelField: 'realName',
+      valueField: 'id',
+    },
+    colProps: { span: 4 },
+    required: false,
   },
 ];
 
