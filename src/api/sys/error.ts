@@ -8,7 +8,7 @@ enum Api {
   GetLogErrorList = '/error/getLogErrorList',
 }
 
-export function logError(params: any) {
+export function logError(params: any, requestOptions: any) {
   return defHttp.post<any>(
     {
       url: Api.LogError,
@@ -16,6 +16,7 @@ export function logError(params: any) {
     },
     {
       devUrl,
+      ...requestOptions,
     }
   );
 }

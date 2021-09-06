@@ -1,11 +1,6 @@
 {
-  "name": "vben-admin",
-  "version": "0.2.2",
-  "author": {
-    "name": "vben",
-    "email": "anncwb@126.com",
-    "url": "https://github.com/anncwb"
-  },
+  "name": "banquet-admin",
+  "version": "0.2.3",
   "scripts": {
     "test": "esno ./build/script/postBuild.ts",
     "bootstrap": "yarn install",
@@ -145,15 +140,7 @@
     "bin-wrapper": "npm:bin-wrapper-china",
     "rollup": "^2.55.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/anncwb/vue-vben-admin.git"
-  },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/anncwb/vue-vben-admin/issues"
-  },
-  "homepage": "https://github.com/anncwb/vue-vben-admin",
   "engines": {
     "node": "^12 || >=14"
   }

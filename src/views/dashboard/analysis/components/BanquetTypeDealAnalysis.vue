@@ -1,6 +1,8 @@
 <template>
   <Card title="本月各宴会类型签单金额占比" :loading="loading">
-    <div ref="chartRef" :style="{ width, height }"></div>
+    <div ref="chartRef" class="flex items-center justify-center" :style="{ width, height }">
+      <a-empty v-if="!data.list" />
+    </div>
   </Card>
 </template>
 <script lang="ts">
@@ -78,7 +80,7 @@
         },
         { immediate: true }
       );
-      return { chartRef };
+      return { chartRef, data };
     },
   });
 </script>

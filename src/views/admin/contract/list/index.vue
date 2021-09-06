@@ -13,6 +13,7 @@
               icon: 'clarity:note-edit-line',
               tooltip: '修改合同',
               onClick: handleUpdate.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               icon: 'ant-design:delete-outlined',
