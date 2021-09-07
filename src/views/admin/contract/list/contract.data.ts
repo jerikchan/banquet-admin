@@ -343,7 +343,7 @@ export const agreemetnDetailSchema: DescItem[] = [
     label: '宴会时间',
   },
   {
-    field: 'banquetTpe',
+    field: 'banquetType',
     label: '宴会类型',
   },
   {
