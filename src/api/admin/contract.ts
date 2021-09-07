@@ -17,6 +17,10 @@ enum Api {
   GetScheduleByAgreementId = '/banquet/findRoomScheduleByAgreementId',
 
   GetFoodsInfos = '/foods/findFoods',
+
+  AllocationManager = '/agreement/allocationManagers',
+
+  CancelAllocationManager = '/agreement/cancelManagers',
 }
 
 export const getContractList = (params?: ContractParams) =>
@@ -48,3 +52,9 @@ export const getMealTypeList = (params?: ContractParams) =>
 
 export const getFoodList = (params?: ContractParams) =>
   defHttp.get<ContractListGetResultModel>({ url: Api.GetFoodList, params }, { devUrl });
+
+export const allocationManager = (params?: any) =>
+  defHttp.post<{}>({ url: Api.AllocationManager, params }, { devUrl });
+
+export const cancelAllocationManager = (params?: any) =>
+  defHttp.post<{}>({ url: Api.CancelAllocationManager, params }, { devUrl });

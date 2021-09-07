@@ -30,16 +30,34 @@
           ]"
           :dropDownActions="[
             {
+              label: '分配管家',
+              onClick: handleManager.bind(null, record),
+              disabled: record.status === '1' || record.beoStatus === '5' || record.managerId,
+              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER, RoleEnum.SALES],
+            },
+            {
+              label: '撤销分配',
+              onClick: handleCnacelManager.bind(null, record),
+              disabled: record.status === '1' || record.beoStatus === '5' || !record.managerId,
+              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER, RoleEnum.SALES],
+            },
+            {
               label: '下BEO单',
               disabled:
-                record.status === '1' || record.status === '3' || record.finishStatus === '5',
+                record.status === '1' ||
+                record.status === '3' ||
+                record.finishStatus === '5' ||
+                record.managerId === null,
               onClick: handleOrder.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '下完成BEO单',
               disabled:
-                record.status === '1' || record.status === '3' || record.finishStatus === '5',
+                record.status === '1' ||
+                record.status === '3' ||
+                record.finishStatus === '5' ||
+                record.managerId === null,
               onClick: handleFinishOrder.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
@@ -49,13 +67,14 @@
     </BasicTable>
     <!-- <OrderModal @register="registerOrderModal" @success="handleSuccess" /> -->
     <ContractModal @register="registerContractModal" @success="handleContractSuccess" />
+    <ContractAllocationManagerModal @register="registerManagerModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getContractList, deleteContract } from '/@/api/admin/contract';
+  import { getContractList, deleteContract, cancelAllocationManager } from '/@/api/admin/contract';
   import ContractModal from './ContractModal.vue';
   import { useModal } from '/@/components/Modal';
 
@@ -66,9 +85,19 @@
 
   import { useGo } from '/@/hooks/web/usePage';
 
+  import { useMessage } from '/@/hooks/web/useMessage';
+
+  import ContractAllocationManagerModal from './ContractAllocationManagerModal.vue';
+
   export default defineComponent({
     name: 'ContractManagement',
-    components: { PageWrapper, BasicTable, TableAction, ContractModal },
+    components: {
+      PageWrapper,
+      BasicTable,
+      TableAction,
+      ContractModal,
+      ContractAllocationManagerModal,
+    },
     setup() {
       const [registerContractModal, { openModal: openContractModal }] = useModal();
       const [registerTable, { reload }] = useTable({
@@ -92,10 +121,14 @@
       });
 
       const go = useGo();
+      const { createMessage } = useMessage();
+
+      const [registerManagerModal, { openModal: openManagerModal }] = useModal();
 
       // const [registerOrderModal, { openModal }] = useModal();
 
       function handleSuccess() {
+        createMessage.success('操作成功');
         reload();
       }
 
@@ -132,6 +165,18 @@
         go('/beo/order_edit_finish/' + record.id);
       }
 
+      function handleManager(record: Recordable) {
+        openManagerModal(true, {
+          isUpdate: false,
+          record,
+        });
+      }
+
+      async function handleCnacelManager(record: Recordable) {
+        await cancelAllocationManager({ id: record.id });
+        handleSuccess();
+      }
+
       return {
         registerTable,
         handleSuccess,
@@ -144,6 +189,9 @@
         handleUpdate,
         registerContractModal,
         handleContractSuccess,
+        handleManager,
+        registerManagerModal,
+        handleCnacelManager,
       };
     },
   });

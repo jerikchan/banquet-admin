@@ -6,7 +6,7 @@ import { getBanquetTypeList, getRoomList, getScheduleTypeList } from '/@/api/adm
 import { DescItem } from '/@/components/Description/index';
 import { h } from 'vue';
 import { Upload } from 'ant-design-vue';
-import { getSalesList } from '/@/api/admin/system';
+import { getSalesList, getHouseKeeperList } from '/@/api/admin/system';
 
 export const columns: BasicColumn[] = [
   {
@@ -23,6 +23,11 @@ export const columns: BasicColumn[] = [
     title: '宴会厅房',
     dataIndex: 'banquetRoomName',
     width: 180,
+  },
+  {
+    title: '当前管家',
+    dataIndex: 'managerName',
+    width: 120,
   },
   {
     title: '餐别',
@@ -338,6 +343,10 @@ export const agreemetnDetailSchema: DescItem[] = [
     label: '宴会时间',
   },
   {
+    field: 'banquetTpe',
+    label: '宴会类型',
+  },
+  {
     field: 'singlePrice',
     label: '单桌价格',
   },
@@ -371,4 +380,27 @@ export const agreemetnDetailSchema: DescItem[] = [
         fileList: val,
       }),
   },
+  {
+    field: 'remark',
+    label: '备注',
+  },
+];
+
+export const managerAllocationSchema: FormSchema[] = [
+  {
+    field: 'managerId',
+    label: '选择管家',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getHouseKeeperList,
+      labelField: 'realName',
+      valueField: 'id',
+    },
+    required: true,
+  },
+  // {
+  //   field: 'remark',
+  //   label: '备注',
+  //   component: 'InputTextArea',
+  // },
 ];

@@ -112,10 +112,6 @@ export const customerInfoSchema: DescItem[] = [
     label: '客户信息录入时间',
   },
   {
-    field: 'customerTypeStr',
-    label: '客户类型',
-  },
-  {
     field: 'purposeTime',
     label: '意向宴会时间',
   },
@@ -190,6 +186,10 @@ export const agreementInfoSchema: DescItem[] = [
     label: '宴会时间',
   },
   {
+    field: 'banquetType',
+    label: '宴会类型',
+  },
+  {
     field: 'singlePrice',
     label: '单桌价格',
   },
@@ -222,6 +222,10 @@ export const agreementInfoSchema: DescItem[] = [
         showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
         fileList: val,
       }),
+  },
+  {
+    field: 'remark',
+    label: '备注',
   },
 ];
 
