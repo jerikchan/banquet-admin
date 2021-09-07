@@ -69,7 +69,7 @@
 
         recordRef.value = data.record;
         const values = Object.entries(data.record).reduce((acc, cur) => {
-          if (cur[1]) {
+          if (cur[1] !== null) {
             acc[cur[0]] = cur[1];
           }
           return acc;
