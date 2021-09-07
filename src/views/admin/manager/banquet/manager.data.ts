@@ -11,8 +11,28 @@ export const columns: BasicColumn[] = [
     align: 'left',
   },
   {
-    title: '名称',
+    title: '表名称',
     dataIndex: 'name',
+    width: 200,
+  },
+  {
+    title: '客户名称',
+    dataIndex: 'name',
+    width: 200,
+  },
+  {
+    title: '宴会厅房',
+    dataIndex: 'banquetRoomName',
+    width: 150,
+  },
+  {
+    title: '宴会类型',
+    dataIndex: 'banquetType',
+    width: 120,
+  },
+  {
+    title: '所属销售',
+    dataIndex: 'salesManName',
     width: 200,
   },
   {
