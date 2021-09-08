@@ -33,13 +33,13 @@
               label: '分配管家',
               onClick: handleManager.bind(null, record),
               disabled: record.status === '1' || record.beoStatus === '5' || record.managerId,
-              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER, RoleEnum.SALES],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '撤销分配',
               onClick: handleCnacelManager.bind(null, record),
               disabled: record.status === '1' || record.beoStatus === '5' || !record.managerId,
-              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER, RoleEnum.SALES],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '下BEO单',

@@ -17,7 +17,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '客户名称',
-    dataIndex: 'name',
+    dataIndex: 'customerName',
     width: 200,
   },
   {
