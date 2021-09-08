@@ -77,13 +77,8 @@ export const salesColumns: BasicColumn[] = [
     width: 150,
   },
   {
-    title: '完成额',
-    dataIndex: 'finishMoney',
-    width: 150,
-  },
-  {
-    title: '总额',
-    dataIndex: 'total',
+    title: '签单数量',
+    dataIndex: 'num',
     width: 150,
   },
 ];

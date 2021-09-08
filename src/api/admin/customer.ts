@@ -52,6 +52,8 @@ enum Api {
   DeleteDicInfo = '/dic/delete',
   AddDicInfo = '/dic/add',
   UpdateDicInfo = '/dic/update',
+
+  GetCommentListNew = '/chat/findChatRecordNew',
 }
 
 export const getChannelList = (params: ChannelParams) =>
@@ -152,6 +154,9 @@ export const getCustomerTypeList = (params?: CustomerParams) =>
 
 export const getCustomerList = (params?: CustomerParams) =>
   defHttp.get<CustomerListGetResultModel>({ url: Api.GetCustomerList, params }, { devUrl });
+
+export const getCommentListNew = (params?: CustomerParams) =>
+  defHttp.get<CustomerListGetResultModel>({ url: Api.GetCommentListNew, params }, { devUrl });
 
 export const getCustomer = (params?: { id: string }) =>
   defHttp.get<CustomerListGetResultModel>({ url: Api.GetCustomer, params }, { devUrl });

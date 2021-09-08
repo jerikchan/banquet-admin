@@ -8,7 +8,7 @@ import { getCommentTypeList } from '/@/api/admin/customer';
 export const columns: BasicColumn[] = [
   {
     title: '客户名称',
-    dataIndex: 'chatPersonName',
+    dataIndex: 'customerName',
     width: 120,
   },
   {
