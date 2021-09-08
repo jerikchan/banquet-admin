@@ -9,7 +9,15 @@
     <a-card title="财务信息" :bordered="true">
       <BasicForm @register="registerBeoFinance" />
     </a-card>
-    <BasicTable @register="registerTimeTable" />
+    <a-card title="菜品信息" :bordered="true">
+      <BasicForm @register="registerFoodsForm">
+        <!-- <template #add="{ field }">
+          <Button v-if="Number(field) === 0" @click="add">+</Button>
+          <Button v-if="field > 0" @click="del(field)">-</Button>
+        </template> -->
+      </BasicForm>
+    </a-card>
+    <BasicTable @register="registerTimeTable" v-if="!desData.showFoodsTable" />
     <CollapseContainer title="管家部BEO内容">
       <BasicForm @register="registerTaskManager" />
     </CollapseContainer>
@@ -38,7 +46,7 @@
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, ref, reactive } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import {
     orderFormSchema,
@@ -50,6 +58,7 @@
   import { Card } from 'ant-design-vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { CollapseContainer } from '/@/components/Container/index';
+  // import { ApiSelect } from '/@/components/Form/index';
 
   import { getAgreementInfo, getScheduleByAgreementId, getFoodsInfos } from '/@/api/admin/contract';
 
@@ -62,9 +71,57 @@
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
+  import { FormSchema } from '/@/components/Table';
+  // import { emit } from 'process';
+
+  const foodsFormSchema: FormSchema[] = [
+    {
+      field: 'isStandard',
+      component: 'Switch',
+      label: '是否使用标准菜单',
+      colProps: {
+        span: 8,
+      },
+      labelWidth: 200,
+    },
+    {
+      field: 'foodsId',
+      component: 'ApiSelect',
+      label: '菜单选择',
+      dynamicDisabled: ({ values }) => {
+        desData.showFoodsTable = !values.isStandard;
+        // return showFoodsTable;
+        return !values.isStandard;
+      },
+      componentProps: {
+        api: getFoodsInfos,
+        labelField: 'name',
+        valueField: 'id',
+        onChange: async (e: any) => {
+          desData.foodsId = e;
+          let temp = await getFoodsInfos({ id: e });
+          Object.assign(foodsData, temp);
+          console.log(this);
+        },
+      },
+    },
+  ];
+
+  const desData: Recordable = reactive({
+    showFoodsTable: false,
+  });
+
+  const foodsData: Recordable = reactive({});
+
   export default defineComponent({
     name: 'BeoOrderModal',
-    components: { BasicForm, PageWrapper, [Card.name]: Card, BasicTable, CollapseContainer },
+    components: {
+      BasicForm,
+      PageWrapper,
+      [Card.name]: Card,
+      BasicTable,
+      CollapseContainer,
+    },
     setup() {
       const { createMessage } = useMessage();
 
@@ -98,11 +155,24 @@
         showActionButtonGroup: false,
       });
 
+      const [
+        registerFoodsForm,
+        { setFieldsValue: setFieldsFoodsValue, getFieldsValue: getFieldFoodsValue },
+      ] = useForm({
+        baseColProps: {
+          span: 6,
+        },
+        schemas: foodsFormSchema,
+        showActionButtonGroup: false,
+      });
+
       const [registerTimeTable, { setTableData }] = useTable({
         title: '菜品内容',
         columns: foodsColumn,
         pagination: false,
         showIndexColumn: false,
+        // api: getFoodsInfos.bind(null, { parentId: desData.foodsId }),
+        // dataSource: foodsData,
         scroll: { y: 300 },
       });
 
@@ -261,6 +331,15 @@
         });
       }
 
+      // setProps(setFoodsTable);
+
+      async function setFoodsTable() {
+        // let temp = await getFoodsInfos({ parentId: id });
+        // setTableData({});
+        setFieldsFoodsValue({});
+        getFieldFoodsValue();
+      }
+
       handleData(agreementId.value);
 
       return {
@@ -278,6 +357,11 @@
         registerTaskBuy,
         registerTaskFinance,
         registerBeoFinance,
+        registerFoodsForm,
+        foodsFormSchema,
+        desData,
+        setFoodsTable,
+        foodsData,
       };
     },
   });

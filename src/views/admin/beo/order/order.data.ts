@@ -325,3 +325,48 @@ export const beoFinanceFormSchema: FormSchema[] = [
     },
   },
 ];
+
+// export const foodsFormSchema: FormSchema[] = [
+//   // {
+//   //   field: 'mealType',
+//   //   label: '菜品类型',
+//   //   component: 'Select',
+//   //   componentProps: {
+//   //     options: [
+//   //       {
+//   //         label: '选项1',
+//   //         value: '1',
+//   //         key: '1',
+//   //       },
+//   //       {
+//   //         label: '选项2',
+//   //         value: '2',
+//   //         key: '2',
+//   //       },
+//   //     ],
+//   //   },
+//   //   required: false,
+//   // },
+//   // {
+//   //   field: 'remark',
+//   //   label: '备注',
+//   //   component: 'InputTextArea',
+//   // },
+//   {
+//     field: 'isStandard',
+//     component: 'Switch',
+//     label: '是否使用标准菜单',
+//     colProps: {
+//       span: 8,
+//     },
+//     labelWidth: 200,
+//   },
+//   {
+//     field: 'foodsId',
+//     component: 'Select',
+//     label: '菜单选择',
+//     dynamicDisabled: ({ values }) => {
+//       return !values.isStandard;
+//     },
+//   },
+// ];
