@@ -39,11 +39,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'banquetTime',
     width: 180,
   },
-  // {
-  //   title: '菜单菜品',
-  //   dataIndex: 'foodStr',
-  //   width: 180,
-  // },
+  {
+    title: '宴会类型',
+    dataIndex: 'banquetType',
+    width: 180,
+  },
   {
     title: '保底桌数',
     dataIndex: 'floorsDeskCount',
@@ -111,6 +111,31 @@ export const searchFormSchema: FormSchema[] = [
     },
     colProps: { span: 4 },
     required: false,
+  },
+  {
+    field: 'searchFlag',
+    label: '时间范围',
+    component: 'Select',
+    colProps: { span: 4 },
+    componentProps: {
+      options: [
+        {
+          label: '全部',
+          value: 'all',
+          key: '1',
+        },
+        {
+          label: '当前及以前',
+          value: 'before',
+          key: '2',
+        },
+        {
+          label: '当前及以后',
+          value: 'after',
+          key: '3',
+        },
+      ],
+    },
   },
 ];
 

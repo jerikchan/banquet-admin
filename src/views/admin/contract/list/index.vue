@@ -112,6 +112,7 @@
         showTableSetting: true,
         bordered: true,
         showIndexColumn: true,
+        // beforeFetch: function () {},
         actionColumn: {
           width: 160,
           title: '操作',
