@@ -1,7 +1,7 @@
 <template>
-  <Card title="获客渠道各渠道获客数量统计" :loading="loading">
-    查询日期：<a-month-picker v-model:value="dateValue" placeholder="Select Month" />
-    <a-button class="ml-2">搜索</a-button>
+  <Card :title="title" :loading="loading">
+    选择日期：<a-month-picker v-model:value="dateValue" placeholder="请选择日期" />
+    <a-button class="ml-2">查询</a-button>
     <div ref="chartRef" class="flex items-center justify-center my-4" :style="{ width, height }">
       <a-empty v-if="!data.list" />
     </div>
@@ -12,13 +12,15 @@
 
   import { Card } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
-  import { getChannelAnalysis } from '/@/api/admin/analysis';
-  import { Moment } from 'moment';
+  import moment, { Moment } from 'moment';
 
   export default defineComponent({
     components: { Card },
     props: {
-      // loading: Boolean,
+      title: {
+        type: String as PropType<string>,
+        default: '饼状图统计',
+      },
       width: {
         type: String as PropType<string>,
         default: '100%',
@@ -27,17 +29,24 @@
         type: String as PropType<string>,
         default: '300px',
       },
+      api: {
+        type: Function as PropType<({ startTime: Moment }) => {}>,
+        required: true,
+      },
+      seriesName: {
+        type: String as PropType<string>,
+      },
     },
-    setup() {
+    setup(props) {
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
       const data = ref<any>({});
-      const dateValue = ref<Moment>();
+      const dateValue = ref<Moment>(moment());
       const loading = ref(false);
 
       async function getData() {
         loading.value = true;
-        data.value = await getChannelAnalysis({ startTime: dateValue.value });
+        data.value = await props.api({ startTime: dateValue.value });
         loading.value = false;
       }
 
@@ -63,18 +72,12 @@
 
             series: [
               {
-                name: '获客渠道',
+                name: props.seriesName,
                 type: 'pie',
                 radius: '80%',
                 center: ['50%', '50%'],
                 color: ['#5ab1ef', '#b6a2de', '#67e0e3', '#2ec7c9'],
-                data: [
-                  ...unref(data).list,
-                  // { value: 500, name: '电子产品' },
-                  // { value: 310, name: '服装' },
-                  // { value: 274, name: '化妆品' },
-                  // { value: 400, name: '家居' },
-                ].sort(function (a, b) {
+                data: [...unref(data).list].sort(function (a, b) {
                   return a.value - b.value;
                 }),
                 roseType: 'radius',
