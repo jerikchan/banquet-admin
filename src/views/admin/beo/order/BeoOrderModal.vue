@@ -74,45 +74,6 @@
   import { FormSchema } from '/@/components/Table';
   // import { emit } from 'process';
 
-  const foodsFormSchema: FormSchema[] = [
-    {
-      field: 'isStandard',
-      component: 'Switch',
-      label: '是否使用标准菜单',
-      colProps: {
-        span: 8,
-      },
-      labelWidth: 200,
-    },
-    {
-      field: 'foodsId',
-      component: 'ApiSelect',
-      label: '菜单选择',
-      dynamicDisabled: ({ values }) => {
-        desData.showFoodsTable = !values.isStandard;
-        // return showFoodsTable;
-        return !values.isStandard;
-      },
-      componentProps: {
-        api: getFoodsInfos,
-        labelField: 'name',
-        valueField: 'id',
-        onChange: async (e: any) => {
-          desData.foodsId = e;
-          let temp = await getFoodsInfos({ id: e });
-          Object.assign(foodsData, temp);
-          console.log(this);
-        },
-      },
-    },
-  ];
-
-  const desData: Recordable = reactive({
-    showFoodsTable: false,
-  });
-
-  const foodsData: Recordable = reactive({});
-
   export default defineComponent({
     name: 'BeoOrderModal',
     components: {
@@ -123,6 +84,49 @@
       CollapseContainer,
     },
     setup() {
+      const foodsFormSchema: FormSchema[] = [
+        {
+          field: 'isStandard',
+          component: 'Switch',
+          label: '是否使用标准菜单',
+          colProps: {
+            span: 8,
+          },
+          labelWidth: 200,
+        },
+        {
+          field: 'foodsId',
+          component: 'ApiSelect',
+          label: '菜单选择',
+          dynamicDisabled: ({ values }) => {
+            desData.showFoodsTable = !values.isStandard;
+            // return showFoodsTable;
+            return !values.isStandard;
+          },
+          componentProps: {
+            api: getFoodsInfos,
+            labelField: 'name',
+            valueField: 'id',
+            onChange: async (e: any) => {
+              desData.foodsId = e;
+              let temp = await getFoodsInfos({ id: e });
+              Object.assign(foodsData, temp);
+              const data = temp.find((item) => item.id === e);
+              if (data) {
+                setTableData(data.children);
+              }
+              // console.log(this);
+            },
+          },
+        },
+      ];
+
+      const desData: Recordable = reactive({
+        showFoodsTable: false,
+      });
+
+      const foodsData: Recordable = reactive({});
+
       const { createMessage } = useMessage();
 
       const [register, { setFieldsValue, getFieldsValue: getBasciValues }] = useForm({

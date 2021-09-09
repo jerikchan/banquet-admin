@@ -1,7 +1,7 @@
 <template>
   <Card :title="title" :loading="loading">
-    选择日期：<a-month-picker v-model:value="dateValue" placeholder="请选择日期" />
-    <a-button class="ml-2">查询</a-button>
+    当前日期：<a-month-picker v-model:value="dateValue" placeholder="请选择日期" />
+    <!-- <a-button class="ml-2">查询</a-button> -->
     <div ref="chartRef" class="flex items-center justify-center my-4" :style="{ width, height }">
       <a-empty v-if="!data.list" />
     </div>
