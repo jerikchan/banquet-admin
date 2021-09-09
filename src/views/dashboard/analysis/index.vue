@@ -35,8 +35,8 @@
         <ApiBarAnalysis
           :api="getGoWhereAnalysis"
           title="滑单去向统计"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="directionNum"
+          categoryKey="directionName"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
@@ -51,8 +51,8 @@
         <ApiBarAnalysis
           :api="getBanquetTypeBookAnalysis"
           title="各宴会类型预定金额"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
@@ -61,15 +61,15 @@
         <ApiBarAnalysis
           :api="getTableNumberDealAnalysis"
           title="本月已签单桌数"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="w-full md:w-1/2"
         />
         <ApiBarAnalysis
           :api="getTableMoneyDealAnalysis"
           title="本月已签单均桌价统计"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
@@ -78,15 +78,15 @@
         <ApiBarAnalysis
           :api="getRoomBookAnalysis"
           title="各宴会厅预定数"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="w-full md:w-1/2"
         />
         <ApiBarAnalysis
           :api="getFoodBookAnalysis"
           title="本月各餐标预定数"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
@@ -102,8 +102,8 @@
         <ApiBarAnalysis
           :api="getDealMoneyAnalysis"
           title="本月已签单均单价"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
@@ -112,15 +112,15 @@
         <ApiBarAnalysis
           :api="getDealDiscountAnalysis"
           title="统计本月签单优惠"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="w-full md:w-1/2"
         />
         <ApiBarAnalysis
           :api="getInviteAnalysis"
           title="邀约率"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
@@ -129,8 +129,8 @@
         <ApiBarAnalysis
           :api="getDealPercentAnalysis"
           title="成交率"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="w-full md:w-1/2"
         />
         <div class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"></div>
@@ -164,8 +164,8 @@
         <ApiBarAnalysis
           :api="getGoWhereAnalysis"
           title="滑单去向统计"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="directionValue"
+          categoryKey="directionName"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
