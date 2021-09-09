@@ -3,7 +3,7 @@
     size="small"
     :loading="$attrs.loading"
     :title="perfCard.title"
-    class="w-full !md:mt-0 !mt-4"
+    class="w-full !md:mt-0 !mt-4 flex flex-col"
     :canExpan="false"
   >
     <template #extra>

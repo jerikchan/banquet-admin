@@ -29,7 +29,13 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/dashboard/analysis/index.vue'),
       meta: {
         title: t('routes.dashboard.analysis'),
-        roles: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER, RoleEnum.SALES],
+        roles: [
+          RoleEnum.SUPER,
+          RoleEnum.SALES_OFFICER,
+          RoleEnum.SALES_MANAGER,
+          RoleEnum.MANAGER,
+          RoleEnum.SALES,
+        ],
       },
     },
     // {

@@ -1,8 +1,8 @@
 <template>
   <Card :title="title" :loading="loading">
-    当前日期：<a-month-picker v-model:value="dateValue" placeholder="请选择日期" />
+    查询日期：<a-range-picker v-model:value="dateValue" placeholder="请选择日期" />
     <!-- <a-button class="ml-2">查询</a-button> -->
-    <div ref="chartRef" class="flex items-center justify-center my-4" :style="{ width, height }">
+    <div ref="chartRef" class="flex items-center justify-center my-10" :style="{ width, height }">
       <a-empty v-if="!data.list" />
     </div>
   </Card>
@@ -30,7 +30,7 @@
         default: '300px',
       },
       api: {
-        type: Function as PropType<({ startTime: Moment }) => {}>,
+        type: Function as PropType<(any) => {}>,
         required: true,
       },
       seriesName: {
@@ -49,12 +49,15 @@
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
       const data = ref<any>({});
-      const dateValue = ref<Moment>(moment());
+      const dateValue = ref<Moment[]>([moment().startOf('month'), moment().endOf('month')]);
       const loading = ref(false);
 
       async function getData() {
         loading.value = true;
-        data.value = await props.api({ startTime: dateValue.value });
+        data.value = await props.api({
+          startTime: dateValue.value[0],
+          endTime: dateValue.value[1],
+        });
         loading.value = false;
       }
 

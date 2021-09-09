@@ -2,24 +2,25 @@
   <div class="p-4">
     <GrowCard :loading="loading" class="enter-y" />
     <div class="!my-4 md:flex enter-y">
-      <PerfCard :loading="loading" class="h-300px w-full md:w-1/3 !md:mr-4" />
+      <PerfCard :loading="loading" class="w-full md:w-1/3 !md:mr-4" />
       <SalesCard :loading="loading" class="w-full md:w-2/3 !md:mr-4 !md:mt-0 !mt-4" />
     </div>
-    <!-- <SiteAnalysis class="!my-4 enter-y" :loading="loading" /> -->
-    <!-- <VisitRadar class="w-full md:w-1/3" :loading="loading" /> -->
 
-    <Authority :value="[RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER]">
+    <Authority
+      :value="[RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER, RoleEnum.MANAGER]"
+    >
       <div class="!my-4 md:flex enter-y">
         <ApiPieAnalysis
           :api="getChannelAnalysis"
-          title="获客渠道各渠道获客数量统计"
+          title="获客渠道各渠道获客数量"
           seriesName="获客渠道"
           class="w-full md:w-1/2"
         />
-        <ApiPieAnalysis
-          :api="getDealDiscountPercentAnalysis"
-          title="统计本月签单优惠比率"
-          seriesName="获客渠道"
+        <ApiBarAnalysis
+          :api="getChannelAnalysis"
+          title="获客渠道各渠道获客数量"
+          dataKey="value"
+          categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
@@ -27,14 +28,14 @@
       <div class="!my-4 md:flex enter-y">
         <ApiBarAnalysis
           :api="getSkipOrderAnalysis"
-          title="滑单数数量统计"
+          title="滑单数数量"
           dataKey="customerNum"
           categoryKey="salesName"
           class="w-full md:w-1/2"
         />
         <ApiBarAnalysis
           :api="getGoWhereAnalysis"
-          title="滑单去向统计"
+          title="滑单去向"
           dataKey="directionNum"
           categoryKey="directionName"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
@@ -44,7 +45,7 @@
       <div class="!my-4 md:flex enter-y">
         <ApiPieAnalysis
           :api="getBanquetTypeDealAnalysis"
-          title="本月各宴会类型签单金额占比"
+          title="各宴会类型签单金额占比"
           seriesName="获客渠道"
           class="w-full md:w-1/2"
         />
@@ -60,14 +61,14 @@
       <div class="!my-4 md:flex enter-y">
         <ApiBarAnalysis
           :api="getTableNumberDealAnalysis"
-          title="本月已签单桌数"
+          title="已签单桌数"
           dataKey="value"
           categoryKey="name"
           class="w-full md:w-1/2"
         />
         <ApiBarAnalysis
           :api="getTableMoneyDealAnalysis"
-          title="本月已签单均桌价统计"
+          title="已签单均桌价统计"
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
@@ -84,7 +85,7 @@
         />
         <ApiBarAnalysis
           :api="getFoodBookAnalysis"
-          title="本月各餐标预定数"
+          title="各餐标预定数"
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
@@ -101,7 +102,7 @@
         />
         <ApiBarAnalysis
           :api="getDealMoneyAnalysis"
-          title="本月已签单均单价"
+          title="已签单均单价"
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
@@ -111,16 +112,15 @@
       <div class="!my-4 md:flex enter-y">
         <ApiBarAnalysis
           :api="getDealDiscountAnalysis"
-          title="统计本月签单优惠"
+          title="本月签单优惠"
           dataKey="value"
           categoryKey="name"
           class="w-full md:w-1/2"
         />
-        <ApiBarAnalysis
-          :api="getInviteAnalysis"
-          title="邀约率"
-          dataKey="value"
-          categoryKey="name"
+        <ApiPieAnalysis
+          :api="getDealDiscountPercentAnalysis"
+          title="签单优惠比率"
+          seriesName="获客渠道"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
@@ -133,21 +133,27 @@
           categoryKey="name"
           class="w-full md:w-1/2"
         />
-        <div class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"></div>
+        <ApiBarAnalysis
+          :api="getInviteAnalysis"
+          title="邀约率"
+          dataKey="value"
+          categoryKey="name"
+          class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+        />
       </div>
     </Authority>
 
-    <Authority :value="[RoleEnum.SUPER, RoleEnum.SALES]">
+    <Authority :value="[RoleEnum.SALES]">
       <div class="!my-4 md:flex enter-y">
         <ApiPieAnalysis
           :api="getChannelAnalysis"
-          title="获客渠道各渠道获客数量统计"
+          title="获客渠道各渠道获客数量"
           seriesName="获客渠道"
           class="w-full md:w-1/2"
         />
         <ApiPieAnalysis
           :api="getBanquetTypeDealAnalysis"
-          title="本月各宴会类型签单金额占比"
+          title="各宴会类型签单金额占比"
           seriesName="获客渠道"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
@@ -156,14 +162,14 @@
       <div class="!my-4 md:flex enter-y">
         <ApiBarAnalysis
           :api="getSkipOrderAnalysis"
-          title="滑单数数量统计"
+          title="滑单数数量"
           dataKey="customerNum"
           categoryKey="salesName"
           class="w-full md:w-1/2"
         />
         <ApiBarAnalysis
           :api="getGoWhereAnalysis"
-          title="滑单去向统计"
+          title="滑单去向"
           dataKey="directionValue"
           categoryKey="directionName"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
