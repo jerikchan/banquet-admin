@@ -35,8 +35,8 @@ export const columns: BasicColumn[] = [
     width: 180,
   },
   {
-    title: '录入时间',
-    dataIndex: 'createTime',
+    title: '宴会时间',
+    dataIndex: 'banquetTime',
     width: 180,
   },
   // {
