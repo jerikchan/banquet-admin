@@ -35,6 +35,7 @@ const dashboard: AppRouteModule = {
           RoleEnum.SALES_MANAGER,
           RoleEnum.MANAGER,
           RoleEnum.SALES,
+          RoleEnum.BOOKER,
         ],
       },
     },

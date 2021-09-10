@@ -1,6 +1,9 @@
 <template>
   <Card :title="title" :loading="loading">
-    查询日期：<a-range-picker v-model:value="dateValue" placeholder="请选择日期" />
+    <template #extra v-if="showTag">
+      <Tag :color="color">{{ '月' }}</Tag>
+    </template>
+    <!-- 查询日期：<a-range-picker v-model:value="dateValue" placeholder="请选择日期" /> -->
     <!-- <a-button class="ml-2">查询</a-button> -->
     <div ref="chartRef" class="flex items-center justify-center my-10" :style="{ width, height }">
       <a-empty v-if="!data.list" />
@@ -10,13 +13,17 @@
 <script lang="ts">
   import { defineComponent, Ref, ref, unref, watch } from 'vue';
 
-  import { Card } from 'ant-design-vue';
+  import { Card, Tag } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
   import moment, { Moment } from 'moment';
 
   export default defineComponent({
-    components: { Card },
+    components: { Card, Tag },
     props: {
+      color: {
+        type: String as PropType<string>,
+        default: '#019680',
+      },
       title: {
         type: String as PropType<string>,
         default: '柱状图统计',
@@ -44,27 +51,38 @@
         type: String as PropType<string>,
         default: 'customerNum',
       },
+      dateValue: {
+        type: Array as PropType<Moment[]>,
+        default() {
+          return [moment().startOf('month'), moment().endOf('month')];
+        },
+      },
+      showTag: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+      },
     },
-    setup(props) {
+    setup(props: any) {
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
       const data = ref<any>({});
-      const dateValue = ref<Moment[]>([moment().startOf('month'), moment().endOf('month')]);
       const loading = ref(false);
 
       async function getData() {
         loading.value = true;
-        data.value = await props.api({
-          startTime: dateValue.value[0],
-          endTime: dateValue.value[1],
-        });
+        const _data =
+          (await props.api({
+            startTime: props.dateValue[0],
+            endTime: props.dateValue[1],
+          })) || {};
+        data.value = _data;
         loading.value = false;
       }
 
       getData();
 
       watch(
-        () => dateValue.value,
+        () => props.dateValue,
         () => {
           getData();
         }
@@ -89,7 +107,7 @@
             grid: { left: '1%', right: '1%', top: '2  %', bottom: 0, containLabel: true },
             xAxis: {
               type: 'category',
-              data: data.value.list.map((item) => item[props.categoryKey]),
+              data: data.value.list.map((item: any) => item[props.categoryKey]),
             },
             yAxis: {
               type: 'value',
@@ -98,7 +116,7 @@
             },
             series: [
               {
-                data: data.value.list.map((item) => item[props.dataKey]),
+                data: data.value.list.map((item: any) => item[props.dataKey]),
                 type: 'bar',
                 barMaxWidth: 80,
                 itemStyle: {
@@ -119,7 +137,7 @@
         },
         { immediate: true }
       );
-      return { chartRef, data, dateValue };
+      return { chartRef, data, loading };
     },
   });
 </script>

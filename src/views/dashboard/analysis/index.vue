@@ -51,7 +51,7 @@
         />
         <ApiBarAnalysis
           :api="getBanquetTypeBookAnalysis"
-          title="各宴会类型预定金额"
+          title="各销售宴会类型预定金额"
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
@@ -95,7 +95,7 @@
       <div class="!my-4 md:flex enter-y">
         <ApiBarAnalysis
           :api="getBanquetTypeNumBookAnalysis"
-          title="各宴会类型预定数"
+          title="各宴会类型签单数"
           dataKey="customerNum"
           categoryKey="salesName"
           class="w-full md:w-1/2"
@@ -174,6 +174,17 @@
           categoryKey="directionName"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
+      </div>
+
+      <div class="!my-4 md:flex enter-y">
+        <ApiBarAnalysis
+          :api="getSkipOrderAnalysis"
+          title="已签单桌数"
+          dataKey="customerNum"
+          categoryKey="salesName"
+          class="w-full md:w-1/2"
+        />
+        <div class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"></div>
       </div>
     </Authority>
   </div>
