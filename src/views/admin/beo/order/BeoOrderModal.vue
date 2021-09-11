@@ -17,7 +17,11 @@
         </template> -->
       </BasicForm>
     </a-card>
-    <BasicTable @register="registerTimeTable" v-if="!desData.showFoodsTable" />
+    <BasicTable
+      @register="registerTimeTable"
+      v-if="desData.showFoodsTable"
+      :searchInfo="searchInfo"
+    />
     <CollapseContainer title="管家部BEO内容">
       <BasicForm @register="registerTaskManager" />
     </CollapseContainer>
@@ -54,6 +58,7 @@
     foodsColumn,
     beoTaskFormSchema,
     beoFinanceFormSchema,
+    // searchFoodsFormSchema,
   } from './order.data';
   import { Card } from 'ant-design-vue';
   import { BasicTable, useTable } from '/@/components/Table';
@@ -83,25 +88,48 @@
         span: 8,
       },
       labelWidth: 200,
+      componentProps: {
+        onChange: async (e: any) => {
+          console.log(e);
+          desData.showFoodsTable = e;
+        },
+      },
     },
+    // {
+    //   field: 'foodsId',
+    //   component: 'ApiSelect',
+    //   label: '菜单选择',
+    //   dynamicDisabled: ({ values }) => {
+    //     desData.showFoodsTable = !values.isStandard;
+    //     // return showFoodsTable;
+    //     return !values.isStandard;
+    //   },
+    //   componentProps: {
+    //     api: getFoodsInfos,
+    //     labelField: 'name',
+    //     valueField: 'id',
+    //     onChange: async (e: any) => {
+    //       desData.foodsId = e;
+    //       let temp = await getFoodsInfos({ id: e });
+    //       Object.assign(foodsData, temp);
+    //       console.log(this);
+    //     },
+    //   },
+    // },
+  ];
+
+  const searchFoodsFormSchema: FormSchema[] = [
     {
       field: 'foodsId',
-      component: 'ApiSelect',
       label: '菜单选择',
-      dynamicDisabled: ({ values }) => {
-        desData.showFoodsTable = !values.isStandard;
-        // return showFoodsTable;
-        return !values.isStandard;
-      },
+      component: 'ApiSelect',
+      colProps: { span: 8 },
       componentProps: {
         api: getFoodsInfos,
         labelField: 'name',
         valueField: 'id',
-        onChange: async (e: any) => {
-          desData.foodsId = e;
-          let temp = await getFoodsInfos({ id: e });
-          Object.assign(foodsData, temp);
-          console.log(this);
+        oncChange: (e: any) => {
+          console.log(e);
         },
       },
     },
@@ -124,6 +152,7 @@
     },
     setup() {
       const { createMessage } = useMessage();
+      const searchInfo = reactive<Recordable>({});
 
       const [register, { setFieldsValue, getFieldsValue: getBasciValues }] = useForm({
         baseColProps: {
@@ -171,9 +200,19 @@
         columns: foodsColumn,
         pagination: false,
         showIndexColumn: false,
+        formConfig: {
+          labelWidth: 120,
+          schemas: searchFoodsFormSchema,
+          autoSubmitOnEnter: true,
+        },
         // api: getFoodsInfos.bind(null, { parentId: desData.foodsId }),
         // dataSource: foodsData,
         scroll: { y: 300 },
+        useSearchForm: true,
+        handleSearchInfoFn(info) {
+          console.log('handleSearchInfoFn', info);
+          return info;
+        },
       });
 
       // 管家部
@@ -362,6 +401,7 @@
         desData,
         setFoodsTable,
         foodsData,
+        searchInfo,
       };
     },
   });

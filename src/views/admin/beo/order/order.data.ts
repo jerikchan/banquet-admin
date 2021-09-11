@@ -1,3 +1,4 @@
+import { getFoodsInfos } from '/@/api/admin/contract';
 import { getHouseKeeperList } from '/@/api/admin/system';
 // import { getOrderTypeList } from '/@/api/admin/beo';
 import { BasicColumn } from '/@/components/Table';
@@ -255,6 +256,20 @@ export const managerAllocationSchema: FormSchema[] = [
   //   label: '备注',
   //   component: 'InputTextArea',
   // },
+];
+
+export const searchFoodsFormSchema: FormSchema[] = [
+  {
+    field: 'foodsId',
+    label: '菜单选择',
+    component: 'ApiSelect',
+    colProps: { span: 8 },
+    componentProps: {
+      api: getFoodsInfos,
+      labelField: 'name',
+      valueField: 'id',
+    },
+  },
 ];
 
 export const beoFinanceFormSchema: FormSchema[] = [
