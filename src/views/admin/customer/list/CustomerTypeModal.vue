@@ -79,6 +79,7 @@
               banquetRoomId: values.roomId,
               banquetType: values.banquetType,
               canBie: values.canBie,
+              isFirst: values.isFirst,
               type: unref(toType),
             });
           } else {

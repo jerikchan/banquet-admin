@@ -183,7 +183,7 @@
         showIndexColumn: false,
         formConfig: {
           labelWidth: 120,
-          schemas: searchFoodsFormSchema,
+          // schemas: searchFoodsFormSchema,
           autoSubmitOnEnter: true,
         },
         // api: getFoodsInfos.bind(null, { parentId: desData.foodsId }),

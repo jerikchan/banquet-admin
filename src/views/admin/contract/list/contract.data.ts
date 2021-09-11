@@ -55,6 +55,11 @@ export const columns: BasicColumn[] = [
     width: 90,
   },
   {
+    title: '提醒收款时间',
+    dataIndex: 'notificationTime',
+    width: 180,
+  },
+  {
     title: '额外价格',
     dataIndex: 'extraPrice',
     width: 90,
@@ -179,6 +184,15 @@ export const contractFormSchema: FormSchema[] = [
   //   label: '电话',
   //   component: 'Input',
   // },
+  {
+    field: 'notificationTime',
+    label: '提醒收款时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+    },
+    required: true,
+  },
   {
     field: 'banquetTime',
     label: '宴会日期',

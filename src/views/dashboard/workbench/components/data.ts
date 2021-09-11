@@ -1,4 +1,9 @@
-import { BasicColumn } from '/@/components/Table';
+import { BasicColumn, FormSchema } from '/@/components/Table';
+import { getCustomerList } from '/@/api/admin/customer';
+import { getCommentTypeList } from '/@/api/admin/customer';
+import { getReturnTypeList } from '/@/api/admin/finance';
+import { getTotalList } from '/@/api/admin/finance';
+// import { FormSchema } from '/@/components/Table';
 
 interface GroupItem {
   title: string;
@@ -159,7 +164,7 @@ export const groupItems: GroupItem[] = [
 
 export const backlogColumns: BasicColumn[] = [
   {
-    title: '待办事项名称',
+    title: '名称',
     dataIndex: 'name',
     width: 200,
   },
@@ -167,6 +172,11 @@ export const backlogColumns: BasicColumn[] = [
     title: '待办时间',
     dataIndex: 'backlogTime',
     width: 200,
+  },
+  {
+    title: '事项类型',
+    dataIndex: 'type',
+    width: 120,
   },
   {
     title: '待办内容',
@@ -177,5 +187,234 @@ export const backlogColumns: BasicColumn[] = [
     title: '状态',
     dataIndex: 'statusStr',
     width: 100,
+  },
+];
+
+export const commentFormSchema: FormSchema[] = [
+  {
+    field: 'customerId',
+    label: '客户名称',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCustomerList,
+      labelField: 'customerName',
+      valueField: 'id',
+      disabled: false,
+    },
+    required: true,
+  },
+  {
+    field: 'chatRealTime',
+    label: '跟进时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    required: true,
+  },
+  {
+    label: '跟进方式',
+    field: 'chatType',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getCommentTypeList,
+      labelField: 'label',
+      valueField: 'code',
+    },
+    required: true,
+  },
+  {
+    label: '预计下次跟进',
+    field: 'preNextChatTime',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    required: true,
+  },
+  {
+    label: '是否邀约进店',
+    field: 'isFirst',
+    component: 'Switch',
+    // dynamicDisabled: ({ values }) => {
+    //   // debugger;
+    //   return !!(values.isFirst === 'true');
+    // },
+    componentProps: {
+      // ifShow: ({ values }) => {
+      //   console.log(values);
+      //   return false;
+      // },
+      // show: false,
+    },
+    // ifShow: values.isFirst,
+  },
+  {
+    label: '内容',
+    field: 'content',
+    component: 'InputTextArea',
+    required: true,
+  },
+];
+
+export const acceptFormSchema: FormSchema[] = [
+  {
+    field: 'receivableId',
+    label: '应收款单',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getTotalList,
+      labelField: 'code',
+      valueField: 'id',
+      // disabled: true,
+    },
+    required: true,
+  },
+  {
+    field: 'agreementCode',
+    label: '合同编号',
+    component: 'Input',
+    componentProps: {
+      disabled: true,
+    },
+    required: true,
+  },
+  {
+    field: 'returnTime',
+    label: '回款时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    required: true,
+  },
+  {
+    field: 'returnMan',
+    label: '回款人',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'returnType',
+    label: '款项类型',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getReturnTypeList,
+      labelField: 'label',
+      valueField: 'code',
+    },
+    required: true,
+  },
+  {
+    field: 'returnMoney',
+    label: '回款金额',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '备注',
+    field: 'remark',
+    component: 'InputTextArea',
+    required: true,
+  },
+];
+
+export const tryOnMakeUpFormSchema: FormSchema[] = [
+  {
+    field: 'agreementCode',
+    label: '合同编号',
+    component: 'Input',
+    componentProps: {
+      disabled: true,
+    },
+    required: false,
+  },
+  {
+    field: 'huaZhuangShi',
+    label: '化妆师',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'mobile',
+    label: '联系方式',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'shiZhuangTime',
+    label: '试妆时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+    },
+    required: false,
+  },
+  {
+    field: 'shiZhuangResult',
+    label: '试妆结果登记',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'secondShiZhuangResult',
+    label: '第二次试妆结果登记',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'sheXiangYaoQiu',
+    label: '摄像要求',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'sheYingYaoQiu',
+    label: '摄影要求',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'zhuShaCode',
+    label: '主纱编号',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'xiuHeCode',
+    label: '秀禾编号',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'chuMenShaCode',
+    label: '出门纱编号',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'lifuCode',
+    label: '礼服编号',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'banNiangFuCode',
+    label: '伴娘服编号',
+    component: 'Input',
+    required: false,
+  },
+  {
+    field: 'remark',
+    component: 'InputTextArea',
+    label: '新人要求备注',
+    componentProps: {
+      placeholder: '',
+      rows: 2,
+    },
+    required: false,
   },
 ];

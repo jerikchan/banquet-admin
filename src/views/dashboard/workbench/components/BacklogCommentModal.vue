@@ -7,18 +7,19 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { commentFormSchema } from './comment.data';
+  import { commentFormSchema } from './data';
   import { addComment, updateComment } from '/@/api/admin/customer';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  // import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
-    name: 'CommentModal',
+    name: 'BacklogCommentModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
-      const { createMessage } = useMessage();
+      // const { createMessage } = useMessage();
+      let backlogId;
 
       const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
         labelWidth: 100,
@@ -33,6 +34,7 @@
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
+        backlogId = data.id;
         if (unref(isUpdate)) {
           idRef.value = data.record.id;
           setFieldsValue({
@@ -42,9 +44,10 @@
             customerId: data.record.customerId,
           });
         }
-        if (data.record.customerCode) {
+        // if (data.record.customerCode) {
+        if (data.customerId) {
           setFieldsValue({
-            customerId: data.record.id,
+            customerId: data.customerId,
           });
         }
 
@@ -55,7 +58,7 @@
           },
         ]);
         // debugger;
-        if (data.record.isFirst === 'true' || data.record.isFirst === true) {
+        if (data.isFirst === 'true' || data.isFirst === true) {
           updateSchema([
             {
               field: 'isFirst',
@@ -85,10 +88,12 @@
               ...values,
               id: unref(idRef),
             });
-            createMessage.success('修改记录成功');
+            // createMessage.success('修改记录成功');
           } else {
+            values.backlogId = backlogId;
+            console.log(values);
             await addComment(values);
-            createMessage.success('新增记录成功');
+            // createMessage.success('新增记录成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

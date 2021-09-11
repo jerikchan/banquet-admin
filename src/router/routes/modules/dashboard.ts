@@ -39,6 +39,18 @@ const dashboard: AppRouteModule = {
         ],
       },
     },
+    {
+      path: 'try_form_detail/:id',
+      name: 'tryFormDetail',
+      meta: {
+        hideMenu: true,
+        title: '试妆修改',
+        hideTab: true,
+        showMenu: false,
+        currentActiveMenu: '/dashboard/workbench',
+      },
+      component: () => import('/@/views/dashboard/workbench/components/BacklogTryFormModal.vue'),
+    },
     // {
     //   path: 'test1',
     //   name: 'Test1',

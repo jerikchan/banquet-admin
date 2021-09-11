@@ -1,26 +1,24 @@
 <template>
   <Card title="待办事项" v-bind="$attrs">
-    <template #extra>
+    <!-- <template #extra>
       <a-button type="link" size="small" @click="handleView">更多</a-button>
-    </template>
+    </template> -->
     <BasicTable @register="registerTable">
       <template #action="{ record }">
         <TableAction
           :actions="[
             {
               icon: 'clarity:note-edit-line',
-              tooltip: '标记为完成',
-              ifShow: record.status === '0',
-              popConfirm: {
-                title: '是否确认',
-                confirm: handleFinish.bind(null, record),
-              },
+              tooltip: '处理',
+              onClick: handleEvent.bind(null, record),
             },
           ]"
         />
       </template>
     </BasicTable>
   </Card>
+  <BacklogCommentModal @register="registerModal" @success="handleSuccess" />
+  <BacklogAcceptModal @register="registerAcceptModal" @success="handleSuccess" />
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
@@ -34,22 +32,32 @@
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
+  import { useGo } from '/@/hooks/web/usePage';
+
+  import { useModal } from '/@/components/Modal';
+
+  import BacklogCommentModal from './BacklogCommentModal.vue';
+
+  import BacklogAcceptModal from './BacklogAcceptModal.vue';
+
   export default defineComponent({
     components: {
       Card,
       BasicTable,
       TableAction,
+      BacklogCommentModal,
+      BacklogAcceptModal,
     },
     setup() {
       // const go = useGo();
       const { createMessage } = useMessage();
+      const go = useGo();
+      const [registerModal, { openModal }] = useModal();
+      const [registerAcceptModal, { openModal: openAcceptModal }] = useModal();
       const [registerTable, { reload }] = useTable({
         api: getBacklogs,
         rowKey: 'id',
         columns: backlogColumns,
-        beforeFetch: function (params) {
-          params.today = true;
-        },
         formConfig: {
           labelWidth: 120,
           autoSubmitOnEnter: true,
@@ -79,12 +87,32 @@
         reload();
       }
 
+      function handleEvent(record: Recordable) {
+        if ('回访' === record.type) {
+          openModal(true, {
+            isUpdate: false,
+            ...record,
+          });
+        } else if ('合同回款' === record.type) {
+          openAcceptModal(true, {
+            isUpdate: false,
+            ...record,
+          });
+        } else if ('试妆' === record.type) {
+          go('/dashboard/try_form_detail/' + record.tryOnMakeUpFormId);
+        }
+        console.log(record);
+      }
+
       return {
         items: groupItems,
         handleView,
         handleViewDetail,
         handleFinish,
         registerTable,
+        handleEvent,
+        registerModal,
+        registerAcceptModal,
       };
     },
   });

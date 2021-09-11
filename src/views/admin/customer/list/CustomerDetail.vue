@@ -32,6 +32,10 @@
       field: 'statusStr',
     },
     {
+      label: '是否已邀约进店',
+      field: 'isFirstStr',
+    },
+    {
       label: '跟进销售',
       field: 'salesManagerName',
     },

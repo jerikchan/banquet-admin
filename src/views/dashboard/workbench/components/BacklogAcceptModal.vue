@@ -4,25 +4,27 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref } from 'vue';
+  import { defineComponent, ref, computed, unref, reactive } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { commentFormSchema } from './comment.data';
-  import { addComment, updateComment } from '/@/api/admin/customer';
+  import { acceptFormSchema } from './data';
+  import { addAccept } from '/@/api/admin/finance';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
-    name: 'CommentModal',
+    name: 'BacklogAcceptModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
       const { createMessage } = useMessage();
+      const receivable = reactive({ receivableId: '' });
+      let backlogId;
 
-      const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
-        schemas: commentFormSchema,
+        schemas: acceptFormSchema,
         showActionButtonGroup: false,
         actionColOptions: {
           span: 23,
@@ -32,47 +34,37 @@
       const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
         resetFields();
         setModalProps({ confirmLoading: false });
+        debugger;
         isUpdate.value = !!data?.isUpdate;
+        backlogId = data.id;
         if (unref(isUpdate)) {
           idRef.value = data.record.id;
           setFieldsValue({
             ...data.record,
           });
-          setFieldsValue({
-            customerId: data.record.customerId,
-          });
         }
-        if (data.record.customerCode) {
+
+        if (data) {
+          Object.assign(receivable, data);
+        }
+
+        if (data.receivableId) {
           setFieldsValue({
-            customerId: data.record.id,
+            receivableId: receivable.receivableId,
+            agreementCode: data.agreementCode,
           });
         }
 
-        updateSchema([
-          {
-            field: 'customerId',
-            componentProps: { disabled: unref(isUpdate) },
-          },
-        ]);
-        // debugger;
-        if (data.record.isFirst === 'true' || data.record.isFirst === true) {
-          updateSchema([
-            {
-              field: 'isFirst',
-              ifShow: false,
-            },
-          ]);
-        } else {
-          updateSchema([
-            {
-              field: 'isFirst',
-              ifShow: true,
-            },
-          ]);
-        }
+        // const treeData = await getAcceptTypeList();
+        // updateSchema([
+        //   {
+        //     field: 'type',
+        //     componentProps: { treeData },
+        //   },
+        // ]);
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增跟进' : '编辑跟进'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增回款' : '编辑回款'));
 
       async function handleSubmit() {
         try {
@@ -81,14 +73,18 @@
           // TODO custom api
           console.log(values);
           if (isUpdate.value) {
-            await updateComment({
-              ...values,
-              id: unref(idRef),
-            });
-            createMessage.success('修改记录成功');
+            // await updateAccept({
+            //   ...values,
+            //   id: unref(idRef),
+            // });
+            createMessage.success('编辑回款成功');
           } else {
-            await addComment(values);
-            createMessage.success('新增记录成功');
+            if (receivable.receivableId) {
+              values.receivableId = receivable.receivableId;
+            }
+            values.backlogId = backlogId;
+            await addAccept(values);
+            createMessage.success('新增回款成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

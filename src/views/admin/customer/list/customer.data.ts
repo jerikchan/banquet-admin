@@ -42,6 +42,11 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '是否邀约进店',
+    dataIndex: 'isFirstStr',
+    width: 150,
+  },
+  {
     title: '跟进销售',
     dataIndex: 'salesManagerName',
     width: 120,
@@ -232,6 +237,18 @@ export const customerTypeFormSchema: FormSchema[] = [
       valueField: 'code',
     },
     required: true,
+  },
+  {
+    label: '是否邀约进店',
+    field: 'isFirst',
+    component: 'Switch',
+    componentProps: {
+      ifShow: ({ values }) => {
+        console.log(values.isFirst);
+        return false;
+      },
+      // show: false,
+    },
   },
   {
     field: 'nodeRemark',

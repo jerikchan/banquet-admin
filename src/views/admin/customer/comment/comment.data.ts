@@ -1,9 +1,10 @@
 // import { isAccountExist } from '/@/api/demo/system';
 // import { getCommentTypeList } from '/@/api/admin/customer';
 import { getCustomerList } from '/@/api/admin/customer';
+import { getCommentTypeList } from '/@/api/admin/customer';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { getCommentTypeList } from '/@/api/admin/customer';
+// import { values } from 'lodash-es';
 
 export const columns: BasicColumn[] = [
   {
@@ -90,6 +91,23 @@ export const commentFormSchema: FormSchema[] = [
       format: 'YYYY-MM-DD HH:mm:ss',
     },
     required: true,
+  },
+  {
+    label: '是否邀约进店',
+    field: 'isFirst',
+    component: 'Switch',
+    // dynamicDisabled: ({ values }) => {
+    //   // debugger;
+    //   return !!(values.isFirst === 'true');
+    // },
+    componentProps: {
+      // ifShow: ({ values }) => {
+      //   console.log(values);
+      //   return false;
+      // },
+      // show: false,
+    },
+    // ifShow: values.isFirst,
   },
   {
     label: '内容',
