@@ -1,5 +1,5 @@
 <template>
-  <Card title="滑单去向" :loading="loading">
+  <Card title="滑单去向统计" :loading="loading">
     <div ref="chartRef" class="flex items-center justify-center" :style="{ width, height }">
       <a-empty v-if="!data.list" />
     </div>

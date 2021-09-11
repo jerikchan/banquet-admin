@@ -9,6 +9,7 @@ import {
   Cascader,
   Upload,
   Empty,
+  DatePicker,
 } from 'ant-design-vue';
 
 import { Authority } from '/@/components/Authority';
@@ -20,7 +21,7 @@ export function registerGlobComp(app: App) {
     app.component(comp.name || comp.displayName, comp);
   });
 
-  app.use(Input).use(Button).use(Layout).use(Cascader).use(Upload).use(Empty);
+  app.use(Input).use(Button).use(Layout).use(Cascader).use(Upload).use(Empty).use(DatePicker);
 
   app.use(Authority);
 }

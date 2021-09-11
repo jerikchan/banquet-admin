@@ -1,8 +1,11 @@
 <template>
-  <Card title="获客渠道各渠道获客数量统计" :loading="loading">
-    查询日期：<a-month-picker v-model:value="dateValue" placeholder="Select Month" />
-    <a-button class="ml-2">搜索</a-button>
-    <div ref="chartRef" class="flex items-center justify-center my-4" :style="{ width, height }">
+  <Card :title="title" :loading="loading">
+    <template #extra v-if="showTag">
+      <Tag :color="color">{{ '月' }}</Tag>
+    </template>
+    <!-- 查询日期：<a-range-picker v-model:value="dateValue" placeholder="请选择日期" /> -->
+    <!-- <a-button class="ml-2">查询</a-button> -->
+    <div ref="chartRef" class="flex items-center justify-center my-10" :style="{ width, height }">
       <a-empty v-if="!data.list" />
     </div>
   </Card>
@@ -10,15 +13,21 @@
 <script lang="ts">
   import { defineComponent, Ref, ref, unref, watch } from 'vue';
 
-  import { Card } from 'ant-design-vue';
+  import { Card, Tag } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
-  import { getChannelAnalysis } from '/@/api/admin/analysis';
-  import { Moment } from 'moment';
+  import moment, { Moment } from 'moment';
 
   export default defineComponent({
-    components: { Card },
+    components: { Card, Tag },
     props: {
-      // loading: Boolean,
+      color: {
+        type: String as PropType<string>,
+        default: '#019680',
+      },
+      title: {
+        type: String as PropType<string>,
+        default: '饼状图统计',
+      },
       width: {
         type: String as PropType<string>,
         default: '100%',
@@ -27,24 +36,45 @@
         type: String as PropType<string>,
         default: '300px',
       },
+      api: {
+        type: Function as PropType<(any) => {}>,
+        required: true,
+      },
+      seriesName: {
+        type: String as PropType<string>,
+      },
+      dateValue: {
+        type: Array as PropType<Moment[]>,
+        default() {
+          return [moment().startOf('month'), moment().endOf('month')];
+        },
+      },
+      showTag: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+      },
     },
-    setup() {
+    setup(props: any) {
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
       const data = ref<any>({});
-      const dateValue = ref<Moment>();
       const loading = ref(false);
 
       async function getData() {
         loading.value = true;
-        data.value = await getChannelAnalysis({ startTime: dateValue.value });
+        const _data =
+          (await props.api({
+            startTime: props.dateValue[0],
+            endTime: props.dateValue[1],
+          })) || {};
+        data.value = _data;
         loading.value = false;
       }
 
       getData();
 
       watch(
-        () => dateValue.value,
+        () => props.dateValue,
         () => {
           getData();
         }
@@ -63,18 +93,12 @@
 
             series: [
               {
-                name: '获客渠道',
+                name: props.seriesName,
                 type: 'pie',
                 radius: '80%',
                 center: ['50%', '50%'],
                 color: ['#5ab1ef', '#b6a2de', '#67e0e3', '#2ec7c9'],
-                data: [
-                  ...unref(data).list,
-                  // { value: 500, name: '电子产品' },
-                  // { value: 310, name: '服装' },
-                  // { value: 274, name: '化妆品' },
-                  // { value: 400, name: '家居' },
-                ].sort(function (a, b) {
+                data: [...unref(data).list].sort(function (a, b) {
                   return a.value - b.value;
                 }),
                 roseType: 'radius',
@@ -96,7 +120,7 @@
         },
         { immediate: true }
       );
-      return { chartRef, data, dateValue };
+      return { chartRef, data, loading };
     },
   });
 </script>
