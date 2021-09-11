@@ -6,7 +6,7 @@
     <!-- 查询日期：<a-range-picker v-model:value="dateValue" placeholder="请选择日期" /> -->
     <!-- <a-button class="ml-2">查询</a-button> -->
     <div ref="chartRef" class="flex items-center justify-center my-10" :style="{ width, height }">
-      <a-empty v-if="!data.list" />
+      <a-empty v-if="!data.dataset" />
     </div>
   </Card>
 </template>
@@ -26,7 +26,7 @@
       },
       title: {
         type: String as PropType<string>,
-        default: '饼状图统计',
+        default: '柱状图统计',
       },
       width: {
         type: String as PropType<string>,
@@ -43,6 +43,14 @@
       seriesName: {
         type: String as PropType<string>,
       },
+      categoryKey: {
+        type: String as PropType<string>,
+        default: 'salesName',
+      },
+      dataKey: {
+        type: String as PropType<string>,
+        default: 'customerNum',
+      },
       dateValue: {
         type: Array as PropType<Moment[]>,
         default() {
@@ -57,7 +65,7 @@
     setup(props: any) {
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
-      const data = ref<any>({});
+      const data = ref<any>([]);
       const loading = ref(false);
 
       async function getData() {
@@ -83,49 +91,48 @@
       watch(
         () => data.value,
         () => {
-          if (!unref(data).list) {
+          if (!unref(data).dataset) {
             return;
           }
-          setOptions({
+          const options = {
             tooltip: {
-              trigger: 'item',
+              trigger: 'axis',
+              axisPointer: {
+                type: 'shadow',
+                label: {
+                  show: false,
+                },
+              },
             },
-
+            legend: data.value.legend,
+            grid: { left: '1%', right: '1%', top: '10%', bottom: 0, containLabel: true },
+            dataset: data.value.dataset,
+            xAxis: { type: 'category' },
+            yAxis: {},
+            // Declare several bar series, each will be mapped
+            // to a column of dataset.source by default.
             series: [
               {
-                name: props.seriesName,
-                type: 'pie',
-                radius: '80%',
-                center: ['50%', '50%'],
-                color: [
-                  '#91cc75',
-                  '#fac858',
-                  '#ee6666',
-                  '#73c0de',
-                  '#3ba272',
-                  '#fc8452',
-                  '#9a60b4',
-                  '#ea7ccc',
-                ],
-                data: [...unref(data).list].sort(function (a, b) {
-                  return a.value - b.value;
-                }),
-                roseType: 'radius',
-                animationType: 'scale',
-                animationEasing: 'exponentialInOut',
-                animationDelay: function () {
-                  return Math.random() * 400;
-                },
+                type: 'bar',
                 label: {
-                  show: true, //饼图上的数据是否展示true展示false不展示
-                  position: 'outer', //饼图上的数据展示位置inner是展示在内部
-                  formatter: '{b} {c}', //饼图上展示的数据格式
+                  show: true,
+                  position: 'top',
+                  color: '#666',
+                  fontSize: 14,
+                },
+              },
+              {
+                type: 'bar',
+                label: {
+                  show: true,
+                  position: 'top',
                   color: '#666',
                   fontSize: 14,
                 },
               },
             ],
-          });
+          };
+          setOptions(options);
         },
         { immediate: true }
       );

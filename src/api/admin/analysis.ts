@@ -5,6 +5,7 @@ const { devUrl } = useGlobSetting();
 
 enum Api {
   GetChannelAnalysis = '/analysis/channel',
+  GetChannelCompareAnalysis = '/analysis/barDataset',
 
   GetSkipOrderAnalysis = '/analysis/skipOrder',
   GetGrowListAnalysis = '/analysis/growList',
@@ -14,6 +15,8 @@ enum Api {
 
   GetBanquetTypeDealAnalysis = '/analysis/banquetTypeDeal',
   GetBanquetTypeBookAnalysis = '/analysis/banquetTypeBook',
+
+  GetCompleteTableAnalysis = '/analysis/completeTable',
 
   GetTableNumberDealAnalysis = '/analysis/tableNumberDeal',
   GetTableMoneyDealAnalysis = '/analysis/tableMoneyDeal',
@@ -90,8 +93,8 @@ export const getBanquetTypeBookAnalysis = (params?: any) =>
     {
       url: Api.GetBanquetTypeBookAnalysis,
       params,
-    },
-    { devUrl }
+    }
+    // { devUrl }
   );
 
 export const getTableNumberDealAnalysis = (params?: any) =>
@@ -182,4 +185,22 @@ export const getInviteAnalysis = (params?: any) =>
       params,
     },
     { devUrl }
+  );
+
+export const getChannelCompareAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetChannelCompareAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getCompleteTableAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetCompleteTableAnalysis,
+      params,
+    }
+    // { devUrl }
   );

@@ -12,7 +12,7 @@ export interface GrowCardItem {
 }
 
 export const perfCard: GrowCardItem = {
-  title: '当前已完成营业额',
+  title: '当前已完成签单额',
   icon: 'sales-perf|svg',
   value: 4000,
   total: 120000,
@@ -24,7 +24,7 @@ export const perfCard: GrowCardItem = {
 
 export const growCardList: GrowCardItem[] = [
   {
-    title: '今日新增客户',
+    title: '昨日新增客户',
     icon: 'visit-count|svg',
     value: 2000,
     total: 120000,
@@ -34,7 +34,7 @@ export const growCardList: GrowCardItem[] = [
     unit: '个',
   },
   {
-    title: '今日成交数',
+    title: '昨日成交数',
     icon: 'total-sales|svg',
     value: 20000,
     total: 500000,
@@ -44,7 +44,7 @@ export const growCardList: GrowCardItem[] = [
     unit: '单',
   },
   {
-    title: '今日成交额',
+    title: '昨日成交额',
     icon: 'download-count|svg',
     value: 8000,
     total: 120000,

@@ -24,9 +24,10 @@ import {
   TimelineComponent,
   CalendarComponent,
   GraphicComponent,
+  DatasetComponent,
 } from 'echarts/components';
 
-import { SVGRenderer } from 'echarts/renderers';
+import { CanvasRenderer } from 'echarts/renderers';
 
 echarts.use([
   LegendComponent,
@@ -42,7 +43,7 @@ echarts.use([
   MapChart,
   RadarChart,
   GaugeChart,
-  SVGRenderer,
+  CanvasRenderer,
   PictorialBarChart,
   RadarComponent,
   ToolboxComponent,
@@ -51,6 +52,8 @@ echarts.use([
   TimelineComponent,
   CalendarComponent,
   GraphicComponent,
+  DatasetComponent,
+  CanvasRenderer,
 ]);
 
 export default echarts;

@@ -98,9 +98,9 @@
             tooltip: {
               trigger: 'axis',
               axisPointer: {
-                lineStyle: {
-                  width: 1,
-                  color: '#019680',
+                type: 'shadow',
+                label: {
+                  show: true,
                 },
               },
             },
@@ -119,17 +119,12 @@
                 data: data.value.list.map((item: any) => item[props.dataKey]),
                 type: 'bar',
                 barMaxWidth: 80,
-                itemStyle: {
-                  normal: {
-                    label: {
-                      show: true,
-                      position: 'top',
-                      textStyle: {
-                        color: '#666',
-                        fontSize: 14,
-                      },
-                    },
-                  },
+                color: props.color,
+                label: {
+                  show: true,
+                  position: 'top',
+                  color: '#666',
+                  fontSize: 14,
                 },
               },
             ],

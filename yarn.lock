@@ -4287,7 +4287,7 @@ duplexer3@^0.1.4:
   resolved "https://registry.npm.taobao.org/duplexer3/download/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
-echarts@^5.1.2:
+echarts@^5.2.0:
   version "5.2.0"
   resolved "https://registry.nlark.com/echarts/download/echarts-5.2.0.tgz#9f1fbfbf048c15ab630bf0a74525c4c534d6cebc"
   integrity sha1-nx+/vwSMFatjC/CnRSXExTTWzrw=
