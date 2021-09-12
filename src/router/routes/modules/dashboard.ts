@@ -40,6 +40,15 @@ const dashboard: AppRouteModule = {
       },
     },
     {
+      path: 'analysis_year',
+      name: 'AnalysisYear',
+      component: () => import('/@/views/dashboard/analysis-year/index.vue'),
+      meta: {
+        title: '年度分析页',
+        roles: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.MANAGER, RoleEnum.SALES],
+      },
+    },
+    {
       path: 'try_form_detail/:id',
       name: 'tryFormDetail',
       meta: {

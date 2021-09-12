@@ -23,6 +23,8 @@ export type RoomParams = BasicPageParams & {
 export type BanquetParams = BasicPageParams & {
   userName?: string;
   nickName?: string;
+  roomId?: string;
+  startTime?: string;
 };
 
 export type MenuParams = {

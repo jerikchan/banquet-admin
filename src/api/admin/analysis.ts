@@ -34,6 +34,15 @@ enum Api {
   GetInviteAnalysis = '/analysis/invite',
 
   GetPrefCard = '/analysis/prefCard',
+
+  UpdateTotal = '/target/addOrUpdate',
+
+  GetDealCountYearAnalysis = '/analysis/dealCountYear',
+  GetSkipOrderYearAnalysis = '/analysis/skipOrderYear',
+  GetNewCustomerYearAnalysis = '/analysis/newCustomerYear',
+  GetChannelYearAnalysis = '/analysis/channelYear',
+  GetDealYearAnalysis = '/analysis/dealYear',
+  GetInviteYearAnalysis = '/analysis/inviteYear',
 }
 
 export const getChannelAnalysis = (params?: any) =>
@@ -211,6 +220,69 @@ export const getCompleteTableAnalysis = (params?: any) =>
   defHttp.get(
     {
       url: Api.GetCompleteTableAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const updateTotal = (params?: any) =>
+  defHttp.post(
+    {
+      url: Api.UpdateTotal,
+      params,
+    },
+    { devUrl }
+  );
+
+export const getDealCountYearAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetDealCountYearAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getSkipOrderYearAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetSkipOrderYearAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getNewCustomerYearAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetNewCustomerYearAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getChannelYearAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetChannelYearAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getDealYearAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetDealYearAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getInviteYearAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetInviteYearAnalysis,
       params,
     }
     // { devUrl }

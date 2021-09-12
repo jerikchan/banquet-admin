@@ -128,7 +128,7 @@ export const deleteMealType = (params?: { id: string }) =>
     { devUrl }
   );
 
-export const getRoomTypeList = (params: RoomTypeParams) =>
+export const getRoomTypeList = (params?: RoomTypeParams) =>
   defHttp.get<RoomTypeListGetResultModel>(
     {
       url: Api.GetRoomTypeList,
@@ -230,7 +230,7 @@ export const addRoom = (params?: RoomParams) =>
 export const deleteRoom = (params?: { id: string }) =>
   defHttp.post<RoomListGetResultModel>({ url: Api.DeleteRoom, params }, { devUrl });
 
-export const getBanquetList = (params?: BanquetParams) =>
+export const getBanquetList = (params?: BanquetParams | any) =>
   defHttp.get<BanquetListGetResultModel>({ url: Api.GetBanquetList, params }, { devUrl });
 
 export const getRoomScheduleByAgreementId = (params?: {}) =>

@@ -37,7 +37,8 @@ const banquet: AppRouteModule = {
       meta: {
         title: '档期列表',
       },
-      component: () => import('/@/views/admin/banquet/banquet/index.vue'),
+      // component: () => import('/@/views/admin/banquet/banquet/index.vue'),
+      component: () => import('/@/views/admin/banquet/schedule/index.vue'),
     },
     {
       path: 'room_type',

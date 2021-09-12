@@ -10,6 +10,13 @@ import {
   Upload,
   Empty,
   DatePicker,
+  InputNumber,
+  Modal,
+  Calendar,
+  Badge,
+  Select,
+  Spin,
+  Tag,
 } from 'ant-design-vue';
 
 import { Authority } from '/@/components/Authority';
@@ -21,7 +28,21 @@ export function registerGlobComp(app: App) {
     app.component(comp.name || comp.displayName, comp);
   });
 
-  app.use(Input).use(Button).use(Layout).use(Cascader).use(Upload).use(Empty).use(DatePicker);
+  app
+    .use(Input)
+    .use(Button)
+    .use(Layout)
+    .use(Cascader)
+    .use(Upload)
+    .use(Empty)
+    .use(DatePicker)
+    .use(InputNumber)
+    .use(Modal)
+    .use(Calendar)
+    .use(Badge)
+    .use(Select)
+    .use(Spin)
+    .use(Tag);
 
   app.use(Authority);
 }

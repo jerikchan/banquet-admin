@@ -10,18 +10,14 @@
       :value="[RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER, RoleEnum.MANAGER]"
     >
       <div class="!my-4 md:flex enter-y">
-        <ApiPieAnalysis
-          :api="getChannelAnalysis"
-          title="各渠道获客数量"
-          seriesName="获客渠道"
-          class="w-full md:w-1/2"
-        />
-        <ApiBarDatasetAnalysis
-          :api="getChannelCompareAnalysis"
-          title="各渠道获客数量月份同比"
+        <ApiPieAnalysis :api="getChannelAnalysis" title="各渠道获客数量" class="w-full md:w-1/2" />
+        <ApiBarAnalysis
+          :api="getCompleteTableAnalysis"
+          title="已完成桌单"
           dataKey="customerNum"
           categoryKey="salesName"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+          color="#ee6666"
         />
       </div>
 
@@ -48,7 +44,6 @@
         <ApiPieAnalysis
           :api="getBanquetTypeDealAnalysis"
           title="各宴会类型签单金额占比"
-          seriesName="获客渠道"
           class="w-full md:w-1/2"
         />
         <ApiBarStackAnalysis
@@ -126,57 +121,46 @@
           class="w-full md:w-1/2"
           color="#5470c6"
         />
-        <ApiPieAnalysis
+        <ApiBarAnalysis
           :api="getDealDiscountPercentAnalysis"
           title="签单优惠比率"
-          seriesName="获客渠道"
-          class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
-        />
-      </div>
-
-      <div class="!my-4 md:flex enter-y">
-        <ApiPieAnalysis
-          :api="getDealPercentAnalysis"
-          title="成交率"
-          dataKey="value"
-          categoryKey="name"
-          class="w-full md:w-1/2"
-        />
-        <ApiPieAnalysis
-          :api="getInviteAnalysis"
-          title="邀约率"
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+          isPercent
+          color="#ea7ccc"
         />
       </div>
 
       <div class="!my-4 md:flex enter-y">
         <ApiBarAnalysis
-          :api="getCompleteTableAnalysis"
-          title="已完成桌单"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          :api="getDealPercentAnalysis"
+          title="成交率"
+          dataKey="value"
+          categoryKey="name"
           class="w-full md:w-1/2"
-          color="#5470c6"
+          isPercent
+          color="#fac858"
         />
-        <div class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"></div>
+        <ApiBarAnalysis
+          :api="getInviteAnalysis"
+          title="邀约率"
+          dataKey="value"
+          categoryKey="name"
+          class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+          isPercent
+          color="#91cc75"
+        />
       </div>
     </Authority>
 
     <Authority :value="[RoleEnum.SALES]">
       <div class="!my-4 md:flex enter-y">
-        <ApiPieAnalysis
-          :api="getChannelAnalysis"
-          title="获客渠道各渠道获客数量"
-          seriesName="获客渠道"
-          class="w-full md:w-1/2"
-        />
+        <ApiPieAnalysis :api="getChannelAnalysis" title="各渠道获客数量" class="w-full md:w-1/2" />
         <ApiPieAnalysis
           :api="getBanquetTypeDealAnalysis"
           title="各宴会类型签单金额占比"
-          seriesName="获客渠道"
-          class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+          class="w-full md:w-1/2"
         />
       </div>
 
@@ -187,13 +171,15 @@
           dataKey="customerNum"
           categoryKey="salesName"
           class="w-full md:w-1/2"
+          color="#fac858"
         />
         <ApiBarAnalysis
           :api="getGoWhereAnalysis"
           title="滑单去向"
-          dataKey="directionValue"
+          dataKey="directionNum"
           categoryKey="directionName"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+          color="#ee6666"
         />
       </div>
     </Authority>
@@ -205,10 +191,10 @@
   import PerfCard from './components/PerfCard.vue';
   import SalesCard from './components/SalesCard.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
-  import ApiPieAnalysis from './components/ApiPieAnalysis.vue';
-  import ApiBarAnalysis from './components/ApiBarAnalysis.vue';
-  import ApiBarDatasetAnalysis from './components/ApiBarDatasetAnalysis.vue';
-  import ApiBarStackAnalysis from './components/ApiBarStackAnalysis.vue';
+  import ApiPieAnalysis from '/@/components/Analysis/ApiPieAnalysis.vue';
+  import ApiBarAnalysis from '/@/components/Analysis/ApiBarAnalysis.vue';
+  // import ApiBarDatasetAnalysis from '/@/components/Analysis/ApiBarDatasetAnalysis.vue';
+  import ApiBarStackAnalysis from '/@/components/Analysis/ApiBarStackAnalysis.vue';
 
   import {
     getChannelAnalysis,
@@ -237,7 +223,7 @@
       SalesCard,
       ApiPieAnalysis,
       ApiBarAnalysis,
-      ApiBarDatasetAnalysis,
+      // ApiBarDatasetAnalysis,
       ApiBarStackAnalysis,
     },
     setup() {

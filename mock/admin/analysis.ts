@@ -127,6 +127,110 @@ const barStackData = () => {
   return data;
 };
 
+const lineYearData = () => {
+  const seriesData = [150, 230, 224, 218, 135, 147, 260, 102, 200, 300, 284, 107];
+  const xAxisData = [
+    '1月',
+    '2月',
+    '3月',
+    '4月',
+    '5月',
+    '6月',
+    '7月',
+    '8月',
+    '9月',
+    '10月',
+    '11月',
+    '12月',
+  ];
+  const data = { seriesData, xAxisData };
+  return data;
+};
+
+const barStackYearData = () => {
+  const legend = {
+    data: ['渠道A', '渠道B', '渠道C', '渠道D', '渠道E'],
+  };
+  const series = [
+    {
+      name: '渠道A',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true,
+      },
+      emphasis: {
+        focus: 'series',
+      },
+      data: [320, 302, 301, 334, 390, 330, 320],
+    },
+    {
+      name: '渠道B',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true,
+      },
+      emphasis: {
+        focus: 'series',
+      },
+      data: [120, 132, 101, 134, 90, 230, 210],
+    },
+    {
+      name: '渠道C',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true,
+      },
+      emphasis: {
+        focus: 'series',
+      },
+      data: [220, 182, 191, 234, 290, 330, 310],
+    },
+    {
+      name: '渠道D',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true,
+      },
+      emphasis: {
+        focus: 'series',
+      },
+      data: [150, 212, 201, 154, 190, 330, 410],
+    },
+    {
+      name: '渠道E',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true,
+      },
+      emphasis: {
+        focus: 'series',
+      },
+      data: [820, 832, 901, 934, 1290, 1330, 1320],
+    },
+  ];
+  const xAxisData = [
+    '1月',
+    '2月',
+    '3月',
+    '4月',
+    '5月',
+    '6月',
+    '7月',
+    '8月',
+    '9月',
+    '10月',
+    '11月',
+    '12月',
+  ];
+  const data = { series, legend, xAxisData };
+  return data;
+};
+
 export default [
   {
     url: '/basic-api/analysis/completeTable',
@@ -262,6 +366,54 @@ export default [
     method: 'get',
     response: () => {
       return resultSuccess(barData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/dealCountYear',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(lineYearData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/skipOrderYear',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(lineYearData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/newCustomerYear',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(lineYearData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/dealYear',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(lineYearData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/inviteYear',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(lineYearData);
+    },
+  },
+  {
+    url: '/basic-api/analysis/channelYear',
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultSuccess(barStackYearData);
     },
   },
 ] as MockMethod[];

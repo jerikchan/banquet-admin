@@ -6,12 +6,12 @@
     <!-- 查询日期：<a-range-picker v-model:value="dateValue" placeholder="请选择日期" /> -->
     <!-- <a-button class="ml-2">查询</a-button> -->
     <div ref="chartRef" class="flex items-center justify-center my-10" :style="{ width, height }">
-      <a-empty v-if="!data.list" />
+      <a-empty v-if="!data" />
     </div>
   </Card>
 </template>
 <script lang="ts">
-  import { defineComponent, Ref, ref, unref, watch } from 'vue';
+  import { defineComponent, Ref, ref } from 'vue';
 
   import { Card, Tag } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
@@ -65,7 +65,7 @@
     setup(props: any) {
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
-      const data = ref<any>({});
+      const data = ref<any>(null);
       const loading = ref(false);
 
       async function getData() {
@@ -75,66 +75,66 @@
             startTime: props.dateValue[0],
             endTime: props.dateValue[1],
           })) || {};
-        data.value = _data;
+        let res = _data;
         loading.value = false;
+
+        let options = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow',
+              label: {
+                show: false,
+              },
+            },
+          },
+          // legend: res.legend,
+          legend: res.legend,
+          grid: { left: '1%', right: '1%', top: '10%', bottom: 0, containLabel: true },
+          xAxis: { type: 'category', data: res.xAxisData },
+          yAxis: {},
+          series: res.series,
+        };
+        setOptions(options);
       }
 
       getData();
 
-      watch(
-        () => props.dateValue,
-        () => {
-          getData();
-        }
-      );
+      // watch(
+      //   () => props.dateValue,
+      //   () => {
+      //     getData();
+      //   }
+      // );
 
-      watch(
-        () => data.value,
-        () => {
-          if (!unref(data).list) {
-            return;
-          }
-          setOptions({
-            tooltip: {
-              trigger: 'axis',
-              axisPointer: {
-                type: 'shadow',
-                label: {
-                  show: true,
-                },
-              },
-            },
-            grid: { left: '1%', right: '1%', top: '2  %', bottom: 0, containLabel: true },
-            xAxis: {
-              type: 'category',
-              data: data.value.list.map((item: any) => item[props.categoryKey]),
-            },
-            yAxis: {
-              type: 'value',
-              max(value) {
-                return value.max + Math.ceil(value.max / 5);
-              },
-              splitNumber: 5,
-              minInterval: 1,
-            },
-            series: [
-              {
-                data: data.value.list.map((item: any) => item[props.dataKey]),
-                type: 'bar',
-                barMaxWidth: 80,
-                color: props.color,
-                label: {
-                  show: true,
-                  position: 'top',
-                  color: '#666',
-                  fontSize: 14,
-                },
-              },
-            ],
-          });
-        },
-        { immediate: true }
-      );
+      // watch(
+      //   () => data.value,
+      //   () => {
+      //     if (!unref(data)) {
+      //       return;
+      //     }
+      //     // const options = {
+      //     //   tooltip: {
+      //     //     trigger: 'axis',
+      //     //     axisPointer: {
+      //     //       type: 'shadow',
+      //     //       label: {
+      //     //         show: false,
+      //     //       },
+      //     //     },
+      //     //   },
+      //     //   legend: data.value.legend,
+      //     //   grid: { left: '1%', right: '1%', top: '10%', bottom: 0, containLabel: true },
+      //     //   xAxis: { type: 'category', data: data.value.xAxisData },
+      //     //   yAxis: {},
+      //     //   // Declare several bar series, each will be mapped
+      //     //   // to a column of dataset.source by default.
+      //     //   series: data.value.series,
+      //     // };
+      //     // setOptions(options);
+      //   },
+      //   { immediate: true }
+      // );
       return { chartRef, data, loading };
     },
   });
