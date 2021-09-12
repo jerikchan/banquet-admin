@@ -13,32 +13,33 @@
               icon: 'clarity:note-edit-line',
               tooltip: '修改合同',
               onClick: handleUpdate.bind(null, record),
+              disabled:
+                record.status === '1' ||
+                record.beoStatus === '5' ||
+                record.managerId ||
+                record.finishStatus === '5',
               auth: [RoleEnum.SUPER, SALES_OFFICER],
-            },
-            {
-              icon: 'ant-design:delete-outlined',
-              color: 'error',
-              tooltip: '删除此合同',
-              disabled: record.status === '1' || record.finishStatus === '5',
-              popConfirm: {
-                title: '是否确认删除',
-                confirm: handleDelete.bind(null, record),
-              },
-              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
-              ifShow: false,
             },
           ]"
           :dropDownActions="[
             {
               label: '分配管家',
               onClick: handleManager.bind(null, record),
-              disabled: record.status === '1' || record.beoStatus === '5' || record.managerId,
+              disabled:
+                record.status === '1' ||
+                record.beoStatus === '5' ||
+                record.managerId ||
+                record.finishStatus === '5',
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '撤销分配',
               onClick: handleCnacelManager.bind(null, record),
-              disabled: record.status === '1' || record.beoStatus === '5' || !record.managerId,
+              disabled:
+                record.status === '1' ||
+                record.beoStatus === '5' ||
+                !record.managerId ||
+                record.finishStatus === '5',
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {

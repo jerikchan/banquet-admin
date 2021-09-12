@@ -14,59 +14,13 @@
               tooltip: '查看详情',
               onClick: handleView.bind(null, record),
             },
-            {
-              icon: 'clarity:note-edit-line',
-              tooltip: '编辑',
-              onClick: handleEdit.bind(null, record),
-              disabled: record.status === '1',
-              auth: [
-                RoleEnum.SUPER,
-                RoleEnum.SALES,
-                RoleEnum.HOUSEKEEPER_MANAGER,
-                RoleEnum.HOUSEKEEPER,
-              ],
-            },
-            {
-              icon: 'ant-design:delete-outlined',
-              color: 'error',
-              tooltip: '删除此BEO单',
-              disabled: record.status === '1',
-              popConfirm: {
-                title: '是否确认删除',
-                confirm: handleDelete.bind(null, record),
-              },
-              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
-            },
-          ]"
-          :dropDownActions="[
-            {
-              label: '分配管家',
-              onClick: handleManager.bind(null, record),
-              ifShow: !record.salesManagerId,
-              disabled: record.status === '1',
-              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
-            },
-            {
-              label: '发起补充流程',
-              disabled: record.status === '1',
-              popConfirm: {
-                title: '是否发起BEO补充流程',
-                confirm: handleReplenish.bind(null, record),
-              },
-              auth: [
-                RoleEnum.SUPER,
-                RoleEnum.SALES,
-                RoleEnum.HOUSEKEEPER_MANAGER,
-                RoleEnum.HOUSEKEEPER,
-              ],
-            },
           ]"
         />
       </template>
     </BasicTable>
     <!-- <OrderModal @register="registerModal" @success="handleSuccess" /> -->
     <!-- <BeoOrderAllocationManagerModal @register="registerManagerModal" @success="handleSuccess" /> -->
-    <TaskModal @register="registerTaskModal" @success="handleTaskSuccess" />
+    <!-- <TaskModal @register="registerTaskModal" @success="handleTaskSuccess" /> -->
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -83,7 +37,7 @@
   import { deleteOrder } from '/@/api/admin/beo';
   import { useGo } from '/@/hooks/web/usePage';
 
-  import TaskModal from '/@/views/admin/beo/task//TaskModal.vue';
+  // import TaskModal from '/@/views/admin/beo/task//TaskModal.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
 
   import { useMessage } from '/@/hooks/web/useMessage';
@@ -95,10 +49,7 @@
     components: {
       BasicTable,
       PageWrapper,
-      // OrderModal,
       TableAction,
-      TaskModal,
-      // BeoOrderAllocationManagerModal,
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
@@ -106,7 +57,7 @@
       const go = useGo();
       const { createMessage } = useMessage();
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
-        title: '已完成BEO单',
+        title: 'BEO单',
         api: getOrderList,
         rowKey: 'id',
         columns,
@@ -183,7 +134,7 @@
         //   isView: true,
         //   record,
         // });
-        go('/beo/order_detail/' + record.id);
+        go('/beo/order_finish_detail/' + record.id);
       }
 
       function handleEdit(record: Recordable) {

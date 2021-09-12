@@ -53,6 +53,30 @@ const beo: AppRouteModule = {
       component: () => import('/@/views/admin/beo/order/OrderDetail.vue'),
     },
     {
+      path: 'order_finish_detail/:id',
+      name: 'OrderFinishDetail',
+      meta: {
+        title: '已完成BEO单详情',
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/beo/finish',
+      },
+      component: () => import('/@/views/admin/beo/finish/OrderDetailModal.vue'),
+    },
+    {
+      path: 'send_finish_order/:id',
+      name: 'OrderFinishOperModal',
+      meta: {
+        title: '已完成BEO单下单',
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/beo/order',
+      },
+      component: () => import('/@/views/admin/beo/order/BeoOrderFinishModal.vue'),
+    },
+    {
       path: 'order_oper/:id',
       name: 'OrderOper',
       meta: {

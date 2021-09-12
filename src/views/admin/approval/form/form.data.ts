@@ -55,8 +55,8 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    label: '备注',
-    field: 'remark',
+    label: '节点备注',
+    field: 'nodeRemark',
     component: 'InputTextArea',
   },
   // {
@@ -202,10 +202,6 @@ export const agreementInfoSchema: DescItem[] = [
     label: '优惠前总价',
   },
   {
-    field: 'beforeDiscountTotal',
-    label: '优惠后总价',
-  },
-  {
     field: 'afterDiscountTotal',
     label: '优惠后总价',
   },
@@ -243,7 +239,7 @@ export const beoInfoSchema: DescItem[] = [
     label: '销售名称',
   },
   {
-    field: 'salesMobile',
+    field: 'salesManMobile',
     label: '销售号码',
   },
   {
@@ -344,6 +340,14 @@ export const receivableInfoFormSchema: DescItem[] = [
     label: '尾款',
     field: 'finalMoney',
   },
+  {
+    label: '婚礼价格',
+    field: 'banquetMoney',
+  },
+  {
+    label: '餐费',
+    field: 'mealMoney',
+  },
 ];
 
 export const roomScheduleFormSchema: DescItem[] = [
@@ -362,6 +366,12 @@ export const roomScheduleFormSchema: DescItem[] = [
   {
     field: 'setUpType',
     label: '摆桌形式',
+    render: (val) =>
+      h(Upload, {
+        listType: 'picture-card',
+        showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+        fileList: val,
+      }),
   },
   {
     field: 'deskCount',
@@ -370,5 +380,50 @@ export const roomScheduleFormSchema: DescItem[] = [
   {
     field: 'backupDesk',
     label: '备桌数',
+  },
+];
+
+export const beoDetailsInfoSchema: DescItem[] = [
+  {
+    label: '饮料酒水(Drink)',
+    field: 'drinks',
+  },
+  {
+    label: '灯控音控备注(Audio Visual)',
+    field: 'lights',
+  },
+  {
+    label: '餐饮部备注(F&B)',
+    field: 'mealDepartment',
+  },
+  {
+    label: '管家部备注(HD)',
+    field: 'managerDepartment',
+  },
+  {
+    label: '工程安保部备注(ENG)',
+    field: 'projectSafety',
+  },
+  {
+    label: '财务部备注(A/C)',
+    field: 'financeRemark',
+  },
+];
+
+export const foodsColumn: BasicColumn[] = [
+  {
+    title: '菜名',
+    dataIndex: 'name',
+    width: 120,
+  },
+  {
+    title: '价格',
+    dataIndex: 'price',
+    width: 120,
+  },
+  {
+    title: '菜数量',
+    dataIndex: 'foodsNo',
+    width: 120,
   },
 ];

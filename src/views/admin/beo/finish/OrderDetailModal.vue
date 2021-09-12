@@ -184,7 +184,7 @@
       ];
 
       function goBack() {
-        go('/beo/order');
+        go('/beo/finish');
       }
 
       const [register] = useDescription({

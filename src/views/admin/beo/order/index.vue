@@ -18,7 +18,7 @@
               icon: 'clarity:note-edit-line',
               tooltip: '编辑',
               onClick: handleEdit.bind(null, record),
-              disabled: record.status === '1',
+              disabled: record.status === '1' || record.beoStatus === '99',
               auth: [
                 RoleEnum.SUPER,
                 RoleEnum.SALES,
@@ -30,7 +30,7 @@
               icon: 'ant-design:delete-outlined',
               color: 'error',
               tooltip: '删除此BEO单',
-              disabled: record.status === '1',
+              disabled: record.status === '1' || record.beoStatus === '99',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -40,15 +40,9 @@
           ]"
           :dropDownActions="[
             {
-              label: '分配管家',
-              onClick: handleManager.bind(null, record),
-              ifShow: !record.salesManagerId,
-              disabled: record.status === '1' || record.beoStatus === '5',
-              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
-            },
-            {
               label: '发起补充流程',
-              disabled: record.status === '1' || record.beoStatus === '5',
+              disabled:
+                record.status === '1' || record.beoStatus === '5' || record.beoStatus === '99',
               popConfirm: {
                 title: '是否发起BEO补充流程',
                 confirm: handleReplenish.bind(null, record),
@@ -59,6 +53,12 @@
                 RoleEnum.HOUSEKEEPER_MANAGER,
                 RoleEnum.HOUSEKEEPER,
               ],
+            },
+            {
+              label: '下完结BEO单',
+              onClick: handleFinisnBeo.bind(null, record),
+              disabled: record.status === '1' || record.beoStatus === '99',
+              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
             },
           ]"
         />
@@ -208,6 +208,11 @@
         });
       }
 
+      function handleFinisnBeo(record: Recordable) {
+        go('/beo/send_finish_order/' + record.id);
+        console.log(record);
+      }
+
       return {
         registerTable,
         registerModal,
@@ -225,6 +230,7 @@
         handleManager,
         searchInfo,
         RoleEnum,
+        handleFinisnBeo,
       };
     },
   });

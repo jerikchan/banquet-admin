@@ -28,6 +28,8 @@ enum Api {
   AddOrderFinish = '/beo/addBeoOrderFinish',
 
   GetBeoOrderByAgreementId = '/beo/findBeoOrderInfoByAgreementId',
+
+  SaveFinishOrder = '/beo/saveFinishOrder',
 }
 
 export const getOrder = (params?: OrderParams) =>
@@ -56,6 +58,9 @@ export const addOrderNew = (params?: {}) =>
 
 export const addOrderFinish = (params?: {}) =>
   defHttp.post<OrderListGetResultModel>({ url: Api.AddOrderFinish, params }, { devUrl });
+
+export const saveFinishOrder = (params?: {}) =>
+  defHttp.post<OrderListGetResultModel>({ url: Api.SaveFinishOrder, params }, { devUrl });
 
 export const updateOrder = (params?: OrderParams) =>
   defHttp.post<OrderListGetResultModel>({ url: Api.UpdateOrder, params }, { devUrl });

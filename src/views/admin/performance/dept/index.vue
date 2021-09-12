@@ -57,7 +57,7 @@
         showIndexColumn: false,
         canResize: false,
         beforeFetch(params) {
-          params.deptId = '402881847b45dac1017b45df80470002';
+          // params.value = '402881847b45dac1017b45df80470002';
           console.log(params);
         },
         actionColumn: {

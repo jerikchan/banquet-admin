@@ -25,7 +25,12 @@
       :column="2"
       :data="agreementInfoData"
       :schema="agreementInfoSchema"
-      v-if="mockData.flowType === '11' || mockData.flowType === '20' || mockData.flowType === '21'"
+      v-if="
+        mockData.flowType === '11' ||
+        mockData.flowType === '20' ||
+        mockData.flowType === '21' ||
+        mockData.flowType === '40'
+      "
     />
     <Description
       title="BEO基本信息"
@@ -33,7 +38,15 @@
       :column="2"
       :data="beoInfoData"
       :schema="beoInfoSchema"
-      v-if="mockData.flowType === '20' || mockData.flowType === '21'"
+      v-if="mockData.flowType === '20' || mockData.flowType === '21' || mockData.flowType === '40'"
+    />
+    <Description
+      title="档期基本信息"
+      :collapseOptions="{ canExpand: false, helpMessage: '档期信息' }"
+      :column="2"
+      :data="roomScheduleData"
+      :schema="roomScheduleFormSchema"
+      v-if="mockData.flowType === '20' || mockData.flowType === '21' || mockData.flowType === '40'"
     />
     <Description
       title="应收款信息"
@@ -41,7 +54,38 @@
       :column="2"
       :data="receivableInfoData"
       :schema="receivableInfoFormSchema"
-      v-if="mockData.flowType === '30' || mockData.flowType === '20' || mockData.flowType === '21'"
+      v-if="
+        mockData.flowType === '30' ||
+        mockData.flowType === '20' ||
+        mockData.flowType === '21' ||
+        mockData.flowType === '40'
+      "
+    />
+    <Description
+      title="beo单详情补充"
+      :collapseOptions="{ canExpand: false, helpMessage: 'beo单详情补充' }"
+      :column="1"
+      :data="beoDetailInfosData"
+      :schema="beoDetailsInfoSchema"
+      v-if="
+        mockData.flowType === '30' ||
+        mockData.flowType === '20' ||
+        mockData.flowType === '21' ||
+        mockData.flowType === '40'
+      "
+    />
+    <Description
+      title="菜品信息"
+      :collapseOptions="{ canExpand: false, helpMessage: '菜品信息' }"
+      :column="2"
+      :data="foodsDetalInfoData"
+      :schema="foodsDetailInfoFormSchema"
+      v-if="
+        mockData.flowType === '30' ||
+        mockData.flowType === '20' ||
+        mockData.flowType === '21' ||
+        mockData.flowType === '40'
+      "
     />
     <Description
       title="回款信息"
@@ -51,10 +95,18 @@
       :schema="returnCollectionFormSchema"
       v-if="mockData.flowType === '30'"
     />
-    <BasicTable
+    <!-- <BasicTable
       @register="registerBeoTaskTable"
       @success="handleSuccess"
-      v-if="mockData.flowType === '20' || mockData.flowType === '21'"
+      v-if="mockData.flowType === '20' || mockData.flowType === '21' || mockData.flowType === '40'"
+    /> -->
+    <BasicTable
+      @register="registerFoodsTable"
+      @success="handleSuccess"
+      v-if="
+        (mockData.flowType === '20' || mockData.flowType === '21' || mockData.flowType === '40') &&
+        foodsDetalInfoData.isStandard
+      "
     />
     <a-card title="流程进度" :bordered="false">
       <a-steps :current="mockData.nodeOrder" progress-dot size="small">
@@ -96,10 +148,12 @@
   // import ReviewDrawer from './ReviewDrawer.vue';
   import { useDrawer } from '/@/components/Drawer';
 
-  import { getAgreementInfo } from '/@/api/admin/contract';
+  import { getAgreementInfo, getFoodsInfos } from '/@/api/admin/contract';
   import { getBeoOrder } from '/@/api/admin/beo';
   import { getAcceptInfo, getTotalInfo, getReceivablesInfo } from '/@/api/admin/finance';
   import { getRoomScheduleByAgreementId } from '/@/api/admin/banquet';
+
+  import { DescItem } from '/@/components/Description/index';
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
@@ -109,10 +163,12 @@
     refundTimeTableSchema,
     agreementInfoSchema,
     beoInfoSchema,
-    beoTaskListSchema,
+    // beoTaskListSchema,
     returnCollectionFormSchema,
     receivableInfoFormSchema,
     roomScheduleFormSchema,
+    beoDetailsInfoSchema,
+    foodsColumn,
   } from './form.data';
 
   const mockData: Recordable = reactive({});
@@ -130,6 +186,8 @@
   const receivableInfoData: Recordable = reactive({});
 
   const roomScheduleData: Recordable = reactive({});
+
+  const beoDetailInfosData: Recordable = reactive({});
 
   export default defineComponent({
     components: {
@@ -153,6 +211,29 @@
       const currentKey = ref('detail');
 
       const { createMessage } = useMessage();
+
+      const foodsDetalInfoData: Recordable = reactive({});
+
+      const foodsDetailInfoFormSchema: DescItem[] = [
+        {
+          label: '菜单类型',
+          field: 'isStandardStr',
+        },
+        {
+          label: '单桌价格',
+          field: 'singleDeskPrice',
+        },
+        {
+          label: '自定义菜单内容',
+          field: 'diyFoods',
+          show: () => {
+            if (foodsDetalInfoData.isStandard) {
+              return false;
+            }
+            return true;
+          },
+        },
+      ];
 
       function goBack() {
         // 本例的效果时点击返回始终跳转到账号列表页，实际应用时可返回上一页
@@ -187,7 +268,7 @@
           Object.assign(customerInfoData, detailsInfo);
           customerInfoData.flowType = type;
         } else if (type === '11') {
-          debugger;
+          // debugger;
           let agreementInfo = await getAgreementInfo({ id: agreementId });
           let detailsInfo = await getCustomer({ id: customerId });
           Object.assign(customerInfoData, detailsInfo);
@@ -202,8 +283,32 @@
           Object.assign(agreementInfoData, agreementInfo);
           Object.assign(roomScheduleData, roomScheduleInfo);
           Object.assign(receivableInfoData, receivableInfo);
-          setTableData(beoInfo.taskList);
+          // setTableData(beoInfo.taskList);
         } else if (type === '21') {
+          let beoInfo = await getBeoOrder({ id: beoId });
+          let agreementInfo = await getAgreementInfo({ id: beoInfo.agreementId });
+          let roomScheduleInfo = await getRoomScheduleByAgreementId({ id: beoInfo.agreementId });
+          let receivableInfo = await getReceivablesInfo({ id: beoInfo.agreementId });
+          // debugger;
+          Object.assign(beoInfoData, beoInfo);
+          Object.assign(agreementInfoData, agreementInfo);
+          Object.assign(roomScheduleData, roomScheduleInfo);
+          Object.assign(receivableInfoData, receivableInfo);
+          Object.assign(beoDetailInfosData, beoInfo);
+          Object.assign(foodsDetalInfoData, beoInfo);
+
+          if (foodsDetalInfoData.isStandard) {
+            let foodsRes = await getFoodsInfos({ parentId: beoInfo.foodsId });
+            setTableData(foodsRes);
+          }
+
+          // setTableData(beoInfo.taskList);
+        } else if (type === '30') {
+          let returnCollection = await getAcceptInfo({ id: returnId });
+          let receivableInfo = await getTotalInfo({ id: returnCollection.receivableId });
+          Object.assign(returnCollectionData, returnCollection);
+          Object.assign(receivableInfoData, receivableInfo);
+        } else if (type === '40') {
           let beoInfo = await getBeoOrder({ id: beoId });
           let agreementInfo = await getAgreementInfo({ id: beoInfo.agreementId });
           let roomScheduleInfo = await getRoomScheduleByAgreementId({ id: beoInfo.agreementId });
@@ -212,12 +317,13 @@
           Object.assign(agreementInfoData, agreementInfo);
           Object.assign(roomScheduleData, roomScheduleInfo);
           Object.assign(receivableInfoData, receivableInfo);
-          setTableData(beoInfo.taskList);
-        } else if (type === '30') {
-          let returnCollection = await getAcceptInfo({ id: returnId });
-          let receivableInfo = await getTotalInfo({ id: returnCollection.receivableId });
-          Object.assign(returnCollectionData, returnCollection);
-          Object.assign(receivableInfoData, receivableInfo);
+          Object.assign(beoDetailInfosData, beoInfo);
+          Object.assign(foodsDetalInfoData, beoInfo);
+
+          if (foodsDetalInfoData.isStandard) {
+            let foodsRes = await getFoodsInfos({ parentId: beoInfo.foodsId });
+            setTableData(foodsRes);
+          }
         }
 
         console.log(resultArr);
@@ -249,9 +355,9 @@
         showIndexColumn: true,
       });
 
-      const [registerBeoTaskTable, { setTableData }] = useTable({
-        title: 'beo任务列表',
-        columns: beoTaskListSchema,
+      const [registerFoodsTable, { setTableData }] = useTable({
+        title: '菜品内容',
+        columns: foodsColumn,
         pagination: false,
         showIndexColumn: true,
       });
@@ -290,17 +396,23 @@
         registerDrawer,
         agreementInfoSchema,
         agreementInfoData,
-        returnCollectionFormSchema,
-        returnCollectionData,
         beoInfoData,
         beoInfoSchema,
-        beoTaskListSchema,
-        registerBeoTaskTable,
+        // beoTaskListSchema,
+        // registerBeoTaskTable,
         handleSuccessEvent,
+        returnCollectionFormSchema,
         receivableInfoFormSchema,
+        returnCollectionData,
         receivableInfoData,
         roomScheduleFormSchema,
         roomScheduleData,
+        beoDetailInfosData,
+        beoDetailsInfoSchema,
+        foodsDetailInfoFormSchema,
+        foodsDetalInfoData,
+        foodsColumn,
+        registerFoodsTable,
       };
     },
   });

@@ -83,7 +83,7 @@
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref, reactive } from 'vue';
+  import { defineComponent, ref, reactive, unref } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { uploadPicApiCustom } from '/@/api/sys/upload';
 
@@ -227,7 +227,7 @@
       });
 
       const fileInfos = reactive<any>(
-        ['file'].map((key) => {
+        ['setUpType'].map((key) => {
           return {
             key,
             data: [],
@@ -456,6 +456,16 @@
 
       async function submitAll() {
         try {
+          const fileInfoRecord = fileInfos.reduce((acc, fileInfo) => {
+            const data = unref(fileInfo.data);
+            acc[fileInfo.key] =
+              data && Array.isArray(data) && data.length
+                ? data.map((info) => info?.response?.uid || info.uid)
+                : null;
+            return acc;
+          }, {});
+          // debugger;
+          // setFieldsValueSchedule(fileInfoRecord);
           let submitValues = {},
             tasks = [];
           Object.assign(submitValues, getBasciValues());
@@ -501,12 +511,13 @@
           // Object.defineProperty(submitValues, 'tasks', tasks);
           submitValues.tasks = tasks;
           // submitValues.agreementId = submitValues.id;
-          debugger;
+          // debugger;
           submitValues.id = agreementId.value;
           submitValues.agreementId = newAgreementId;
 
           console.log(submitValues);
           submitValues.beoType = '执行beo单';
+          submitValues.setUpTypeList = fileInfoRecord.setUpType;
           await updateOrder(submitValues);
           createMessage.success('操作成功!');
           go('/beo/order');
@@ -548,6 +559,12 @@
         // foodsId = res.foodsId;
 
         res = await getScheduleByAgreementId({ id: res.id });
+
+        fileInfos.forEach((fileInfo) => {
+          if (res[fileInfo.key]) {
+            fileInfo.data = res[fileInfo.key];
+          }
+        });
 
         setFieldsValueSchedule({
           ...res,

@@ -83,7 +83,7 @@
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref, reactive } from 'vue';
+  import { defineComponent, ref, reactive, unref } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { uploadPicApiCustom } from '/@/api/sys/upload';
 
@@ -92,13 +92,14 @@
     roomScheduleFormSchema,
     foodsColumn,
     beoTaskFormSchema,
-    beoFinanceFormSchema,
+    // beoFinanceFormSchema,
     drinkFormSchema,
     lightFormSchema,
     mealDepartmentFormSchema,
     managerDepartmentFormSchema,
     projectSafetyFormSchema,
     financeRemarkFormSchema,
+    beoFinishFinanceFormSchema,
     // searchFoodsFormSchema,
   } from './order.data';
   import { Card } from 'ant-design-vue';
@@ -110,7 +111,7 @@
 
   import { getReceivablesInfo } from '/@/api/admin/finance';
 
-  import { addOrderNew } from '/@/api/admin/beo';
+  import { saveFinishOrder, getOrder } from '/@/api/admin/beo';
 
   import { useGo } from '/@/hooks/web/usePage';
   import { useRoute } from 'vue-router';
@@ -121,7 +122,7 @@
   // import { emit } from 'process';
 
   export default defineComponent({
-    name: 'BeoOrderModal',
+    name: 'BeoEditOrderModal',
     components: {
       BasicForm,
       PageWrapper,
@@ -130,6 +131,7 @@
       CollapseContainer,
     },
     setup() {
+      let newAgreementId;
       const foodsFormSchema: FormSchema[] = [
         {
           field: 'isStandard',
@@ -265,7 +267,7 @@
         baseColProps: {
           span: 6,
         },
-        schemas: beoFinanceFormSchema,
+        schemas: beoFinishFinanceFormSchema,
         showActionButtonGroup: false,
       });
 
@@ -371,27 +373,32 @@
       });
 
       // 饮料酒水
-      const [registerDrink, { getFieldsValue: getDrinksValues }] = useForm({
-        labelWidth: 120,
-        baseColProps: {
-          span: 10,
-        },
-        schemas: drinkFormSchema,
-        showActionButtonGroup: false,
-      });
+      const [registerDrink, { setFieldsValue: setDrinkValues, getFieldsValue: getDrinksValues }] =
+        useForm({
+          labelWidth: 120,
+          baseColProps: {
+            span: 10,
+          },
+          schemas: drinkFormSchema,
+          showActionButtonGroup: false,
+        });
 
       // 灯孔音响
-      const [registerLight, { getFieldsValue: getLightValues }] = useForm({
-        labelWidth: 120,
-        baseColProps: {
-          span: 10,
-        },
-        schemas: lightFormSchema,
-        showActionButtonGroup: false,
-      });
+      const [registerLight, { setFieldsValue: setLightValues, getFieldsValue: getLightValues }] =
+        useForm({
+          labelWidth: 120,
+          baseColProps: {
+            span: 10,
+          },
+          schemas: lightFormSchema,
+          showActionButtonGroup: false,
+        });
 
       // 餐饮部备注
-      const [registerMealDepartment, { getFieldsValue: getMealDepartmentValues }] = useForm({
+      const [
+        registerMealDepartment,
+        { setFieldsValue: setMealDepartmentValues, getFieldsValue: getMealDepartmentValues },
+      ] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -401,7 +408,10 @@
       });
 
       // 管家部
-      const [registerManagerDepartment, { getFieldsValue: getManagerDepartmentValues }] = useForm({
+      const [
+        registerManagerDepartment,
+        { setFieldsValue: setManagerDepartmentValues, getFieldsValue: getManagerDepartmentValues },
+      ] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -411,7 +421,10 @@
       });
 
       // 工程安保部备注
-      const [registerProjectSafety, { getFieldsValue: getProjectSafetyValues }] = useForm({
+      const [
+        registerProjectSafety,
+        { setFieldsValue: setProjectSafetyValues, getFieldsValue: getProjectSafetyValues },
+      ] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -421,7 +434,10 @@
       });
 
       // 财务部备注
-      const [registerFinanceRemark, { getFieldsValue: getFinanceRemarkValues }] = useForm({
+      const [
+        registerFinanceRemark,
+        { setFieldsValue: setFinanceRemarkValues, getFieldsValue: getFinanceRemarkValues },
+      ] = useForm({
         labelWidth: 120,
         baseColProps: {
           span: 10,
@@ -433,7 +449,7 @@
       const go = useGo();
       const route = useRoute();
       const agreementId = ref(route.params?.id);
-      let res, foods, foodsId;
+      let res, foods;
 
       function onFileChange(fileInfo, { fileList }) {
         fileInfo.data = fileList.map((fileInfo) => fileInfo.response || fileInfo);
@@ -441,6 +457,16 @@
 
       async function submitAll() {
         try {
+          const fileInfoRecord = fileInfos.reduce((acc, fileInfo) => {
+            const data = unref(fileInfo.data);
+            acc[fileInfo.key] =
+              data && Array.isArray(data) && data.length
+                ? data.map((info) => info?.response?.uid || info.uid)
+                : null;
+            return acc;
+          }, {});
+          // debugger;
+          // setFieldsValueSchedule(fileInfoRecord);
           let submitValues = {},
             tasks = [];
           Object.assign(submitValues, getBasciValues());
@@ -485,14 +511,16 @@
           temp = {};
           // Object.defineProperty(submitValues, 'tasks', tasks);
           submitValues.tasks = tasks;
-          submitValues.agreementId = submitValues.id;
-          delete submitValues.id;
+          // submitValues.agreementId = submitValues.id;
+          // debugger;
+          // submitValues.id = agreementId.value;
+          submitValues.agreementId = newAgreementId;
 
           console.log(submitValues);
-          submitValues.beoType = '执行beo单';
-
-          await addOrderNew(submitValues);
-          createMessage.success('新建成功!');
+          submitValues.beoType = '完结beo单';
+          submitValues.setUpTypeList = fileInfoRecord.setUpType;
+          await saveFinishOrder(submitValues);
+          createMessage.success('操作成功!');
           go('/beo/order');
         } catch (error) {
           console.error(error);
@@ -500,28 +528,50 @@
       }
 
       function goBack() {
-        go('/contract/list');
+        go('/beo/order');
       }
 
       async function handleData(id: string) {
+        let beoInfo = await getOrder({ id: id });
+        console.log(beoInfo);
+        setMealDepartmentValues(beoInfo);
+        setDrinkValues(beoInfo);
+        setLightValues(beoInfo);
+        setManagerDepartmentValues(beoInfo);
+        setProjectSafetyValues(beoInfo);
+        setFinanceRemarkValues(beoInfo);
+
+        if (beoInfo.isStandard) {
+          setFieldsFoodsValue(beoInfo);
+          foods = await getFoodsInfos({ parentId: beoInfo.foodsId });
+          setTableData(foods);
+        } else {
+          setFieldsFoodsValue(beoInfo);
+        }
+
         // debugger;
-        res = await getAgreementInfo({ id: id });
+        res = await getAgreementInfo({ id: beoInfo.agreementId });
         setFieldsValue({
-          ...res,
+          ...beoInfo,
         });
 
-        foodsId = res.foodsId;
+        newAgreementId = beoInfo.agreementId;
 
-        res = await getScheduleByAgreementId({ id: id });
+        // foodsId = res.foodsId;
+
+        res = await getScheduleByAgreementId({ id: res.id });
+
+        fileInfos.forEach((fileInfo) => {
+          if (res[fileInfo.key]) {
+            fileInfo.data = res[fileInfo.key];
+          }
+        });
 
         setFieldsValueSchedule({
           ...res,
         });
 
-        foods = await getFoodsInfos({ parentId: foodsId });
-        setTableData(foods);
-
-        res = await getReceivablesInfo({ id: id });
+        res = await getReceivablesInfo({ id: beoInfo.agreementId });
         setFieldsFinanceValue({
           ...res,
         });
@@ -532,8 +582,8 @@
       async function setFoodsTable() {
         // let temp = await getFoodsInfos({ parentId: id });
         // setTableData({});
-        // setFieldsFoodsValue({});
-        // getFieldFoodsValue();
+        setFieldsFoodsValue({});
+        getFieldFoodsValue();
       }
 
       handleData(agreementId.value);
@@ -568,6 +618,7 @@
         registerManagerDepartment,
         registerProjectSafety,
         registerFinanceRemark,
+        beoFinishFinanceFormSchema,
       };
     },
   });
