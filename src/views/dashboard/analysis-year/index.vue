@@ -15,6 +15,7 @@
       :api="getChannelYearAnalysis"
       title="各渠道获客数量月份同比"
       class="w-full !my-4"
+      tag="年"
     />
     <ApiLineAnalysis
       :api="getDealYearAnalysis"

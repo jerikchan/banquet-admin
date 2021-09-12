@@ -131,6 +131,10 @@
               {
                 data: data.value.seriesData,
                 type: 'line',
+                label: {
+                  show: true,
+                  formatter: props.isPercent ? '{c}%' : undefined,
+                },
               },
             ],
           });

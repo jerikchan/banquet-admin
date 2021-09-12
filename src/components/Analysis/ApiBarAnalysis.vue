@@ -116,6 +116,9 @@
             xAxis: {
               type: 'category',
               data: data.value.list.map((item: any) => item[props.categoryKey]),
+              axisLabel: {
+                interval: 0, //强制显示文字
+              },
             },
             yAxis: {
               type: 'value',
