@@ -1,7 +1,7 @@
 <template>
   <Card :title="title" :loading="loading">
     <template #extra v-if="showTag">
-      <Tag :color="color">{{ '月' }}</Tag>
+      <Tag :color="color">{{ tag }}</Tag>
     </template>
     <!-- 查询日期：<a-range-picker v-model:value="dateValue" placeholder="请选择日期" /> -->
     <!-- <a-button class="ml-2">查询</a-button> -->
@@ -20,6 +20,10 @@
   export default defineComponent({
     components: { Card, Tag },
     props: {
+      tag: {
+        type: String as PropType<string>,
+        default: '月',
+      },
       color: {
         type: String as PropType<string>,
         default: '#019680',
@@ -91,7 +95,13 @@
           // legend: res.legend,
           legend: res.legend,
           grid: { left: '1%', right: '1%', top: '10%', bottom: 0, containLabel: true },
-          xAxis: { type: 'category', data: res.xAxisData },
+          xAxis: {
+            type: 'category',
+            data: res.xAxisData,
+            axisLabel: {
+              interval: 0, //强制显示文字
+            },
+          },
           yAxis: {},
           series: res.series,
         };

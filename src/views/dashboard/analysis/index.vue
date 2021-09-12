@@ -17,7 +17,7 @@
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
-          color="#ee6666"
+          color="#91cc75"
         />
       </div>
 
