@@ -25,6 +25,18 @@ const barData = () => {
   return data;
 };
 
+const barDataForType = () => {
+  const list = [] as any;
+  for (let index = 0; index < 5; index++) {
+    list.push({
+      salesName: `渠道${index}`,
+      customerNum: Math.ceil(Math.random() * 1000),
+    });
+  }
+  const data = { list, max: 1200, splitNumber: 6 };
+  return data;
+};
+
 const barDatasetData = () => {
   const dataset = {
     dimensions: ['month', '上月', '本月'],
@@ -209,7 +221,7 @@ export default [
     timeout: 1000,
     method: 'get',
     response: () => {
-      return resultSuccess(barData);
+      return resultSuccess(barDataForType);
     },
   },
   {

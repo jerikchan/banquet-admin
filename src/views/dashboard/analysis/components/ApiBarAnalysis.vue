@@ -45,11 +45,11 @@
       },
       categoryKey: {
         type: String as PropType<string>,
-        default: 'name',
+        default: 'salesName',
       },
       dataKey: {
         type: String as PropType<string>,
-        default: 'value',
+        default: 'customerNum',
       },
       dateValue: {
         type: Array as PropType<Moment[]>,
@@ -94,7 +94,6 @@
           if (!unref(data).list) {
             return;
           }
-          // debugger;
           setOptions({
             tooltip: {
               trigger: 'axis',
@@ -112,8 +111,11 @@
             },
             yAxis: {
               type: 'value',
-              max: data.value.max,
-              splitNumber: data.value.splitNumber,
+              max(value) {
+                return value.max + Math.ceil(value.max / 5);
+              },
+              splitNumber: 5,
+              minInterval: 1,
             },
             series: [
               {

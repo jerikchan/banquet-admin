@@ -89,6 +89,7 @@
           setOptions({
             tooltip: {
               trigger: 'item',
+              formatter: `{b} {c} {d}%`,
             },
 
             series: [
