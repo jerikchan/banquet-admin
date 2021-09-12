@@ -176,7 +176,7 @@
               const data = temp.find((item) => item.id === e);
               if (data) {
                 setTableData(data.children);
-                setFieldsFoodsValue({ singleDeskPrice: data.total });
+                // setFieldsFoodsValue({ singleDeskPrice: data.total });
               }
             },
           },
@@ -508,6 +508,10 @@
         res = await getAgreementInfo({ id: id });
         setFieldsValue({
           ...res,
+        });
+
+        setFieldsFoodsValue({
+          singleDeskPrice: res.singlePrice,
         });
 
         foodsId = res.foodsId;

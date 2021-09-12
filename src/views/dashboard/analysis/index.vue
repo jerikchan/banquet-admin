@@ -14,8 +14,8 @@
         <ApiBarAnalysis
           :api="getCompleteTableAnalysis"
           title="已完成桌单"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
           color="#ee6666"
         />

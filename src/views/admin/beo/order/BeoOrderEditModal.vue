@@ -177,7 +177,7 @@
               const data = temp.find((item) => item.id === e);
               if (data) {
                 setTableData(data.children);
-                setFieldsFoodsValue({ singleDeskPrice: data.total });
+                // setFieldsFoodsValue({ singleDeskPrice: data.total });
               }
             },
           },

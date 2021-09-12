@@ -221,8 +221,8 @@ export const getCompleteTableAnalysis = (params?: any) =>
     {
       url: Api.GetCompleteTableAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const updateTotal = (params?: any) =>
@@ -239,8 +239,8 @@ export const getDealCountYearAnalysis = (params?: any) =>
     {
       url: Api.GetDealCountYearAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getSkipOrderYearAnalysis = (params?: any) =>
@@ -248,8 +248,8 @@ export const getSkipOrderYearAnalysis = (params?: any) =>
     {
       url: Api.GetSkipOrderYearAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getNewCustomerYearAnalysis = (params?: any) =>
@@ -257,8 +257,8 @@ export const getNewCustomerYearAnalysis = (params?: any) =>
     {
       url: Api.GetNewCustomerYearAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getChannelYearAnalysis = (params?: any) =>
