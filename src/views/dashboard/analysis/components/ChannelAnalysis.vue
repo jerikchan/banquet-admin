@@ -86,7 +86,7 @@
                 label: {
                   show: true, //饼图上的数据是否展示true展示false不展示
                   position: 'outer', //饼图上的数据展示位置inner是展示在内部
-                  formatter: '{b} {c}', //饼图上展示的数据格式
+                  formatter: '{b}:{c} {d}', //饼图上展示的数据格式
                   color: '#666',
                   fontSize: 14,
                 },

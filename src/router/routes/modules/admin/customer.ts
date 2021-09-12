@@ -50,14 +50,14 @@ const customer: AppRouteModule = {
       },
       component: () => import('/@/views/admin/customer/channel/index.vue'),
     },
-    {
-      path: 'comment',
-      name: 'CommentManagement',
-      meta: {
-        title: '跟进记录',
-      },
-      component: () => import('/@/views/admin/customer/comment/index.vue'),
-    },
+    // {
+    //   path: 'comment',
+    //   name: 'CommentManagement',
+    //   meta: {
+    //     title: '跟进记录',
+    //   },
+    //   component: () => import('/@/views/admin/customer/comment/index.vue'),
+    // },
     {
       path: 'comment_type',
       name: 'CommentTypeManagement',

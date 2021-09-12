@@ -12,15 +12,15 @@
       <div class="!my-4 md:flex enter-y">
         <ApiPieAnalysis
           :api="getChannelAnalysis"
-          title="获客渠道各渠道获客数量"
+          title="各渠道获客数量"
           seriesName="获客渠道"
           class="w-full md:w-1/2"
         />
-        <ApiBarAnalysis
-          :api="getChannelAnalysis"
-          title="获客渠道各渠道获客数量"
-          dataKey="value"
-          categoryKey="name"
+        <ApiBarDatasetAnalysis
+          :api="getChannelCompareAnalysis"
+          title="各渠道获客数量月份同比"
+          dataKey="customerNum"
+          categoryKey="salesName"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
@@ -32,6 +32,7 @@
           dataKey="customerNum"
           categoryKey="salesName"
           class="w-full md:w-1/2"
+          color="#fac858"
         />
         <ApiBarAnalysis
           :api="getGoWhereAnalysis"
@@ -39,6 +40,7 @@
           dataKey="directionNum"
           categoryKey="directionName"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+          color="#ee6666"
         />
       </div>
 
@@ -49,9 +51,9 @@
           seriesName="获客渠道"
           class="w-full md:w-1/2"
         />
-        <ApiBarAnalysis
+        <ApiBarStackAnalysis
           :api="getBanquetTypeBookAnalysis"
-          title="各销售宴会类型预定金额"
+          title="各销售宴会类型签单金额"
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
@@ -65,6 +67,7 @@
           dataKey="value"
           categoryKey="name"
           class="w-full md:w-1/2"
+          color="#73c0de"
         />
         <ApiBarAnalysis
           :api="getTableMoneyDealAnalysis"
@@ -72,6 +75,7 @@
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+          color="#3ba272"
         />
       </div>
 
@@ -82,6 +86,7 @@
           dataKey="value"
           categoryKey="name"
           class="w-full md:w-1/2"
+          color="#fc8452"
         />
         <ApiBarAnalysis
           :api="getFoodBookAnalysis"
@@ -89,6 +94,7 @@
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+          color="#9a60b4"
         />
       </div>
 
@@ -96,9 +102,10 @@
         <ApiBarAnalysis
           :api="getBanquetTypeNumBookAnalysis"
           title="各宴会类型签单数"
-          dataKey="customerNum"
-          categoryKey="salesName"
+          dataKey="value"
+          categoryKey="name"
           class="w-full md:w-1/2"
+          color="#ea7ccc"
         />
         <ApiBarAnalysis
           :api="getDealMoneyAnalysis"
@@ -106,6 +113,7 @@
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
+          color="#91cc75"
         />
       </div>
 
@@ -116,6 +124,7 @@
           dataKey="value"
           categoryKey="name"
           class="w-full md:w-1/2"
+          color="#5470c6"
         />
         <ApiPieAnalysis
           :api="getDealDiscountPercentAnalysis"
@@ -126,20 +135,32 @@
       </div>
 
       <div class="!my-4 md:flex enter-y">
-        <ApiBarAnalysis
+        <ApiPieAnalysis
           :api="getDealPercentAnalysis"
           title="成交率"
           dataKey="value"
           categoryKey="name"
           class="w-full md:w-1/2"
         />
-        <ApiBarAnalysis
+        <ApiPieAnalysis
           :api="getInviteAnalysis"
           title="邀约率"
           dataKey="value"
           categoryKey="name"
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
+      </div>
+
+      <div class="!my-4 md:flex enter-y">
+        <ApiBarAnalysis
+          :api="getCompleteTableAnalysis"
+          title="已完成桌单"
+          dataKey="customerNum"
+          categoryKey="salesName"
+          class="w-full md:w-1/2"
+          color="#5470c6"
+        />
+        <div class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"></div>
       </div>
     </Authority>
 
@@ -175,17 +196,6 @@
           class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"
         />
       </div>
-
-      <div class="!my-4 md:flex enter-y">
-        <ApiBarAnalysis
-          :api="getSkipOrderAnalysis"
-          title="已签单桌数"
-          dataKey="customerNum"
-          categoryKey="salesName"
-          class="w-full md:w-1/2"
-        />
-        <div class="md:w-1/2 !md:mx-4 !md:my-0 !my-4 w-full"></div>
-      </div>
     </Authority>
   </div>
 </template>
@@ -197,6 +207,9 @@
   import { RoleEnum } from '/@/enums/roleEnum';
   import ApiPieAnalysis from './components/ApiPieAnalysis.vue';
   import ApiBarAnalysis from './components/ApiBarAnalysis.vue';
+  import ApiBarDatasetAnalysis from './components/ApiBarDatasetAnalysis.vue';
+  import ApiBarStackAnalysis from './components/ApiBarStackAnalysis.vue';
+
   import {
     getChannelAnalysis,
     getDealDiscountPercentAnalysis,
@@ -213,6 +226,8 @@
     getDealDiscountAnalysis,
     getInviteAnalysis,
     getDealPercentAnalysis,
+    getChannelCompareAnalysis,
+    getCompleteTableAnalysis,
   } from '/@/api/admin/analysis';
 
   export default defineComponent({
@@ -222,6 +237,8 @@
       SalesCard,
       ApiPieAnalysis,
       ApiBarAnalysis,
+      ApiBarDatasetAnalysis,
+      ApiBarStackAnalysis,
     },
     setup() {
       const loading = ref(false);
@@ -243,6 +260,8 @@
         getDealDiscountAnalysis,
         getInviteAnalysis,
         getDealPercentAnalysis,
+        getChannelCompareAnalysis,
+        getCompleteTableAnalysis,
       };
     },
   });

@@ -5,6 +5,7 @@ const { devUrl } = useGlobSetting();
 
 enum Api {
   GetChannelAnalysis = '/analysis/channel',
+  GetChannelCompareAnalysis = '/analysis/barDataset',
 
   GetSkipOrderAnalysis = '/analysis/skipOrder',
   GetGrowListAnalysis = '/analysis/growList',
@@ -14,6 +15,8 @@ enum Api {
 
   GetBanquetTypeDealAnalysis = '/analysis/banquetTypeDeal',
   GetBanquetTypeBookAnalysis = '/analysis/banquetTypeBook',
+
+  GetCompleteTableAnalysis = '/analysis/completeTable',
 
   GetTableNumberDealAnalysis = '/analysis/tableNumberDeal',
   GetTableMoneyDealAnalysis = '/analysis/tableMoneyDeal',
@@ -29,12 +32,23 @@ enum Api {
 
   GetDealPercentAnalysis = '/analysis/dealPercent',
   GetInviteAnalysis = '/analysis/invite',
+
+  GetPrefCard = '/analysis/prefCard',
 }
 
 export const getChannelAnalysis = (params?: any) =>
   defHttp.get(
     {
       url: Api.GetChannelAnalysis,
+      params,
+    },
+    { devUrl }
+  );
+
+export const getPrefCard = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetPrefCard,
       params,
     },
     { devUrl }
@@ -135,8 +149,8 @@ export const getBanquetTypeNumBookAnalysis = (params?: any) =>
     {
       url: Api.GetBanquetTypeNumBookAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getDealMoneyAnalysis = (params?: any) =>
@@ -182,4 +196,22 @@ export const getInviteAnalysis = (params?: any) =>
       params,
     },
     { devUrl }
+  );
+
+export const getChannelCompareAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetChannelCompareAnalysis,
+      params,
+    }
+    // { devUrl }
+  );
+
+export const getCompleteTableAnalysis = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetCompleteTableAnalysis,
+      params,
+    }
+    // { devUrl }
   );

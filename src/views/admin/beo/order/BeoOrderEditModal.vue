@@ -1,16 +1,60 @@
 <template>
-  <PageWrapper class="high-form" title="BEO单修改" content=" 婚礼指令单" @back="goBack">
+  <PageWrapper class="high-form" title="BEO下单" content=" 婚礼指令单" @back="goBack">
     <a-card title="基本信息" :bordered="true">
       <BasicForm @register="register" />
     </a-card>
     <a-card title="档期信息" :bordered="true">
-      <BasicForm @register="registerSchedule" />
+      <BasicForm @register="registerSchedule">
+        <template #[fileInfo.key] v-for="fileInfo in fileInfos" :key="fileInfo.key">
+          <a-upload
+            listType="picture-card"
+            v-model:fileList="fileInfo.data"
+            :customRequest="uploadPicApiCustom"
+            @change="onFileChange(fileInfo, $event)"
+          >
+            <div v-if="fileInfo.data.length < 4">
+              <PlusOutlined />
+              <div class="ant-upload-text">上传</div>
+            </div>
+          </a-upload>
+        </template>
+      </BasicForm>
     </a-card>
     <a-card title="财务信息" :bordered="true">
       <BasicForm @register="registerBeoFinance" />
     </a-card>
-    <BasicTable @register="registerTimeTable" />
-    <CollapseContainer title="管家部BEO内容">
+    <a-card title="菜品信息" :bordered="true">
+      <BasicForm @register="registerFoodsForm">
+        <!-- <template #add="{ field }">
+          <Button v-if="Number(field) === 0" @click="add">+</Button>
+          <Button v-if="field > 0" @click="del(field)">-</Button>
+        </template> -->
+      </BasicForm>
+    </a-card>
+    <BasicTable
+      @register="registerTimeTable"
+      v-if="!desData.showFoodsTable"
+      :searchInfo="searchInfo"
+    />
+    <CollapseContainer title="饮料酒水(Drink)">
+      <BasicForm @register="registerDrink" />
+    </CollapseContainer>
+    <CollapseContainer title="灯孔音控备注(Audio Visual)">
+      <BasicForm @register="registerLight" />
+    </CollapseContainer>
+    <CollapseContainer title="餐饮部备注(F&B)">
+      <BasicForm @register="registerMealDepartment" />
+    </CollapseContainer>
+    <CollapseContainer title="管家部备注(HD)">
+      <BasicForm @register="registerManagerDepartment" />
+    </CollapseContainer>
+    <CollapseContainer title="工程安保部备注(ENG)">
+      <BasicForm @register="registerProjectSafety" />
+    </CollapseContainer>
+    <CollapseContainer title="财务部备注">
+      <BasicForm @register="registerFinanceRemark" />
+    </CollapseContainer>
+    <!-- <CollapseContainer title="管家部BEO内容">
       <BasicForm @register="registerTaskManager" />
     </CollapseContainer>
     <CollapseContainer title="厨师部BEO内容">
@@ -30,7 +74,8 @@
     </CollapseContainer>
     <CollapseContainer title="财务部BEO内容">
       <BasicForm @register="registerTaskFinance" />
-    </CollapseContainer>
+    </CollapseContainer> -->
+
     <template #rightFooter>
       <a-button type="primary" @click="submitAll"> 提交 </a-button>
     </template>
@@ -38,35 +83,162 @@
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, ref, reactive } from 'vue';
   import { PageWrapper } from '/@/components/Page';
+  import { uploadPicApiCustom } from '/@/api/sys/upload';
+
   import {
     orderFormSchema,
     roomScheduleFormSchema,
     foodsColumn,
     beoTaskFormSchema,
     beoFinanceFormSchema,
+    drinkFormSchema,
+    lightFormSchema,
+    mealDepartmentFormSchema,
+    managerDepartmentFormSchema,
+    projectSafetyFormSchema,
+    financeRemarkFormSchema,
+    // searchFoodsFormSchema,
   } from './order.data';
   import { Card } from 'ant-design-vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { CollapseContainer } from '/@/components/Container/index';
+  // import { ApiSelect } from '/@/components/Form/index';
 
   import { getAgreementInfo, getScheduleByAgreementId, getFoodsInfos } from '/@/api/admin/contract';
 
   import { getReceivablesInfo } from '/@/api/admin/finance';
 
-  import { updateOrder, getBeoOrder } from '/@/api/admin/beo';
+  import { updateOrder, getOrder } from '/@/api/admin/beo';
 
   import { useGo } from '/@/hooks/web/usePage';
   import { useRoute } from 'vue-router';
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
+  import { FormSchema } from '/@/components/Table';
+  // import { emit } from 'process';
+
   export default defineComponent({
-    name: 'BeoOrderEditModal',
-    components: { BasicForm, PageWrapper, [Card.name]: Card, BasicTable, CollapseContainer },
+    name: 'BeoEditOrderModal',
+    components: {
+      BasicForm,
+      PageWrapper,
+      [Card.name]: Card,
+      BasicTable,
+      CollapseContainer,
+    },
     setup() {
+      let newAgreementId;
+      const foodsFormSchema: FormSchema[] = [
+        {
+          field: 'isStandard',
+          component: 'Switch',
+          label: '是否使用标准菜单',
+          colProps: {
+            span: 8,
+          },
+          labelWidth: 200,
+        },
+        {
+          field: 'foodsId',
+          component: 'ApiSelect',
+          label: '菜单选择',
+          dynamicDisabled: ({ values }) => {
+            desData.showFoodsTable = !values.isStandard;
+            // return showFoodsTable;
+            return !values.isStandard;
+          },
+          // componentProps: {
+          //   api: getFoodsInfos,
+          //   labelField: 'name',
+          //   valueField: 'id',
+          //   onChange: async (e: any) => {
+          //     desData.foodsId = e;
+          //     let temp = await getFoodsInfos({ id: e });
+          //     Object.assign(foodsData, temp);
+          //     // debugger;
+          //     const data = temp.find((item) => item.id === e);
+          //     if (data) {
+          //       setTableData(data.children);
+          //     }
+          //   },
+          // },
+          componentProps: {
+            api: getFoodsInfos,
+            labelField: 'name',
+            valueField: 'id',
+            onChange: async (e: any) => {
+              desData.foodsId = e;
+              let temp = await getFoodsInfos({ id: e });
+              Object.assign(foodsData, temp);
+              // debugger;
+              const data = temp.find((item) => item.id === e);
+              if (data) {
+                setTableData(data.children);
+                setFieldsFoodsValue({ singleDeskPrice: data.total });
+              }
+            },
+          },
+        },
+        {
+          field: 'singleDeskPrice',
+          label: '单桌价格',
+          component: 'Input',
+          colProps: {
+            offset: 2,
+          },
+          dynamicDisabled: ({ values }) => {
+            // debugger;
+            desData.showFoodsTable = !values.isStandard;
+            // return showFoodsTable;
+            return values.isStandard;
+          },
+          // componentProps: ({ formModel }) => {
+          //   return {
+          //     // placeholder: '同步f2的值为f1',
+          //     onChange: (e: ChangeEvent) => {
+          //       formModel.singleDeskPrice = e.target.value;
+          //     },
+          //   };
+          // },
+          // required: true,
+        },
+        {
+          field: 'diyFoods',
+          label: '自定义菜品',
+          component: 'InputTextArea',
+          colProps: {
+            offset: 1,
+            span: 20,
+          },
+          dynamicDisabled: ({ values }) => {
+            // debugger;
+            desData.showFoodsTable = !values.isStandard;
+            // return showFoodsTable;
+            return values.isStandard;
+          },
+        },
+      ];
+
+      const desData: Recordable = reactive({
+        showFoodsTable: false,
+      });
+
+      const fileInfos = reactive<any>(
+        ['file'].map((key) => {
+          return {
+            key,
+            data: [],
+          };
+        })
+      );
+
+      const foodsData: Recordable = reactive({});
+
       const { createMessage } = useMessage();
+      const searchInfo = reactive<Recordable>({});
 
       const [register, { setFieldsValue, getFieldsValue: getBasciValues }] = useForm({
         baseColProps: {
@@ -98,12 +270,35 @@
         showActionButtonGroup: false,
       });
 
+      const [
+        registerFoodsForm,
+        { setFieldsValue: setFieldsFoodsValue, getFieldsValue: getFieldFoodsValue },
+      ] = useForm({
+        baseColProps: {
+          span: 6,
+        },
+        schemas: foodsFormSchema,
+        showActionButtonGroup: false,
+      });
+
       const [registerTimeTable, { setTableData }] = useTable({
         title: '菜品内容',
         columns: foodsColumn,
         pagination: false,
         showIndexColumn: false,
+        formConfig: {
+          labelWidth: 120,
+          // schemas: searchFoodsFormSchema,
+          autoSubmitOnEnter: true,
+        },
+        // api: getFoodsInfos.bind(null, { parentId: desData.foodsId }),
+        // dataSource: foodsData,
         scroll: { y: 300 },
+        useSearchForm: false,
+        handleSearchInfoFn(info) {
+          console.log('handleSearchInfoFn', info);
+          return info;
+        },
       });
 
       // 管家部
@@ -176,20 +371,103 @@
         showActionButtonGroup: false,
       });
 
+      // 饮料酒水
+      const [registerDrink, { setFieldsValue: setDrinkValues, getFieldsValue: getDrinksValues }] =
+        useForm({
+          labelWidth: 120,
+          baseColProps: {
+            span: 10,
+          },
+          schemas: drinkFormSchema,
+          showActionButtonGroup: false,
+        });
+
+      // 灯孔音响
+      const [registerLight, { setFieldsValue: setLightValues, getFieldsValue: getLightValues }] =
+        useForm({
+          labelWidth: 120,
+          baseColProps: {
+            span: 10,
+          },
+          schemas: lightFormSchema,
+          showActionButtonGroup: false,
+        });
+
+      // 餐饮部备注
+      const [
+        registerMealDepartment,
+        { setFieldsValue: setMealDepartmentValues, getFieldsValue: getMealDepartmentValues },
+      ] = useForm({
+        labelWidth: 120,
+        baseColProps: {
+          span: 10,
+        },
+        schemas: mealDepartmentFormSchema,
+        showActionButtonGroup: false,
+      });
+
+      // 管家部
+      const [
+        registerManagerDepartment,
+        { setFieldsValue: setManagerDepartmentValues, getFieldsValue: getManagerDepartmentValues },
+      ] = useForm({
+        labelWidth: 120,
+        baseColProps: {
+          span: 10,
+        },
+        schemas: managerDepartmentFormSchema,
+        showActionButtonGroup: false,
+      });
+
+      // 工程安保部备注
+      const [
+        registerProjectSafety,
+        { setFieldsValue: setProjectSafetyValues, getFieldsValue: getProjectSafetyValues },
+      ] = useForm({
+        labelWidth: 120,
+        baseColProps: {
+          span: 10,
+        },
+        schemas: projectSafetyFormSchema,
+        showActionButtonGroup: false,
+      });
+
+      // 财务部备注
+      const [
+        registerFinanceRemark,
+        { setFieldsValue: setFinanceRemarkValues, getFieldsValue: getFinanceRemarkValues },
+      ] = useForm({
+        labelWidth: 120,
+        baseColProps: {
+          span: 10,
+        },
+        schemas: financeRemarkFormSchema,
+        showActionButtonGroup: false,
+      });
+
       const go = useGo();
       const route = useRoute();
       const agreementId = ref(route.params?.id);
-      let res, foods, foodsId;
-      let newAgreementId;
+      let res, foods;
+
+      function onFileChange(fileInfo, { fileList }) {
+        fileInfo.data = fileList.map((fileInfo) => fileInfo.response || fileInfo);
+      }
 
       async function submitAll() {
-        // debugger;
         try {
           let submitValues = {},
             tasks = [];
           Object.assign(submitValues, getBasciValues());
           Object.assign(submitValues, getScheduleValues());
           Object.assign(submitValues, getFieldFinanceValue());
+          Object.assign(submitValues, getLightValues());
+          Object.assign(submitValues, getMealDepartmentValues());
+          Object.assign(submitValues, getProjectSafetyValues());
+          Object.assign(submitValues, getManagerDepartmentValues());
+          Object.assign(submitValues, getFinanceRemarkValues());
+          Object.assign(submitValues, getDrinksValues());
+          Object.assign(submitValues, getFieldFoodsValue());
           let temp = {};
           // Object.defineProperty(temp, 'deptName', '管家部');
           temp.deptName = '管家部';
@@ -223,13 +501,14 @@
           // Object.defineProperty(submitValues, 'tasks', tasks);
           submitValues.tasks = tasks;
           // submitValues.agreementId = submitValues.id;
+          debugger;
           submitValues.id = agreementId.value;
           submitValues.agreementId = newAgreementId;
 
           console.log(submitValues);
-          // submitValues.beoType = '执行beo单';
+          submitValues.beoType = '执行beo单';
           await updateOrder(submitValues);
-          createMessage.success('新建成功!');
+          createMessage.success('操作成功!');
           go('/beo/order');
         } catch (error) {
           console.error(error);
@@ -241,33 +520,52 @@
       }
 
       async function handleData(id: string) {
-        res = await getBeoOrder({ id: id });
+        let beoInfo = await getOrder({ id: id });
+        console.log(beoInfo);
+        setMealDepartmentValues(beoInfo);
+        setDrinkValues(beoInfo);
+        setLightValues(beoInfo);
+        setManagerDepartmentValues(beoInfo);
+        setProjectSafetyValues(beoInfo);
+        setFinanceRemarkValues(beoInfo);
+
+        if (beoInfo.isStandard) {
+          setFieldsFoodsValue(beoInfo);
+          foods = await getFoodsInfos({ parentId: beoInfo.foodsId });
+          setTableData(foods);
+        } else {
+          setFieldsFoodsValue(beoInfo);
+        }
+
+        // debugger;
+        res = await getAgreementInfo({ id: beoInfo.agreementId });
         setFieldsValue({
-          ...res,
+          ...beoInfo,
         });
 
-        newAgreementId = res.agreementId;
-        // debugger;
-        res = await getAgreementInfo({ id: newAgreementId });
-        // setFieldsValue({
-        //   ...res,
-        // });
+        newAgreementId = beoInfo.agreementId;
 
-        foodsId = res.foodsId;
+        // foodsId = res.foodsId;
 
-        res = await getScheduleByAgreementId({ id: newAgreementId });
+        res = await getScheduleByAgreementId({ id: res.id });
 
         setFieldsValueSchedule({
           ...res,
         });
 
-        foods = await getFoodsInfos({ parentId: foodsId });
-        setTableData(foods);
-
-        res = await getReceivablesInfo({ id: newAgreementId });
+        res = await getReceivablesInfo({ id: beoInfo.agreementId });
         setFieldsFinanceValue({
           ...res,
         });
+      }
+
+      // setProps(setFoodsTable);
+
+      async function setFoodsTable() {
+        // let temp = await getFoodsInfos({ parentId: id });
+        // setTableData({});
+        setFieldsFoodsValue({});
+        getFieldFoodsValue();
       }
 
       handleData(agreementId.value);
@@ -287,6 +585,21 @@
         registerTaskBuy,
         registerTaskFinance,
         registerBeoFinance,
+        registerFoodsForm,
+        foodsFormSchema,
+        desData,
+        setFoodsTable,
+        foodsData,
+        searchInfo,
+        fileInfos,
+        onFileChange,
+        uploadPicApiCustom,
+        registerDrink,
+        registerLight,
+        registerMealDepartment,
+        registerManagerDepartment,
+        registerProjectSafety,
+        registerFinanceRemark,
       };
     },
   });

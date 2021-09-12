@@ -43,7 +43,7 @@
     "codemirror": "^5.62.2",
     "cropperjs": "^1.5.12",
     "crypto-js": "^4.1.1",
-    "echarts": "^5.1.2",
+    "echarts": "^5.2.0",
     "intro.js": "^4.1.0",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",

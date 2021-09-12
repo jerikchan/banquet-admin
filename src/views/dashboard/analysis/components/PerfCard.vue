@@ -22,17 +22,27 @@
   </Card>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, reactive } from 'vue';
 
   import { CountTo } from '/@/components/CountTo/index';
   import { Icon } from '/@/components/Icon';
   import { Tag, Card } from 'ant-design-vue';
 
-  import { perfCard } from '../data';
+  import { getPrefCard } from '/@/api/admin/analysis';
+
+  // import { perfCard } from '../data';
   export default defineComponent({
     components: { CountTo, Tag, Card, Icon },
     setup() {
-      return { perfCard };
+      const perfCard = reactive({});
+      async function handleData() {
+        let data = await getPrefCard();
+        Object.assign(perfCard, data);
+      }
+
+      handleData();
+
+      return { perfCard, handleData };
     },
   });
 </script>

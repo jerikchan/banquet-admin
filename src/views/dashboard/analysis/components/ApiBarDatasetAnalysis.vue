@@ -6,7 +6,7 @@
     <!-- 查询日期：<a-range-picker v-model:value="dateValue" placeholder="请选择日期" /> -->
     <!-- <a-button class="ml-2">查询</a-button> -->
     <div ref="chartRef" class="flex items-center justify-center my-10" :style="{ width, height }">
-      <a-empty v-if="!data.list" />
+      <a-empty v-if="!data.dataset" />
     </div>
   </Card>
 </template>
@@ -45,11 +45,11 @@
       },
       categoryKey: {
         type: String as PropType<string>,
-        default: 'name',
+        default: 'salesName',
       },
       dataKey: {
         type: String as PropType<string>,
-        default: 'value',
+        default: 'customerNum',
       },
       dateValue: {
         type: Array as PropType<Moment[]>,
@@ -65,7 +65,7 @@
     setup(props: any) {
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
-      const data = ref<any>({});
+      const data = ref<any>([]);
       const loading = ref(false);
 
       async function getData() {
@@ -91,36 +91,38 @@
       watch(
         () => data.value,
         () => {
-          if (!unref(data).list) {
+          if (!unref(data).dataset) {
             return;
           }
-          // debugger;
-          setOptions({
+          const options = {
             tooltip: {
               trigger: 'axis',
               axisPointer: {
                 type: 'shadow',
                 label: {
-                  show: true,
+                  show: false,
                 },
               },
             },
-            grid: { left: '1%', right: '1%', top: '2  %', bottom: 0, containLabel: true },
-            xAxis: {
-              type: 'category',
-              data: data.value.list.map((item: any) => item[props.categoryKey]),
-            },
-            yAxis: {
-              type: 'value',
-              max: data.value.max,
-              splitNumber: data.value.splitNumber,
-            },
+            legend: data.value.legend,
+            grid: { left: '1%', right: '1%', top: '10%', bottom: 0, containLabel: true },
+            dataset: data.value.dataset,
+            xAxis: { type: 'category' },
+            yAxis: {},
+            // Declare several bar series, each will be mapped
+            // to a column of dataset.source by default.
             series: [
               {
-                data: data.value.list.map((item: any) => item[props.dataKey]),
                 type: 'bar',
-                barMaxWidth: 80,
-                color: props.color,
+                label: {
+                  show: true,
+                  position: 'top',
+                  color: '#666',
+                  fontSize: 14,
+                },
+              },
+              {
+                type: 'bar',
                 label: {
                   show: true,
                   position: 'top',
@@ -129,7 +131,8 @@
                 },
               },
             ],
-          });
+          };
+          setOptions(options);
         },
         { immediate: true }
       );

@@ -69,11 +69,11 @@
       :schema="returnCollectionFormSchema"
       v-if="mockData.flowType === '30'"
     />
-    <BasicTable
+    <!-- <BasicTable
       @register="registerBeoTaskTable"
       @success="handleSuccess"
       v-if="mockData.flowType === '20' || mockData.flowType === '21' || mockData.flowType === '40'"
-    />
+    /> -->
     <a-card title="流程进度" :bordered="false">
       <a-steps :current="mockData.nodeOrder" progress-dot size="small">
         <!-- <a-step title="创建项目">
@@ -127,7 +127,7 @@
     refundTimeTableSchema,
     agreementInfoSchema,
     beoInfoSchema,
-    beoTaskListSchema,
+    // beoTaskListSchema,
     returnCollectionFormSchema,
     receivableInfoFormSchema,
     roomScheduleFormSchema,
@@ -220,7 +220,7 @@
           Object.assign(agreementInfoData, agreementInfo);
           Object.assign(roomScheduleData, roomScheduleInfo);
           Object.assign(receivableInfoData, receivableInfo);
-          setTableData(beoInfo.taskList);
+          // setTableData(beoInfo.taskList);
         } else if (type === '21') {
           let beoInfo = await getBeoOrder({ id: beoId });
           let agreementInfo = await getAgreementInfo({ id: beoInfo.agreementId });
@@ -230,7 +230,7 @@
           Object.assign(agreementInfoData, agreementInfo);
           Object.assign(roomScheduleData, roomScheduleInfo);
           Object.assign(receivableInfoData, receivableInfo);
-          setTableData(beoInfo.taskList);
+          // setTableData(beoInfo.taskList);
         } else if (type === '30') {
           let returnCollection = await getAcceptInfo({ id: returnId });
           let receivableInfo = await getTotalInfo({ id: returnCollection.receivableId });
@@ -276,12 +276,12 @@
         showIndexColumn: true,
       });
 
-      const [registerBeoTaskTable, { setTableData }] = useTable({
-        title: 'beo任务列表',
-        columns: beoTaskListSchema,
-        pagination: false,
-        showIndexColumn: true,
-      });
+      // const [registerBeoTaskTable, { setTableData }] = useTable({
+      //   title: 'beo任务列表',
+      //   columns: beoTaskListSchema,
+      //   pagination: false,
+      //   showIndexColumn: true,
+      // });
 
       function handleSuccess() {
         reload();
@@ -319,8 +319,8 @@
         agreementInfoData,
         beoInfoData,
         beoInfoSchema,
-        beoTaskListSchema,
-        registerBeoTaskTable,
+        // beoTaskListSchema,
+        // registerBeoTaskTable,
         handleSuccessEvent,
         returnCollectionFormSchema,
         receivableInfoFormSchema,

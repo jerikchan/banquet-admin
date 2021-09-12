@@ -97,7 +97,16 @@
                 type: 'pie',
                 radius: '80%',
                 center: ['50%', '50%'],
-                color: ['#5ab1ef', '#b6a2de', '#67e0e3', '#2ec7c9'],
+                color: [
+                  '#91cc75',
+                  '#fac858',
+                  '#ee6666',
+                  '#73c0de',
+                  '#3ba272',
+                  '#fc8452',
+                  '#9a60b4',
+                  '#ea7ccc',
+                ],
                 data: [...unref(data).list].sort(function (a, b) {
                   return a.value - b.value;
                 }),
@@ -110,7 +119,7 @@
                 label: {
                   show: true, //饼图上的数据是否展示true展示false不展示
                   position: 'outer', //饼图上的数据展示位置inner是展示在内部
-                  formatter: '{b} {c}', //饼图上展示的数据格式
+                  formatter: '{b}:{c} {d}%', //饼图上展示的数据格式
                   color: '#666',
                   fontSize: 14,
                 },

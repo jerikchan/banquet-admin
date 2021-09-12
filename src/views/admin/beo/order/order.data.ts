@@ -1,5 +1,6 @@
 import { getFoodsInfos } from '/@/api/admin/contract';
 import { getHouseKeeperList } from '/@/api/admin/system';
+import { getScheduleTypeList } from '/@/api/admin/banquet';
 // import { getOrderTypeList } from '/@/api/admin/beo';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
@@ -151,7 +152,7 @@ export const orderFormSchema: FormSchema[] = [
 export const roomScheduleFormSchema: FormSchema[] = [
   {
     field: 'banquetTime',
-    label: '时间',
+    label: '宴会时间',
     component: 'DatePicker',
     componentProps: {
       disabled: false,
@@ -184,14 +185,25 @@ export const roomScheduleFormSchema: FormSchema[] = [
     },
   },
   {
-    field: 'setUpType',
-    label: '摆桌形式',
-    component: 'Input',
-    required: false,
+    field: 'scheduleType',
+    label: '档期类型',
+    component: 'ApiSelect',
     componentProps: {
-      disabled: false,
+      api: getScheduleTypeList,
+      labelField: 'label',
+      valueField: 'value',
     },
+    required: false,
   },
+  // {
+  //   field: 'setUpType',
+  //   label: '摆桌形式',
+  //   component: 'Input',
+  //   required: false,
+  //   componentProps: {
+  //     disabled: false,
+  //   },
+  // },
   {
     field: 'deskCount',
     label: '桌数',
@@ -215,6 +227,16 @@ export const roomScheduleFormSchema: FormSchema[] = [
     componentProps: {
       disabled: false,
     },
+  },
+  {
+    field: 'setUpType',
+    label: '摆桌形式',
+    component: 'Input',
+    slot: 'file',
+    itemProps: {
+      autoLink: false,
+    },
+    required: false,
   },
 ];
 
@@ -256,6 +278,73 @@ export const managerAllocationSchema: FormSchema[] = [
   //   label: '备注',
   //   component: 'InputTextArea',
   // },
+];
+
+export const drinkFormSchema: FormSchema[] = [
+  {
+    field: 'drinks',
+    label: '备注',
+    // label: '饮料酒水(Drink)',
+    component: 'InputTextArea',
+    colProps: {
+      span: 20,
+    },
+  },
+];
+
+export const lightFormSchema: FormSchema[] = [
+  {
+    field: 'lights',
+    label: '备注',
+    component: 'InputTextArea',
+    colProps: {
+      span: 20,
+    },
+  },
+];
+
+export const mealDepartmentFormSchema: FormSchema[] = [
+  {
+    field: 'mealDepartment',
+    label: '备注',
+    component: 'InputTextArea',
+    colProps: {
+      span: 20,
+    },
+  },
+];
+
+export const managerDepartmentFormSchema: FormSchema[] = [
+  {
+    field: 'managerDepartment',
+    label: '备注',
+    component: 'InputTextArea',
+    colProps: {
+      span: 20,
+    },
+  },
+];
+
+export const projectSafetyFormSchema: FormSchema[] = [
+  {
+    field: 'projectSafety',
+    label: '备注',
+    component: 'InputTextArea',
+    colProps: {
+      span: 20,
+    },
+  },
+];
+
+export const financeRemarkFormSchema: FormSchema[] = [
+  {
+    field: 'financeRemark',
+    label: '备注',
+    component: 'InputTextArea',
+    colProps: {
+      span: 20,
+    },
+  },
 ];
 
 export const searchFoodsFormSchema: FormSchema[] = [
@@ -330,6 +419,27 @@ export const beoFinanceFormSchema: FormSchema[] = [
   {
     label: '尾款',
     field: 'finalMoney',
+    component: 'Input',
+    required: false,
+    colProps: {
+      offset: 2,
+    },
+    componentProps: {
+      disabled: true,
+    },
+  },
+  {
+    label: '婚庆价格',
+    field: 'banquetMoney',
+    component: 'Input',
+    required: false,
+    componentProps: {
+      disabled: true,
+    },
+  },
+  {
+    label: '餐费',
+    field: 'mealMoney',
     component: 'Input',
     required: false,
     colProps: {

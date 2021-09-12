@@ -60,6 +60,15 @@ const dashboard: AppRouteModule = {
     //     title: '组件测试',
     //   },
     // },
+    {
+      path: 'test1',
+      name: 'Test1',
+      component: () => import('/@/views/demo/charts/Line.vue'),
+      meta: {
+        // affix: true,
+        title: '组件测试',
+      },
+    },
     // {
     //   path: 'test2',
     //   name: 'Test2',
