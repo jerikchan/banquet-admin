@@ -60,7 +60,8 @@
               label: '撤销分配',
               onClick: handleUnallocation.bind(null, record),
               ifShow: !!record.salesManagerId,
-              disabled: record.status === '1',
+              disabled:
+                record.status === '1' || record.customerType === '3' || record.customerType === '5',
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
             },
             {

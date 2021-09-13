@@ -266,8 +266,8 @@ export const getChannelYearAnalysis = (params?: any) =>
     {
       url: Api.GetChannelYearAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getDealYearAnalysis = (params?: any) =>
@@ -275,8 +275,8 @@ export const getDealYearAnalysis = (params?: any) =>
     {
       url: Api.GetDealYearAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );
 
 export const getInviteYearAnalysis = (params?: any) =>
@@ -284,6 +284,6 @@ export const getInviteYearAnalysis = (params?: any) =>
     {
       url: Api.GetInviteYearAnalysis,
       params,
-    }
-    // { devUrl }
+    },
+    { devUrl }
   );

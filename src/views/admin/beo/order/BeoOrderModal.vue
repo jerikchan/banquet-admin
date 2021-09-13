@@ -522,13 +522,13 @@
           ...res,
         });
 
-        foods = await getFoodsInfos({ parentId: foodsId });
-        setTableData(foods);
-
         res = await getReceivablesInfo({ id: id });
         setFieldsFinanceValue({
           ...res,
         });
+
+        foods = await getFoodsInfos({ parentId: foodsId });
+        setTableData(foods);
       }
 
       // setProps(setFoodsTable);
