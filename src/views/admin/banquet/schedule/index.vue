@@ -1,8 +1,8 @@
 <template>
-  <PageWrapper contentClass="flex">
+  <PageWrapper contentClass="flex" title="档期列表">
     <div class="p-1">
       <a-spin :spinning="loading">
-        <div class="p-3 mb-4 bg-white">
+        <div class="p-3 mb-4 bg-gray-50">
           <span class="ml-4 mr-2">厅房名称</span>
           <a-select
             class="w-50"
@@ -11,7 +11,7 @@
             :options="roomOptions"
           />
         </div>
-        <a-calendar v-model:value="dateValue" class="bg-white" mode="month">
+        <a-calendar v-model:value="dateValue" class="bg-gray-50" mode="month">
           <template #dateCellRender="{ current: value }">
             <ul class="events">
               <li class="flex mt-1" v-for="item in getListData(value)" :key="item.content">
@@ -53,7 +53,7 @@
       _getRoomList();
 
       watch(
-        () => roomValue.value,
+        () => (roomValue.value, dateValue.value),
         async () => {
           loading.value = true;
           const banquetList = await getBanquetList({
