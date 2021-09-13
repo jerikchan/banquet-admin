@@ -8,21 +8,21 @@ export const columns: BasicColumn[] = [
     dataIndex: 'name',
     width: 200,
   },
-  {
-    title: '单价',
-    dataIndex: 'price',
-    width: 50,
-  },
+  // {
+  //   title: '单价',
+  //   dataIndex: 'price',
+  //   width: 50,
+  // },
   {
     title: '总价',
     dataIndex: 'total',
     width: 50,
   },
-  {
-    title: '数量',
-    dataIndex: 'foodsNo',
-    width: 180,
-  },
+  // {
+  //   title: '数量',
+  //   dataIndex: 'foodsNo',
+  //   width: 180,
+  // },
   {
     title: '菜单属于哪个菜品',
     dataIndex: 'parentId',
@@ -46,28 +46,28 @@ export const formSchema: FormSchema[] = [
     required: true,
     component: 'Input',
   },
-  {
-    field: 'price',
-    label: '单价',
-    required: true,
-    component: 'Input',
-  },
+  // {
+  //   field: 'price',
+  //   label: '单价',
+  //   required: true,
+  //   component: 'Input',
+  // },
   {
     field: 'total',
     label: '总价',
-    required: true,
+    required: false,
     component: 'Input',
   },
-  {
-    field: 'foodsNo',
-    label: '数量',
-    required: true,
-    component: 'InputNumber',
-  },
+  // {
+  //   field: 'foodsNo',
+  //   label: '数量',
+  //   required: true,
+  //   component: 'InputNumber',
+  // },
   {
     field: 'isChild',
     label: '是否是菜品',
-    required: true,
+    required: false,
     component: 'Checkbox',
   },
   {

@@ -30,10 +30,25 @@ enum Api {
   GetBeoOrderByAgreementId = '/beo/findBeoOrderInfoByAgreementId',
 
   SaveFinishOrder = '/beo/saveFinishOrder',
+
+  GetRestMealList = '/remain/findRestMeals',
+  AddOrUpdateRestMeal = '/remain/addOrUpdate',
+  DeleteRestMeal = '/remain/delete',
+  GetRestMealInfo = '/remain/findRestMealInfo',
+  UpdateRestMealInfo = '/remain/update',
 }
 
 export const getOrder = (params?: OrderParams) =>
   defHttp.get<OrderListGetResultModel>({ url: Api.GetOrder, params }, { devUrl });
+
+export const updateRestMealInfo = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.UpdateRestMealInfo, params }, { devUrl });
+
+export const getRestMealList = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetRestMealList, params }, { devUrl });
+
+export const getRestMealInfo = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetRestMealInfo, params }, { devUrl });
 
 export const getBeoOrderByAgreementId = (params?: {}) =>
   defHttp.get<{}>({ url: Api.GetBeoOrderByAgreementId, params }, { devUrl });
@@ -46,6 +61,12 @@ export const getBeoOrder = (params?: {}) =>
 
 export const getOrderList = (params?: OrderParams) =>
   defHttp.get<OrderListGetResultModel>({ url: Api.GetOrderist, params }, { devUrl });
+
+export const addOrUpdateRestMeal = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.AddOrUpdateRestMeal, params }, { devUrl });
+
+export const deleteRestMeal = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.DeleteRestMeal, params }, { devUrl });
 
 export const addOrder = (params?: OrderParams) =>
   defHttp.post<OrderListGetResultModel>({ url: Api.AddOrder, params }, { devUrl });

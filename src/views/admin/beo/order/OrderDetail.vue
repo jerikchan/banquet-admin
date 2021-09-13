@@ -10,6 +10,9 @@
         :schema="taskSchema"
       />
     </template> -->
+    <template #extra>
+      <a-button type="primary" @click="handleExport"> 导出 </a-button>
+    </template>
     <Description
       title="BEO基本信息"
       :collapseOptions="{ canExpand: false, helpMessage: 'beo信息' }"
@@ -73,6 +76,7 @@
   import { getFoodsInfos } from '/@/api/admin/contract';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getReceivablesInfo } from '/@/api/admin/finance';
+  import { useGlobSetting } from '/@/hooks/setting';
 
   const desData: Recordable = reactive({});
 
@@ -153,6 +157,7 @@
       // 此处可以得到ID
       const idRef = ref(route.params?.id);
       const currentKey = ref('detail');
+      const { devUrl } = useGlobSetting();
 
       const beoBasicInfoData = reactive({});
 
@@ -224,6 +229,10 @@
         // reload();
       }
 
+      function handleExport() {
+        window.location.href = devUrl + '/file/exportBeoOrderInfo?id=' + idRef.value;
+      }
+
       return {
         schema,
         register,
@@ -242,6 +251,7 @@
         foodsDetailInfoFormSchema,
         foodsDetalInfoData,
         registerFoodsTable,
+        handleExport,
         foodsDetailColumn,
         beoDetailsInfoSchema,
         receivableInfoFormSchema,

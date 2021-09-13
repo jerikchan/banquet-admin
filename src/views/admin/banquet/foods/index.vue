@@ -9,11 +9,13 @@
           :actions="[
             {
               icon: 'clarity:note-edit-line',
+              ifShow: false,
               onClick: handleEdit.bind(null, record),
             },
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
+              ifShow: false,
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -30,7 +32,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getFoodTypeList, addFoodType } from '/@/api/admin/banquet';
+  import { getFoodTypeList, deleteFoodType } from '/@/api/admin/banquet';
 
   import { useDrawer } from '/@/components/Drawer';
   import FoodTypeDrawer from './FoodTypeDrawer.vue';
@@ -78,9 +80,10 @@
 
       async function handleDelete(record: Recordable) {
         console.log(record);
-        await addFoodType({
-          id: record.id,
-        });
+        // await addFoodType({
+        //   id: record.id,
+        // });
+        await deleteFoodType({ id: record.id });
         reload();
       }
 
