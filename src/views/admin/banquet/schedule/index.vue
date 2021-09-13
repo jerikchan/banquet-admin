@@ -52,18 +52,17 @@
       };
       _getRoomList();
 
-      watch(
-        () => (roomValue.value, dateValue.value),
-        async () => {
-          loading.value = true;
-          const banquetList = await getBanquetList({
-            roomId: unref(roomValue),
-            startTime: dateValue.value,
-          });
-          banquetOptions.value = banquetList;
-          loading.value = false;
-        }
-      );
+      const _getBanquetList = async () => {
+        loading.value = true;
+        const banquetList = await getBanquetList({
+          roomId: unref(roomValue),
+          startTime: dateValue.value,
+        });
+        banquetOptions.value = banquetList;
+        loading.value = false;
+      };
+      watch(() => roomValue.value, _getBanquetList);
+      watch(() => dateValue.value, _getBanquetList);
 
       const getListData = (value: Moment) => {
         const listData = unref(banquetOptions).filter((item) => {
