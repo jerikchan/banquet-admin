@@ -104,6 +104,8 @@
         console.log(record);
       }
 
+      function handleSuccess() {}
+
       return {
         items: groupItems,
         handleView,
@@ -113,6 +115,7 @@
         handleEvent,
         registerModal,
         registerAcceptModal,
+        handleSuccess,
       };
     },
   });

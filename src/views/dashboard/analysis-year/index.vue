@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <PageWrapper contentClass="flex flex-col" title="年度分析页">
     <ApiLineAnalysis :api="getDealCountYearAnalysis" title="签单额月份同比" class="w-full" />
     <ApiLineAnalysis
       :api="getSkipOrderYearAnalysis"
@@ -29,12 +29,13 @@
       isPercent
       class="w-full !my-4"
     />
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import ApiLineAnalysis from '/@/components/Analysis/ApiLineAnalysis.vue';
   import ApiBarStackAnalysis from '/@/components/Analysis/ApiBarStackAnalysis.vue';
+  import { PageWrapper } from '/@/components/Page';
 
   import {
     getDealCountYearAnalysis,
@@ -49,6 +50,7 @@
     components: {
       ApiLineAnalysis,
       ApiBarStackAnalysis,
+      PageWrapper,
     },
     setup() {
       return {

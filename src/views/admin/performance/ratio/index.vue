@@ -1,72 +1,73 @@
 <template>
-  <div id="ratioPerformanceMainList">
-    <BasicTable @register="registerTable">
-      <template #toolbar>
+  <PageWrapper contentClass="flex" title="业绩系数设置">
+    <div class="p-1">
+      <a-spin :spinning="loading">
         <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
-          <a-button type="primary" @click="handleCreate">新增系数</a-button>
+          <div class="flex justify-end p-3 mb-4 bg-gray-50">
+            <a-button type="primary" @click="handleCreate">新增系数</a-button>
+          </div>
         </Authority>
-      </template>
-      <template #action="{ record }">
-        <TableAction
-          :actions="[
-            {
-              icon: 'clarity:note-edit-line',
-              onClick: handleEdit.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
-            },
-          ]"
-        />
-      </template>
-    </BasicTable>
+        <a-calendar v-model:value="dateValue" class="bg-gray-50" mode="month">
+          <template #dateCellRender="{ current: value }">
+            <ul class="events">
+              <li
+                class="flex mt-1 flex-nowrap"
+                v-for="item in getListData(value)"
+                :key="item.content"
+              >
+                <!-- <a-badge :status="item.type" :text="item.content" /> -->
+                <div class="mr-1 truncate" :title="item.modifyName">{{ item.modifyName }}</div>
+                <a-tag v-if="item.ratio" color="#108ee9">{{ item.ratio }}</a-tag>
+              </li>
+            </ul>
+          </template>
+        </a-calendar>
+      </a-spin>
+    </div>
     <RatioModal @register="registerModal" @success="handleSuccess" />
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
+  import { defineComponent, ref, watch, unref } from 'vue';
+  import moment, { Moment } from 'moment';
+  import { PageWrapper } from '/@/components/Page';
   import { getRatioInfos } from '/@/api/admin/performance';
-
+  import { useModal } from '/@/components/Modal';
   import RatioModal from './RatioModal.vue';
-
-  import { columns, searchFormSchema } from './ratio.data';
   import { RoleEnum } from '/@/enums/roleEnum';
 
-  import { useModal } from '/@/components/Modal';
-
   export default defineComponent({
-    name: 'PerformanceRatioTable',
-    components: { BasicTable, TableAction, RatioModal },
+    components: { PageWrapper, RatioModal },
     setup() {
+      const dateValue = ref<Moment>(moment());
+      // const roomOptions = ref<any>([]);
+      // const roomValue = ref<string>('');
+      const loading = ref(false);
+      const canlendarData = ref<any>([]);
       const [registerModal, { openModal }] = useModal();
-      // const go = useGo();
-      const [registerTable, { reload }] = useTable({
-        title: '业绩系数列表',
-        api: getRatioInfos,
-        columns,
-        formConfig: {
-          labelWidth: 120,
-          schemas: searchFormSchema,
-        },
-        pagination: true,
-        striped: false,
-        useSearchForm: true,
-        showTableSetting: true,
-        bordered: true,
-        showIndexColumn: false,
-        canResize: false,
-        beforeFetch(params) {
-          // params.deptId = '402881847b45dac1017b45df80470002';
-          console.log(params);
-        },
-        actionColumn: {
-          width: 80,
-          title: '操作',
-          dataIndex: 'action',
-          slots: { customRender: 'action' },
-          fixed: undefined,
-        },
-      });
+
+      const _getCalendarData = async () => {
+        try {
+          // loading.value = true;
+          const data = await getRatioInfos({
+            // roomId: unref(roomValue),
+            startTime: dateValue.value,
+          });
+          canlendarData.value = data;
+        } finally {
+          loading.value = false;
+        }
+      };
+
+      _getCalendarData();
+
+      const getListData = (value: Moment) => {
+        const listData = unref(canlendarData).filter((item) => {
+          const isSameDay = value.isSame(item.modifyTime, 'days');
+          return isSameDay;
+        });
+        return listData || [];
+      };
 
       function handleCreate() {
         openModal(true, {
@@ -74,33 +75,51 @@
         });
       }
 
-      // async function handleDelete(record: Recordable) {
-      //   // console.log(record);
-      //   // await deleteDept({
-      //   //   id: record.id,
-      //   // });
-      //   // reload();
-      // }
-
-      function handleSuccess() {
-        reload();
+      async function handleSuccess() {
+        await _getCalendarData();
       }
 
-      function handleEdit(record: Recordable) {
-        openModal(true, {
-          record,
-          isUpdate: true,
-        });
-      }
+      watch(() => dateValue.value, _getCalendarData);
 
       return {
-        registerTable,
-        registerModal,
+        dateValue,
+        getListData,
+        canlendarData,
+        loading,
         handleCreate,
-        handleSuccess,
-        handleEdit,
+        registerModal,
         RoleEnum,
+        handleSuccess,
       };
     },
   });
 </script>
+
+<style>
+  .events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .events .ant-badge-status {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
+
+  .notes-month {
+    text-align: center;
+    font-size: 28px;
+  }
+
+  .notes-month section {
+    font-size: 28px;
+  }
+
+  .ant-fullcalendar-fullscreen .ant-fullcalendar-header .ant-radio-group {
+    display: none;
+  }
+</style>
