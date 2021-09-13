@@ -48,26 +48,24 @@
           value: id,
           label: roomName,
         }));
-        debugger;
+        // debugger;
         roomOptions.value = roomList;
         roomValue.value = roomOptions.value?.[0]?.value;
         loading.value = false;
       };
       _getRoomList();
 
-      watch(
-        () => (roomValue.value, dateValue.value),
-        async () => {
-          // debugger;
-          loading.value = true;
-          const banquetList = await getBanquetList({
-            roomId: unref(roomValue),
-            startTime: dateValue.value,
-          });
-          banquetOptions.value = banquetList;
-          loading.value = false;
-        }
-      );
+      const _getBanquetList = async () => {
+        loading.value = true;
+        const banquetList = await getBanquetList({
+          roomId: unref(roomValue),
+          startTime: dateValue.value,
+        });
+        banquetOptions.value = banquetList;
+        loading.value = false;
+      };
+      watch(() => roomValue.value, _getBanquetList);
+      watch(() => dateValue.value, _getBanquetList);
 
       const getListData = (value: Moment) => {
         // debugger;
