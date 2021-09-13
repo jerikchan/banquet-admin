@@ -42,19 +42,23 @@
       const banquetOptions = ref<any>([]);
 
       const _getRoomList = async () => {
+        // debugger;
         const data = await getRoomList();
         const roomList = (data as any).map(({ id, roomName }) => ({
           value: id,
           label: roomName,
         }));
+        // debugger;
         roomOptions.value = roomList;
         roomValue.value = roomOptions.value?.[0]?.value;
+        loading.value = false;
       };
       _getRoomList();
 
       watch(
         () => (roomValue.value, dateValue.value),
         async () => {
+          // debugger;
           loading.value = true;
           const banquetList = await getBanquetList({
             roomId: unref(roomValue),
@@ -66,7 +70,9 @@
       );
 
       const getListData = (value: Moment) => {
+        // debugger;
         const listData = unref(banquetOptions).filter((item) => {
+          // debugger;
           const isSameDay = value.isSame(item.banquetTime, 'days');
           return isSameDay;
         });
