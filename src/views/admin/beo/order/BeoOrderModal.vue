@@ -83,7 +83,7 @@
 </template>
 <script lang="ts">
   import { BasicForm, useForm } from '/@/components/Form';
-  import { defineComponent, ref, reactive } from 'vue';
+  import { defineComponent, ref, reactive, unref } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { uploadPicApiCustom } from '/@/api/sys/upload';
 
@@ -441,6 +441,14 @@
 
       async function submitAll() {
         try {
+          const fileInfoRecord = fileInfos.reduce((acc, fileInfo) => {
+            const data = unref(fileInfo.data);
+            acc[fileInfo.key] =
+              data && Array.isArray(data) && data.length
+                ? data.map((info) => info?.response?.uid || info.uid)
+                : null;
+            return acc;
+          }, {});
           let submitValues = {},
             tasks = [];
           Object.assign(submitValues, getBasciValues());
@@ -488,6 +496,7 @@
           submitValues.agreementId = submitValues.id;
           delete submitValues.id;
 
+          submitValues.setUpTypeList = fileInfoRecord.setUpType;
           console.log(submitValues);
           submitValues.beoType = '执行beo单';
 
