@@ -96,9 +96,7 @@
             },
             {
               label: '转为无效',
-              ifShow:
-                (record.customerType === '1' || record.customerType === '0') &&
-                !record.salesManagerId,
+              ifShow: record.customerType === '1' || record.customerType === '0',
               onClick: handleInvalid.bind(null, record, '6'),
               disabled: record.status === '1',
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER],

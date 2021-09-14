@@ -11,9 +11,11 @@ import {
   RoomListGetResultModel,
   BanquetListGetResultModel,
   MenuListGetResultModel,
+  UploadResultModel,
 } from './model/banquet';
 import { defHttp } from '/@/utils/http/axios';
 import { useGlobSetting } from '/@/hooks/setting';
+import { UploadFileParams } from '/#/axios';
 
 const { devUrl } = useGlobSetting();
 
@@ -264,3 +266,16 @@ export const getScheduleTypeList = () =>
       label: '晚宴',
     },
   ]);
+
+export function uploadFoods(
+  params: UploadFileParams,
+  onUploadProgress: (progressEvent: ProgressEvent) => void
+) {
+  return defHttp.uploadFile<UploadResultModel>(
+    {
+      url: `${devUrl}/excel/importFoods`,
+      onUploadProgress,
+    },
+    params
+  );
+}
