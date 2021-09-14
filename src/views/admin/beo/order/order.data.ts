@@ -457,6 +457,18 @@ export const beoFinanceFormSchema: FormSchema[] = [
       disabled: true,
     },
   },
+  {
+    label: '额外费用',
+    field: 'extraMoney',
+    component: 'Input',
+    required: false,
+    colProps: {
+      offset: 2,
+    },
+    componentProps: {
+      disabled: true,
+    },
+  },
 ];
 
 // export const foodsFormSchema: FormSchema[] = [
@@ -658,13 +670,17 @@ export const receivableInfoFormSchema: DescItem[] = [
     label: '餐费',
     field: 'mealMoney',
   },
+  {
+    label: '额外费用',
+    field: 'extraMoney',
+  },
 ];
 
 export const beoFinishFinanceFormSchema: FormSchema[] = [
   {
     label: '预计总收款',
     field: 'preTotal',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     componentProps: {
       disabled: false,
@@ -673,7 +689,7 @@ export const beoFinishFinanceFormSchema: FormSchema[] = [
   {
     label: '实收款',
     field: 'realTotal',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     colProps: {
       offset: 2,
@@ -685,7 +701,7 @@ export const beoFinishFinanceFormSchema: FormSchema[] = [
   {
     label: '定金',
     field: 'frontMoney',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     componentProps: {
       disabled: false,
@@ -697,7 +713,7 @@ export const beoFinishFinanceFormSchema: FormSchema[] = [
   {
     label: '中款',
     field: 'midMoney',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     componentProps: {
       disabled: false,
@@ -706,7 +722,7 @@ export const beoFinishFinanceFormSchema: FormSchema[] = [
   {
     label: '尾款',
     field: 'finalMoney',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     colProps: {
       offset: 2,
@@ -718,7 +734,7 @@ export const beoFinishFinanceFormSchema: FormSchema[] = [
   {
     label: '婚庆价格',
     field: 'banquetMoney',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     componentProps: {
       disabled: false,
@@ -730,10 +746,22 @@ export const beoFinishFinanceFormSchema: FormSchema[] = [
   {
     label: '餐费',
     field: 'mealMoney',
-    component: 'Input',
+    component: 'InputNumber',
     required: false,
     componentProps: {
       disabled: false,
+    },
+  },
+  {
+    label: '额外费用',
+    field: 'extraMoney',
+    component: 'InputNumber',
+    required: false,
+    componentProps: {
+      disabled: false,
+    },
+    colProps: {
+      offset: 2,
     },
   },
 ];

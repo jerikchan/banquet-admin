@@ -6,11 +6,11 @@ import { FormSchema } from '/@/components/Table';
 import { getReturnTypeList } from '/@/api/admin/finance';
 
 export const columns: BasicColumn[] = [
-  {
-    title: '单据编号',
-    dataIndex: 'code',
-    width: 120,
-  },
+  // {
+  //   title: '单据编号',
+  //   dataIndex: 'code',
+  //   width: 120,
+  // },
   {
     title: '合同编号',
     dataIndex: 'agreementCode',

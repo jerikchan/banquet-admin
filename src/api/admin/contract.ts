@@ -21,6 +21,8 @@ enum Api {
   AllocationManager = '/agreement/allocationManagers',
 
   CancelAllocationManager = '/agreement/cancelManagers',
+
+  ReloadAgreementSales = '/agreement/reloadAgreementSales',
 }
 
 export const getContractList = (params?: ContractParams) =>
@@ -40,6 +42,9 @@ export const getScheduleByAgreementId = (params?: {}) =>
 
 export const addContract = (params?: ContractParams) =>
   defHttp.post<ContractListGetResultModel>({ url: Api.AddContract, params }, { devUrl });
+
+export const reloadAgreementSales = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.ReloadAgreementSales, params }, { devUrl });
 
 export const updateContract = (params?: ContractParams) =>
   defHttp.post<ContractListGetResultModel>({ url: Api.UpdateContract, params }, { devUrl });

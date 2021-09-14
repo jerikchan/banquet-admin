@@ -58,12 +58,12 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '意向时间',
-    dataIndex: 'purposeTime',
-    width: 120,
+    dataIndex: 'banquetTime',
+    width: 200,
   },
   {
-    title: '台数',
-    dataIndex: 'deskNo',
+    title: '桌数',
+    dataIndex: 'floorsDeskCount',
     width: 120,
   },
   {
@@ -151,11 +151,11 @@ export const customerFormSchema: FormSchema[] = [
     component: 'Input',
     required: true,
   },
-  {
-    label: '是否进店',
-    field: 'isIn',
-    component: 'Switch',
-  },
+  // {
+  //   label: '是否进店',
+  //   field: 'isIn',
+  //   component: 'Switch',
+  // },
   {
     field: 'inDate',
     label: '进店日期',
@@ -199,7 +199,7 @@ export const customerFormSchema: FormSchema[] = [
   },
   {
     field: 'createTime',
-    label: '录入日期',
+    label: '获客时间',
     component: 'DatePicker',
     componentProps: {
       showTime: true,
@@ -280,12 +280,33 @@ export const customerTypeFormSchema: FormSchema[] = [
   },
   {
     field: 'canBie',
-    label: '餐别',
+    label: '宴会档期',
     component: 'ApiSelect',
     componentProps: {
       api: getScheduleTypeList,
       labelField: 'label',
       valueField: 'value',
+    },
+    required: false,
+  },
+  {
+    field: 'banquetTime',
+    label: '意向日期',
+    component: 'DatePicker',
+  },
+  {
+    field: 'floorsDeskCount',
+    label: '意向桌数',
+    component: 'InputNumber',
+  },
+  {
+    label: '餐标',
+    field: 'canBiao',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getMealTypeList,
+      labelField: 'label',
+      valueField: 'code',
     },
     required: false,
   },

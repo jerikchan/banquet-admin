@@ -28,7 +28,7 @@ const beo: AppRouteModule = {
       path: 'order',
       name: 'OrderList',
       meta: {
-        title: 'BEO单',
+        title: '执行BEO单',
       },
       component: () => import('/@/views/admin/beo/order/index.vue'),
     },
@@ -36,7 +36,7 @@ const beo: AppRouteModule = {
       path: 'finish',
       name: 'FinishOrderList',
       meta: {
-        title: '已完成BEO单',
+        title: '完结BEO单',
       },
       component: () => import('/@/views/admin/beo/finish/index.vue'),
     },

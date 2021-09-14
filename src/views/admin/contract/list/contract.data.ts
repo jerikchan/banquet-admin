@@ -30,6 +30,11 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
+    title: '当前销售',
+    dataIndex: 'salesManName',
+    width: 120,
+  },
+  {
     title: '餐别',
     dataIndex: 'scheduleTypeStr',
     width: 180,
@@ -53,11 +58,6 @@ export const columns: BasicColumn[] = [
     title: '单桌价格',
     dataIndex: 'singlePrice',
     width: 90,
-  },
-  {
-    title: '提醒收款时间',
-    dataIndex: 'notificationTime',
-    width: 180,
   },
   {
     title: '额外价格',
@@ -184,15 +184,6 @@ export const contractFormSchema: FormSchema[] = [
   //   label: '电话',
   //   component: 'Input',
   // },
-  {
-    field: 'notificationTime',
-    label: '提醒收款时间',
-    component: 'DatePicker',
-    componentProps: {
-      showTime: true,
-    },
-    required: true,
-  },
   {
     field: 'banquetTime',
     label: '宴会日期',
@@ -344,6 +335,24 @@ export const contractFormSchema: FormSchema[] = [
   //   required: true,
   // },
   {
+    field: 'notificationTime',
+    label: '提醒中款时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+    },
+    required: false,
+  },
+  {
+    field: 'notificationFinalTime',
+    label: '提醒尾款时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+    },
+    required: false,
+  },
+  {
     field: 'file',
     label: '合同照片',
     component: 'Input',
@@ -402,12 +411,24 @@ export const agreemetnDetailSchema: DescItem[] = [
     label: '优惠后总价',
   },
   {
+    field: 'extraPrice',
+    label: '额外费用',
+  },
+  {
     field: 'floorsDeskCount',
     label: '保底桌数',
   },
   {
     field: 'backupDesk',
     label: '备用桌数',
+  },
+  {
+    label: '提醒中款时间',
+    field: 'notificationTime',
+  },
+  {
+    label: '提醒尾款时间',
+    field: 'notificationFinalTime',
   },
   {
     field: 'file',
@@ -442,4 +463,18 @@ export const managerAllocationSchema: FormSchema[] = [
   //   label: '备注',
   //   component: 'InputTextArea',
   // },
+];
+
+export const customerReloadFormSchema: FormSchema[] = [
+  {
+    field: 'salesId',
+    label: '销售',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getSalesList,
+      labelField: 'realName',
+      valueField: 'id',
+    },
+    required: true,
+  },
 ];

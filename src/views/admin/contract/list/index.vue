@@ -18,7 +18,7 @@
                 record.beoStatus === '5' ||
                 record.managerId ||
                 record.finishStatus === '5',
-              auth: [RoleEnum.SUPER, SALES_OFFICER],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
           ]"
           :dropDownActions="[
@@ -30,17 +30,27 @@
                 record.beoStatus === '5' ||
                 record.managerId ||
                 record.finishStatus === '5',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
             {
-              label: '撤销分配',
+              label: '撤销管家',
               onClick: handleCnacelManager.bind(null, record),
               disabled:
                 record.status === '1' ||
                 record.beoStatus === '5' ||
                 !record.managerId ||
                 record.finishStatus === '5',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
+            },
+            {
+              label: '重新分配销售',
+              onClick: handleReloadSales.bind(null, record),
+              disabled:
+                record.status === '1' ||
+                record.beoStatus === '5' ||
+                !record.managerId ||
+                record.finishStatus === '5',
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
             {
               label: '下BEO单',
@@ -48,19 +58,11 @@
                 record.status === '1' ||
                 record.status === '3' ||
                 record.finishStatus === '5' ||
-                record.managerId === null,
+                record.managerId === null ||
+                record.midStatus === '0' ||
+                record.hasExcuteBeo === '1',
               onClick: handleOrder.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
-            },
-            {
-              label: '下完成BEO单',
-              disabled:
-                record.status === '1' ||
-                record.status === '3' ||
-                record.finishStatus === '5' ||
-                record.managerId === null,
-              onClick: handleFinishOrder.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES, RoleEnum.SALES_OFFICER],
             },
           ]"
         />
@@ -69,13 +71,19 @@
     <!-- <OrderModal @register="registerOrderModal" @success="handleSuccess" /> -->
     <ContractModal @register="registerContractModal" @success="handleContractSuccess" />
     <ContractAllocationManagerModal @register="registerManagerModal" @success="handleSuccess" />
+    <ContractReloadSalesModal @register="registerReloadModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getContractList, deleteContract, cancelAllocationManager } from '/@/api/admin/contract';
+  import {
+    getContractList,
+    deleteContract,
+    cancelAllocationManager,
+    // reloadAgreementSales,
+  } from '/@/api/admin/contract';
   import ContractModal from './ContractModal.vue';
   import { useModal } from '/@/components/Modal';
 
@@ -89,6 +97,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
 
   import ContractAllocationManagerModal from './ContractAllocationManagerModal.vue';
+  import ContractReloadSalesModal from './ContractReloadSalesModal.vue';
 
   export default defineComponent({
     name: 'ContractManagement',
@@ -98,6 +107,7 @@
       TableAction,
       ContractModal,
       ContractAllocationManagerModal,
+      ContractReloadSalesModal,
     },
     setup() {
       const [registerContractModal, { openModal: openContractModal }] = useModal();
@@ -126,6 +136,7 @@
       const { createMessage } = useMessage();
 
       const [registerManagerModal, { openModal: openManagerModal }] = useModal();
+      const [registerReloadModal, { openModal: openReloadModal }] = useModal();
 
       // const [registerOrderModal, { openModal }] = useModal();
 
@@ -179,6 +190,13 @@
         handleSuccess();
       }
 
+      async function handleReloadSales(record: Recordable) {
+        openReloadModal(true, {
+          isUpdate: false,
+          record,
+        });
+      }
+
       return {
         registerTable,
         handleSuccess,
@@ -194,6 +212,8 @@
         handleManager,
         registerManagerModal,
         handleCnacelManager,
+        handleReloadSales,
+        registerReloadModal,
       };
     },
   });

@@ -51,6 +51,12 @@
             required: !unref(isUpdate),
           },
         ]);
+
+        if (unref(toType) === '2') {
+          setFieldsValue({
+            ...data.record,
+          });
+        }
       });
 
       const getTitle = computed(() =>
@@ -80,6 +86,9 @@
               banquetType: values.banquetType,
               canBie: values.canBie,
               isFirst: values.isFirst,
+              banquetTime: values.banquetTime,
+              canBiao: values.canBiao,
+              floorsDeskCount: values.floorsDeskCount,
               type: unref(toType),
             });
           } else {

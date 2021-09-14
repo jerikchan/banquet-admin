@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper title="BEO单的详细信息" contentBackground @back="goBack">
+  <PageWrapper title="执行beo单详情" contentBackground @back="goBack">
     <!-- <Description size="middle" title="BEO单" :column="3" :data="desData" :schema="schema" />
     <template v-for="task in desData.taskList || []" :key="task.id">
       <Description

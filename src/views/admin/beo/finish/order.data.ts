@@ -658,4 +658,8 @@ export const receivableInfoFormSchema: DescItem[] = [
     label: '餐费',
     field: 'mealMoney',
   },
+  {
+    label: '额外费用',
+    field: 'extraMoney',
+  },
 ];

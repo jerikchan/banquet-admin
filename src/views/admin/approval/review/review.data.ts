@@ -116,6 +116,10 @@ export const customerInfoSchema: DescItem[] = [
     label: '意向宴会时间',
   },
   {
+    field: 'customerTypeStr',
+    label: '客户类型',
+  },
+  {
     field: 'canBiao',
     label: '餐标',
   },
@@ -190,6 +194,10 @@ export const agreementInfoSchema: DescItem[] = [
     label: '宴会类型',
   },
   {
+    field: 'scheduleTypeStr',
+    label: '档期类型',
+  },
+  {
     field: 'singlePrice',
     label: '单桌价格',
   },
@@ -204,6 +212,10 @@ export const agreementInfoSchema: DescItem[] = [
   {
     field: 'afterDiscountTotal',
     label: '优惠后总价',
+  },
+  {
+    field: 'extraPrice',
+    label: '额外费用',
   },
   {
     field: 'floorsDeskCount',
@@ -294,6 +306,10 @@ export const returnCollectionFormSchema: DescItem[] = [
     field: 'returnMoney',
   },
   {
+    label: '款项类型',
+    field: 'returnType',
+  },
+  {
     label: '回款人',
     field: 'returnMan',
   },
@@ -347,6 +363,10 @@ export const receivableInfoFormSchema: DescItem[] = [
   {
     label: '餐费',
     field: 'mealMoney',
+  },
+  {
+    label: '额外费用',
+    field: 'extraMoney',
   },
 ];
 

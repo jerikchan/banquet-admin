@@ -18,12 +18,14 @@
               icon: 'clarity:note-edit-line',
               tooltip: '编辑',
               onClick: handleEdit.bind(null, record),
-              disabled: record.status === '1' || record.beoStatus === '99',
+              disabled:
+                record.status === '1' || record.beoStatus === '99' || record.beoStatus === '5',
               auth: [
                 RoleEnum.SUPER,
                 RoleEnum.SALES,
                 RoleEnum.HOUSEKEEPER_MANAGER,
                 RoleEnum.HOUSEKEEPER,
+                RoleEnum.SALES_OFFICER,
               ],
             },
             {
@@ -31,6 +33,7 @@
               color: 'error',
               tooltip: '删除此BEO单',
               disabled: record.status === '1' || record.beoStatus === '99',
+              ifShow: false,
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -40,7 +43,7 @@
           ]"
           :dropDownActions="[
             {
-              label: '发起补充流程',
+              label: '发起审核流程',
               disabled:
                 record.status === '1' || record.beoStatus === '5' || record.beoStatus === '99',
               popConfirm: {
@@ -49,16 +52,20 @@
               },
               auth: [
                 RoleEnum.SUPER,
-                RoleEnum.SALES,
                 RoleEnum.HOUSEKEEPER_MANAGER,
                 RoleEnum.HOUSEKEEPER,
+                RoleEnum.SALES_OFFICER,
               ],
             },
             {
               label: '下完结BEO单',
               onClick: handleFinisnBeo.bind(null, record),
-              disabled: record.status === '1' || record.beoStatus === '99',
-              auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
+              disabled:
+                record.status === '1' ||
+                record.beoStatus === '99' ||
+                record.beoFinalStatus === '0' ||
+                record.hasFinishBeo === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
           ]"
         />

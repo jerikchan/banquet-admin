@@ -24,13 +24,15 @@
             {
               icon: 'clarity:info-standard-line',
               tooltip: '查看应收款详情',
+              ifShow: false,
               onClick: handleView.bind(null, record),
             },
           ]"
           :dropDownActions="[
             {
               label: '发起回款',
-              ifShow: !record.returnTime,
+              ifShow: record.dataType !== '回款',
+              disabled: record.isFinish === '1',
               onClick: handleAccept.bind(null, record),
             },
           ]"

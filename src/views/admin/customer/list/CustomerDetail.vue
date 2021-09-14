@@ -48,7 +48,7 @@
       field: 'purposeTime',
     },
     {
-      label: '台数',
+      label: '桌数',
       field: 'deskNo',
     },
     {
@@ -64,13 +64,17 @@
       field: 'secondManMobile',
     },
     {
+      label: '餐标',
+      field: 'canBiao',
+    },
+    {
       label: '流失去向',
-      field: 'cancelDirectionStr',
+      field: 'cancelDirection',
       show: (data) => data.customerType === '3',
     },
     {
       label: '流失原因',
-      field: 'cancelReasonStr',
+      field: 'cancelReason',
       show: (data) => data.customerType === '3',
     },
     {

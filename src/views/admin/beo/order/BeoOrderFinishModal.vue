@@ -23,6 +23,9 @@
     <a-card title="财务信息" :bordered="true">
       <BasicForm @register="registerBeoFinance" />
     </a-card>
+    <a-card title="财务部备注" :bordered="true">
+      <BasicForm @register="registerFinanceRemark" />
+    </a-card>
     <a-card title="菜品信息" :bordered="true">
       <BasicForm @register="registerFoodsForm">
         <!-- <template #add="{ field }">
@@ -50,9 +53,6 @@
     </CollapseContainer>
     <CollapseContainer title="工程安保部备注(ENG)">
       <BasicForm @register="registerProjectSafety" />
-    </CollapseContainer>
-    <CollapseContainer title="财务部备注">
-      <BasicForm @register="registerFinanceRemark" />
     </CollapseContainer>
     <!-- <CollapseContainer title="管家部BEO内容">
       <BasicForm @register="registerTaskManager" />
@@ -469,6 +469,7 @@
           // setFieldsValueSchedule(fileInfoRecord);
           let submitValues = {},
             tasks = [];
+          debugger;
           Object.assign(submitValues, getBasciValues());
           Object.assign(submitValues, getScheduleValues());
           Object.assign(submitValues, getFieldFinanceValue());

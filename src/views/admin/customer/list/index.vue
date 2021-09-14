@@ -27,7 +27,8 @@
             {
               icon: 'clarity:note-edit-line',
               tooltip: '编辑客户资料',
-              disabled: record.status === '1',
+              disabled:
+                record.status === '1' || record.customerType === '3' || record.customerType === '6',
               onClick: handleEdit.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER, RoleEnum.SALES],
             },
@@ -36,6 +37,7 @@
               color: 'error',
               tooltip: '删除此客户',
               disabled: record.status === '1',
+              ifShow: false,
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -47,7 +49,8 @@
             {
               label: '新增记录',
               onClick: handleCommentAdd.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.BOOKER, RoleEnum.SALES],
+              disabled: record.salesManagerId === null || record.customerType === '3',
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '分配跟进',
@@ -59,7 +62,11 @@
             {
               label: '撤销分配',
               onClick: handleUnallocation.bind(null, record),
-              ifShow: !!record.salesManagerId,
+              ifShow:
+                !!record.salesManagerId &&
+                (record.customerType === '1' ||
+                  !record.customerType === '2' ||
+                  !record.customerType === '5'),
               disabled:
                 record.status === '1' || record.customerType === '3' || record.customerType === '5',
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
@@ -85,7 +92,7 @@
                 !!record.salesManagerId,
               onClick: handleTypeUpdateCancel.bind(null, record, '3'),
               disabled: record.status === '1',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+              auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
             },
             {
               label: '转为无效',
