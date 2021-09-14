@@ -42,6 +42,18 @@ const customer: AppRouteModule = {
       component: () => import('/@/views/admin/customer/list/CustomerDetail.vue'),
     },
     {
+      path: 'comment_detail/:id',
+      name: 'CommentDetailModal',
+      meta: {
+        title: '跟进记录详情',
+        hideMenu: true,
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/customer/list',
+      },
+      component: () => import('/@/views/admin/customer/list/CustomerChatRecordDetail.vue'),
+    },
+    {
       path: 'channel',
       name: 'ChannelManagement',
       meta: {

@@ -8,6 +8,7 @@ import { FormSchema } from '/@/components/Table';
 import { getSalesList } from '/@/api/admin/system';
 import { getChannelList } from '/@/api/admin/customer';
 import { getCommentTypeList } from '/@/api/admin/customer';
+import { DescItem } from '/@/components/Description/index';
 import {
   getMealTypeList,
   getBanquetTypeList,
@@ -368,5 +369,28 @@ export const InvalidReasonFormSchema: FormSchema[] = [
     label: '无效原因',
     component: 'InputTextArea',
     required: true,
+  },
+];
+
+export const customerChatRecordInfoDetailSchema: DescItem[] = [
+  {
+    field: 'chatPersonName',
+    label: '客户名',
+  },
+  {
+    field: 'chatRealTime',
+    label: '跟进时间',
+  },
+  {
+    field: 'preNextChatTime',
+    label: '预计下次跟进时间',
+  },
+  {
+    field: 'chatTypeStr',
+    label: '跟进方式',
+  },
+  {
+    field: 'content',
+    label: '沟通内容',
   },
 ];

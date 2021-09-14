@@ -11,7 +11,13 @@
       />
     </template> -->
     <template #extra>
-      <a-button type="primary" @click="handleExport"> 导出 </a-button>
+      <a-button
+        type="primary"
+        @click="handleExport"
+        v-if="desData.beoStatus === '5' || desData.beoStatus === '99'"
+      >
+        导出
+      </a-button>
     </template>
     <Description
       title="BEO基本信息"
@@ -77,8 +83,6 @@
   import { BasicTable, useTable } from '/@/components/Table';
   import { getReceivablesInfo } from '/@/api/admin/finance';
   import { useGlobSetting } from '/@/hooks/setting';
-
-  const desData: Recordable = reactive({});
 
   const schema: DescItem[] = [
     {
@@ -160,6 +164,8 @@
       const { devUrl } = useGlobSetting();
 
       const beoBasicInfoData = reactive({});
+
+      const desData: Recordable = reactive({});
 
       const roomScheduleDetailInfoData = reactive({});
 

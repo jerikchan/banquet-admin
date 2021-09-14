@@ -1,14 +1,26 @@
 <template>
   <PageWrapper title="客户详情" contentBackground @back="goBack">
     <Description size="middle" :column="3" title="客户详情" :data="desData" :schema="schema" />
-    <BasicTable @register="registerCommentTable" @success="handleSuccess" />
+    <BasicTable @register="registerCommentTable" @success="handleSuccess">
+      <template #action="{ record }">
+        <TableAction
+          :actions="[
+            {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              onClick: handleCommentDetail.bind(null, record),
+            },
+          ]"
+        />
+      </template>
+    </BasicTable>
   </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref, reactive } from 'vue';
   import { Description, DescItem } from '/@/components/Description/index';
   import { PageWrapper } from '/@/components/Page';
-  import { BasicTable, useTable } from '/@/components/Table';
+  import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useRoute } from 'vue-router';
   import { useGo } from '/@/hooks/web/usePage';
   import { Divider, Card, Descriptions, Steps } from 'ant-design-vue';
@@ -90,6 +102,7 @@
       BasicTable,
       Description,
       PageWrapper,
+      TableAction,
       [Descriptions.name]: Descriptions,
       [Descriptions.Item.name]: Descriptions.Item,
       [Steps.name]: Steps,
@@ -132,7 +145,18 @@
         api: getCommentList.bind(null, { customerId: idRef.value }),
         showIndexColumn: false,
         scroll: { y: 300 },
+        actionColumn: {
+          width: 200,
+          title: '操作',
+          dataIndex: 'action',
+          slots: { customRender: 'action' },
+        },
       });
+
+      function handleCommentDetail(record: Recordable) {
+        console.log(record);
+        go('/customer/comment_detail/' + record.id);
+      }
 
       return {
         schema,
@@ -144,6 +168,7 @@
         desData,
         registerCommentTable,
         handleSuccess,
+        handleCommentDetail,
       };
     },
   });

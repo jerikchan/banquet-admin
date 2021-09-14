@@ -21,11 +21,12 @@
   <BacklogAcceptModal @register="registerAcceptModal" @success="handleSuccess" />
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, reactive } from 'vue';
   import { groupItems } from './data';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   // import { getReviewList } from '/@/api/admin/approval';
   import { getBacklogs, updateBackLogStatus } from '/@/api/admin/system';
+  import { getBacklogNum } from '/@/api/admin/analysis';
   import { backlogColumns } from './data';
   import { Card } from 'ant-design-vue';
   // import { useGo } from '/@/hooks/web/usePage';
@@ -52,6 +53,7 @@
       // const go = useGo();
       const { createMessage } = useMessage();
       const go = useGo();
+      const cardData = reactive({});
       const [registerModal, { openModal }] = useModal();
       const [registerAcceptModal, { openModal: openAcceptModal }] = useModal();
       const [registerTable, { reload }] = useTable({
@@ -104,7 +106,16 @@
         console.log(record);
       }
 
-      function handleSuccess() {}
+      function handleSuccess() {
+        // reload();
+        reload();
+        const tempData = getBacklogNum();
+        Object.assign(cardData, tempData);
+        // go('/dashboard/workbench');
+        // ref()
+        // debugger;
+        // ref(WorkbenchHeader)['countBacklogNum']();
+      }
 
       return {
         items: groupItems,
@@ -116,6 +127,7 @@
         registerModal,
         registerAcceptModal,
         handleSuccess,
+        cardData,
       };
     },
   });

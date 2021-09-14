@@ -35,6 +35,7 @@ const finance: AppRouteModule = {
       name: 'AcceptList',
       meta: {
         title: '回款列表',
+        hideMenu: true,
       },
       component: () => import('/@/views/admin/finance/accept/index.vue'),
     },

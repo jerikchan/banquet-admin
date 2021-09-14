@@ -1,6 +1,6 @@
 <template>
   <PageWrapper>
-    <template #headerContent> <WorkbenchHeader /> </template>
+    <template #headerContent> <WorkbenchHeader ref="workBeanch" /> </template>
     <div class="lg:flex">
       <div class="lg:w-7/10 w-full !mr-4 enter-y">
         <ProjectCard :loading="loading" class="enter-y" />
@@ -50,6 +50,11 @@
       setTimeout(() => {
         loading.value = false;
       }, 1500);
+
+      setInterval(() => {
+        // BacklogCard.countBacklogNum();
+        // this.$refs['workBeanch'].countBacklogNum();
+      }, 5000);
 
       return {
         loading,

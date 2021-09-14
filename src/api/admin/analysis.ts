@@ -43,6 +43,8 @@ enum Api {
   GetChannelYearAnalysis = '/analysis/channelYear',
   GetDealYearAnalysis = '/analysis/dealYear',
   GetInviteYearAnalysis = '/analysis/inviteYear',
+
+  GetBacklogNum = '/backlog/findBacklogNum',
 }
 
 export const getChannelAnalysis = (params?: any) =>
@@ -58,6 +60,15 @@ export const getPrefCard = (params?: any) =>
   defHttp.get(
     {
       url: Api.GetPrefCard,
+      params,
+    },
+    { devUrl }
+  );
+
+export const getBacklogNum = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetBacklogNum,
       params,
     },
     { devUrl }

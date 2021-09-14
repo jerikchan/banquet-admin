@@ -62,6 +62,9 @@
       async function handleSubmit() {
         try {
           const values = await validate();
+          if (!values.isChild) {
+            values.isChild = 0;
+          }
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (isUpdate.value) {
