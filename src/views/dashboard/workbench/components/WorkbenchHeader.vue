@@ -17,35 +17,30 @@
       </div> -->
       <div class="flex flex-col justify-center mr-4 text-right md:mr-10">
         <span class="text-secondary"> 待办事项 </span>
-        <span class="text-2xl">{{ backlogInfo.num }}</span>
+        <span class="text-2xl">{{ backlogStore.total }}</span>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, reactive } from 'vue';
+  import { computed, defineComponent } from 'vue';
 
   import { Avatar } from 'ant-design-vue';
   import { useUserStore } from '/@/store/modules/user';
 
   import headerImg from '/@/assets/images/header.jpg';
 
-  import { getBacklogNum } from '/@/api/admin/analysis';
+  import { useBacklogCard } from './useBacklogCard';
 
   export default defineComponent({
     components: { Avatar },
     setup() {
       const userStore = useUserStore();
-      const backlogInfo = reactive({});
+      const [backlogStore] = useBacklogCard();
+
       const userinfo = computed(() => userStore.getUserInfo);
 
-      async function countBacklogNum() {
-        const backLogNum = await getBacklogNum();
-        Object.assign(backlogInfo, backLogNum);
-      }
-
-      countBacklogNum();
-      return { userinfo, headerImg, countBacklogNum, backlogInfo };
+      return { userinfo, headerImg, backlogStore };
     },
   });
 </script>

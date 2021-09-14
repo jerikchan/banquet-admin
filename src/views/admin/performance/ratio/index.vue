@@ -16,7 +16,12 @@
                 :key="item.content"
               >
                 <!-- <a-badge :status="item.type" :text="item.content" /> -->
-                <div class="mr-1 truncate" :title="item.modifyName">{{ item.modifyName }}</div>
+                <a-tag
+                  class="w-50 truncate !bg-gray-50"
+                  :title="item.modifyName"
+                  :color="getColors(item.banquetType)"
+                  >{{ item.modifyName }}</a-tag
+                >
                 <a-tag v-if="item.ratio" color="#108ee9">{{ item.ratio }}</a-tag>
               </li>
             </ul>
@@ -35,6 +40,7 @@
   import { useModal } from '/@/components/Modal';
   import RatioModal from './RatioModal.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
+  const COLOR_LIST = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple'];
 
   export default defineComponent({
     components: { PageWrapper, RatioModal },
@@ -45,6 +51,10 @@
       const loading = ref(false);
       const canlendarData = ref<any>([]);
       const [registerModal, { openModal }] = useModal();
+
+      const getColors = (i) => {
+        return COLOR_LIST[i % COLOR_LIST.length];
+      };
 
       const _getCalendarData = async () => {
         try {
@@ -90,6 +100,7 @@
         registerModal,
         RoleEnum,
         handleSuccess,
+        getColors,
       };
     },
   });

@@ -16,7 +16,12 @@
             <ul class="events">
               <li class="flex mt-1" v-for="item in getListData(value)" :key="item.content">
                 <!-- <a-badge :status="item.type" :text="item.content" /> -->
-                <div class="w-50">{{ item.scheduleTypeStr }}</div>
+                <a-tag
+                  class="w-50 truncate !bg-gray-50"
+                  :title="item.banquetType"
+                  :color="getColors(item.banquetType)"
+                  >{{ item.scheduleTypeStr }}</a-tag
+                >
                 <a-tag v-if="item.banquetType" color="#108ee9">{{ item.banquetType }}</a-tag>
               </li>
             </ul>
@@ -32,6 +37,8 @@
   import { PageWrapper } from '/@/components/Page';
   import { getRoomList, getBanquetList } from '/@/api/admin/banquet';
 
+  const COLOR_LIST = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple'];
+
   export default defineComponent({
     components: { PageWrapper },
     setup() {
@@ -40,6 +47,10 @@
       const roomValue = ref<string>('');
       const loading = ref(true);
       const banquetOptions = ref<any>([]);
+
+      const getColors = (i) => {
+        return COLOR_LIST[i % COLOR_LIST.length];
+      };
 
       const _getRoomList = async () => {
         // debugger;
@@ -83,6 +94,7 @@
         roomOptions,
         roomValue,
         loading,
+        getColors,
       };
     },
   });

@@ -21,12 +21,11 @@
   <BacklogAcceptModal @register="registerAcceptModal" @success="handleSuccess" />
 </template>
 <script lang="ts">
-  import { defineComponent, reactive } from 'vue';
+  import { defineComponent } from 'vue';
   import { groupItems } from './data';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   // import { getReviewList } from '/@/api/admin/approval';
-  import { getBacklogs, updateBackLogStatus } from '/@/api/admin/system';
-  import { getBacklogNum } from '/@/api/admin/analysis';
+  import { updateBackLogStatus } from '/@/api/admin/system';
   import { backlogColumns } from './data';
   import { Card } from 'ant-design-vue';
   // import { useGo } from '/@/hooks/web/usePage';
@@ -41,6 +40,8 @@
 
   import BacklogAcceptModal from './BacklogAcceptModal.vue';
 
+  import { useBacklogCard } from './useBacklogCard';
+
   export default defineComponent({
     components: {
       Card,
@@ -53,7 +54,8 @@
       // const go = useGo();
       const { createMessage } = useMessage();
       const go = useGo();
-      const cardData = reactive({});
+      // const cardData = reactive({});
+      const [, { getBacklogs, reload: reloadBacklogCard }] = useBacklogCard();
       const [registerModal, { openModal }] = useModal();
       const [registerAcceptModal, { openModal: openAcceptModal }] = useModal();
       const [registerTable, { reload }] = useTable({
@@ -107,10 +109,10 @@
       }
 
       function handleSuccess() {
-        // reload();
         reload();
-        const tempData = getBacklogNum();
-        Object.assign(cardData, tempData);
+        reloadBacklogCard();
+        // const tempData = getBacklogNum();
+        // Object.assign(cardData, tempData);
         // go('/dashboard/workbench');
         // ref()
         // debugger;
@@ -127,7 +129,7 @@
         registerModal,
         registerAcceptModal,
         handleSuccess,
-        cardData,
+        // cardData,
       };
     },
   });
