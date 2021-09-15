@@ -1,7 +1,7 @@
 <template>
   <PageWrapper>
     <template #headerContent> <WorkbenchHeader ref="workBeanch" /> </template>
-    <Authority :value="[RoleEnum.SUPER, RoleEnum.SALES]">
+    <Authority :value="[RoleEnum.SALES]">
       <div class="!my-4 md:flex enter-y">
         <PerfCard class="w-full md:w-1/3 !md:mr-4" />
         <SalesCard class="w-full md:w-2/3 !md:mr-4 !md:mt-0 !mt-4" />
