@@ -11,7 +11,7 @@
   </Card>
 </template>
 <script lang="ts">
-  import { defineComponent, Ref, ref } from 'vue';
+  import { defineComponent, Ref, ref, watch } from 'vue';
 
   import { Card, Tag } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
@@ -107,6 +107,13 @@
         };
         setOptions(options);
       }
+
+      watch(
+        () => props.dateValue,
+        () => {
+          getData();
+        }
+      );
 
       getData();
 

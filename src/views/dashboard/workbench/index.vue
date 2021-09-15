@@ -57,7 +57,8 @@
   import BacklogCard from './components/BacklogCard.vue';
   import EncourageModal from './components/EncourageModal.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
-  import PerfCard from '/@/views/dashboard/analysis/components/PerfCard.vue';
+  // import PerfCard from '/@/views/dashboard/analysis/components/PerfCard.vue';
+  import PerfCard from './components/PerfSalesCard.vue';
   import SalesCard from '/@/views/dashboard/analysis/components/SalesCard.vue';
 
   export default defineComponent({

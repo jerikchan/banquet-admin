@@ -45,12 +45,22 @@ enum Api {
   GetInviteYearAnalysis = '/analysis/inviteYear',
 
   GetBacklogNum = '/backlog/findBacklogNum',
+  GetSingleSalesSignMoney = '/analysis/singleSignMoney',
 }
 
 export const getChannelAnalysis = (params?: any) =>
   defHttp.get(
     {
       url: Api.GetChannelAnalysis,
+      params,
+    },
+    { devUrl }
+  );
+
+export const getSingleSalesSignMoney = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetSingleSalesSignMoney,
       params,
     },
     { devUrl }
