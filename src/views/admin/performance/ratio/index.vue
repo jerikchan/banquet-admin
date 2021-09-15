@@ -17,13 +17,13 @@
           <template #dateCellRender="{ current: value }">
             <ul class="events">
               <li
-                class="flex mt-1 flex-nowrap"
+                class="flex justify-between mt-1"
                 v-for="item in getListData(value)"
                 :key="item.content"
               >
                 <!-- <a-badge :status="item.type" :text="item.content" /> -->
                 <a-tag
-                  class="w-50 truncate !bg-gray-50"
+                  class="truncate"
                   :title="item.modifyName"
                   :color="getColors(item.scheduleType)"
                   >{{ item.modifyName }}</a-tag
