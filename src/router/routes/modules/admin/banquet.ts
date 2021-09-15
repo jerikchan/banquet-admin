@@ -54,6 +54,7 @@ const banquet: AppRouteModule = {
       name: 'RoomList',
       meta: {
         title: '厅房列表',
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES_MANAGER],
       },
       component: () => import('/@/views/admin/banquet/room/index.vue'),
     },

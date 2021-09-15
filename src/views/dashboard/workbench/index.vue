@@ -3,8 +3,27 @@
     <template #headerContent> <WorkbenchHeader ref="workBeanch" /> </template>
     <div class="lg:flex">
       <div class="lg:w-7/10 w-full !mr-4 enter-y">
-        <ProjectCard :loading="loading" class="enter-y" />
-        <BacklogCard :loading="loading" class="!my-4 enter-y" />
+        <Authority
+          :value="[
+            RoleEnum.SUPER,
+            RoleEnum.SALES_OFFICER,
+            RoleEnum.SALES_MANAGER,
+            RoleEnum.MANAGER,
+          ]"
+        >
+          <ProjectCard :loading="loading" class="enter-y" />
+        </Authority>
+        <Authority
+          :value="[
+            RoleEnum.SUPER,
+            RoleEnum.MANAGER,
+            RoleEnum.HOUSEKEEPER,
+            RoleEnum.SALES,
+            RoleEnum.HOUSEKEEPER_MANAGER,
+          ]"
+        >
+          <BacklogCard :loading="loading" class="!my-4 enter-y" />
+        </Authority>
       </div>
       <div class="w-full lg:w-3/10 enter-y">
         <EncourageModal :loading="loading" class="enter-y" />
@@ -31,6 +50,7 @@
   // import SaleRadar from './components/SaleRadar.vue';
   import BacklogCard from './components/BacklogCard.vue';
   import EncourageModal from './components/EncourageModal.vue';
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   export default defineComponent({
     components: {
@@ -51,13 +71,14 @@
         loading.value = false;
       }, 1500);
 
-      setInterval(() => {
-        // BacklogCard.countBacklogNum();
-        // this.$refs['workBeanch'].countBacklogNum();
-      }, 5000);
+      // setInterval(() => {
+      //   // BacklogCard.countBacklogNum();
+      //   // this.$refs['workBeanch'].countBacklogNum();
+      // }, 5000);
 
       return {
         loading,
+        RoleEnum,
       };
     },
   });

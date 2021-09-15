@@ -8,6 +8,7 @@
               icon: 'clarity:note-edit-line',
               tooltip: '编辑',
               onClick: handleEdit.bind(null, record),
+              disabled: record.finishStatus === '5',
               auth: [RoleEnum.SUPER, RoleEnum.HOUSEKEEPER_MANAGER],
               ifShow: !record.children,
             },

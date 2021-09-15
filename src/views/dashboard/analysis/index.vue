@@ -7,7 +7,13 @@
     </div>
 
     <Authority
-      :value="[RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER, RoleEnum.MANAGER]"
+      :value="[
+        RoleEnum.SUPER,
+        RoleEnum.SALES_OFFICER,
+        RoleEnum.SALES_MANAGER,
+        RoleEnum.MANAGER,
+        RoleEnum.BOOKER,
+      ]"
     >
       <div class="!my-4 md:flex enter-y">
         <ApiPieAnalysis :api="getChannelAnalysis" title="各渠道获客数量" class="w-full md:w-1/2" />

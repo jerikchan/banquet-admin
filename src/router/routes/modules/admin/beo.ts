@@ -29,6 +29,15 @@ const beo: AppRouteModule = {
       name: 'OrderList',
       meta: {
         title: '执行BEO单',
+        roles: [
+          RoleEnum.SUPER,
+          RoleEnum.MANAGER,
+          RoleEnum.SALES,
+          RoleEnum.SALES_MANAGER,
+          RoleEnum.HOUSEKEEPER_MANAGER,
+          RoleEnum.FINANCE_MANAGER,
+          RoleEnum.STAFF,
+        ],
       },
       component: () => import('/@/views/admin/beo/order/index.vue'),
     },
@@ -37,6 +46,15 @@ const beo: AppRouteModule = {
       name: 'FinishOrderList',
       meta: {
         title: '完结BEO单',
+        roles: [
+          RoleEnum.SUPER,
+          RoleEnum.MANAGER,
+          RoleEnum.SALES,
+          RoleEnum.SALES_MANAGER,
+          RoleEnum.HOUSEKEEPER_MANAGER,
+          RoleEnum.FINANCE_MANAGER,
+          RoleEnum.STAFF,
+        ],
       },
       component: () => import('/@/views/admin/beo/finish/index.vue'),
     },

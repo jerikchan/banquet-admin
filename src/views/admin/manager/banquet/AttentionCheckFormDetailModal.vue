@@ -23,7 +23,7 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, reactive, h } from 'vue';
+  import { defineComponent, ref, reactive } from 'vue';
   import { Description, DescItem, useDescription } from '/@/components/Description/index';
   import { PageWrapper } from '/@/components/Page';
   import { useRoute } from 'vue-router';
@@ -34,7 +34,7 @@
   import { BasicUpload } from '/@/components/Upload';
 
   import { useGlobSetting } from '/@/hooks/setting';
-  import { Upload } from 'ant-design-vue';
+  // import { Upload } from 'ant-design-vue';
 
   const mockData: Recordable = reactive({});
 
@@ -51,226 +51,226 @@
       field: 'siYiCaiPaiTime',
       label: '司仪彩排时间',
     },
-    {
-      field: 'siYiCaiPaiTimeId',
-      label: '司仪彩排时间凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'siYiCaiPaiTimeId',
+    //   label: '司仪彩排时间凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'siYiDaoDaTime',
       label: '司仪到达现场的时间',
     },
-    {
-      field: 'siYiDaoDaTimeId',
-      label: '司仪到达现场的时间凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'siYiDaoDaTimeId',
+    //   label: '司仪到达现场的时间凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'huaZhuangShiTime',
       label: '化妆师到达家里时间',
     },
-    {
-      field: 'huaZhuangShiTimeId',
-      label: '化妆师到达家里时间凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'huaZhuangShiTimeId',
+    //   label: '化妆师到达家里时间凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'sheYingShiTime',
       label: '摄影师到达家里时间',
     },
-    {
-      field: 'sheYingShiTimeId',
-      label: '摄影师到达家里时间凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'sheYingShiTimeId',
+    //   label: '摄影师到达家里时间凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'sheXiangShiTime',
       label: '摄像师到达家里时间',
     },
-    {
-      field: 'sheXiangShiTimeId',
-      label: '摄像师到达家里时间凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'sheXiangShiTimeId',
+    //   label: '摄像师到达家里时间凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'xinRenDiZhi',
       label: '新人地址确认',
     },
-    {
-      field: 'xinRenDiZhiId',
-      label: '新人地址确认凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'xinRenDiZhiId',
+    //   label: '新人地址确认凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'hunCheTime',
       label: '婚车到达时间',
     },
-    {
-      field: 'hunCheTimeId',
-      label: '婚车到达时间凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'hunCheTimeId',
+    //   label: '婚车到达时间凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'xiWeiContent',
       label: '席位图制作情况',
     },
-    {
-      field: 'xiWeiContentId',
-      label: '席位图制作情况凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'xiWeiContentId',
+    //   label: '席位图制作情况凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'haiBao',
       label: '海报制作情况',
     },
-    {
-      field: 'haiBaoId',
-      label: '海报制作情况凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'haiBaoId',
+    //   label: '海报制作情况凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'taiKa',
       label: '台卡制作情况',
     },
-    {
-      field: 'taiKaId',
-      label: '台卡制作情况凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'taiKaId',
+    //   label: '台卡制作情况凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'zhiShiPai',
       label: '指示牌制作情况',
     },
-    {
-      field: 'zhiShiPaiId',
-      label: '指示牌制作情况凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'zhiShiPaiId',
+    //   label: '指示牌制作情况凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'midMoney',
       label: '中期款收取情况',
     },
-    {
-      field: 'midMoneyId',
-      label: '中期款收取情况凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'midMoneyId',
+    //   label: '中期款收取情况凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'yiShiDaoJu',
       label: '仪式道具准备情况',
     },
-    {
-      field: 'yiShiDaoJuId',
-      label: '仪式道具准备情况凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'yiShiDaoJuId',
+    //   label: '仪式道具准备情况凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'hunCheHuaTime',
       label: '婚车花扎花时间',
     },
-    {
-      field: 'hunCheHuaTimeId',
-      label: '婚车花扎花时间凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'hunCheHuaTimeId',
+    //   label: '婚车花扎花时间凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'qinPengCaiYi',
       label: '亲朋才艺音乐准备情况',
     },
-    {
-      field: 'qinPengCaiYiId',
-      label: '亲朋才艺音乐准备情况凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'qinPengCaiYiId',
+    //   label: '亲朋才艺音乐准备情况凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
     {
       field: 'daJianTime',
       label: '搭建团队搭建时间',
     },
-    {
-      field: 'daJianTimeId',
-      label: '搭建团队搭建时间凭证',
-      render: (val) =>
-        h(Upload, {
-          listType: 'picture-card',
-          showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
-          fileList: val,
-        }),
-    },
+    // {
+    //   field: 'daJianTimeId',
+    //   label: '搭建团队搭建时间凭证',
+    //   render: (val) =>
+    //     h(Upload, {
+    //       listType: 'picture-card',
+    //       showUploadList: { showPreviewIcon: true, showRemoveIcon: false },
+    //       fileList: val,
+    //     }),
+    // },
   ];
 
   export default defineComponent({

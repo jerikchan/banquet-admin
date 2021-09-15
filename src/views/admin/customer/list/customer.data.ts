@@ -20,22 +20,27 @@ export const columns: BasicColumn[] = [
   {
     title: '客户名',
     dataIndex: 'customerName',
-    width: 120,
+    width: 200,
   },
   {
     title: '客户类型',
     dataIndex: 'customerTypeStr',
-    width: 200,
+    width: 120,
   },
   {
     title: '获客渠道',
     dataIndex: 'customerSource',
-    width: 200,
+    width: 150,
   },
   {
     title: '获客时间',
     dataIndex: 'createTime',
     width: 200,
+  },
+  {
+    title: '是否已下beo单',
+    dataIndex: 'hasBeoOrderStr',
+    width: 80,
   },
   {
     title: '客户状态',
@@ -45,7 +50,7 @@ export const columns: BasicColumn[] = [
   {
     title: '是否邀约进店',
     dataIndex: 'isFirstStr',
-    width: 150,
+    width: 80,
   },
   {
     title: '跟进销售',

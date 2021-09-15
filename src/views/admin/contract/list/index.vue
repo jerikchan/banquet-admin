@@ -16,8 +16,9 @@
               disabled:
                 record.status === '1' ||
                 record.beoStatus === '5' ||
-                record.managerId ||
-                record.finishStatus === '5',
+                record.finishStatus === '5' ||
+                record.status === '5' ||
+                record.status === '6',
               auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
           ]"
@@ -29,7 +30,8 @@
                 record.status === '1' ||
                 record.beoStatus === '5' ||
                 record.managerId ||
-                record.finishStatus === '5',
+                record.finishStatus === '5' ||
+                record.status === '6',
               auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
             {
@@ -39,7 +41,8 @@
                 record.status === '1' ||
                 record.beoStatus === '5' ||
                 !record.managerId ||
-                record.finishStatus === '5',
+                record.finishStatus === '5' ||
+                record.status === '6',
               auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
             {
@@ -49,7 +52,8 @@
                 record.status === '1' ||
                 record.beoStatus === '5' ||
                 !record.managerId ||
-                record.finishStatus === '5',
+                record.finishStatus === '5' ||
+                record.status === '6',
               auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
             {
@@ -60,7 +64,8 @@
                 record.finishStatus === '5' ||
                 record.managerId === null ||
                 record.midStatus === '0' ||
-                record.hasExcuteBeo === '1',
+                record.hasExcuteBeo === '1' ||
+                record.status === '6',
               onClick: handleOrder.bind(null, record),
               auth: [RoleEnum.SUPER, RoleEnum.SALES, RoleEnum.SALES_OFFICER],
             },

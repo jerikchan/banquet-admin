@@ -12,13 +12,7 @@ const manager: AppRouteModule = {
     orderNo: 1000,
     icon: 'bi:house-door',
     title: '管家管理',
-    roles: [
-      RoleEnum.SUPER,
-      RoleEnum.MANAGER,
-      RoleEnum.SALES,
-      RoleEnum.SALES_MANAGER,
-      RoleEnum.HOUSEKEEPER_MANAGER,
-    ],
+    roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES_MANAGER, RoleEnum.HOUSEKEEPER_MANAGER],
   },
   children: [
     {

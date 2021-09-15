@@ -28,9 +28,12 @@
               icon: 'clarity:note-edit-line',
               tooltip: '编辑客户资料',
               disabled:
-                record.status === '1' || record.customerType === '3' || record.customerType === '6',
+                record.status === '1' ||
+                record.customerType === '3' ||
+                record.customerType === '6' ||
+                record.customerType === '5',
               onClick: handleEdit.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.BOOKER, RoleEnum.SALES],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               icon: 'ant-design:delete-outlined',
@@ -49,7 +52,10 @@
             {
               label: '新增记录',
               onClick: handleCommentAdd.bind(null, record),
-              disabled: record.salesManagerId === null || record.customerType === '3',
+              disabled:
+                record.salesManagerId === null ||
+                record.customerType === '3' ||
+                record.status === '1',
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
@@ -90,9 +96,10 @@
               ifShow:
                 (record.customerType === '2' || record.customerType === '5') &&
                 !!record.salesManagerId,
+              disabled: record.hasBeoOrder === 1,
               onClick: handleTypeUpdateCancel.bind(null, record, '3'),
-              disabled: record.status === '1',
-              auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
+              disabled: record.hasBeoOrder === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '转为无效',

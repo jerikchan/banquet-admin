@@ -62,6 +62,11 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
+    title: '额外费用',
+    dataIndex: 'extraMoney',
+    width: 120,
+  },
+  {
     title: '状态',
     dataIndex: 'statusStr',
     width: 120,
@@ -162,22 +167,22 @@ export const acceptFormSchema: FormSchema[] = [
     },
     required: false,
   },
-  {
-    field: 'returnTime',
-    label: '回款时间',
-    component: 'DatePicker',
-    componentProps: {
-      showTime: true,
-      format: 'YYYY-MM-DD HH:mm:ss',
-    },
-    required: true,
-  },
-  {
-    field: 'returnMan',
-    label: '回款人',
-    component: 'Input',
-    required: true,
-  },
+  // {
+  //   field: 'returnTime',
+  //   label: '回款时间',
+  //   component: 'DatePicker',
+  //   componentProps: {
+  //     showTime: true,
+  //     format: 'YYYY-MM-DD HH:mm:ss',
+  //   },
+  //   required: true,
+  // },
+  // {
+  //   field: 'returnMan',
+  //   label: '回款人',
+  //   component: 'Input',
+  //   required: true,
+  // },
   {
     field: 'returnType',
     label: '款项类型',

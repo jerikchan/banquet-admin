@@ -17,7 +17,6 @@ const finance: AppRouteModule = {
       RoleEnum.MANAGER,
       RoleEnum.SALES,
       RoleEnum.SALES_MANAGER,
-      RoleEnum.HOUSEKEEPER_MANAGER,
       RoleEnum.FINANCE_MANAGER,
     ],
   },

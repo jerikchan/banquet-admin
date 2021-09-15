@@ -44,6 +44,7 @@ enum Api {
   AddAuth = '/auth/add',
 
   UpdateBackLogStatus = '/backlog/updateStatus',
+  ChangeBacklogStatus = '/backlog/changeStatus',
 }
 
 export const getAccountList = (params?: AccountParams) =>
@@ -63,6 +64,9 @@ export const updateAccount = (params?: AccountParams) =>
 
 export const updateBackLogStatus = (params?: {}) =>
   defHttp.post<{}>({ url: Api.UpdateBackLogStatus, params }, { devUrl });
+
+export const changeBacklogStatus = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.ChangeBacklogStatus, params }, { devUrl });
 
 export const deleteAccount = (params?: { id: string }) =>
   defHttp.post<AccountListGetResultModel>({ url: Api.DeleteAccount, params }, { devUrl });

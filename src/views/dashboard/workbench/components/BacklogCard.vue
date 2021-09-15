@@ -25,7 +25,7 @@
   import { groupItems } from './data';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   // import { getReviewList } from '/@/api/admin/approval';
-  import { updateBackLogStatus } from '/@/api/admin/system';
+  import { updateBackLogStatus, changeBacklogStatus } from '/@/api/admin/system';
   import { backlogColumns } from './data';
   import { Card } from 'ant-design-vue';
   // import { useGo } from '/@/hooks/web/usePage';
@@ -91,7 +91,7 @@
         reload();
       }
 
-      function handleEvent(record: Recordable) {
+      async function handleEvent(record: Recordable) {
         if ('回访' === record.type) {
           openModal(true, {
             isUpdate: false,
@@ -104,6 +104,9 @@
           });
         } else if ('试妆' === record.type) {
           go('/dashboard/try_form_detail/' + record.tryOnMakeUpFormId);
+        } else if ('执行beo单' === record.type) {
+          await changeBacklogStatus({ id: record.id });
+          go('/beo/order');
         }
         console.log(record);
       }

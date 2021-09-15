@@ -12,6 +12,13 @@ const system: AppRouteModule = {
     orderNo: 1000,
     icon: 'ion:settings-outline',
     title: '系统管理',
+    roles: [
+      RoleEnum.SUPER,
+      RoleEnum.MANAGER,
+      RoleEnum.SALES,
+      RoleEnum.SALES_MANAGER,
+      RoleEnum.HOUSEKEEPER_MANAGER,
+    ],
   },
   children: [
     {
@@ -19,6 +26,7 @@ const system: AppRouteModule = {
       name: 'AccountManagement',
       meta: {
         title: '员工列表',
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES_MANAGER],
       },
       component: () => import('/@/views/admin/system/account/index.vue'),
     },
@@ -61,6 +69,7 @@ const system: AppRouteModule = {
       name: 'DeptManagement',
       meta: {
         title: '部门管理',
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES_MANAGER],
       },
       component: () => import('/@/views/admin/system/dept/index.vue'),
     },
