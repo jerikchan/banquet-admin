@@ -11,7 +11,7 @@
             :options="roomOptions"
           />
         </div>
-        <a-calendar v-model:value="dateValue" class="bg-gray-50" mode="month">
+        <a-calendar :value="dateValue" class="bg-gray-50" mode="month" @panelChange="onChange">
           <template #dateCellRender="{ current: value }">
             <ul class="events">
               <li class="flex mt-1" v-for="item in getListData(value)" :key="item.content">
@@ -19,7 +19,7 @@
                 <a-tag
                   class="w-50 truncate !bg-gray-50"
                   :title="item.banquetType"
-                  :color="getColors(item.banquetType)"
+                  :color="getColors(item.scheduleType)"
                   >{{ item.scheduleTypeStr }}</a-tag
                 >
                 <a-tag v-if="item.banquetType" color="#108ee9">{{ item.banquetType }}</a-tag>
@@ -37,7 +37,7 @@
   import { PageWrapper } from '/@/components/Page';
   import { getRoomList, getBanquetList } from '/@/api/admin/banquet';
 
-  const COLOR_LIST = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple'];
+  const COLOR_LIST = ['pink', 'orange', 'green', 'cyan', 'blue', 'purple'];
 
   export default defineComponent({
     components: { PageWrapper },
@@ -48,7 +48,8 @@
       const loading = ref(true);
       const banquetOptions = ref<any>([]);
 
-      const getColors = (i) => {
+      const getColors = (id) => {
+        const i = parseInt(id) || 0;
         return COLOR_LIST[i % COLOR_LIST.length];
       };
 
@@ -76,7 +77,14 @@
         loading.value = false;
       };
       watch(() => roomValue.value, _getBanquetList);
-      watch(() => dateValue.value, _getBanquetList);
+      watch(
+        () => dateValue.value,
+        (val, oldVal) => {
+          if (!val.isSame(oldVal, 'month')) {
+            _getBanquetList();
+          }
+        }
+      );
 
       const getListData = (value: Moment) => {
         // debugger;
@@ -88,7 +96,12 @@
         return listData || [];
       };
 
+      const onChange = (val) => {
+        dateValue.value = val;
+      };
+
       return {
+        onChange,
         dateValue,
         getListData,
         roomOptions,

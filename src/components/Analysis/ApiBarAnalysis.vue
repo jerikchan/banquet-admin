@@ -70,10 +70,10 @@
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
       const data = ref<any>({});
-      const loading = ref(false);
+      const loading = ref(true);
 
       async function getData() {
-        loading.value = true;
+        // loading.value = true;
         const _data =
           (await props.api({
             startTime: props.dateValue[0],

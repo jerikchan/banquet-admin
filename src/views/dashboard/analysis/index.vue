@@ -160,7 +160,7 @@
       </div>
     </Authority>
 
-    <Authority :value="[RoleEnum.SALES]">
+    <!-- <Authority :value="[RoleEnum.SALES]">
       <div class="!my-4 md:flex enter-y">
         <ApiPieAnalysis :api="getChannelAnalysis" title="各渠道获客数量" class="w-full md:w-1/2" />
         <ApiPieAnalysis
@@ -188,7 +188,7 @@
           color="#ee6666"
         />
       </div>
-    </Authority>
+    </Authority> -->
   </div>
 </template>
 <script lang="ts">

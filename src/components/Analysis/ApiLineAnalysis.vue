@@ -6,12 +6,12 @@
     <!-- 查询日期：<a-range-picker v-model:value="dateValue" placeholder="请选择日期" /> -->
     <!-- <a-button class="ml-2">查询</a-button> -->
     <div ref="chartRef" class="flex items-center justify-center my-10" :style="{ width, height }">
-      <a-empty v-if="!data" />
+      <!-- <a-empty v-if="!data" /> -->
     </div>
   </Card>
 </template>
 <script lang="ts">
-  import { defineComponent, Ref, ref, unref, watch } from 'vue';
+  import { defineComponent, Ref, ref, watch } from 'vue';
 
   import { Card, Tag } from 'ant-design-vue';
   import { useECharts } from '/@/hooks/web/useECharts';
@@ -74,10 +74,10 @@
       const chartRef = ref<HTMLDivElement | null>(null);
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
       const data = ref<any>(null);
-      const loading = ref(false);
+      const loading = ref(true);
 
       async function getData() {
-        loading.value = true;
+        // loading.value = true;
         const _data =
           (await props.api({
             startTime: props.dateValue[0],
@@ -99,7 +99,7 @@
       watch(
         () => data.value,
         () => {
-          if (!unref(data)) {
+          if (!data.value) {
             return;
           }
           setOptions({

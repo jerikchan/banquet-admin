@@ -2,7 +2,13 @@
   <PageWrapper contentClass="flex flex-col" title="年度分析页">
     <div class="p-3 mb-4 bg-white">
       <span class="ml-4 mr-2">当前年份：</span>
-      <a-date-picker mode="year" class="w-50" v-model:value="yearValue" />
+      <a-date-picker
+        mode="year"
+        class="w-50"
+        :value="yearValue"
+        @panelChange="onChange"
+        format="YYYY"
+      />
     </div>
     <ApiLineAnalysis
       :dateValue="dateValue"
@@ -69,9 +75,15 @@
     },
     setup() {
       const yearValue = ref<Moment>(moment());
-      const dateValue = computed(() => [yearValue.value.clone(), yearValue.value.clone()]);
+      const dateValue = computed(() => {
+        return [yearValue.value.clone(), yearValue.value.clone()];
+      });
+      const onChange = (val) => {
+        yearValue.value = val;
+      };
 
       return {
+        onChange,
         yearValue,
         dateValue,
         getDealCountYearAnalysis,

@@ -7,7 +7,13 @@
             <a-button type="primary" @click="handleCreate">新增系数</a-button>
           </div>
         </Authority>
-        <a-calendar v-model:value="dateValue" class="bg-gray-50" mode="month">
+        <a-calendar
+          :value="dateValue"
+          @panelChange="onChange"
+          class="bg-gray-50"
+          mode="month"
+          @select="onSelect"
+        >
           <template #dateCellRender="{ current: value }">
             <ul class="events">
               <li
@@ -19,7 +25,7 @@
                 <a-tag
                   class="w-50 truncate !bg-gray-50"
                   :title="item.modifyName"
-                  :color="getColors(item.banquetType)"
+                  :color="getColors(item.scheduleType)"
                   >{{ item.modifyName }}</a-tag
                 >
                 <a-tag v-if="item.ratio" color="#108ee9">{{ item.ratio }}</a-tag>
@@ -52,7 +58,8 @@
       const canlendarData = ref<any>([]);
       const [registerModal, { openModal }] = useModal();
 
-      const getColors = (i) => {
+      const getColors = (id) => {
+        const i = parseInt(id) || 0;
         return COLOR_LIST[i % COLOR_LIST.length];
       };
 
@@ -89,9 +96,26 @@
         await _getCalendarData();
       }
 
-      watch(() => dateValue.value, _getCalendarData);
+      watch(
+        () => dateValue.value,
+        (val, oldVal) => {
+          if (!val.isSame(oldVal, 'month')) {
+            _getCalendarData();
+          }
+        }
+      );
+
+      const onChange = (val) => {
+        dateValue.value = val;
+      };
+
+      const onSelect = () => {
+        console.log('点击日期，准备打开弹窗');
+      };
 
       return {
+        onSelect,
+        onChange,
         dateValue,
         getListData,
         canlendarData,

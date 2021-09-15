@@ -1,6 +1,12 @@
 <template>
   <PageWrapper>
     <template #headerContent> <WorkbenchHeader ref="workBeanch" /> </template>
+    <Authority :value="[RoleEnum.SUPER, RoleEnum.SALES]">
+      <div class="!my-4 md:flex enter-y">
+        <PerfCard class="w-full md:w-1/3 !md:mr-4" />
+        <SalesCard class="w-full md:w-2/3 !md:mr-4 !md:mt-0 !mt-4" />
+      </div>
+    </Authority>
     <div class="lg:flex">
       <div class="lg:w-7/10 w-full !mr-4 enter-y">
         <Authority
@@ -51,6 +57,8 @@
   import BacklogCard from './components/BacklogCard.vue';
   import EncourageModal from './components/EncourageModal.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
+  import PerfCard from '/@/views/dashboard/analysis/components/PerfCard.vue';
+  import SalesCard from '/@/views/dashboard/analysis/components/SalesCard.vue';
 
   export default defineComponent({
     components: {
@@ -63,6 +71,8 @@
       // Card,
       BacklogCard,
       EncourageModal,
+      PerfCard,
+      SalesCard,
     },
     setup() {
       const loading = ref(true);
