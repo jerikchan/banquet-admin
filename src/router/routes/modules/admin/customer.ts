@@ -58,7 +58,7 @@ const customer: AppRouteModule = {
       name: 'ChannelManagement',
       meta: {
         title: '获客渠道',
-        roles: [RoleEnum.SUPER],
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER],
       },
       component: () => import('/@/views/admin/customer/channel/index.vue'),
     },
@@ -75,7 +75,7 @@ const customer: AppRouteModule = {
       name: 'CommentTypeManagement',
       meta: {
         title: '跟进方式',
-        roles: [RoleEnum.SUPER],
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER],
       },
       component: () => import('/@/views/admin/customer/comment-type/index.vue'),
     },
@@ -84,7 +84,7 @@ const customer: AppRouteModule = {
       name: 'CancelDirectionManager',
       meta: {
         title: '流失去向配置',
-        roles: [RoleEnum.SUPER],
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER],
       },
       component: () => import('/@/views/admin/customer/cancel-direction/index.vue'),
     },
@@ -93,7 +93,7 @@ const customer: AppRouteModule = {
       name: 'CancelReasonManager',
       meta: {
         title: '流失原因配置',
-        roles: [RoleEnum.SUPER],
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER],
       },
       component: () => import('/@/views/admin/customer/cancel-reason/index.vue'),
     },

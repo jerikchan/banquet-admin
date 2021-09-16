@@ -45,19 +45,30 @@
       @success="handleSuccess"
       v-if="foodsDetalInfoData.isStandard"
     />
+    <Authority
+      :value="[
+        RoleEnum.SUPER,
+        RoleEnum.SALES_OFFICER,
+        RoleEnum.SALES_MANAGER,
+        RoleEnum.MANAGER,
+        RoleEnum.SALES,
+        RoleEnum.FINANCE_MANAGER,
+      ]"
+    >
+      <Description
+        title="应收款信息"
+        :collapseOptions="{ canExpand: false, helpMessage: '应收款信息' }"
+        :column="2"
+        :data="receivableInfoData"
+        :schema="receivableInfoFormSchema"
+      />
+    </Authority>
     <Description
       title="beo单详情补充"
       :collapseOptions="{ canExpand: false, helpMessage: 'beo单详情补充' }"
       :column="1"
       :data="beoBasicInfoData"
       :schema="beoDetailsInfoSchema"
-    />
-    <Description
-      title="应收款信息"
-      :collapseOptions="{ canExpand: false, helpMessage: '应收款信息' }"
-      :column="2"
-      :data="receivableInfoData"
-      :schema="receivableInfoFormSchema"
     />
   </PageWrapper>
 </template>
@@ -70,6 +81,8 @@
   import { Divider, Card, Descriptions, Steps } from 'ant-design-vue';
   import { getOrder } from '/@/api/admin/beo';
   // import { BasicColumn } from '/@/components/Table/src/types/table';
+
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   import {
     beoBasicInfoSchema,
@@ -262,6 +275,7 @@
         beoDetailsInfoSchema,
         receivableInfoFormSchema,
         receivableInfoData,
+        RoleEnum,
       };
     },
   });

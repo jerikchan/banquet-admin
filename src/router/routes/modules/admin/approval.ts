@@ -20,7 +20,7 @@ const approval: AppRouteModule = {
       meta: {
         title: '流程配置',
 
-        roles: [RoleEnum.SUPER],
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER],
       },
       component: () => import('/@/views/admin/approval/flow/index.vue'),
     },
@@ -29,7 +29,7 @@ const approval: AppRouteModule = {
       name: 'ReviewManagement',
       meta: {
         title: '待我审核',
-        roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES_MANAGER],
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES_MANAGER, RoleEnum.FINANCE_MANAGER],
       },
       component: () => import('/@/views/admin/approval/review/index.vue'),
     },
