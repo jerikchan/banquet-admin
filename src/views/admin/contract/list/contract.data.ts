@@ -411,6 +411,10 @@ export const agreemetnDetailSchema: DescItem[] = [
     label: '优惠后总价',
   },
   {
+    field: 'frontMoney',
+    label: '定金',
+  },
+  {
     field: 'extraPrice',
     label: '额外费用',
   },

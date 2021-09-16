@@ -15,6 +15,7 @@
             RoleEnum.SALES_OFFICER,
             RoleEnum.SALES_MANAGER,
             RoleEnum.MANAGER,
+            RoleEnum.BOOKER,
           ]"
         >
           <ProjectCard :loading="loading" class="enter-y" />

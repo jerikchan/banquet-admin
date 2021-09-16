@@ -44,6 +44,7 @@
           :dropDownActions="[
             {
               label: '发起审核流程',
+              ifShow: record.managerId !== null,
               disabled:
                 record.status === '1' || record.beoStatus === '5' || record.beoStatus === '99',
               popConfirm: {
@@ -56,6 +57,17 @@
                 RoleEnum.HOUSEKEEPER,
                 RoleEnum.SALES_OFFICER,
               ],
+            },
+            {
+              label: '发起审核流程',
+              ifShow: record.managerId === null,
+              disabled:
+                record.status === '1' || record.beoStatus === '5' || record.beoStatus === '99',
+              popConfirm: {
+                title: '是否发起BEO补充流程',
+                confirm: handleReplenish.bind(null, record),
+              },
+              auth: [RoleEnum.SUPER, RoleEnum.SALES, RoleEnum.SALES_OFFICER],
             },
             {
               label: '下完结BEO单',

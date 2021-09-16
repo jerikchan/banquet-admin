@@ -268,7 +268,7 @@ export const acceptFormSchema: FormSchema[] = [
       api: getTotalList,
       labelField: 'code',
       valueField: 'id',
-      // disabled: true,
+      disabled: true,
     },
     required: true,
   },
@@ -281,22 +281,22 @@ export const acceptFormSchema: FormSchema[] = [
     },
     required: true,
   },
-  {
-    field: 'returnTime',
-    label: '回款时间',
-    component: 'DatePicker',
-    componentProps: {
-      showTime: true,
-      format: 'YYYY-MM-DD HH:mm:ss',
-    },
-    required: true,
-  },
-  {
-    field: 'returnMan',
-    label: '回款人',
-    component: 'Input',
-    required: true,
-  },
+  // {
+  //   field: 'returnTime',
+  //   label: '回款时间',
+  //   component: 'DatePicker',
+  //   componentProps: {
+  //     showTime: true,
+  //     format: 'YYYY-MM-DD HH:mm:ss',
+  //   },
+  //   required: true,
+  // },
+  // {
+  //   field: 'returnMan',
+  //   label: '回款人',
+  //   component: 'Input',
+  //   required: true,
+  // },
   {
     field: 'returnType',
     label: '款项类型',

@@ -214,6 +214,10 @@ export const agreementInfoSchema: DescItem[] = [
     label: '额外费用',
   },
   {
+    field: 'frontMoney',
+    label: '定金',
+  },
+  {
     field: 'floorsDeskCount',
     label: '保底桌数',
   },

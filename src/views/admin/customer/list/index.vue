@@ -52,10 +52,12 @@
             {
               label: '新增记录',
               onClick: handleCommentAdd.bind(null, record),
+              ifShow: !record.customerType === '6',
               disabled:
                 record.salesManagerId === null ||
                 record.customerType === '3' ||
-                record.status === '1',
+                record.status === '1' ||
+                record.customerType === '6',
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
@@ -96,14 +98,16 @@
               ifShow:
                 (record.customerType === '2' || record.customerType === '5') &&
                 !!record.salesManagerId,
-              disabled: record.hasBeoOrder === 1,
+              disabled: record.hasBeoOrder === '1' || record.status === '1',
               onClick: handleTypeUpdateCancel.bind(null, record, '3'),
-              disabled: record.hasBeoOrder === '1',
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
               label: '转为无效',
-              ifShow: record.customerType === '1' || record.customerType === '0',
+              ifShow:
+                record.customerType === '1' ||
+                record.customerType === '0' ||
+                record.customerType === '2',
               onClick: handleInvalid.bind(null, record, '6'),
               disabled: record.status === '1',
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER],

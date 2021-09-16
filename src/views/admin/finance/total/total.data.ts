@@ -22,6 +22,11 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
+    title: '宴会类型',
+    dataIndex: 'banquetType',
+    width: 120,
+  },
+  {
     title: '回款类型',
     dataIndex: 'returnType',
     width: 120,

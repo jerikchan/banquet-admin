@@ -9,11 +9,11 @@ import { h } from 'vue';
 import { Upload } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
-  {
-    title: '订单编号',
-    dataIndex: 'orderCode',
-    width: 120,
-  },
+  // {
+  //   title: '订单编号',
+  //   dataIndex: 'orderCode',
+  //   width: 120,
+  // },
   {
     title: '合同编号',
     dataIndex: 'agreementCode',
@@ -22,6 +22,11 @@ export const columns: BasicColumn[] = [
   {
     title: '宴会主题',
     dataIndex: 'banquetTheme',
+    width: 120,
+  },
+  {
+    title: '宴会类型',
+    dataIndex: 'banquetType',
     width: 120,
   },
   {

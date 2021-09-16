@@ -51,9 +51,9 @@
               disabled:
                 record.status === '1' ||
                 record.beoStatus === '5' ||
-                !record.managerId ||
                 record.finishStatus === '5' ||
-                record.status === '6',
+                record.status === '6' ||
+                record.hasExcuteBeo === '1',
               auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
             {
@@ -62,7 +62,7 @@
                 record.status === '1' ||
                 record.status === '3' ||
                 record.finishStatus === '5' ||
-                record.managerId === null ||
+                (record.banquetType === '婚宴' && record.managerId === null) ||
                 record.midStatus === '0' ||
                 record.hasExcuteBeo === '1' ||
                 record.status === '6',

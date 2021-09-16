@@ -25,6 +25,7 @@
         actionColOptions: {
           span: 23,
         },
+        // autoSubmitOnEnter: true,
       });
       const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
         resetFields();
