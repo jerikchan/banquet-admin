@@ -29,6 +29,7 @@
         mockData.flowType === '11' ||
         mockData.flowType === '20' ||
         mockData.flowType === '21' ||
+        mockData.flowType === '30' ||
         mockData.flowType === '40'
       "
     />
