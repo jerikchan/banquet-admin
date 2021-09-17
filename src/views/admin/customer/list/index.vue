@@ -52,7 +52,6 @@
             {
               label: '新增记录',
               onClick: handleCommentAdd.bind(null, record),
-              ifShow: !record.customerType === '6',
               disabled:
                 record.salesManagerId === null ||
                 record.customerType === '3' ||
