@@ -214,6 +214,10 @@ export const agreementInfoSchema: DescItem[] = [
     label: '优惠后总价',
   },
   {
+    field: 'discountMoney',
+    label: '优惠金额',
+  },
+  {
     field: 'extraPrice',
     label: '额外费用',
   },
