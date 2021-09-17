@@ -177,7 +177,7 @@
       label: '仪式鲜花派单时间',
     },
     {
-      field: 'huiChangeHuaYi',
+      field: 'huiChangHuaYi',
       label: '会场花艺',
     },
     {

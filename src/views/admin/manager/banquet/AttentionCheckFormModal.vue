@@ -129,6 +129,7 @@
       }
 
       async function handleData(id: string) {
+        debugger;
         res = await getAttentionCheckFormDetail({ id: id });
         setFieldsValue({
           ...res,

@@ -1,11 +1,11 @@
 <template>
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
-      <template #toolbar>
+      <!-- <template #toolbar>
         <Authority :value="[RoleEnum.SUPER, RoleEnum.SALES]">
           <a-button type="primary" @click="handleCreate">新增应收款</a-button>
         </Authority>
-      </template>
+      </template> -->
       <template #action="{ record }">
         <TableAction
           :actions="[
@@ -34,6 +34,7 @@
               ifShow: record.dataType !== '回款',
               disabled: record.isFinish === '1',
               onClick: handleAccept.bind(null, record),
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
           ]"
         />

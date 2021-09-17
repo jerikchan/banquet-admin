@@ -213,6 +213,16 @@ export const setMealContentFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'dengGuang',
+    component: 'InputTextArea',
+    label: '灯光',
+    componentProps: {
+      placeholder: '',
+      rows: 2,
+    },
+    required: false,
+  },
+  {
     field: 'otherPerson',
     component: 'InputTextArea',
     label: '其他人员',
@@ -830,7 +840,7 @@ export const familyMeetingFormSchema: FormSchema[] = [
 
 export const attentionCheckFormSchema: FormSchema[] = [
   {
-    field: 'siYiCaiPaiTime',
+    field: 'yiShiCaiPaiTime',
     label: '仪式彩排时间',
     component: 'DatePicker',
     componentProps: {
