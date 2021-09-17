@@ -103,6 +103,7 @@
             ...record,
           });
         } else if ('试妆' === record.type) {
+          await changeBacklogStatus({ id: record.id });
           go('/dashboard/try_form_detail/' + record.tryOnMakeUpFormId);
         } else if ('执行beo单' === record.type) {
           await changeBacklogStatus({ id: record.id });
