@@ -190,6 +190,29 @@ export const backlogColumns: BasicColumn[] = [
   },
 ];
 
+export const submitReportColumn: BasicColumn[] = [
+  {
+    title: '名称',
+    dataIndex: 'name',
+    width: 200,
+  },
+  {
+    title: '呈报时间',
+    dataIndex: 'createTime',
+    width: 200,
+  },
+  {
+    title: '类型',
+    dataIndex: 'type',
+    width: 120,
+  },
+  {
+    title: '呈报内容',
+    dataIndex: 'content',
+    width: 200,
+  },
+];
+
 export const commentFormSchema: FormSchema[] = [
   {
     field: 'customerId',

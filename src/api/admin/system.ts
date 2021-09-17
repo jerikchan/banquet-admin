@@ -45,10 +45,15 @@ enum Api {
 
   UpdateBackLogStatus = '/backlog/updateStatus',
   ChangeBacklogStatus = '/backlog/changeStatus',
+
+  GetSubmitReportInfos = '/report/findSubmitReportInfos',
 }
 
 export const getAccountList = (params?: AccountParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.GetAccountList, params }, { devUrl });
+
+export const getSubmitReportInfos = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetSubmitReportInfos, params }, { devUrl });
 
 export const findUserInfo = (params?: AccountParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.FindUserInfo, params }, { devUrl });

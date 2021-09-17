@@ -15,7 +15,6 @@
             RoleEnum.SALES_OFFICER,
             RoleEnum.SALES_MANAGER,
             RoleEnum.MANAGER,
-            RoleEnum.BOOKER,
           ]"
         >
           <ProjectCard :loading="loading" class="enter-y" />
@@ -30,6 +29,11 @@
           ]"
         >
           <BacklogCard :loading="loading" class="!my-4 enter-y" />
+        </Authority>
+        <Authority
+          :value="[RoleEnum.SUPER, RoleEnum.SALES_MANAGER, RoleEnum.MANAGER, RoleEnum.BOOKER]"
+        >
+          <SubmitReportForm :loading="loading" class="!my-4 enter-y" />
         </Authority>
       </div>
       <div class="w-full lg:w-3/10 enter-y">
@@ -61,6 +65,7 @@
   // import PerfCard from '/@/views/dashboard/analysis/components/PerfCard.vue';
   import PerfCard from './components/PerfSalesCard.vue';
   import SalesCard from '/@/views/dashboard/analysis/components/SalesCard.vue';
+  import SubmitReportForm from './components/SubmitReportForm.vue';
 
   export default defineComponent({
     components: {
@@ -75,6 +80,7 @@
       EncourageModal,
       PerfCard,
       SalesCard,
+      SubmitReportForm,
     },
     setup() {
       const loading = ref(true);

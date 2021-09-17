@@ -43,6 +43,22 @@
           });
         }
 
+        if (data.record.isFirst === 'true' || data.record.isFirst === true) {
+          updateSchema([
+            {
+              field: 'isFirst',
+              ifShow: false,
+            },
+          ]);
+        } else {
+          updateSchema([
+            {
+              field: 'isFirst',
+              ifShow: true,
+            },
+          ]);
+        }
+
         const treeData = await getCustomerTypeList();
         updateSchema([
           {

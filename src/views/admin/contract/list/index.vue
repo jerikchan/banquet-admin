@@ -53,7 +53,8 @@
                 record.beoStatus === '5' ||
                 record.finishStatus === '5' ||
                 record.status === '6' ||
-                record.hasExcuteBeo === '1',
+                record.hasExcuteBeo === '1' ||
+                record.hasMidStatus === '1',
               auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
             },
             {
