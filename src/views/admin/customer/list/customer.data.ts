@@ -38,9 +38,9 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
-    title: '是否已下beo单',
-    dataIndex: 'hasBeoOrderStr',
-    width: 80,
+    title: '意向时间',
+    dataIndex: 'banquetTime',
+    width: 200,
   },
   {
     title: '客户状态',
@@ -63,9 +63,9 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '意向时间',
-    dataIndex: 'banquetTime',
-    width: 200,
+    title: '是否已下beo单',
+    dataIndex: 'hasBeoOrderStr',
+    width: 80,
   },
   {
     title: '桌数',

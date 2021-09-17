@@ -26,6 +26,7 @@
             RoleEnum.HOUSEKEEPER,
             RoleEnum.SALES,
             RoleEnum.HOUSEKEEPER_MANAGER,
+            RoleEnum.FINANCE_MANAGER,
           ]"
         >
           <BacklogCard :loading="loading" class="!my-4 enter-y" />
