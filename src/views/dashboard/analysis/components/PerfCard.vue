@@ -14,7 +14,30 @@
     </template>
 
     <div class="flex items-center justify-between px-8 py-8">
+      <span class="text-1xl">签单额</span>
       <CountTo :suffix="perfCard.unit" :startVal="1" :endVal="perfCard.value" class="text-4xl" />
+      <Icon :icon="perfCard.icon" :size="80" />
+    </div>
+
+    <div class="flex items-center justify-between px-8 py-8">
+      <span class="text-1xl">婚庆价格</span>
+      <CountTo
+        :suffix="perfCard.unit"
+        :startVal="1"
+        :endVal="perfCard.banquetValue"
+        class="text-4xl"
+      />
+      <Icon :icon="perfCard.icon" :size="80" />
+    </div>
+
+    <div class="flex items-center justify-between px-8 py-8">
+      <span class="text-1xl">餐费价格</span>
+      <CountTo
+        :suffix="perfCard.unit"
+        :startVal="1"
+        :endVal="perfCard.mealValue"
+        class="text-4xl"
+      />
       <Icon :icon="perfCard.icon" :size="80" />
     </div>
 
