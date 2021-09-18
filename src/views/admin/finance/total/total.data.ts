@@ -76,6 +76,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'statusStr',
     width: 120,
   },
+  {
+    title: '备注',
+    dataIndex: 'remark',
+    width: 200,
+  },
 ];
 
 export const searchFormSchema: FormSchema[] = [
