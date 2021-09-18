@@ -135,12 +135,18 @@ export const orderFormSchema: FormSchema[] = [
     colProps: {
       offset: 2,
     },
+    componentProps: {
+      disabled: true,
+    },
   },
   {
     field: 'salesManMobile',
     label: '销售联系电话',
     component: 'Input',
     required: false,
+    componentProps: {
+      disabled: true,
+    },
   },
   {
     field: 'managerName',
@@ -149,6 +155,9 @@ export const orderFormSchema: FormSchema[] = [
     required: false,
     colProps: {
       offset: 2,
+    },
+    componentProps: {
+      disabled: true,
     },
   },
   {
@@ -159,6 +168,9 @@ export const orderFormSchema: FormSchema[] = [
     colProps: {
       offset: 2,
     },
+    componentProps: {
+      disabled: true,
+    },
   },
 ];
 
@@ -168,7 +180,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
     label: '宴会时间',
     component: 'DatePicker',
     componentProps: {
-      disabled: false,
+      disabled: true,
       showTime: true,
     },
     required: false,
@@ -178,7 +190,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
     label: '宴会厅',
     component: 'Input',
     componentProps: {
-      disabled: false,
+      disabled: true,
     },
     required: false,
     colProps: {
@@ -189,9 +201,9 @@ export const roomScheduleFormSchema: FormSchema[] = [
     field: 'banquetType',
     label: '宴会类型',
     component: 'Input',
-    required: false,
+    required: true,
     componentProps: {
-      disabled: false,
+      disabled: true,
     },
     colProps: {
       offset: 2,
@@ -205,6 +217,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
       api: getScheduleTypeList,
       labelField: 'label',
       valueField: 'value',
+      disabled: true,
     },
     required: false,
   },
@@ -375,23 +388,20 @@ export const searchFoodsFormSchema: FormSchema[] = [
 ];
 
 export const beoFinanceFormSchema: FormSchema[] = [
-  {
-    label: '收款人',
-    field: 'receivableMan',
-    component: 'Input',
-    required: false,
-    componentProps: {
-      disabled: true,
-    },
-  },
+  // {
+  //   label: '收款人',
+  //   field: 'receivableMan',
+  //   component: 'Input',
+  //   required: false,
+  //   componentProps: {
+  //     disabled: true,
+  //   },
+  // },
   {
     label: '预计总收款',
     field: 'preTotal',
     component: 'Input',
     required: false,
-    colProps: {
-      offset: 2,
-    },
     componentProps: {
       disabled: true,
     },
@@ -416,15 +426,15 @@ export const beoFinanceFormSchema: FormSchema[] = [
     componentProps: {
       disabled: true,
     },
+    colProps: {
+      offset: 2,
+    },
   },
   {
     label: '中款',
     field: 'midMoney',
     component: 'Input',
     required: false,
-    colProps: {
-      offset: 2,
-    },
     componentProps: {
       disabled: true,
     },
@@ -449,15 +459,15 @@ export const beoFinanceFormSchema: FormSchema[] = [
     componentProps: {
       disabled: true,
     },
+    colProps: {
+      offset: 2,
+    },
   },
   {
     label: '餐费',
     field: 'mealMoney',
     component: 'Input',
     required: false,
-    colProps: {
-      offset: 2,
-    },
     componentProps: {
       disabled: true,
     },

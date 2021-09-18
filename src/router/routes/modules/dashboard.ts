@@ -60,6 +60,19 @@ const dashboard: AppRouteModule = {
       },
       component: () => import('/@/views/dashboard/workbench/components/BacklogTryFormModal.vue'),
     },
+    {
+      path: 'chat_record_detail/:id',
+      name: 'backlogChatRecordDetail',
+      meta: {
+        hideMenu: true,
+        title: '回访详情',
+        hideTab: true,
+        showMenu: false,
+        currentActiveMenu: '/dashboard/workbench',
+      },
+      component: () =>
+        import('/@/views/dashboard/workbench/components/BacklogCommentDetailModal.vue'),
+    },
     // {
     //   path: 'test1',
     //   name: 'Test1',

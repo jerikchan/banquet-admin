@@ -17,9 +17,8 @@
                 record.status === '1' ||
                 record.beoStatus === '5' ||
                 record.finishStatus === '5' ||
-                record.status === '5' ||
                 record.status === '6',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
+              auth: [RoleEnum.SUPER],
             },
           ]"
           :dropDownActions="[

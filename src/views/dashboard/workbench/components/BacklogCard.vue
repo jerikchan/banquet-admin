@@ -8,6 +8,11 @@
         <TableAction
           :actions="[
             {
+              icon: 'clarity:info-standard-line',
+              tooltip: '查看详情',
+              onClick: handleCustomerDetail.bind(null, record),
+            },
+            {
               icon: 'clarity:note-edit-line',
               tooltip: '处理',
               onClick: handleEvent.bind(null, record),
@@ -91,6 +96,10 @@
         reload();
       }
 
+      function handleCustomerDetail(record: Recordable) {
+        go('/dashboard/chat_record_detail/' + record.id);
+      }
+
       async function handleEvent(record: Recordable) {
         if ('回访' === record.type) {
           openModal(true, {
@@ -133,6 +142,7 @@
         registerModal,
         registerAcceptModal,
         handleSuccess,
+        handleCustomerDetail,
         // cardData,
       };
     },

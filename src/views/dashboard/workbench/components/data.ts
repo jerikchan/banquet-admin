@@ -3,6 +3,7 @@ import { getCustomerList } from '/@/api/admin/customer';
 import { getCommentTypeList } from '/@/api/admin/customer';
 import { getReturnTypeList } from '/@/api/admin/finance';
 import { getTotalList } from '/@/api/admin/finance';
+import { DescItem } from '/@/components/Description/index';
 // import { FormSchema } from '/@/components/Table';
 
 interface GroupItem {
@@ -439,5 +440,28 @@ export const tryOnMakeUpFormSchema: FormSchema[] = [
       rows: 2,
     },
     required: false,
+  },
+];
+
+export const customerChatRecordInfoDetailSchema: DescItem[] = [
+  {
+    field: 'chatPersonName',
+    label: '客户名',
+  },
+  {
+    field: 'chatRealTime',
+    label: '跟进时间',
+  },
+  {
+    field: 'preNextChatTime',
+    label: '预计下次跟进时间',
+  },
+  {
+    field: 'chatTypeStr',
+    label: '跟进方式',
+  },
+  {
+    field: 'content',
+    label: '沟通内容',
   },
 ];

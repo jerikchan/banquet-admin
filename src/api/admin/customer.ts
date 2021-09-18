@@ -56,6 +56,8 @@ enum Api {
   GetCommentListNew = '/chat/findChatRecordNew',
 
   GetChatRecordInfo = '/chat/findChatRecordInfo',
+
+  GetBacklogInfo = '/backlog/findBacklogInfo',
 }
 
 export const getChannelList = (params: ChannelParams) =>
@@ -141,6 +143,9 @@ export const deleteChannel = (params?: { id: string }) =>
 
 export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.GetMenuList, params });
+
+export const getBacklogInfo = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetBacklogInfo, params }, { devUrl });
 
 export const getChatRecordInfo = (params?: {}) =>
   defHttp.get<{}>({ url: Api.GetChatRecordInfo, params }, { devUrl });

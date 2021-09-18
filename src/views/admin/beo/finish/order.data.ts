@@ -130,12 +130,18 @@ export const orderFormSchema: FormSchema[] = [
     colProps: {
       offset: 2,
     },
+    componentProps: {
+      disabled: true,
+    },
   },
   {
     field: 'salesManMobile',
     label: '销售联系电话',
     component: 'Input',
     required: false,
+    componentProps: {
+      disabled: true,
+    },
   },
   {
     field: 'managerName',
@@ -145,6 +151,9 @@ export const orderFormSchema: FormSchema[] = [
     colProps: {
       offset: 2,
     },
+    componentProps: {
+      disabled: true,
+    },
   },
   {
     field: 'managerMobile',
@@ -153,6 +162,9 @@ export const orderFormSchema: FormSchema[] = [
     required: false,
     colProps: {
       offset: 2,
+    },
+    componentProps: {
+      disabled: true,
     },
   },
 ];
@@ -186,7 +198,7 @@ export const roomScheduleFormSchema: FormSchema[] = [
     component: 'Input',
     required: false,
     componentProps: {
-      disabled: false,
+      disabled: true,
     },
     colProps: {
       offset: 2,
@@ -370,23 +382,20 @@ export const searchFoodsFormSchema: FormSchema[] = [
 ];
 
 export const beoFinanceFormSchema: FormSchema[] = [
-  {
-    label: '收款人',
-    field: 'receivableMan',
-    component: 'Input',
-    required: false,
-    componentProps: {
-      disabled: true,
-    },
-  },
+  // {
+  //   label: '收款人',
+  //   field: 'receivableMan',
+  //   component: 'Input',
+  //   required: false,
+  //   componentProps: {
+  //     disabled: true,
+  //   },
+  // },
   {
     label: '预计总收款',
     field: 'preTotal',
     component: 'Input',
     required: false,
-    colProps: {
-      offset: 2,
-    },
     componentProps: {
       disabled: true,
     },
@@ -411,15 +420,15 @@ export const beoFinanceFormSchema: FormSchema[] = [
     componentProps: {
       disabled: true,
     },
+    colProps: {
+      offset: 2,
+    },
   },
   {
     label: '中款',
     field: 'midMoney',
     component: 'Input',
     required: false,
-    colProps: {
-      offset: 2,
-    },
     componentProps: {
       disabled: true,
     },
@@ -444,15 +453,15 @@ export const beoFinanceFormSchema: FormSchema[] = [
     componentProps: {
       disabled: true,
     },
+    colProps: {
+      offset: 2,
+    },
   },
   {
     label: '餐费',
     field: 'mealMoney',
     component: 'Input',
     required: false,
-    colProps: {
-      offset: 2,
-    },
     componentProps: {
       disabled: true,
     },
