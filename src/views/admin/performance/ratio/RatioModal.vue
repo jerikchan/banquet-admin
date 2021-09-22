@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { updateFormSchema } from './ratio.data';
-  import { addRatioInfo, updateRatioInfo } from '/@/api/admin/performance';
+  import { saveOrUpdateRatio, updateRatioInfo } from '/@/api/admin/performance';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
@@ -40,9 +40,15 @@
             ...data.record,
           });
         }
+        console.log('============');
+        console.log(data);
+
+        setFieldsValue({
+          ...data,
+        });
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增系数' : '编辑系数'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增/编辑系数' : '编辑系数'));
 
       async function handleSubmit() {
         try {
@@ -56,7 +62,7 @@
             });
             createMessage.success('编辑系数成功');
           } else {
-            await addRatioInfo(values);
+            await saveOrUpdateRatio(values);
             createMessage.success('新增系数成功');
           }
           closeModal();

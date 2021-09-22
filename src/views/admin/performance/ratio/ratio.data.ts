@@ -57,24 +57,34 @@ export const updateFormSchema: FormSchema[] = [
     field: 'ratio',
     label: '系数',
     component: 'Input',
-    required: true,
-  },
-  {
-    field: 'shakyRatio',
-    label: '活动系数',
-    component: 'Input',
     required: false,
   },
+  // {
+  //   field: 'shakyRatio',
+  //   label: '活动系数',
+  //   component: 'Input',
+  //   required: false,
+  // },
+  // {
+  //   field: 'finishRatio',
+  //   label: '完成系数',
+  //   component: 'Input',
+  //   required: true,
+  // },
+  // {
+  //   field: 'ratioTime',
+  //   component: 'RangePicker',
+  //   label: '档期时间',
+  //   required: true,
+  // },
   {
-    field: 'finishRatio',
-    label: '完成系数',
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'ratioTime',
-    component: 'RangePicker',
+    field: 'banquetDate',
     label: '档期时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: false,
+      disabled: true,
+    },
     required: true,
   },
 ];

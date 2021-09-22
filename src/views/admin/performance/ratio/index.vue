@@ -2,15 +2,15 @@
   <PageWrapper contentClass="flex" title="业绩系数设置">
     <div class="p-1">
       <a-spin :spinning="loading">
-        <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
-          <div class="flex justify-end p-3 mb-4 bg-gray-50">
+        <!-- <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
+          <div class="flex justify-end p-3 mb-4 bg-orange-50">
             <a-button type="primary" @click="handleCreate">新增系数</a-button>
           </div>
-        </Authority>
+        </Authority> -->
         <a-calendar
           :value="dateValue"
           @panelChange="onChange"
-          class="bg-gray-50"
+          class="bg-orange-50"
           mode="month"
           @select="onSelect"
         >
@@ -22,12 +22,9 @@
                 :key="item.content"
               >
                 <!-- <a-badge :status="item.type" :text="item.content" /> -->
-                <a-tag
-                  class="truncate"
-                  :title="item.modifyName"
-                  :color="getColors(item.scheduleType)"
-                  >{{ item.modifyName }}</a-tag
-                >
+                <a-tag class="truncate" :title="item.name" :color="getColors(item.scheduleType)">{{
+                  item.name
+                }}</a-tag>
                 <a-tag v-if="item.ratio" color="#108ee9">{{ item.ratio }}</a-tag>
               </li>
             </ul>
@@ -39,10 +36,10 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, watch, unref } from 'vue';
+  import { defineComponent, ref, watch, unref, reactive } from 'vue';
   import moment, { Moment } from 'moment';
   import { PageWrapper } from '/@/components/Page';
-  import { getRatioInfos } from '/@/api/admin/performance';
+  import { getRatioInfosByYearAndMonth, getRatioInfo } from '/@/api/admin/performance';
   import { useModal } from '/@/components/Modal';
   import RatioModal from './RatioModal.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
@@ -57,6 +54,8 @@
       const loading = ref(false);
       const canlendarData = ref<any>([]);
       const [registerModal, { openModal }] = useModal();
+      const tempData = reactive({});
+      // let flag = false;
 
       const getColors = (id) => {
         const i = parseInt(id) || 0;
@@ -66,7 +65,7 @@
       const _getCalendarData = async () => {
         try {
           // loading.value = true;
-          const data = await getRatioInfos({
+          const data = await getRatioInfosByYearAndMonth({
             // roomId: unref(roomValue),
             startTime: dateValue.value,
           });
@@ -80,15 +79,18 @@
 
       const getListData = (value: Moment) => {
         const listData = unref(canlendarData).filter((item) => {
-          const isSameDay = value.isSame(item.modifyTime, 'days');
+          // debugger;
+          const isSameDay = value.isSame(item.banquetDate, 'days');
           return isSameDay;
         });
         return listData || [];
       };
 
-      function handleCreate() {
+      function handleCreate(value: any) {
+        console.log(value);
         openModal(true, {
           isUpdate: false,
+          ...value,
         });
       }
 
@@ -109,8 +111,21 @@
         dateValue.value = val;
       };
 
-      const onSelect = () => {
+      const onSelect = async (val) => {
         console.log('点击日期，准备打开弹窗');
+        // debugger;
+        console.log(moment(val).format('YYYY-MM-DD'));
+        const detailInfo = await getRatioInfo({ banquetDate: moment(val).format('YYYY-MM-DD') });
+        console.log(detailInfo);
+        if (null === detailInfo) {
+          tempData.banquetDate = moment(val).format('YYYY-MM-DD');
+          handleCreate(tempData);
+        } else {
+          // Object.assign(tempData, detailInfo);
+          // console.log(tempData);
+          handleCreate(detailInfo);
+        }
+        // handleCreate(moment(val).format('YYYY-MM-DD'));
       };
 
       return {
