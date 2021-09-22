@@ -22,7 +22,7 @@
                 :key="item.content"
               >
                 <!-- <a-badge :status="item.type" :text="item.content" /> -->
-                <a-tag class="truncate" :title="item.name" :color="getColors(item.scheduleType)">{{
+                <a-tag class="truncate" :title="item.name" :color="getColors(item.ratioType)">{{
                   item.name
                 }}</a-tag>
                 <a-tag v-if="item.ratio" color="#108ee9">{{ item.ratio }}</a-tag>
