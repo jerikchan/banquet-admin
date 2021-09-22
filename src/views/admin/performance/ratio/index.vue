@@ -43,7 +43,7 @@
   import { useModal } from '/@/components/Modal';
   import RatioModal from './RatioModal.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
-  const COLOR_LIST = ['pink', 'red', 'orange', 'green', 'cyan', 'blue', 'purple'];
+  const COLOR_LIST = ['pink', 'blue', 'green', 'orange', 'cyan', 'red', 'purple'];
 
   export default defineComponent({
     components: { PageWrapper, RatioModal },
