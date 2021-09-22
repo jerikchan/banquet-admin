@@ -18,6 +18,7 @@ const system: AppRouteModule = {
       RoleEnum.SALES,
       RoleEnum.SALES_MANAGER,
       RoleEnum.HOUSEKEEPER_MANAGER,
+      RoleEnum.STAFF,
     ],
   },
   children: [

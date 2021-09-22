@@ -18,6 +18,7 @@ const banquet: AppRouteModule = {
       RoleEnum.SALES,
       RoleEnum.SALES_MANAGER,
       RoleEnum.FINANCE_MANAGER,
+      RoleEnum.BOOKER,
     ],
   },
   children: [
