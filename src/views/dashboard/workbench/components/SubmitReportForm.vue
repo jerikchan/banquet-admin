@@ -25,7 +25,7 @@
   // import { getReviewList } from '/@/api/admin/approval';
   // import { columns } from '/@/views/admin/approval/review/review.data';
   // import { submitReportColumn } from './d'
-  import { getSubmitReportInfos } from '/@/api/admin/system';
+  import { getBacklogsInfoByBooker } from '/@/api/admin/system';
   import { Card } from 'ant-design-vue';
   import { useGo } from '/@/hooks/web/usePage';
 
@@ -38,7 +38,7 @@
     setup() {
       const go = useGo();
       const [registerTable] = useTable({
-        api: getSubmitReportInfos,
+        api: getBacklogsInfoByBooker,
         rowKey: 'id',
         columns: submitReportColumn,
         formConfig: {

@@ -198,18 +198,28 @@ export const submitReportColumn: BasicColumn[] = [
     width: 200,
   },
   {
-    title: '呈报时间',
-    dataIndex: 'createTime',
-    width: 200,
+    title: '预计跟进时间',
+    dataIndex: 'backlogTime',
+    width: 150,
+  },
+  {
+    title: '跟进销售',
+    dataIndex: 'salesName',
+    width: 120,
   },
   {
     title: '类型',
     dataIndex: 'type',
-    width: 120,
+    width: 80,
   },
   {
     title: '呈报内容',
     dataIndex: 'content',
+    width: 200,
+  },
+  {
+    title: '处理状态',
+    dataIndex: 'statusStr',
     width: 200,
   },
 ];

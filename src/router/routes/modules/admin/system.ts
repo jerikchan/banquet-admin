@@ -20,6 +20,7 @@ const system: AppRouteModule = {
       RoleEnum.HOUSEKEEPER_MANAGER,
       RoleEnum.STAFF,
       RoleEnum.BOOKER,
+      RoleEnum.FINANCE_MANAGER,
     ],
   },
   children: [

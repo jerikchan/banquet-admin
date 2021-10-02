@@ -46,6 +46,8 @@ enum Api {
   UpdateBackLogStatus = '/backlog/updateStatus',
   ChangeBacklogStatus = '/backlog/changeStatus',
 
+  GetBacklogsInfoByBooker = '/backlog/findBackLogsByBooker',
+
   GetSubmitReportInfos = '/report/findSubmitReportInfos',
 }
 
@@ -54,6 +56,9 @@ export const getAccountList = (params?: AccountParams) =>
 
 export const getSubmitReportInfos = (params?: {}) =>
   defHttp.get<{}>({ url: Api.GetSubmitReportInfos, params }, { devUrl });
+
+export const getBacklogsInfoByBooker = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetBacklogsInfoByBooker, params }, { devUrl });
 
 export const findUserInfo = (params?: AccountParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.FindUserInfo, params }, { devUrl });
