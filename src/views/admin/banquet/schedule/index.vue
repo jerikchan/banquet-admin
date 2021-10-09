@@ -16,6 +16,15 @@
             <ul class="events">
               <li
                 class="flex justify-between mt-1"
+                v-for="item in getRatioListData(value)"
+                :key="item.content"
+              >
+                <!-- <a-badge :status="item.type" :text="item.content" /> -->
+                <a-tag :title="item.name" color="#108ee9">{{ item.name }}</a-tag>
+                <!-- <a-tag v-if="item.ratio" color="#108ee9">{{ item.ratio }}</a-tag> -->
+              </li>
+              <li
+                class="flex justify-between mt-1"
                 v-for="item in getListData(value)"
                 :key="item.content"
               >
@@ -40,6 +49,7 @@
   import moment, { Moment } from 'moment';
   import { PageWrapper } from '/@/components/Page';
   import { getRoomList, getBanquetList } from '/@/api/admin/banquet';
+  import { getRatioInfosByYearAndMonth } from '/@/api/admin/performance';
 
   const COLOR_LIST = ['pink', 'orange', 'green', 'cyan', 'blue', 'purple'];
 
@@ -49,6 +59,7 @@
       const dateValue = ref<Moment>(moment());
       const roomOptions = ref<any>([]);
       const roomValue = ref<string>('');
+      const canlendarData = ref<any>([]);
       const loading = ref(true);
       const banquetOptions = ref<any>([]);
 
@@ -69,6 +80,7 @@
         roomValue.value = roomOptions.value?.[0]?.value;
         loading.value = false;
       };
+
       _getRoomList();
 
       const _getBanquetList = async () => {
@@ -80,11 +92,28 @@
         banquetOptions.value = banquetList;
         loading.value = false;
       };
+
+      const _getCalendarData = async () => {
+        try {
+          // loading.value = true;
+          const data = await getRatioInfosByYearAndMonth({
+            // roomId: unref(roomValue),
+            startTime: dateValue.value,
+          });
+          canlendarData.value = data;
+        } finally {
+          loading.value = false;
+        }
+      };
+
+      _getCalendarData();
+
       watch(() => roomValue.value, _getBanquetList);
       watch(
         () => dateValue.value,
         (val, oldVal) => {
           if (!val.isSame(oldVal, 'month')) {
+            _getCalendarData();
             _getBanquetList();
           }
         }
@@ -100,6 +129,15 @@
         return listData || [];
       };
 
+      const getRatioListData = (value: Moment) => {
+        const listData = unref(canlendarData).filter((item) => {
+          // debugger;
+          const isSameDay = value.isSame(item.banquetDate, 'days');
+          return isSameDay;
+        });
+        return listData || [];
+      };
+
       const onChange = (val) => {
         dateValue.value = val;
       };
@@ -110,6 +148,8 @@
         getListData,
         roomOptions,
         roomValue,
+        canlendarData,
+        getRatioListData,
         loading,
         getColors,
       };
