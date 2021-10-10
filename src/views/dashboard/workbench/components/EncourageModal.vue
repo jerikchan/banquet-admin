@@ -3,8 +3,9 @@
     <template #extra>
       <!-- <a-button type="link" size="small" @click="handleView">更多</a-button> -->
     </template>
-    <div> 生活就像海洋，只有意志坚强的人才能到达成功的彼岸。 </div>
-    <div> 有志者，事竟成。 </div>
+    <div>
+      真正的心境，绝不是无所事事、与世无争，而是以一种淡然的心态去对待人生的起落沉浮，无论成败都坦然以对，无论得失都心平气和。
+    </div>
   </Card>
 </template>
 <script lang="ts">

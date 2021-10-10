@@ -148,3 +148,12 @@
     },
   });
 </script>
+
+<style>
+  .ant-table-row-cell-ellipsis,
+  .ant-table-row-cell-ellipsis .ant-table-column-title {
+    overflow: initial;
+    white-space: initial;
+    text-overflow: ellipsis;
+  }
+</style>
