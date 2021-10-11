@@ -3,9 +3,7 @@
     <template #extra>
       <!-- <a-button type="link" size="small" @click="handleView">更多</a-button> -->
     </template>
-    <div>
-      真正的心境，绝不是无所事事、与世无争，而是以一种淡然的心态去对待人生的起落沉浮，无论成败都坦然以对，无论得失都心平气和。
-    </div>
+    <div> 成功者绝不给自己软弱的借口。 </div>
   </Card>
 </template>
 <script lang="ts">
