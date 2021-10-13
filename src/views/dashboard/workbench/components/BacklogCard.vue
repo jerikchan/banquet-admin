@@ -10,6 +10,7 @@
             {
               icon: 'clarity:info-standard-line',
               tooltip: '查看详情',
+              ifShow: recod.type === '回访',
               onClick: handleCustomerDetail.bind(null, record),
             },
             {
