@@ -3,7 +3,7 @@
     <template #extra>
       <!-- <a-button type="link" size="small" @click="handleView">更多</a-button> -->
     </template>
-    <div> 成功者绝不给自己软弱的借口。 </div>
+    <div> 最困难之时，就是我们离成功不远之日。 </div>
   </Card>
 </template>
 <script lang="ts">
