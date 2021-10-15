@@ -3,7 +3,7 @@
     <template #extra>
       <!-- <a-button type="link" size="small" @click="handleView">更多</a-button> -->
     </template>
-    <div> 最困难之时，就是我们离成功不远之日。 </div>
+    <div> 人生重要的不是所站的位置，而是所朝的方向。 </div>
   </Card>
 </template>
 <script lang="ts">
