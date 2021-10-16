@@ -3,7 +3,7 @@
     <template #extra>
       <!-- <a-button type="link" size="small" @click="handleView">更多</a-button> -->
     </template>
-    <div> 人生重要的不是所站的位置，而是所朝的方向。 </div>
+    <div> 成功永远属于马上行动的人。 </div>
   </Card>
 </template>
 <script lang="ts">
