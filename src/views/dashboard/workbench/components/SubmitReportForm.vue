@@ -63,7 +63,7 @@
 
       function handleViewDetail(record: Recordable) {
         // go('/approval/review_detail/' + record.id);
-        go('/dashboard/submit_report_customer_detail/' + record.id);
+        go('/dashboard/submit_report_customer_detail/' + record.customerId);
         // console.log(record);
       }
 
