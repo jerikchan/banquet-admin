@@ -45,12 +45,12 @@
           labelWidth: 120,
           autoSubmitOnEnter: true,
         },
-        // actionColumn: {
-        //   width: 50,
-        //   title: '操作',
-        //   dataIndex: 'action',
-        //   slots: { customRender: 'action' },
-        // },
+        actionColumn: {
+          width: 50,
+          title: '操作',
+          dataIndex: 'action',
+          slots: { customRender: 'action' },
+        },
         pagination: true,
         beforeFetch: function (params) {
           params.today = 'today';
