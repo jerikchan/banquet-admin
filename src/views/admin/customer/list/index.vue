@@ -7,6 +7,12 @@
           <a-button type="primary" @click="handleCreate">新增客户</a-button>
         </Authority>
         <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
+          <a-button type="primary" @click="handleExportExpectSuccess"
+            >导出客资（不包含成交）</a-button
+          >
+          <a-button type="primary" @click="handleExportSuccess">导出成交客资</a-button>
+        </Authority>
+        <!-- <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
           <BasicUpload
             :maxSize="20"
             :maxNumber="10"
@@ -14,7 +20,7 @@
             :api="uploadCustomer"
             :showPreviewNumber="false"
           />
-        </Authority>
+        </Authority> -->
       </template>
       <template #action="{ record }">
         <TableAction
@@ -148,9 +154,10 @@
   import { useGo } from '/@/hooks/web/usePage';
   import { columns, searchFormSchema } from './customer.data';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { BasicUpload } from '/@/components/Upload';
+  // import { BasicUpload } from '/@/components/Upload';
   import { RoleEnum } from '/@/enums/roleEnum';
   import CustomerInvalidModal from './CustomerInvalidModal.vue';
+  import { useGlobSetting } from '/@/hooks/setting';
 
   export default defineComponent({
     name: 'CustomerManagement',
@@ -163,7 +170,7 @@
       TableAction,
       CustomerTypeModal,
       CustomerAllocationSalesModal,
-      BasicUpload,
+      // BasicUpload,
       CommentModal,
       CustomerCancelModal,
       CustomerInvalidModal,
@@ -179,6 +186,7 @@
 
       const go = useGo();
       const { createMessage, createConfirm } = useMessage();
+      const { devUrl } = useGlobSetting();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload }] = useTable({
         title: '客户列表',
@@ -283,6 +291,14 @@
         reload();
       }
 
+      function handleExportExpectSuccess() {
+        window.location.href = devUrl + '/excel/exportExcelSimpleCustomer';
+      }
+
+      function handleExportSuccess() {
+        window.location.href = devUrl + '/excel/exportExcelSuccessCustomer';
+      }
+
       function handleAllocationSuccess() {
         createMessage.success('分配销售成功!');
         reload();
@@ -350,6 +366,8 @@
         RoleEnum,
         handleInvalid,
         registerInvalidModal,
+        handleExportExpectSuccess,
+        handleExportSuccess,
       };
     },
   });

@@ -51,8 +51,20 @@
 
       const { t } = useI18n();
       watchEffect(async () => {
+        debugger;
         if (currentRoute.value.name === REDIRECT_NAME) return;
         const menus = await getMenus();
+
+        // let obj = {
+        //   tag: {
+        //     dot: true,
+        //     content: 'text',
+        //     type: 'warn',
+        //   },
+        // };
+
+        // Object.assign(menus[9]['children']['1'], obj);
+        // console.log(menus);
 
         const routeMatched = currentRoute.value.matched;
         const cur = routeMatched?.[routeMatched.length - 1];
@@ -69,7 +81,6 @@
         if (!matched || matched.length === 0) return;
 
         const breadcrumbList = filterItem(matched);
-
         if (currentRoute.value.meta?.currentActiveMenu) {
           breadcrumbList.push({
             ...currentRoute.value,

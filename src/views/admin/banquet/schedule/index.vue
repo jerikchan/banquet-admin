@@ -10,6 +10,11 @@
             v-model:value="roomValue"
             :options="roomOptions"
           />
+          <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
+            <a-button type="primary" @click="handleExportSchedule" style="float: right"
+              >导出所有档期</a-button
+            >
+          </Authority>
         </div>
         <a-calendar :value="dateValue" class="bg-orange-50" mode="month" @panelChange="onChange">
           <template #dateCellRender="{ current: value }">
@@ -50,6 +55,8 @@
   import { PageWrapper } from '/@/components/Page';
   import { getRoomList, getBanquetList } from '/@/api/admin/banquet';
   import { getRatioInfosByYearAndMonth } from '/@/api/admin/performance';
+  import { RoleEnum } from '/@/enums/roleEnum';
+  import { useGlobSetting } from '/@/hooks/setting';
 
   const COLOR_LIST = ['pink', 'orange', 'green', 'cyan', 'blue', 'purple'];
 
@@ -62,6 +69,7 @@
       const canlendarData = ref<any>([]);
       const loading = ref(true);
       const banquetOptions = ref<any>([]);
+      const { devUrl } = useGlobSetting();
 
       const getColors = (id) => {
         const i = parseInt(id) || 0;
@@ -142,6 +150,10 @@
         dateValue.value = val;
       };
 
+      function handleExportSchedule() {
+        window.location.href = devUrl + '/excel/exportExcelScheduleInfo';
+      }
+
       return {
         onChange,
         dateValue,
@@ -152,6 +164,8 @@
         getRatioListData,
         loading,
         getColors,
+        RoleEnum,
+        handleExportSchedule,
       };
     },
   });

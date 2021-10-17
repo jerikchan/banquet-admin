@@ -73,6 +73,19 @@ const dashboard: AppRouteModule = {
       component: () =>
         import('/@/views/dashboard/workbench/components/BacklogCommentDetailModal.vue'),
     },
+    {
+      path: 'submit_report_customer_detail/:id',
+      name: 'SubmitReportCustomerDetailModal',
+      meta: {
+        hideMenu: true,
+        title: '回访详情',
+        hideTab: true,
+        showMenu: false,
+        currentActiveMenu: '/dashboard/workbench',
+      },
+      component: () =>
+        import('/@/views/dashboard/workbench/components/SubmitReportCustomerDetail.vue'),
+    },
     // {
     //   path: 'test1',
     //   name: 'Test1',

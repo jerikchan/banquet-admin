@@ -286,7 +286,7 @@ export const customerTypeFormSchema: FormSchema[] = [
   },
   {
     field: 'canBie',
-    label: '宴会档期',
+    label: '餐别',
     component: 'ApiSelect',
     componentProps: {
       api: getScheduleTypeList,

@@ -47,10 +47,30 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '客户名称',
+    dataIndex: 'customerName',
+    width: 120,
   },
+  {
+    title: '档期',
+    dataIndex: 'banquetDate',
+    width: 120,
+  },
+  {
+    title: '厅房',
+    dataIndex: 'roomName',
+    width: 120,
+  },
+  {
+    title: '餐别',
+    dataIndex: 'scheduleTypeStr',
+    width: 120,
+  },
+  // {
+  //   title: '创建时间',
+  //   dataIndex: 'createTime',
+  //   width: 180,
+  // },
   {
     title: '定金',
     dataIndex: 'frontMoney',

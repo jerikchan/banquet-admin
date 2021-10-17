@@ -4,7 +4,7 @@
       <a-button type="link" size="small" @click="handleView">更多</a-button>
     </template> -->
     <BasicTable @register="registerTable">
-      <!-- <template #action="{ record }">
+      <template #action="{ record }">
         <TableAction
           :actions="[
             {
@@ -14,14 +14,14 @@
             },
           ]"
         />
-      </template> -->
+      </template>
     </BasicTable>
   </Card>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { groupItems, submitReportColumn } from './data';
-  import { BasicTable, useTable } from '/@/components/Table';
+  import { BasicTable, useTable, TableAction } from '/@/components/Table';
   // import { getReviewList } from '/@/api/admin/approval';
   // import { columns } from '/@/views/admin/approval/review/review.data';
   // import { submitReportColumn } from './d'
@@ -33,7 +33,7 @@
     components: {
       Card,
       BasicTable,
-      // TableAction,
+      TableAction,
     },
     setup() {
       const go = useGo();
@@ -63,6 +63,7 @@
 
       function handleViewDetail(record: Recordable) {
         // go('/approval/review_detail/' + record.id);
+        go('/workbench/submit_report_customer_detail/' + record.id);
         console.log(record);
       }
 
