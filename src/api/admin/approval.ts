@@ -29,6 +29,8 @@ enum Api {
   GetFormList = '/flow/findFlows',
 
   GetMenuList = '/system/getMenuList',
+
+  GetUnreadFlowNum = '/flow/findUnreadFlowNum',
 }
 
 export const getFlowList = (params: FlowParams) =>
@@ -137,6 +139,15 @@ export const getWorkFlowFlowNodes = (params: {}) =>
   defHttp.get<ReviewListGetResultModel>(
     {
       url: Api.GetWorkFlowFlowNodes,
+      params,
+    },
+    { devUrl }
+  );
+
+export const getUnreadFlowNum = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetUnreadFlowNum,
       params,
     },
     { devUrl }

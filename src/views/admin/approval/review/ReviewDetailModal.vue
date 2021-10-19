@@ -148,6 +148,8 @@
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
+  import { unreadFlowStatus } from '/@/views/admin/approval/review/unreadFlowStatus';
+
   import {
     flowSchema,
     customerInfoSchema,
@@ -204,6 +206,8 @@
       const { createMessage } = useMessage();
 
       const foodsDetalInfoData: Recordable = reactive({});
+
+      const [, { reload: reloadFlowStatus }] = unreadFlowStatus();
 
       const foodsDetailInfoFormSchema: DescItem[] = [
         {
@@ -357,8 +361,9 @@
         reload();
       }
 
-      function handleSuccessEvent() {
+      async function handleSuccessEvent() {
         createMessage.success('操作成功!');
+        await reloadFlowStatus();
         go('/approval/review');
       }
 

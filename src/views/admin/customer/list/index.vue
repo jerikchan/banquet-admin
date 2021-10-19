@@ -141,6 +141,7 @@
     deleteCustomer,
     uploadCustomer,
     unallocationSales,
+    updateCustomerReadStatuts,
   } from '/@/api/admin/customer';
   import { PageWrapper } from '/@/components/Page';
   import CustomerTypeTree from './CustomerTypeTree.vue';
@@ -158,6 +159,7 @@
   import { RoleEnum } from '/@/enums/roleEnum';
   import CustomerInvalidModal from './CustomerInvalidModal.vue';
   import { useGlobSetting } from '/@/hooks/setting';
+  import { unreadCustomerStatus } from '/@/views/admin/customer/list/unreadCustomerStatus';
 
   export default defineComponent({
     name: 'CustomerManagement',
@@ -183,6 +185,8 @@
       const [registerCancelModal, { openModal: openCancelModal }] = useModal();
       const [registerCommentAddModal, { openModal: openCommentAddnModal }] = useModal();
       const [registerInvalidModal, { openModal: openInvalidModal }] = useModal();
+
+      const [, { reload: reloadStatus }] = unreadCustomerStatus();
 
       const go = useGo();
       const { createMessage, createConfirm } = useMessage();
@@ -316,7 +320,10 @@
         console.log(values);
         reload();
       }
-      function handleCustomerDetail(record: Recordable) {
+
+      async function handleCustomerDetail(record: Recordable) {
+        await updateCustomerReadStatuts({ id: record.id });
+        await reloadStatus();
         go('/customer/customer_detail/' + record.id);
       }
       function handleUploadChange(list: string[]) {

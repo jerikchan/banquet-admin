@@ -36,6 +36,8 @@
       });
 
       const getContent = computed(() => {
+        // 小圆点文字记录处
+        // debugger;
         if (!getShowTag.value) return '';
         const { item, collapseParent } = props;
         const { tag } = item;

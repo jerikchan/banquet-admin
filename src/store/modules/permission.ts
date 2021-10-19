@@ -147,7 +147,8 @@ export const usePermissionStore = defineStore({
         }
         return;
       };
-
+      // debugger;
+      // 这里需要标记一下
       switch (permissionMode) {
         case PermissionModeEnum.ROLE:
           routes = filter(asyncRoutes, routeFilter);
@@ -166,6 +167,7 @@ export const usePermissionStore = defineStore({
             return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0);
           });
 
+          // Object.assign(menuList[2], { tag: { dot: false, content: '1', type: 'error' } });
           this.setFrontMenuList(menuList);
           // Convert multi-level routing to level 2 routing
           routes = flatMultiLevelRoutes(routes);

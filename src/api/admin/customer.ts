@@ -58,6 +58,10 @@ enum Api {
   GetChatRecordInfo = '/chat/findChatRecordInfo',
 
   GetBacklogInfo = '/backlog/findBacklogInfo',
+
+  GetUnreadCustomerStatusNum = '/customer/unreadCustomerStatusNum',
+
+  UpdateCustomerReadStatuts = '/customer/changeCustomerReadStatus',
 }
 
 export const getChannelList = (params: ChannelParams) =>
@@ -150,6 +154,15 @@ export const getBacklogInfo = (params?: {}) =>
 export const getChatRecordInfo = (params?: {}) =>
   defHttp.get<{}>({ url: Api.GetChatRecordInfo, params }, { devUrl });
 
+export const getUnreadCustomerStatusNum = (params?: any) =>
+  defHttp.get(
+    {
+      url: Api.GetUnreadCustomerStatusNum,
+      params,
+    },
+    { devUrl }
+  );
+
 export const getCustomerTypeList = (params?: CustomerParams) =>
   defHttp.get<CustomerListGetResultModel>({ url: Api.GetCustomerTypeList, params }, { devUrl });
 // new Promise((resolve) => {
@@ -182,6 +195,9 @@ export const deleteCustomer = (params?: { id: string }) =>
 
 export const updateCustomerType = (params?: any) =>
   defHttp.post<CustomerListGetResultModel>({ url: Api.UpdateCustomerType, params }, { devUrl });
+
+export const updateCustomerReadStatuts = (params?: any) =>
+  defHttp.post<{}>({ url: Api.UpdateCustomerReadStatuts, params }, { devUrl });
 
 export const allocationSales = (params?: any) =>
   defHttp.post<CustomerListGetResultModel>({ url: Api.AllocationSales, params }, { devUrl });

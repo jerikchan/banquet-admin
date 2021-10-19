@@ -15,16 +15,6 @@ const approval: AppRouteModule = {
   },
   children: [
     {
-      path: 'flow',
-      name: 'FlowManagement',
-      meta: {
-        title: '流程配置',
-
-        roles: [RoleEnum.SUPER, RoleEnum.MANAGER],
-      },
-      component: () => import('/@/views/admin/approval/flow/index.vue'),
-    },
-    {
       path: 'review',
       name: 'ReviewManagement',
       meta: {
@@ -40,6 +30,16 @@ const approval: AppRouteModule = {
         title: '与我相关',
       },
       component: () => import('/@/views/admin/approval/form/index.vue'),
+    },
+    {
+      path: 'flow',
+      name: 'FlowManagement',
+      meta: {
+        title: '流程配置',
+
+        roles: [RoleEnum.SUPER, RoleEnum.MANAGER],
+      },
+      component: () => import('/@/views/admin/approval/flow/index.vue'),
     },
     {
       path: 'form_detail/:id',

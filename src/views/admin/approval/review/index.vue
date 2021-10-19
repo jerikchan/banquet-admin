@@ -36,6 +36,8 @@
 
   import { useGo } from '/@/hooks/web/usePage';
 
+  // import { unreadFlowStatus } from '/@/views/admin/approval/review/unreadFlowStatus';
+
   export default defineComponent({
     name: 'ReviewManagement',
     components: { BasicTable, ReviewDrawer, TableAction },
@@ -63,6 +65,9 @@
         },
       });
 
+      // const [, { reload: reloadStatus }] = unreadFlowStatus();
+      // reloadStatus();
+
       function handleCreate() {
         openDrawer(true, {
           isUpdate: false,
@@ -88,8 +93,9 @@
         reload();
       }
 
-      function handleFlowView(record: Recordable) {
+      async function handleFlowView(record: Recordable) {
         // globalThis.deptInfo = record;
+        // await reloadStatus();
         go('/approval/review_detail/' + record.id);
       }
 

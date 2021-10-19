@@ -27,6 +27,7 @@
   import { getCustomer, getCommentList } from '/@/api/admin/customer';
   import { columns as commentColumns } from '/@/views/admin/customer/comment/comment.data';
   // import { BasicColumn } from '/@/components/Table/src/types/table';
+  // import { unreadCustomerStatus } from '/@/views/admin/customer/list/unreadCustomerStatus';
 
   const desData: Recordable = reactive({});
 
@@ -122,6 +123,15 @@
       //   data: desData,
       //   schema: schema,
       // });
+
+      // const [, { reload: reloadStatus }] = unreadCustomerStatus();
+
+      // updateReadStatus();
+
+      // async function updateReadStatus() {
+      //   await updateCustomerReadStatuts({ id: idRef.value as string });
+      //   await reloadStatus();
+      // }
 
       function goBack() {
         go('/customer/list');

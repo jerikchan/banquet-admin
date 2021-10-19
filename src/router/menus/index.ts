@@ -10,15 +10,28 @@ import { router } from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { pathToRegexp } from 'path-to-regexp';
 
+import { useUserStore } from '/@/store/modules/user';
+import { unreadCustomerStatus } from '/@/views/admin/customer/list/unreadCustomerStatus';
+import { unreadFlowStatus } from '/@/views/admin/approval/review/unreadFlowStatus';
+import { useBacklogCard } from '/@/views/dashboard/workbench/components/useBacklogCard';
+
 const modules = import.meta.globEager('./modules/**/*.ts');
 
 const menuModules: MenuModule[] = [];
+
+// const userStore = useUserStore();
+// const userinfo = computed(() => userStore.getUserInfo);
 
 Object.keys(modules).forEach((key) => {
   const mod = modules[key].default || {};
   const modList = Array.isArray(mod) ? [...mod] : [mod];
   menuModules.push(...modList);
 });
+
+debugger;
+const [unreadStatusStore] = unreadCustomerStatus();
+const [storeFlow] = unreadFlowStatus();
+const [unreadBacklogStore] = useBacklogCard();
 
 // ===========================
 // ==========Helper===========
@@ -68,6 +81,29 @@ export const getMenus = async (): Promise<Menu[]> => {
     const routes = router.getRoutes();
     return filter(menus, basicFilter(routes));
   }
+  // console.log('getMenus');
+  console.log(menus);
+  const userStore = useUserStore();
+  console.log(userStore.getUserInfo);
+  Object.assign(menus[0], {
+    tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
+  });
+  Object.assign(menus[0]['children'][0], {
+    tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
+  });
+  Object.assign(menus[1], {
+    tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
+  });
+  Object.assign(menus[1]['children'][0], {
+    tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
+  });
+  console.log('menu flow store: ' + storeFlow.total);
+  Object.assign(menus[3], {
+    tag: { dot: false, content: storeFlow.total, type: 'error' },
+  });
+  Object.assign(menus[3]['children'][0], {
+    tag: { dot: false, content: storeFlow.total, type: 'error' },
+  });
   return menus;
 };
 
