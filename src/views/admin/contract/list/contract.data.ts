@@ -91,7 +91,13 @@ export const searchFormSchema: FormSchema[] = [
     field: 'agreementCode',
     label: '合同编号',
     component: 'Input',
-    colProps: { span: 6 },
+    colProps: { span: 4 },
+  },
+  {
+    field: 'customerName',
+    label: '客户名称',
+    component: 'Input',
+    colProps: { span: 4 },
   },
   {
     field: 'roomName',
