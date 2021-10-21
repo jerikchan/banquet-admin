@@ -1,16 +1,22 @@
 import { getUnreadFlowNum } from '/@/api/admin/approval';
 import { reactive } from 'vue';
 
-let storeFlow: any;
+let store: any;
 
 export const unreadFlowStatus = () => {
-  storeFlow = storeFlow || reactive<any>({ total: 0 });
+  store = store || reactive<any>({ total: 0 });
   const reload = async () => {
     const obj = await getUnreadFlowNum();
-    storeFlow.total = obj.num;
+    store.total = obj.num;
     // Object.assign(storeFlow, obj);
-    console.log('flowStore: ' + storeFlow.total);
+    console.log('flowStore: ' + store.total);
   };
   reload();
-  return [storeFlow, { reload, getUnreadFlowNum }];
+
+  async function returnNum() {
+    const obj = await getUnreadFlowNum();
+    store.total = obj.num;
+  }
+
+  return [store, { reload, getUnreadFlowNum, returnNum }];
 };

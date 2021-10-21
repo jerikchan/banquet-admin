@@ -322,6 +322,7 @@
       }
 
       async function handleCustomerDetail(record: Recordable) {
+        // debugger;
         await updateCustomerReadStatuts({ id: record.id });
         await reloadStatus();
         go('/customer/customer_detail/' + record.id);

@@ -10,10 +10,12 @@ import { router } from '/@/router';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { pathToRegexp } from 'path-to-regexp';
 
-import { useUserStore } from '/@/store/modules/user';
+// import { useUserStore } from '/@/store/modules/user';
 import { unreadCustomerStatus } from '/@/views/admin/customer/list/unreadCustomerStatus';
 import { unreadFlowStatus } from '/@/views/admin/approval/review/unreadFlowStatus';
 import { useBacklogCard } from '/@/views/dashboard/workbench/components/useBacklogCard';
+
+import { useUserStore } from '/@/store/modules/user';
 
 const modules = import.meta.globEager('./modules/**/*.ts');
 
@@ -28,10 +30,7 @@ Object.keys(modules).forEach((key) => {
   menuModules.push(...modList);
 });
 
-debugger;
-const [unreadStatusStore] = unreadCustomerStatus();
-const [storeFlow] = unreadFlowStatus();
-const [unreadBacklogStore] = useBacklogCard();
+// debugger;
 
 // ===========================
 // ==========Helper===========
@@ -82,28 +81,38 @@ export const getMenus = async (): Promise<Menu[]> => {
     return filter(menus, basicFilter(routes));
   }
   // console.log('getMenus');
-  console.log(menus);
+  // console.log(menus);
   const userStore = useUserStore();
   console.log(userStore.getUserInfo);
-  Object.assign(menus[0], {
-    tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
-  });
-  Object.assign(menus[0]['children'][0], {
-    tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
-  });
-  Object.assign(menus[1], {
-    tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
-  });
-  Object.assign(menus[1]['children'][0], {
-    tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
-  });
-  console.log('menu flow store: ' + storeFlow.total);
-  Object.assign(menus[3], {
-    tag: { dot: false, content: storeFlow.total, type: 'error' },
-  });
-  Object.assign(menus[3]['children'][0], {
-    tag: { dot: false, content: storeFlow.total, type: 'error' },
-  });
+  debugger;
+  if (userStore.getUserInfo['id']) {
+    const [unreadStatusStore] = unreadCustomerStatus();
+    const [storeFlow, { returnNum: returnFlowNum }] = unreadFlowStatus();
+    const [unreadBacklogStore] = useBacklogCard();
+
+    Object.assign(menus[0], {
+      tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
+    });
+    Object.assign(menus[0]['children'][0], {
+      tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
+    });
+    Object.assign(menus[1], {
+      tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
+    });
+    Object.assign(menus[1]['children'][0], {
+      tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
+    });
+    console.log('menu flow store: ' + storeFlow.total);
+    // returnFlowNum();
+    console.log(returnFlowNum());
+    returnFlowNum();
+    Object.assign(menus[3], {
+      tag: { dot: false, content: storeFlow.total, type: 'error' },
+    });
+    Object.assign(menus[3]['children'][0], {
+      tag: { dot: false, content: storeFlow.total, type: 'error' },
+    });
+  }
   return menus;
 };
 

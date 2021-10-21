@@ -57,7 +57,7 @@ const approval: AppRouteModule = {
       path: 'review_detail/:id',
       name: 'ReviewDetail',
       meta: {
-        title: '与我相关详情',
+        title: '审核详情',
         hideTab: true,
         hideMenu: true,
         showMenu: false,
