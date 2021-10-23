@@ -309,6 +309,9 @@
           let receivableInfo = await getTotalInfo({ id: returnCollection.receivableId });
           Object.assign(returnCollectionData, returnCollection);
           Object.assign(receivableInfoData, receivableInfo);
+
+          let agreementInfo = await getAgreementInfo({ id: receivableInfo.agreementId });
+          Object.assign(agreementInfoData, agreementInfo);
         } else if (type === '40') {
           let beoInfo = await getBeoOrder({ id: beoId });
           let agreementInfo = await getAgreementInfo({ id: beoInfo.agreementId });
