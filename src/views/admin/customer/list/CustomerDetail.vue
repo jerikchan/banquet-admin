@@ -58,11 +58,11 @@
     },
     {
       label: '意向时间',
-      field: 'purposeTime',
+      field: 'banquetTime',
     },
     {
       label: '桌数',
-      field: 'deskNo',
+      field: 'floorsDeskCount',
     },
     {
       label: '联系电话',
