@@ -212,6 +212,9 @@
             offset: 1,
             span: 20,
           },
+          componentProps: {
+            rows: 8,
+          },
           dynamicDisabled: ({ values }) => {
             // debugger;
             desData.showFoodsTable = !values.isStandard;
