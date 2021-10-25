@@ -56,6 +56,8 @@ enum Api {
   GetMenuList = '/system/getMenuList',
 
   GetRoomScheduleByAgreementId = '/banquet/findRoomScheduleByAgreementId',
+
+  GetDicList = 'dic/findDic',
 }
 
 export const getBanquetTypeList = (params: BanquetTypeParams) =>
@@ -99,6 +101,15 @@ export const getMealTypeList = (params: BanquetTypeParams) =>
     {
       url: Api.GetMealTypeList,
       params: { ...params, parentId: '402881847b8499b3017b84a16da30022' },
+    },
+    { devUrl }
+  );
+
+export const getFoodsTypeList = (params: {}) =>
+  defHttp.get<{}>(
+    {
+      url: Api.GetDicList,
+      params: { ...params, identifyCode: 'foods_type' },
     },
     { devUrl }
   );

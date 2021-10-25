@@ -417,7 +417,7 @@ export const beoDetailsInfoSchema: DescItem[] = [
     field: 'drinks',
   },
   {
-    label: '灯控音控备注(Audio Visual)',
+    label: '礼品礼服部备注(Audio Visual)',
     field: 'lights',
   },
   {

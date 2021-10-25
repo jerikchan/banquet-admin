@@ -91,6 +91,15 @@ export const getCancelResonList = (params: {}) =>
     { devUrl }
   );
 
+export const getFoodsTypeList = (params: {}) =>
+  defHttp.get<{}>(
+    {
+      url: Api.GetDicList,
+      params: { ...params, identifyCode: 'foods_type' },
+    },
+    { devUrl }
+  );
+
 export const deleteDicInfo = (params?: {}) =>
   defHttp.post<{}>(
     {

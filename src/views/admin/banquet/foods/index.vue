@@ -22,7 +22,7 @@
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
-              ifShow: false,
+              ifShow: record.child,
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),

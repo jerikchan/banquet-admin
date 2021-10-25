@@ -1,4 +1,4 @@
-import { getFoodMenuList } from '/@/api/admin/banquet';
+import { getFoodMenuList, getFoodsTypeList } from '/@/api/admin/banquet';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
@@ -78,6 +78,18 @@ export const formSchema: FormSchema[] = [
       api: getFoodMenuList,
       labelField: 'name',
       valueField: 'id',
+    },
+    required: ({ values }) => values.isChild,
+    ifShow: ({ values }) => values.isChild,
+  },
+  {
+    label: '菜品类型',
+    field: 'type',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getFoodsTypeList,
+      labelField: 'label',
+      valueField: 'code',
     },
     required: ({ values }) => values.isChild,
     ifShow: ({ values }) => values.isChild,

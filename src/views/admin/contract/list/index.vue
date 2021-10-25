@@ -31,7 +31,7 @@
                 record.managerId ||
                 record.finishStatus === '5' ||
                 record.status === '6',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER],
             },
             {
               label: '撤销管家',
@@ -42,7 +42,7 @@
                 !record.managerId ||
                 record.finishStatus === '5' ||
                 record.status === '6',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER],
             },
             {
               label: '重新分配销售',
@@ -54,7 +54,7 @@
                 record.status === '6' ||
                 record.hasExcuteBeo === '1' ||
                 record.hasMidStatus === '1',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER],
             },
             {
               label: '下BEO单',
@@ -67,7 +67,12 @@
                 record.hasExcuteBeo === '1' ||
                 record.status === '6',
               onClick: handleOrder.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.SALES, RoleEnum.SALES_OFFICER],
+              auth: [
+                RoleEnum.SUPER,
+                RoleEnum.SALES,
+                RoleEnum.SALES_OFFICER,
+                RoleEnum.SALES_MANAGER,
+              ],
             },
           ]"
         />
