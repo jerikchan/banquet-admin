@@ -18,6 +18,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'total',
     width: 50,
   },
+  {
+    title: '菜品类型',
+    dataIndex: 'type',
+    width: 100,
+  },
   // {
   //   title: '数量',
   //   dataIndex: 'foodsNo',
