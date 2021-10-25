@@ -90,28 +90,43 @@ export const getMenus = async (): Promise<Menu[]> => {
     const [storeFlow, { returnNum: returnFlowNum }] = unreadFlowStatus();
     const [unreadBacklogStore] = useBacklogCard();
 
-    Object.assign(menus[0], {
-      tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
-    });
-    Object.assign(menus[0]['children'][0], {
-      tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
-    });
-    Object.assign(menus[1], {
-      tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
-    });
-    Object.assign(menus[1]['children'][0], {
-      tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
-    });
-    console.log('menu flow store: ' + storeFlow.total);
+    // for
+    console.log(menus);
+    for (let i = 0; i < menus.length; i++) {
+      if (menus[i]['name'] === 'routes.dashboard.dashboard') {
+        Object.assign(menus[i], {
+          tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
+        });
+        Object.assign(menus[i]['children'][0], {
+          tag: { dot: false, content: unreadBacklogStore.total, type: 'error' },
+        });
+      } else if (menus[i]['name'] === '客户管理') {
+        Object.assign(menus[i], {
+          tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
+        });
+        Object.assign(menus[i]['children'][0], {
+          tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
+        });
+      } else if (menus[i]['name'] === '审批管理') {
+        Object.assign(menus[i], {
+          tag: { dot: false, content: storeFlow.total, type: 'error' },
+        });
+        Object.assign(menus[i]['children'][0], {
+          tag: { dot: false, content: storeFlow.total, type: 'error' },
+        });
+      }
+      returnFlowNum();
+    }
+
+    // Object.assign(menus[1], {
+    //   tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
+    // });
+    // Object.assign(menus[1]['children'][0], {
+    //   tag: { dot: false, content: unreadStatusStore.total, type: 'error' },
+    // });
+    // console.log('menu flow store: ' + storeFlow.total);
     // returnFlowNum();
-    console.log(returnFlowNum());
-    returnFlowNum();
-    Object.assign(menus[3], {
-      tag: { dot: false, content: storeFlow.total, type: 'error' },
-    });
-    Object.assign(menus[3]['children'][0], {
-      tag: { dot: false, content: storeFlow.total, type: 'error' },
-    });
+    // console.log(returnFlowNum());
   }
   return menus;
 };
