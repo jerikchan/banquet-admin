@@ -57,7 +57,7 @@ enum Api {
 
   GetRoomScheduleByAgreementId = '/banquet/findRoomScheduleByAgreementId',
 
-  GetDicList = 'dic/findDic',
+  GetDicList = '/dic/findDic',
 }
 
 export const getBanquetTypeList = (params: BanquetTypeParams) =>
