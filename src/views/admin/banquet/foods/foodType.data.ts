@@ -23,6 +23,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'type',
     width: 100,
   },
+  {
+    title: '是否可选',
+    dataIndex: 'canEdit',
+    width: 100,
+  },
   // {
   //   title: '数量',
   //   dataIndex: 'foodsNo',

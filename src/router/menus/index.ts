@@ -84,7 +84,7 @@ export const getMenus = async (): Promise<Menu[]> => {
   // console.log(menus);
   const userStore = useUserStore();
   console.log(userStore.getUserInfo);
-  debugger;
+  // debugger;
   if (userStore.getUserInfo['id']) {
     const [unreadStatusStore] = unreadCustomerStatus();
     const [storeFlow, { returnNum: returnFlowNum }] = unreadFlowStatus();

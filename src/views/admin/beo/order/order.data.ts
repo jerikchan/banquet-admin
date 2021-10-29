@@ -60,6 +60,7 @@ export const foodsColumn: BasicColumn[] = [
   {
     title: '菜名',
     dataIndex: 'name',
+    editRow: true,
     width: 120,
   },
   {

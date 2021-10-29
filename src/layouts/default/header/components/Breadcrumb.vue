@@ -51,7 +51,7 @@
 
       const { t } = useI18n();
       watchEffect(async () => {
-        debugger;
+        // debugger;
         if (currentRoute.value.name === REDIRECT_NAME) return;
         const menus = await getMenus();
 

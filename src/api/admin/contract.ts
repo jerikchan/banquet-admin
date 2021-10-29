@@ -23,6 +23,8 @@ enum Api {
   CancelAllocationManager = '/agreement/cancelManagers',
 
   ReloadAgreementSales = '/agreement/reloadAgreementSales',
+
+  GetFoodsChooseInfos = '/foods/findFoodsChoose',
 }
 
 export const getContractList = (params?: ContractParams) =>
@@ -33,6 +35,9 @@ export const getAgreementInfo = (params?: {}) =>
 
 export const getFoodsInfos = (params?: {}) =>
   defHttp.get<ContractListGetResultModel>({ url: Api.GetFoodsInfos, params }, { devUrl });
+
+export const getFoodsChooseInfos = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetFoodsChooseInfos, params }, { devUrl });
 
 export const getScheduleByAgreementId = (params?: {}) =>
   defHttp.get<ContractListGetResultModel>(

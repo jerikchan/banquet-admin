@@ -92,7 +92,7 @@
     receivableInfoFormSchema,
   } from './order.data';
   import { getRoomScheduleByAgreementId } from '/@/api/admin/banquet';
-  import { getFoodsInfos } from '/@/api/admin/contract';
+  import { getFoodsChooseInfos } from '/@/api/admin/contract';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getReceivablesInfo } from '/@/api/admin/finance';
   import { useGlobSetting } from '/@/hooks/setting';
@@ -237,7 +237,7 @@
         Object.assign(receivableInfoData, receivableInfo);
 
         if (foodsDetalInfoData.isStandard) {
-          const foodsRes = await getFoodsInfos({ parentId: res.foodsId });
+          const foodsRes = await getFoodsChooseInfos({ foodsId: res.foodsId, beoId: id });
           setTableData(foodsRes);
         }
       }

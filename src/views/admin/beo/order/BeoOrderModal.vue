@@ -38,7 +38,11 @@
       @register="registerTimeTable"
       v-if="!desData.showFoodsTable"
       :searchInfo="searchInfo"
-    />
+    >
+      <template #action="{ record, column }">
+        <TableAction :actions="createActions(record, column)" />
+      </template>
+    </BasicTable>
     <CollapseContainer title="饮料酒水(Drink)">
       <BasicForm @register="registerDrink" />
     </CollapseContainer>
@@ -102,7 +106,14 @@
     // searchFoodsFormSchema,
   } from './order.data';
   import { Card } from 'ant-design-vue';
-  import { BasicTable, useTable } from '/@/components/Table';
+  import {
+    BasicTable,
+    useTable,
+    ActionItem,
+    EditRecordRow,
+    TableAction,
+    BasicColumn,
+  } from '/@/components/Table';
   import { CollapseContainer } from '/@/components/Container/index';
   // import { ApiSelect } from '/@/components/Form/index';
 
@@ -128,8 +139,10 @@
       [Card.name]: Card,
       BasicTable,
       CollapseContainer,
+      TableAction,
     },
     setup() {
+      const currentEditKeyRef = ref('');
       const foodsFormSchema: FormSchema[] = [
         {
           field: 'isStandard',
@@ -238,6 +251,7 @@
       );
 
       const foodsData: Recordable = reactive({});
+      // const foodsChooseInfos: Recordable = reactive({});
 
       const { createMessage } = useMessage();
       const searchInfo = reactive<Recordable>({});
@@ -283,7 +297,7 @@
         showActionButtonGroup: false,
       });
 
-      const [registerTimeTable, { setTableData }] = useTable({
+      const [registerTimeTable, { setTableData, getDataSource }] = useTable({
         title: '菜品内容',
         columns: foodsColumn,
         pagination: false,
@@ -300,6 +314,12 @@
         handleSearchInfoFn(info) {
           console.log('handleSearchInfoFn', info);
           return info;
+        },
+        actionColumn: {
+          width: 160,
+          title: '操作',
+          dataIndex: 'action',
+          slots: { customRender: 'action' },
         },
       });
 
@@ -444,6 +464,8 @@
 
       async function submitAll() {
         try {
+          // console.log(getDataSource());
+          // return;
           const fileInfoRecord = fileInfos.reduce((acc, fileInfo) => {
             const data = unref(fileInfo.data);
             acc[fileInfo.key] =
@@ -464,6 +486,14 @@
           Object.assign(submitValues, getFinanceRemarkValues());
           Object.assign(submitValues, getDrinksValues());
           Object.assign(submitValues, getFieldFoodsValue());
+          // const foodsChooseInfos = getDataSource();
+
+          const foodsArray = {
+            foodsChooseInfos: getDataSource(),
+          };
+
+          Object.assign(submitValues, foodsArray);
+
           let temp = {};
           // Object.defineProperty(temp, 'deptName', '管家部');
           temp.deptName = '管家部';
@@ -500,7 +530,7 @@
           delete submitValues.id;
 
           submitValues.setUpTypeList = fileInfoRecord.setUpType;
-          console.log(submitValues);
+          // console.log(submitValues);
           submitValues.beoType = '执行beo单';
 
           await addOrderNew(submitValues);
@@ -554,6 +584,50 @@
 
       handleData(agreementId.value);
 
+      function createActions(record: EditRecordRow, column: BasicColumn): ActionItem[] {
+        if (!record.editable) {
+          console.log(record);
+          return [
+            {
+              label: '编辑',
+              disabled: currentEditKeyRef.value ? currentEditKeyRef.value !== record.key : false,
+              ifShow: record.canEdit === '是',
+              onClick: handleEdit.bind(null, record),
+            },
+          ];
+        }
+        return [
+          {
+            label: '保存',
+            onClick: handleSave.bind(null, record, column),
+          },
+          {
+            label: '取消',
+            popConfirm: {
+              title: '是否取消编辑',
+              confirm: handleCancel.bind(null, record, column),
+            },
+          },
+        ];
+      }
+
+      function handleEdit(record: EditRecordRow) {
+        currentEditKeyRef.value = record.key;
+        record.onEdit?.(true);
+      }
+
+      function handleCancel(record: EditRecordRow) {
+        currentEditKeyRef.value = '';
+        record.onEdit?.(false, false);
+      }
+
+      async function handleSave(record: EditRecordRow) {
+        const pass = await record.onEdit?.(false, true);
+        if (pass) {
+          currentEditKeyRef.value = '';
+        }
+      }
+
       return {
         register,
         registerSchedule,
@@ -584,6 +658,8 @@
         registerManagerDepartment,
         registerProjectSafety,
         registerFinanceRemark,
+        createActions,
+        handleEdit,
       };
     },
   });

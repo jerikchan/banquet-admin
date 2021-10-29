@@ -149,7 +149,7 @@
   // import ReviewDrawer from './ReviewDrawer.vue';
   import { useDrawer } from '/@/components/Drawer';
 
-  import { getAgreementInfo, getFoodsInfos } from '/@/api/admin/contract';
+  import { getAgreementInfo, getFoodsChooseInfos } from '/@/api/admin/contract';
   import { getBeoOrder } from '/@/api/admin/beo';
   import { getAcceptInfo, getTotalInfo, getReceivablesInfo } from '/@/api/admin/finance';
   import { getRoomScheduleByAgreementId } from '/@/api/admin/banquet';
@@ -299,7 +299,7 @@
           Object.assign(foodsDetalInfoData, beoInfo);
 
           if (foodsDetalInfoData.isStandard) {
-            let foodsRes = await getFoodsInfos({ parentId: beoInfo.foodsId });
+            let foodsRes = await getFoodsChooseInfos({ foodsId: beoInfo.foodsId, beoId: beoId });
             setTableData(foodsRes);
           }
 
@@ -325,7 +325,7 @@
           Object.assign(foodsDetalInfoData, beoInfo);
 
           if (foodsDetalInfoData.isStandard) {
-            let foodsRes = await getFoodsInfos({ parentId: beoInfo.foodsId });
+            let foodsRes = await getFoodsChooseInfos({ foodsId: beoInfo.foodsId, beoId: beoId });
             setTableData(foodsRes);
           }
         }
