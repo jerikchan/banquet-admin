@@ -508,11 +508,15 @@
           Object.assign(submitValues, getDrinksValues());
           Object.assign(submitValues, getFieldFoodsValue());
 
-          const foodsArray = {
-            foodsChooseInfos: getDataSource(),
-          };
+          const foodsItems = getFieldFoodsValue();
+          console.log(getFieldFoodsValue());
+          if (foodsItems.isStandard) {
+            const foodsArray = {
+              foodsChooseInfos: getDataSource(),
+            };
 
-          Object.assign(submitValues, foodsArray);
+            Object.assign(submitValues, foodsArray);
+          }
 
           let temp = {};
           // Object.defineProperty(temp, 'deptName', '管家部');
