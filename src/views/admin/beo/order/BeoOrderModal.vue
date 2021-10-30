@@ -466,6 +466,7 @@
         try {
           // console.log(getDataSource());
           // return;
+          debugger;
           const fileInfoRecord = fileInfos.reduce((acc, fileInfo) => {
             const data = unref(fileInfo.data);
             acc[fileInfo.key] =
@@ -488,11 +489,15 @@
           Object.assign(submitValues, getFieldFoodsValue());
           // const foodsChooseInfos = getDataSource();
 
-          const foodsArray = {
-            foodsChooseInfos: getDataSource(),
-          };
+          const foodsItems = getFieldFoodsValue();
+          console.log(getFieldFoodsValue());
+          if (foodsItems.isStandard) {
+            const foodsArray = {
+              foodsChooseInfos: getDataSource(),
+            };
 
-          Object.assign(submitValues, foodsArray);
+            Object.assign(submitValues, foodsArray);
+          }
 
           let temp = {};
           // Object.defineProperty(temp, 'deptName', '管家部');
@@ -532,6 +537,7 @@
           submitValues.setUpTypeList = fileInfoRecord.setUpType;
           // console.log(submitValues);
           submitValues.beoType = '执行beo单';
+          // return;
 
           await addOrderNew(submitValues);
           createMessage.success('新建成功!');
