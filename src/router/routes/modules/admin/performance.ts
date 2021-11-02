@@ -12,7 +12,13 @@ const manager: AppRouteModule = {
     orderNo: 1000,
     icon: 'grommet-icons:document-performance',
     title: '绩效管理',
-    roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES, RoleEnum.SALES_MANAGER],
+    roles: [
+      RoleEnum.SUPER,
+      RoleEnum.MANAGER,
+      RoleEnum.SALES,
+      RoleEnum.SALES_MANAGER,
+      RoleEnum.LOOK_ABOUT_PERFORMANCE,
+    ],
   },
   children: [
     {
@@ -28,7 +34,12 @@ const manager: AppRouteModule = {
       name: 'PerformanceFunc',
       meta: {
         title: '业绩列表',
-        roles: [RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.SALES_MANAGER],
+        roles: [
+          RoleEnum.SUPER,
+          RoleEnum.MANAGER,
+          RoleEnum.SALES_MANAGER,
+          RoleEnum.LOOK_ABOUT_PERFORMANCE,
+        ],
       },
       component: () => import('/@/views/admin/performance/dept/index.vue'),
     },

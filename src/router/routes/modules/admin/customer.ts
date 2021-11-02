@@ -18,6 +18,7 @@ const customer: AppRouteModule = {
       RoleEnum.BOOKER,
       RoleEnum.SALES,
       RoleEnum.SALES_MANAGER,
+      RoleEnum.LOOK_ABOUT_CUSTOMER,
     ],
   },
   children: [

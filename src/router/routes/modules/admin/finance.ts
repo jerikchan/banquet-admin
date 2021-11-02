@@ -18,6 +18,7 @@ const finance: AppRouteModule = {
       RoleEnum.SALES,
       RoleEnum.SALES_MANAGER,
       RoleEnum.FINANCE_MANAGER,
+      RoleEnum.LOOK_ABOUT_FINANCE,
     ],
   },
   children: [

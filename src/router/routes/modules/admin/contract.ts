@@ -19,6 +19,7 @@ const contract: AppRouteModule = {
       RoleEnum.SALES_MANAGER,
       RoleEnum.BOOKER,
       RoleEnum.HOUSEKEEPER_MANAGER,
+      RoleEnum.LOOK_ABOUT_AGREEMENT,
     ],
   },
   children: [
