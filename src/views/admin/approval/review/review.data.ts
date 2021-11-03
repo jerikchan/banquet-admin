@@ -412,8 +412,12 @@ export const roomScheduleFormSchema: DescItem[] = [
 ];
 
 export const beoDetailsInfoSchema: DescItem[] = [
+  // {
+  //   label: '饮料酒水(Drink)',
+  //   field: 'drinks',
+  // },
   {
-    label: '饮料酒水(Drink)',
+    label: '厨房备注',
     field: 'drinks',
   },
   {

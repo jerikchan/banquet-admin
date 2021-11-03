@@ -43,19 +43,22 @@
         <TableAction :actions="createActions(record, column)" />
       </template>
     </BasicTable>
-    <CollapseContainer title="饮料酒水(Drink)">
+    <!-- <CollapseContainer title="饮料酒水(Drink)">
+      <BasicForm @register="registerDrink" />
+    </CollapseContainer> -->
+    <CollapseContainer title="厨房备注">
       <BasicForm @register="registerDrink" />
     </CollapseContainer>
-    <CollapseContainer title="灯孔音控备注(Audio Visual)">
-      <BasicForm @register="registerLight" />
-    </CollapseContainer>
-    <CollapseContainer title="餐饮部备注(F&B)">
+    <CollapseContainer title="餐饮部备注">
       <BasicForm @register="registerMealDepartment" />
     </CollapseContainer>
-    <CollapseContainer title="管家部备注(HD)">
+    <CollapseContainer title="管家部备注">
       <BasicForm @register="registerManagerDepartment" />
     </CollapseContainer>
-    <CollapseContainer title="工程安保部备注(ENG)">
+    <CollapseContainer title="礼品礼服备注">
+      <BasicForm @register="registerLight" />
+    </CollapseContainer>
+    <CollapseContainer title="工程安保备注">
       <BasicForm @register="registerProjectSafety" />
     </CollapseContainer>
     <!-- <CollapseContainer title="管家部BEO内容">
