@@ -421,23 +421,23 @@ export const beoDetailsInfoSchema: DescItem[] = [
     field: 'drinks',
   },
   {
-    label: '礼品礼服部备注(Audio Visual)',
-    field: 'lights',
-  },
-  {
-    label: '餐饮部备注(F&B)',
+    label: '餐饮部备注',
     field: 'mealDepartment',
   },
   {
-    label: '管家部备注(HD)',
+    label: '管家部备注',
     field: 'managerDepartment',
   },
   {
-    label: '工程安保部备注(ENG)',
+    label: '礼品礼服备注',
+    field: 'lights',
+  },
+  {
+    label: '工程安保备注',
     field: 'projectSafety',
   },
   {
-    label: '财务部备注(A/C)',
+    label: '财务部备注',
     field: 'financeRemark',
   },
 ];
