@@ -68,12 +68,7 @@
       :column="1"
       :data="beoDetailInfosData"
       :schema="beoDetailsInfoSchema"
-      v-if="
-        mockData.flowType === '30' ||
-        mockData.flowType === '20' ||
-        mockData.flowType === '21' ||
-        mockData.flowType === '40'
-      "
+      v-if="mockData.flowType === '20' || mockData.flowType === '21' || mockData.flowType === '40'"
     />
     <Description
       title="菜品信息"
@@ -81,12 +76,7 @@
       :column="2"
       :data="foodsDetalInfoData"
       :schema="foodsDetailInfoFormSchema"
-      v-if="
-        mockData.flowType === '30' ||
-        mockData.flowType === '20' ||
-        mockData.flowType === '21' ||
-        mockData.flowType === '40'
-      "
+      v-if="mockData.flowType === '20' || mockData.flowType === '21' || mockData.flowType === '40'"
     />
     <Description
       title="回款信息"
