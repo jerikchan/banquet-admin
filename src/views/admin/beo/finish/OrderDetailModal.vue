@@ -10,13 +10,13 @@
         :schema="taskSchema"
       />
     </template> -->
-    <Authority :value="[RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.FINANCE_MANAGER]">
-      <template #extra>
+    <template #extra>
+      <Authority :value="[RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.FINANCE_MANAGER]">
         <a-button type="primary" @click="handleExport" v-if="desData.status === '5'">
           导出
         </a-button>
-      </template>
-    </Authority>
+      </Authority>
+    </template>
     <Description
       title="BEO基本信息"
       :collapseOptions="{ canExpand: false, helpMessage: 'beo信息' }"
@@ -68,6 +68,8 @@
   import { Divider, Card, Descriptions, Steps } from 'ant-design-vue';
   import { getOrder } from '/@/api/admin/beo';
   // import { BasicColumn } from '/@/components/Table/src/types/table';
+
+  import { RoleEnum } from '/@/enums/roleEnum';
 
   import {
     beoBasicInfoSchema,
@@ -262,6 +264,7 @@
         beoDetailsInfoSchema,
         receivableInfoFormSchema,
         receivableInfoData,
+        RoleEnum,
       };
     },
   });
