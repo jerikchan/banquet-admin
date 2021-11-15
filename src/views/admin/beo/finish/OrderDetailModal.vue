@@ -10,9 +10,13 @@
         :schema="taskSchema"
       />
     </template> -->
-    <template #extra>
-      <a-button type="primary" @click="handleExport" v-if="desData.status === '5'"> 导出 </a-button>
-    </template>
+    <Authority :value="[RoleEnum.SUPER, RoleEnum.MANAGER, RoleEnum.FINANCE_MANAGER]">
+      <template #extra>
+        <a-button type="primary" @click="handleExport" v-if="desData.status === '5'">
+          导出
+        </a-button>
+      </template>
+    </Authority>
     <Description
       title="BEO基本信息"
       :collapseOptions="{ canExpand: false, helpMessage: 'beo信息' }"
