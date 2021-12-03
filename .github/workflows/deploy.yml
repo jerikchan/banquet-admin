@@ -44,16 +44,16 @@ jobs:
           touch dist/.nojekyll
           cp dist/index.html dist/404.html
 
-      - name: rsync deployments
-        uses: burnett01/rsync-deployments@5.1
-        with:
-          switches: -avzr --delete
-          path: ./dist/
-          remote_path: /usr/share/banquet-admin
-          remote_host: ${{ secrets.DUEBASS_HOST }}
-          remote_user: root
-          remote_key: ${{ secrets.DUEBASS_KEY }}
-          
+      # - name: rsync deployments
+      #   uses: burnett01/rsync-deployments@5.1
+      #   with:
+      #     switches: -avzr --delete
+      #     path: ./dist/
+      #     remote_path: /usr/share/banquet-admin
+      #     remote_host: ${{ secrets.DUEBASS_HOST }}
+      #     remote_user: root
+      #     remote_key: ${{ secrets.DUEBASS_KEY }}
+
       - name: rsync productions
         uses: burnett01/rsync-deployments@5.1
         with:
