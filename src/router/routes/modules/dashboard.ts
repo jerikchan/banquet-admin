@@ -37,6 +37,7 @@ const dashboard: AppRouteModule = {
           RoleEnum.MANAGER,
           RoleEnum.BOOKER,
           RoleEnum.ANALYST,
+          RoleEnum.LOOK_ABOUT_ANLYLSIS,
         ],
       },
     },
@@ -46,7 +47,13 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/dashboard/analysis-year/index.vue'),
       meta: {
         title: '年度分析页',
-        roles: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.MANAGER, RoleEnum.ANALYST],
+        roles: [
+          RoleEnum.SUPER,
+          RoleEnum.SALES_OFFICER,
+          RoleEnum.MANAGER,
+          RoleEnum.ANALYST,
+          RoleEnum.LOOK_ABOUT_ANLYLSIS,
+        ],
       },
     },
     {

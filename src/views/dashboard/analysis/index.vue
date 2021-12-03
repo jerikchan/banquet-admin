@@ -13,6 +13,8 @@
         RoleEnum.SALES_MANAGER,
         RoleEnum.MANAGER,
         RoleEnum.BOOKER,
+        RoleEnum.ANALYST,
+        RoleEnum.LOOK_ABOUT_ANLYLSIS,
       ]"
     >
       <div class="!my-4 md:flex enter-y">
