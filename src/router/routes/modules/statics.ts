@@ -20,7 +20,7 @@ const statics: AppRouteModule = {
       name: 'StaticsAndAnalysis',
       component: () => import('/@/views/statics/analysis/index.vue'),
       meta: {
-        title: '通用分析',
+        title: '统计分析',
         roles: [
           RoleEnum.SUPER,
           RoleEnum.SALES_OFFICER,
