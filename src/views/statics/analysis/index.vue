@@ -1,10 +1,10 @@
 <template>
   <div class="p-4">
-    <!-- <GrowCard :loading="loading" class="enter-y" />
+    <GrowCard :loading="loading" class="enter-y" />
     <div class="!my-4 md:flex enter-y">
       <PerfCard :loading="loading" class="w-full md:w-1/3 !md:mr-4" />
       <SalesCard :loading="loading" class="w-full md:w-2/3 !md:mr-4 !md:mt-0 !mt-4" />
-    </div> -->
+    </div>
 
     <div class="p-3 mb-4 bg-white">
       <span class="ml-4 mr-2">选择时间：</span>
@@ -201,6 +201,9 @@
   import ApiBarAnalysis from '/@/components/Analysis/ApiBarAnalysis.vue';
   import ApiBarStackAnalysis from '/@/components/Analysis/ApiBarStackAnalysis.vue';
   import moment, { Moment } from 'moment';
+  import GrowCard from './components/GrowCard.vue';
+  import PerfCard from './components/PerfCard.vue';
+  import SalesCard from './components/SalesCard.vue';
 
   import {
     getChannelAnalysisByMonthSelected,
@@ -227,6 +230,9 @@
       ApiPieAnalysis,
       ApiBarAnalysis,
       ApiBarStackAnalysis,
+      GrowCard,
+      PerfCard,
+      SalesCard,
     },
     setup() {
       const loading = ref(false);

@@ -27,7 +27,8 @@ const dashboard: AppRouteModule = {
     {
       path: 'analysis',
       name: 'Analysis',
-      component: () => import('/@/views/dashboard/analysis/index.vue'),
+      // component: () => import('/@/views/dashboard/analysis/index.vue'),
+      component: () => import('/@/views/statics/analysis/index.vue'),
       meta: {
         title: t('routes.dashboard.analysis'),
         roles: [
