@@ -58,6 +58,9 @@
     <CollapseContainer title="礼品礼服备注">
       <BasicForm @register="registerLight" />
     </CollapseContainer>
+    <CollapseContainer title="企划部备注">
+      <BasicForm @register="registerPlanningRemark" />
+    </CollapseContainer>
     <CollapseContainer title="工程安保备注">
       <BasicForm @register="registerProjectSafety" />
     </CollapseContainer>
@@ -436,6 +439,15 @@
         showActionButtonGroup: false,
       });
 
+      const [registerPlanningRemark, { getFieldsValue: getPlanningRemarkValues }] = useForm({
+        labelWidth: 120,
+        baseColProps: {
+          span: 10,
+        },
+        schemas: projectSafetyFormSchema,
+        showActionButtonGroup: false,
+      });
+
       // 工程安保部备注
       const [registerProjectSafety, { getFieldsValue: getProjectSafetyValues }] = useForm({
         labelWidth: 120,
@@ -486,6 +498,7 @@
           Object.assign(submitValues, getLightValues());
           Object.assign(submitValues, getMealDepartmentValues());
           Object.assign(submitValues, getProjectSafetyValues());
+          Object.assign(submitValues, getPlanningRemarkValues());
           Object.assign(submitValues, getManagerDepartmentValues());
           Object.assign(submitValues, getFinanceRemarkValues());
           Object.assign(submitValues, getDrinksValues());
@@ -666,6 +679,7 @@
         registerMealDepartment,
         registerManagerDepartment,
         registerProjectSafety,
+        registerPlanningRemark,
         registerFinanceRemark,
         createActions,
         handleEdit,

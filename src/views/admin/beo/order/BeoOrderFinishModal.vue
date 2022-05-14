@@ -58,6 +58,9 @@
     <CollapseContainer title="礼品礼服备注">
       <BasicForm @register="registerLight" />
     </CollapseContainer>
+    <CollapseContainer title="企划部备注">
+      <BasicForm @register="registerPlanningRemark" />
+    </CollapseContainer>
     <CollapseContainer title="工程安保备注">
       <BasicForm @register="registerProjectSafety" />
     </CollapseContainer>
@@ -138,6 +141,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
 
   import { FormSchema } from '/@/components/Table';
+  import { planningRemarkFormSchema } from '../finish/order.data';
   // import { emit } from 'process';
 
   export default defineComponent({
@@ -450,6 +454,18 @@
         showActionButtonGroup: false,
       });
 
+      const [
+        registerPlanningRemark,
+        { setFieldsValue: setPlanningRemarkValues, getFieldsValue: getPlanningRemarkValues },
+      ] = useForm({
+        labelWidth: 120,
+        baseColProps: {
+          span: 10,
+        },
+        schemas: planningRemarkFormSchema,
+        showActionButtonGroup: false,
+      });
+
       // 工程安保部备注
       const [
         registerProjectSafety,
@@ -506,6 +522,7 @@
           Object.assign(submitValues, getLightValues());
           Object.assign(submitValues, getMealDepartmentValues());
           Object.assign(submitValues, getProjectSafetyValues());
+          Object.assign(submitValues, getPlanningRemarkValues());
           Object.assign(submitValues, getManagerDepartmentValues());
           Object.assign(submitValues, getFinanceRemarkValues());
           Object.assign(submitValues, getDrinksValues());
@@ -581,6 +598,7 @@
         setLightValues(beoInfo);
         setManagerDepartmentValues(beoInfo);
         setProjectSafetyValues(beoInfo);
+        setPlanningRemarkValues(beoInfo);
         setFinanceRemarkValues(beoInfo);
 
         if (beoInfo.isStandard) {
@@ -704,6 +722,7 @@
         registerMealDepartment,
         registerManagerDepartment,
         registerProjectSafety,
+        registerPlanningRemark,
         registerFinanceRemark,
         beoFinishFinanceFormSchema,
         createActions,

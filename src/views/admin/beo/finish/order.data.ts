@@ -345,6 +345,17 @@ export const managerDepartmentFormSchema: FormSchema[] = [
   },
 ];
 
+export const planningRemarkFormSchema: FormSchema[] = [
+  {
+    field: 'planningRemark',
+    label: '备注',
+    component: 'InputTextArea',
+    colProps: {
+      span: 20,
+    },
+  },
+];
+
 export const projectSafetyFormSchema: FormSchema[] = [
   {
     field: 'projectSafety',
@@ -601,7 +612,7 @@ export const beoDetailsInfoSchema: DescItem[] = [
   //   field: 'drinks',
   // },
   {
-    label: '厨房备注',
+    label: '厨房/饮料酒水备注',
     field: 'drinks',
   },
   {
@@ -613,8 +624,12 @@ export const beoDetailsInfoSchema: DescItem[] = [
     field: 'managerDepartment',
   },
   {
-    label: '礼品礼服备注',
+    label: '礼品礼服/灯控音控备注',
     field: 'lights',
+  },
+  {
+    label: '企划部备注',
+    field: 'planningRemark',
   },
   {
     label: '工程安保部备注',
