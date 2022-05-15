@@ -187,6 +187,17 @@ export const customerFormSchema: FormSchema[] = [
     component: 'DatePicker',
   },
   {
+    field: 'roomId',
+    label: '意向厅房',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getRoomList,
+      labelField: 'roomName',
+      valueField: 'id',
+    },
+    required: false,
+  },
+  {
     field: 'floorsDeskCount',
     label: '意向桌数',
     component: 'InputNumber',
