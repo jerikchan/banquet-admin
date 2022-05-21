@@ -267,6 +267,18 @@ export const customerTypeFormSchema: FormSchema[] = [
       // show: false,
     },
   },
+  // {
+  //   label: '是否标记为待办',
+  //   field: 'isToDone',
+  //   component: 'Switch',
+  //   componentProps: {
+  //     ifShow: ({ values }) => {
+  //       console.log(values.isToDone);
+  //       return false;
+  //     },
+  //     // show: false,
+  //   },
+  // },
   {
     field: 'nodeRemark',
     label: '跟进内容',

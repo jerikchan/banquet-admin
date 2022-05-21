@@ -286,6 +286,18 @@ export const commentFormSchema: FormSchema[] = [
     // ifShow: values.isFirst,
   },
   {
+    label: '是否标记为待办',
+    field: 'isToDone',
+    component: 'Switch',
+    componentProps: {
+      ifShow: ({ values }) => {
+        console.log(values.isToDone);
+        return false;
+      },
+      // show: false,
+    },
+  },
+  {
     label: '内容',
     field: 'content',
     component: 'InputTextArea',

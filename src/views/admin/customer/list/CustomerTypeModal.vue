@@ -102,6 +102,7 @@
               banquetType: values.banquetType,
               canBie: values.canBie,
               isFirst: values.isFirst,
+              // isToDone: values.isToDone,
               banquetTime: values.banquetTime,
               canBiao: values.canBiao,
               floorsDeskCount: values.floorsDeskCount,

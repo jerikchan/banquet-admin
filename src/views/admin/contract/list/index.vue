@@ -74,6 +74,19 @@
                 RoleEnum.SALES_MANAGER,
               ],
             },
+            {
+              label: '退订',
+              popConfirm: {
+                title: '是否进行退订操作，该操作无需审核，请谨慎操作',
+                confirm: handleCancelAgreement.bind(null, record),
+              },
+              disabled:
+                record.status === '1' ||
+                record.finishStatus === '5' ||
+                record.finishStatus === '33' ||
+                record.status === '6',
+              auth: [RoleEnum.SUPER],
+            },
           ]"
         />
       </template>
@@ -92,6 +105,7 @@
     getContractList,
     deleteContract,
     cancelAllocationManager,
+    cancelContract,
     // reloadAgreementSales,
   } from '/@/api/admin/contract';
   import ContractModal from './ContractModal.vue';
@@ -161,6 +175,12 @@
         reload();
       }
 
+      async function handleCancelAgreement(record: Recordable) {
+        await cancelContract({ id: record.id });
+        createMessage.success('退订成功');
+        reload();
+      }
+
       function handleUpdate(record: Recordable) {
         openContractModal(true, {
           record,
@@ -212,6 +232,7 @@
         handleSuccess,
         handleDelete,
         handleAgreementInfoView,
+        handleCancelAgreement,
         // registerOrderModal,
         handleOrder,
         handleFinishOrder,
