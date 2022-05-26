@@ -95,6 +95,10 @@
       field: 'invalidReason',
       show: (data) => data.customerType === '6',
     },
+    {
+      field: 'remark',
+      label: '备注',
+    },
   ];
 
   export default defineComponent({
@@ -118,6 +122,8 @@
       // 此处可以得到ID
       const idRef = ref(route.params?.id);
       const currentKey = ref('detail');
+
+      console.log();
       // const [register] = useDescription({
       //   title: '客户详情',
       //   data: desData,
