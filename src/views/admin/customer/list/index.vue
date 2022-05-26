@@ -135,6 +135,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive } from 'vue';
+  // import { useRoute } from 'vue-router';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import {
     getCustomerList,
@@ -188,12 +189,34 @@
 
       const [, { reload: reloadStatus }] = unreadCustomerStatus();
 
+      // const route = useRoute();
+      // const flag = ref(route.params?.flag);
+      // const strArr = currentRef.value != null ? (currentRef.value as string).split('&') : null;
+      // const newPage = strArr[0] === undefined ? null : parseInt(strArr[0] as string);
+      // const newPageSize = strArr[1] === undefined ? null : parseInt(strArr[1] as string);
+      // const realCurrent = newPage !== newPage ? null : newPage;
+      // const realPageSize = newPageSize !== newPageSize ? null : newPageSize;
+
+      // debugger;
+      // console.log(flag.value);
+      // const boolFlag = (flag.value as string) !== 'flag' ? true : false;
+
+      // if (boolFlag) {
+      //   sessionStorage.removeItem('customerListPage');
+      // }
+
+      // console.log(sessionStorage.getItem('customerListPage'));
+
       const go = useGo();
       const { createMessage, createConfirm } = useMessage();
       const { devUrl } = useGlobSetting();
       const searchInfo = reactive<Recordable>({});
-      const [registerTable, { reload }] = useTable({
+      const [registerTable, { reload, getPaginationRef, setPagination, getForm }] = useTable({
         title: '客户列表',
+        // api: getCustomerList.bind(null, {
+        //   page: sessionStorage.getItem('customerListPage'),
+        //   pageSize: 10,
+        // }),
         api: getCustomerList,
         rowKey: 'id',
         columns,
@@ -207,7 +230,61 @@
         bordered: true,
         handleSearchInfoFn(info) {
           console.log('handleSearchInfoFn', info);
+          console.log('getPaginationRef', getPaginationRef());
+          console.log(getForm().getFieldsValue());
+          debugger;
+          // if (sessionStorage.getItem('customerListSearchFields') !== null) {
+          //   getForm().setFieldsValue(
+          //     JSON.parse(sessionStorage.getItem('customerListSearchFields'))
+          //   );
+          // } else {
+          //   sessionStorage.setItem(
+          //     'customerListSearchFields',
+          //     JSON.stringify(getForm().getFieldsValue())
+          //   );
+          // }
+
+          sessionStorage.setItem(
+            'customerListSearchFields',
+            JSON.stringify(getForm().getFieldsValue())
+          );
+          sessionStorage.setItem('customerListSearchParams', JSON.stringify(info));
           return info;
+        },
+        beforeFetch(info) {
+          console.log('查找以前');
+          console.log(info);
+          debugger;
+
+          if (sessionStorage.getItem('customerListSearchParams') !== null) {
+            info = JSON.parse(sessionStorage.getItem('customerListSearchParams'));
+          }
+
+          // sessionStorage.setItem('customerListPage', JSON.stringify(getPaginationRef()));
+          console.log(sessionStorage.getItem('customerListPage'));
+          // console.log(sessionStorage.key('customerListPage'));
+          if (sessionStorage.getItem('customerListPage') !== null) {
+            setPagination(JSON.parse(sessionStorage.getItem('customerListPage')));
+            info.page = JSON.parse(sessionStorage.getItem('customerListPage'))['current'];
+            info.pageSize = JSON.parse(sessionStorage.getItem('customerListPage'))['pageSize'];
+          }
+          return info;
+        },
+        afterFetch(info) {
+          if (sessionStorage.getItem('customerListSearchFields') !== null) {
+            getForm().setFieldsValue(
+              JSON.parse(sessionStorage.getItem('customerListSearchFields'))
+            );
+          }
+
+          console.log('查找以后');
+          // console.log('getPaginationRef', getPaginationRef());
+          console.log(info);
+          // debugger;
+          if (sessionStorage.getItem('customerListPage') !== null) {
+            // setPagination(JSON.parse(sessionStorage.removeItem('customerListPage')));
+            sessionStorage.removeItem('customerListPage');
+          }
         },
         actionColumn: {
           width: 200,
@@ -215,7 +292,10 @@
           dataIndex: 'action',
           slots: { customRender: 'action' },
         },
+        // pagination: JSON.parse(sessionStorage.getItem('customerListPage')),
       });
+
+      // reload({ current: realCurrent, pageSize: realPageSize});
       function handleCreate() {
         openModal(true, {
           isUpdate: false,
@@ -325,6 +405,8 @@
         // debugger;
         await updateCustomerReadStatuts({ id: record.id });
         await reloadStatus();
+        console.log('详情跳转前', getPaginationRef());
+        sessionStorage.setItem('customerListPage', JSON.stringify(getPaginationRef()));
         go('/customer/customer_detail/' + record.id);
       }
       function handleUploadChange(list: string[]) {

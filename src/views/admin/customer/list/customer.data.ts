@@ -223,12 +223,12 @@ export const customerFormSchema: FormSchema[] = [
     },
     required: false,
   },
-  // {
-  //   label: '备注',
-  //   field: 'remark',
-  //   component: 'InputTextArea',
-  //   required: false,
-  // },
+  {
+    label: '备注',
+    field: 'remark',
+    component: 'InputTextArea',
+    required: false,
+  },
 ];
 
 export const customerTypeFormSchema: FormSchema[] = [

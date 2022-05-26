@@ -138,6 +138,10 @@ export const customerInfoSchema: DescItem[] = [
     field: 'invalidReason',
     show: (data) => data.flowType === '6',
   },
+  {
+    field: 'remark',
+    label: '备注',
+  },
 ];
 
 export const refundTimeTableSchema: BasicColumn[] = [
