@@ -467,3 +467,36 @@ export const foodsColumn: BasicColumn[] = [
     width: 120,
   },
 ];
+
+export const chatRecordTableColumns: BasicColumn[] = [
+  {
+    title: '客户名称',
+    dataIndex: 'customerName',
+    width: 120,
+  },
+  {
+    title: '跟进时间',
+    dataIndex: 'chatRealTime',
+    width: 180,
+  },
+  {
+    title: '跟进方式',
+    dataIndex: 'chatTypeStr',
+    width: 120,
+  },
+  {
+    title: '内容',
+    dataIndex: 'content',
+    width: 300,
+  },
+  {
+    title: '预计下次跟进时间',
+    dataIndex: 'preNextChatTime',
+    width: 180,
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createTime',
+    width: 180,
+  },
+];
