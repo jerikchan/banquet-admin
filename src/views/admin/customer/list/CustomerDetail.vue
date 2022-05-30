@@ -53,6 +53,10 @@
       field: 'salesManagerName',
     },
     {
+      label: '宴会类型',
+      field: 'banquetType',
+    },
+    {
       label: '意向厅',
       field: 'banquetRoom',
     },
