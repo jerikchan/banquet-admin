@@ -122,6 +122,11 @@
         </a-step>
       </a-steps>
     </a-card>
+    <BasicTable
+      @register="registerChatRecordInfoTable"
+      @success="handleSuccess"
+      v-if="mockData.flowType === '3' || mockData.flowType === '6' || mockData.flowType === '11'"
+    />
     <BasicTable @register="registerTimeTable" @success="handleSuccess" />
     <!-- <ReviewDrawer @register="registerDrawer" @success="handleSuccessEvent" /> -->
   </PageWrapper>
@@ -133,7 +138,7 @@
   import { useRoute } from 'vue-router';
   import { useGo } from '/@/hooks/web/usePage';
   import { getFlowInfo, getWorkFlowFlowNodes } from '/@/api/admin/approval';
-  import { getCustomer } from '/@/api/admin/customer';
+  import { getCustomer, getCommentList } from '/@/api/admin/customer';
   import { Divider, Card, Descriptions, Steps } from 'ant-design-vue';
   import { BasicTable, useTable } from '/@/components/Table';
   // import ReviewDrawer from './ReviewDrawer.vue';
@@ -160,6 +165,7 @@
     roomScheduleFormSchema,
     beoDetailsInfoSchema,
     foodsColumn,
+    chatRecordTableColumns,
   } from './form.data';
 
   const mockData: Recordable = reactive({});
@@ -258,6 +264,8 @@
           let detailsInfo = await getCustomer({ id: customerId });
           Object.assign(customerInfoData, detailsInfo);
           customerInfoData.flowType = type;
+          let chatRecordData = await getCommentList({ customerId: customerId });
+          setChatRecordData(chatRecordData);
         } else if (type === '11') {
           // debugger;
           let agreementInfo = await getAgreementInfo({ id: agreementId });
@@ -265,6 +273,8 @@
           Object.assign(customerInfoData, detailsInfo);
           Object.assign(agreementInfoData, agreementInfo);
           console.log('test');
+          let chatRecordData = await getCommentList({ customerId: customerId });
+          setChatRecordData(chatRecordData);
         } else if (type === '20') {
           let beoInfo = await getBeoOrder({ id: beoId });
           let agreementInfo = await getAgreementInfo({ id: beoInfo.agreementId });
@@ -349,6 +359,17 @@
         showIndexColumn: true,
       });
 
+      const [
+        registerChatRecordInfoTable,
+        { reload: chatRecordReload, setTableData: setChatRecordData },
+      ] = useTable({
+        title: '跟进记录',
+        columns: chatRecordTableColumns,
+        pagination: false,
+        // api: getCommentList.bind(null, { customerId: flowId.value }),
+        showIndexColumn: true,
+      });
+
       const [registerFoodsTable, { setTableData }] = useTable({
         title: '菜品内容',
         columns: foodsColumn,
@@ -358,6 +379,7 @@
 
       function handleSuccess() {
         reload();
+        chatRecordReload();
       }
 
       function handleSuccessEvent() {
@@ -384,6 +406,7 @@
         mockData,
         customerInfoData,
         registerTimeTable,
+        registerChatRecordInfoTable,
         handleSuccess,
         listData,
         handleEdit,
