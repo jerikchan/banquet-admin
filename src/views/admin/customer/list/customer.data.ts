@@ -182,6 +182,17 @@ export const customerFormSchema: FormSchema[] = [
     required: false,
   },
   {
+    field: 'banquetType',
+    label: '宴会类型',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getBanquetTypeList,
+      labelField: 'label',
+      valueField: 'code',
+    },
+    required: false,
+  },
+  {
     field: 'banquetTime',
     label: '意向日期',
     component: 'DatePicker',
