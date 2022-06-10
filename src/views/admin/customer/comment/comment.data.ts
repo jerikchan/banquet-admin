@@ -90,7 +90,7 @@ export const commentFormSchema: FormSchema[] = [
       showTime: true,
       format: 'YYYY-MM-DD HH:mm:ss',
     },
-    required: false,
+    required: true,
   },
   {
     label: '是否邀约进店',
