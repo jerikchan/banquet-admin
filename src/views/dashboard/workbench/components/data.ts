@@ -217,11 +217,6 @@ export const submitReportColumn: BasicColumn[] = [
     dataIndex: 'content',
     width: 200,
   },
-  {
-    title: '处理状态',
-    dataIndex: 'statusStr',
-    width: 200,
-  },
 ];
 
 export const commentFormSchema: FormSchema[] = [

@@ -23,14 +23,29 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '跟进销售',
+    dataIndex: 'salesManagerName',
+    width: 120,
+  },
+  {
     title: '客户类型',
     dataIndex: 'customerTypeStr',
+    width: 120,
+  },
+  {
+    title: '联系电话',
+    dataIndex: 'customerMobile',
     width: 120,
   },
   {
     title: '获客渠道',
     dataIndex: 'customerSource',
     width: 150,
+  },
+  {
+    title: '是否邀约进店',
+    dataIndex: 'isFirstStr',
+    width: 80,
   },
   {
     title: '获客时间',
@@ -48,16 +63,6 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
-    title: '是否邀约进店',
-    dataIndex: 'isFirstStr',
-    width: 80,
-  },
-  {
-    title: '跟进销售',
-    dataIndex: 'salesManagerName',
-    width: 120,
-  },
-  {
     title: '意向厅',
     dataIndex: 'banquetRoom',
     width: 120,
@@ -70,11 +75,6 @@ export const columns: BasicColumn[] = [
   {
     title: '桌数',
     dataIndex: 'floorsDeskCount',
-    width: 120,
-  },
-  {
-    title: '联系电话',
-    dataIndex: 'customerMobile',
     width: 120,
   },
   {
