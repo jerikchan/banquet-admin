@@ -85,7 +85,7 @@
                 record.finishStatus === '5' ||
                 record.finishStatus === '33' ||
                 record.status === '6',
-              auth: [RoleEnum.SUPER],
+              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER],
             },
           ]"
         />
