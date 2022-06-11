@@ -295,7 +295,11 @@
           debugger;
 
           if (sessionStorage.getItem('customerListSearchParams') !== null) {
+            let currentPage = info.page;
+            let rowsPerpage = info.pageSize;
             info = JSON.parse(sessionStorage.getItem('customerListSearchParams'));
+            info.page = currentPage;
+            info.pageSize = rowsPerpage;
           }
 
           // sessionStorage.setItem('customerListPage', JSON.stringify(getPaginationRef()));
