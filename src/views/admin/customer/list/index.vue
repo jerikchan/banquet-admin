@@ -232,23 +232,61 @@
           console.log('handleSearchInfoFn', info);
           console.log('getPaginationRef', getPaginationRef());
           console.log(getForm().getFieldsValue());
-          debugger;
-          // if (sessionStorage.getItem('customerListSearchFields') !== null) {
-          //   getForm().setFieldsValue(
-          //     JSON.parse(sessionStorage.getItem('customerListSearchFields'))
-          //   );
-          // } else {
-          //   sessionStorage.setItem(
-          //     'customerListSearchFields',
-          //     JSON.stringify(getForm().getFieldsValue())
-          //   );
-          // }
+          let formData = getForm().getFieldsValue();
+          let queryData = {
+            customerTypeSearch: '',
+            customerName: '',
+            salesNameSearch: '',
+            customerMobile: '',
+            customerSourceSearch: '',
+            isFirst: '',
+          };
+          if (formData['customerType']) {
+            for (let i = 0; i < formData['customerType'].length; i++) {
+              if (i !== formData['customerType'].length - 1) {
+                queryData.customerTypeSearch += formData['customerType'][i] + ',';
+              } else {
+                queryData.customerTypeSearch += formData['customerType'][i];
+              }
+            }
+          }
+          if (formData['customerName']) {
+            queryData.customerName = formData['customerName'];
+          }
+
+          if (formData['customerMobile']) {
+            queryData.customerMobile = formData['customerMobile'];
+          }
+
+          if (formData['isFirst']) {
+            queryData.isFirst = formData['isFirst'];
+          }
+
+          if (formData['salesName']) {
+            for (let i = 0; i < formData['salesName'].length; i++) {
+              if (i !== formData['salesName'].length - 1) {
+                queryData.salesNameSearch += formData['salesName'][i] + ',';
+              } else {
+                queryData.salesNameSearch += formData['salesName'][i];
+              }
+            }
+          }
+
+          if (formData['customerSource']) {
+            for (let i = 0; i < formData['customerSource'].length; i++) {
+              if (i !== formData['customerSource'].length - 1) {
+                queryData.customerSourceSearch += formData['customerSource'][i] + ',';
+              } else {
+                queryData.customerSourceSearch += formData['customerSource'][i];
+              }
+            }
+          }
 
           sessionStorage.setItem(
             'customerListSearchFields',
             JSON.stringify(getForm().getFieldsValue())
           );
-          sessionStorage.setItem('customerListSearchParams', JSON.stringify(info));
+          sessionStorage.setItem('customerListSearchParams', JSON.stringify(queryData));
           return info;
         },
         beforeFetch(info) {

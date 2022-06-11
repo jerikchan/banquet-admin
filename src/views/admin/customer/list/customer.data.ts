@@ -105,6 +105,7 @@ export const searchFormSchema: FormSchema[] = [
       labelField: 'realName',
       valueField: 'realName',
       disabled: false,
+      mode: 'multiple',
     },
     colProps: { span: 5 },
   },
@@ -113,6 +114,77 @@ export const searchFormSchema: FormSchema[] = [
     field: 'customerMobile',
     component: 'Input',
     colProps: { span: 5 },
+  },
+  {
+    label: '客资类型',
+    field: 'customerType',
+    component: 'Select',
+    colProps: { span: 5 },
+    componentProps: {
+      mode: 'multiple',
+      options: [
+        {
+          label: '线索客户',
+          value: '1',
+          key: '1',
+        },
+        {
+          label: '意向客户',
+          value: '2',
+          key: '2',
+        },
+        {
+          label: '流失客户',
+          value: '3',
+          key: '3',
+        },
+        {
+          label: '成交客户',
+          value: '5',
+          key: '5',
+        },
+        {
+          label: '无效客户',
+          value: '6',
+          key: '6',
+        },
+      ],
+    },
+  },
+  {
+    label: '获客渠道',
+    field: 'customerSource',
+    component: 'ApiSelect',
+    colProps: { span: 5 },
+    componentProps: {
+      api: getChannelList,
+      labelField: 'label',
+      valueField: 'code',
+      mode: 'multiple',
+    },
+    required: false,
+  },
+  {
+    field: 'isFirst',
+    component: 'Select',
+    label: '是否邀约进店',
+    colProps: {
+      span: 2,
+    },
+    componentProps: {
+      options: [
+        {
+          label: '是',
+          value: 'true',
+          key: '1',
+        },
+        {
+          label: '否',
+          value: 'false',
+          key: '2',
+        },
+      ],
+    },
   },
 ];
 
