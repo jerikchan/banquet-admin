@@ -4,27 +4,24 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref, reactive } from 'vue';
+  import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { acceptFormSchema } from './data';
-  import { addAccept } from '/@/api/admin/finance';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  import { lostReSalesFormSchema } from './customer.data';
+  import { lostReSales } from '/@/api/admin/customer';
 
   export default defineComponent({
-    name: 'BacklogAcceptModal',
+    name: 'LostReSalesModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
-      const { createMessage } = useMessage();
-      const receivable = reactive({ receivableId: '' });
-      let backlogId;
+      const customerTypeRef = ref('');
 
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
-        schemas: acceptFormSchema,
+        schemas: lostReSalesFormSchema,
         showActionButtonGroup: false,
         actionColOptions: {
           span: 23,
@@ -35,35 +32,26 @@
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
-        backlogId = data.id;
+
         if (unref(isUpdate)) {
           idRef.value = data.record.id;
+          customerTypeRef.value = data.record.customerType;
           setFieldsValue({
             ...data.record,
           });
         }
 
-        if (data) {
-          Object.assign(receivable, data);
-        }
-
-        if (data.receivableId) {
-          setFieldsValue({
-            receivableId: receivable.receivableId,
-            agreementCode: data.agreementCode,
-          });
-        }
-
-        // const treeData = await getAcceptTypeList();
+        // const treeData = await getCustomerTypeList();
         // updateSchema([
         //   {
-        //     field: 'type',
-        //     componentProps: { treeData },
+        //     field: 'customerType',
+        //     componentProps: { treeData, disabled: unref(isUpdate) },
+        //     required: !unref(isUpdate),
         //   },
         // ]);
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增回款' : '编辑回款'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '重新分配' : '重新分配'));
 
       async function handleSubmit() {
         try {
@@ -72,18 +60,11 @@
           // TODO custom api
           console.log(values);
           if (isUpdate.value) {
-            // await updateAccept({
-            //   ...values,
-            //   id: unref(idRef),
-            // });
-            createMessage.success('编辑回款成功');
-          } else {
-            if (receivable.receivableId) {
-              values.receivableId = receivable.receivableId;
-            }
-            values.backlogId = backlogId;
-            await addAccept(values);
-            createMessage.success('新增回款成功');
+            await lostReSales({
+              ...values,
+              id: idRef.value,
+              customerType: customerTypeRef.value,
+            });
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

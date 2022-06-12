@@ -217,6 +217,11 @@ export const submitReportColumn: BasicColumn[] = [
     dataIndex: 'content',
     width: 200,
   },
+  {
+    title: '批注',
+    dataIndex: 'endorse',
+    width: 200,
+  },
 ];
 
 export const commentFormSchema: FormSchema[] = [
@@ -295,6 +300,15 @@ export const commentFormSchema: FormSchema[] = [
   {
     label: '内容',
     field: 'content',
+    component: 'InputTextArea',
+    required: true,
+  },
+];
+
+export const endorseFormSchema: FormSchema[] = [
+  {
+    label: '批注内容',
+    field: 'endorse',
     component: 'InputTextArea',
     required: true,
   },

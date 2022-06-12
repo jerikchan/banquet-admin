@@ -20,52 +20,52 @@ export const columns: BasicColumn[] = [
   {
     title: '客户名',
     dataIndex: 'customerName',
-    width: 200,
+    width: 100,
   },
   {
     title: '跟进销售',
     dataIndex: 'salesManagerName',
-    width: 120,
+    width: 100,
   },
   {
     title: '客户类型',
     dataIndex: 'customerTypeStr',
-    width: 120,
+    width: 100,
   },
   {
     title: '联系电话',
     dataIndex: 'customerMobile',
-    width: 120,
+    width: 100,
   },
   {
     title: '获客渠道',
     dataIndex: 'customerSource',
-    width: 150,
+    width: 80,
   },
   {
     title: '是否邀约进店',
     dataIndex: 'isFirstStr',
-    width: 80,
+    width: 50,
   },
   {
     title: '获客时间',
     dataIndex: 'createTime',
-    width: 200,
+    width: 100,
   },
   {
     title: '意向时间',
     dataIndex: 'banquetTime',
-    width: 200,
+    width: 100,
   },
   {
     title: '客户状态',
     dataIndex: 'statusStr',
-    width: 200,
+    width: 50,
   },
   {
     title: '意向厅',
     dataIndex: 'banquetRoom',
-    width: 120,
+    width: 80,
   },
   {
     title: '是否已下beo单',
@@ -75,17 +75,17 @@ export const columns: BasicColumn[] = [
   {
     title: '桌数',
     dataIndex: 'floorsDeskCount',
-    width: 120,
+    width: 60,
   },
   {
     title: '第二联系人',
     dataIndex: 'secondMan',
-    width: 120,
+    width: 80,
   },
   {
     title: '第二联系人号码',
     dataIndex: 'secondManMobile',
-    width: 120,
+    width: 80,
   },
 ];
 
@@ -425,6 +425,25 @@ export const customerTypeFormSchema: FormSchema[] = [
 ];
 
 export const customerAllocationFormSchema: FormSchema[] = [
+  {
+    field: 'salesManagerId',
+    label: '销售',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getSalesList,
+      labelField: 'realName',
+      valueField: 'id',
+    },
+    required: true,
+  },
+  {
+    field: 'remark',
+    label: '备注',
+    component: 'InputTextArea',
+  },
+];
+
+export const lostReSalesFormSchema: FormSchema[] = [
   {
     field: 'salesManagerId',
     label: '销售',

@@ -46,7 +46,11 @@ enum Api {
   UpdateBackLogStatus = '/backlog/updateStatus',
   ChangeBacklogStatus = '/backlog/changeStatus',
 
+  AddEndorse = '/backlog/addEndorse',
+
   GetBacklogsInfoByBooker = '/backlog/findBackLogsByBooker',
+
+  GetBacklogsInfoByBookerYesterday = '/backlog/findBackLogsByBookerYesterday',
 
   GetSubmitReportInfos = '/report/findSubmitReportInfos',
 
@@ -65,6 +69,9 @@ export const getEncourageInfo = (params?: {}) =>
 export const getBacklogsInfoByBooker = (params?: {}) =>
   defHttp.get<{}>({ url: Api.GetBacklogsInfoByBooker, params }, { devUrl });
 
+export const getBacklogsInfoByBookerYesterday = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetBacklogsInfoByBookerYesterday, params }, { devUrl });
+
 export const findUserInfo = (params?: AccountParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.FindUserInfo, params }, { devUrl });
 
@@ -79,6 +86,9 @@ export const updateAccount = (params?: AccountParams) =>
 
 export const updateBackLogStatus = (params?: {}) =>
   defHttp.post<{}>({ url: Api.UpdateBackLogStatus, params }, { devUrl });
+
+export const addEndorse = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.AddEndorse, params }, { devUrl });
 
 export const changeBacklogStatus = (params?: {}) =>
   defHttp.post<{}>({ url: Api.ChangeBacklogStatus, params }, { devUrl });

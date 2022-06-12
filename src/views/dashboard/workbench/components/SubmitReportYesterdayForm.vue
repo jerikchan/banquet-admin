@@ -1,5 +1,5 @@
 <template>
-  <Card title="每日呈报" v-bind="$attrs">
+  <Card title="昨日呈报" v-bind="$attrs">
     <!-- <template #extra>
       <a-button type="link" size="small" @click="handleView">更多</a-button>
     </template> -->
@@ -32,7 +32,7 @@
   // import { getReviewList } from '/@/api/admin/approval';
   // import { columns } from '/@/views/admin/approval/review/review.data';
   // import { submitReportColumn } from './d'
-  import { getBacklogsInfoByBooker } from '/@/api/admin/system';
+  import { getBacklogsInfoByBookerYesterday } from '/@/api/admin/system';
   import { Card } from 'ant-design-vue';
   import { useGo } from '/@/hooks/web/usePage';
   import { RoleEnum } from '/@/enums/roleEnum';
@@ -50,7 +50,7 @@
       const go = useGo();
       const [registerEndorseModal, { openModal: openEndorseModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        api: getBacklogsInfoByBooker,
+        api: getBacklogsInfoByBookerYesterday,
         rowKey: 'id',
         columns: submitReportColumn,
         formConfig: {

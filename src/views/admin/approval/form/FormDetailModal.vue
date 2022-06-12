@@ -11,6 +11,16 @@
       :data="mockData"
       :schema="flowSchema"
     />
+
+    <Description
+      size="middle"
+      title="流程备注信息"
+      :bordered="true"
+      :column="1"
+      :data="mockData"
+      :schema="nodeRemarkSchema"
+    />
+
     <Description
       title="客户基本信息"
       :collapseOptions="{ canExpand: false, helpMessage: '客户信息' }"
@@ -155,6 +165,7 @@
 
   import {
     flowSchema,
+    nodeRemarkSchema,
     customerInfoSchema,
     refundTimeTableSchema,
     agreementInfoSchema,
@@ -398,6 +409,7 @@
       return {
         flowSchema,
         customerInfoSchema,
+        nodeRemarkSchema,
         register,
         goBack,
         currentKey,

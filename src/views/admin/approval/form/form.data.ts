@@ -90,6 +90,13 @@ export const flowSchema: DescItem[] = [
   },
 ];
 
+export const nodeRemarkSchema: DescItem[] = [
+  {
+    field: 'nodeRemark',
+    label: '备注信息',
+  },
+];
+
 export const customerInfoSchema: DescItem[] = [
   {
     field: 'customerName',

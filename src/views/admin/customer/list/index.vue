@@ -1,7 +1,7 @@
 <template>
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
-    <CustomerTypeTree class="w-1/4 xl:w-1/5" @select="handleSelect" />
-    <BasicTable @register="registerTable" class="w-3/4 xl:w-4/5" :searchInfo="searchInfo">
+    <!-- <CustomerTypeTree class="w-1/4 xl:w-1/5" @select="handleSelect" /> -->
+    <BasicTable @register="registerTable" class="" :searchInfo="searchInfo">
       <template #toolbar>
         <Authority :value="[RoleEnum.SUPER, RoleEnum.BOOKER]">
           <a-button type="primary" @click="handleCreate">新增客户</a-button>
@@ -117,6 +117,13 @@
               disabled: record.status === '1',
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
             },
+            {
+              label: '流失无效再分配',
+              ifShow: record.customerType === '3' || record.customerType === '6',
+              onClick: handleLostReSales.bind(null, record, '6'),
+              disabled: record.status === '1',
+              auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
+            },
           ]"
         />
       </template>
@@ -131,6 +138,7 @@
     />
     <CommentModal @register="registerCommentAddModal" @success="handleSuccess" />
     <CustomerInvalidModal @register="registerInvalidModal" @success="handleSuccess" />
+    <CustomerLostReAllocateModal @register="registerLostReAllocateModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -145,7 +153,6 @@
     updateCustomerReadStatuts,
   } from '/@/api/admin/customer';
   import { PageWrapper } from '/@/components/Page';
-  import CustomerTypeTree from './CustomerTypeTree.vue';
   import { useModal } from '/@/components/Modal';
   import CustomerModal from './CustomerModal.vue';
   import CustomerTypeModal from './CustomerTypeModal.vue';
@@ -161,13 +168,13 @@
   import CustomerInvalidModal from './CustomerInvalidModal.vue';
   import { useGlobSetting } from '/@/hooks/setting';
   import { unreadCustomerStatus } from '/@/views/admin/customer/list/unreadCustomerStatus';
+  import CustomerLostReAllocateModal from './CustomerLostReAllocateModal.vue';
 
   export default defineComponent({
     name: 'CustomerManagement',
     components: {
       BasicTable,
       PageWrapper,
-      CustomerTypeTree,
       CustomerModal,
       ContractModal,
       TableAction,
@@ -177,6 +184,7 @@
       CommentModal,
       CustomerCancelModal,
       CustomerInvalidModal,
+      CustomerLostReAllocateModal,
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
@@ -186,6 +194,7 @@
       const [registerCancelModal, { openModal: openCancelModal }] = useModal();
       const [registerCommentAddModal, { openModal: openCommentAddnModal }] = useModal();
       const [registerInvalidModal, { openModal: openInvalidModal }] = useModal();
+      const [registerLostReAllocateModal, { openModal: openLostReAllocateModal }] = useModal();
 
       const [, { reload: reloadStatus }] = unreadCustomerStatus();
 
@@ -469,6 +478,14 @@
         });
       }
 
+      function handleLostReSales(record: Recordable, toType) {
+        openLostReAllocateModal(true, {
+          record,
+          toType,
+          isUpdate: true,
+        });
+      }
+
       return {
         registerTable,
         registerModal,
@@ -500,6 +517,8 @@
         registerInvalidModal,
         handleExportExpectSuccess,
         handleExportSuccess,
+        handleLostReSales,
+        registerLostReAllocateModal,
       };
     },
   });

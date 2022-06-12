@@ -4,27 +4,27 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref, reactive } from 'vue';
+  import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { acceptFormSchema } from './data';
-  import { addAccept } from '/@/api/admin/finance';
+  import { endorseFormSchema } from './data';
+  import { addEndorse } from '/@/api/admin/system';
   import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
-    name: 'BacklogAcceptModal',
+    name: 'EndorseModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const idRef = ref('');
       const { createMessage } = useMessage();
-      const receivable = reactive({ receivableId: '' });
+      // const receivable = reactive({ receivableId: '' });
       let backlogId;
 
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
-        schemas: acceptFormSchema,
+        schemas: endorseFormSchema,
         showActionButtonGroup: false,
         actionColOptions: {
           span: 23,
@@ -44,13 +44,13 @@
         }
 
         if (data) {
-          Object.assign(receivable, data);
+          // Object.assign(receivable, data);
         }
 
         if (data.receivableId) {
           setFieldsValue({
-            receivableId: receivable.receivableId,
-            agreementCode: data.agreementCode,
+            // receivableId: receivable.receivableId,
+            // agreementCode: data.agreementCode,
           });
         }
 
@@ -63,7 +63,7 @@
         // ]);
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增回款' : '编辑回款'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '编辑批注' : '编辑批注'));
 
       async function handleSubmit() {
         try {
@@ -76,14 +76,12 @@
             //   ...values,
             //   id: unref(idRef),
             // });
-            createMessage.success('编辑回款成功');
+            createMessage.success('编辑批注成功');
           } else {
-            if (receivable.receivableId) {
-              values.receivableId = receivable.receivableId;
-            }
             values.backlogId = backlogId;
-            await addAccept(values);
-            createMessage.success('新增回款成功');
+            console.log(values);
+            await addEndorse(values);
+            createMessage.success('编辑批注成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

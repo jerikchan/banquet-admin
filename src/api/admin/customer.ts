@@ -62,6 +62,8 @@ enum Api {
   GetUnreadCustomerStatusNum = '/customer/unreadCustomerStatusNum',
 
   UpdateCustomerReadStatuts = '/customer/changeCustomerReadStatus',
+
+  LostReAllocate = '/customer/lostReSales',
 }
 
 export const getChannelList = (params: ChannelParams) =>
@@ -210,6 +212,9 @@ export const updateCustomerReadStatuts = (params?: any) =>
 
 export const allocationSales = (params?: any) =>
   defHttp.post<CustomerListGetResultModel>({ url: Api.AllocationSales, params }, { devUrl });
+
+export const lostReSales = (params?: any) =>
+  defHttp.post<CustomerListGetResultModel>({ url: Api.LostReAllocate, params }, { devUrl });
 
 export const unallocationSales = (params?: any) =>
   defHttp.post<CustomerListGetResultModel>({ url: Api.UnallocationSales, params }, { devUrl });

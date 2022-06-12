@@ -35,6 +35,7 @@
           :value="[RoleEnum.SUPER, RoleEnum.SALES_MANAGER, RoleEnum.MANAGER, RoleEnum.BOOKER]"
         >
           <SubmitReportForm :loading="loading" class="!my-4 enter-y" />
+          <SubmitReportYesterdayForm :loading="loading" class="!my-4 enter-y" />
         </Authority>
       </div>
       <div class="w-full lg:w-3/10 enter-y">
@@ -67,6 +68,7 @@
   import PerfCard from './components/PerfSalesCard.vue';
   import SalesCard from '/@/views/dashboard/analysis/components/SalesCard.vue';
   import SubmitReportForm from './components/SubmitReportForm.vue';
+  import SubmitReportYesterdayForm from './components/SubmitReportYesterdayForm.vue';
 
   export default defineComponent({
     components: {
@@ -82,6 +84,7 @@
       PerfCard,
       SalesCard,
       SubmitReportForm,
+      SubmitReportYesterdayForm,
     },
     setup() {
       const loading = ref(true);

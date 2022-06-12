@@ -38,6 +38,8 @@
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
+  import { RoleEnum } from '/@/enums/roleEnum';
+
   import { useGo } from '/@/hooks/web/usePage';
 
   import { useModal } from '/@/components/Modal';
@@ -144,6 +146,7 @@
         registerAcceptModal,
         handleSuccess,
         handleCustomerDetail,
+        RoleEnum,
         // cardData,
       };
     },
