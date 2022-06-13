@@ -195,12 +195,17 @@ export const submitReportColumn: BasicColumn[] = [
   {
     title: '名称',
     dataIndex: 'name',
-    width: 200,
+    width: 120,
+  },
+  {
+    title: '客户号码',
+    dataIndex: 'customerMobile',
+    width: 120,
   },
   {
     title: '预计跟进时间',
     dataIndex: 'backlogTime',
-    width: 150,
+    width: 120,
   },
   {
     title: '跟进销售',

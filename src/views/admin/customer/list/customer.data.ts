@@ -30,12 +30,12 @@ export const columns: BasicColumn[] = [
   {
     title: '客户类型',
     dataIndex: 'customerTypeStr',
-    width: 100,
+    width: 90,
   },
   {
     title: '联系电话',
     dataIndex: 'customerMobile',
-    width: 100,
+    width: 120,
   },
   {
     title: '获客渠道',

@@ -8,7 +8,7 @@
       </div>
     </Authority>
     <div class="lg:flex">
-      <div class="lg:w-7/10 w-full !mr-4 enter-y">
+      <div class="lg:w-8/10 w-full !mr-4 enter-y">
         <Authority
           :value="[
             RoleEnum.SUPER,
@@ -38,7 +38,7 @@
           <SubmitReportYesterdayForm :loading="loading" class="!my-4 enter-y" />
         </Authority>
       </div>
-      <div class="w-full lg:w-3/10 enter-y">
+      <div class="w-full lg:w-2/10 enter-y">
         <EncourageModal :loading="loading" class="enter-y" />
         <DynamicInfo :loading="loading" class="!my-4 enter-y" />
       </div>
