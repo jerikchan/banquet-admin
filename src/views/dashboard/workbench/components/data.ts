@@ -223,6 +223,11 @@ export const submitReportColumn: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '最新跟进内容',
+    dataIndex: 'newContent',
+    width: 200,
+  },
+  {
     title: '处理状态',
     dataIndex: 'statusStr',
     width: 80,
