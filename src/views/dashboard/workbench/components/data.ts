@@ -218,7 +218,7 @@ export const submitReportColumn: BasicColumn[] = [
     width: 80,
   },
   {
-    title: '呈报内容',
+    title: '待办内容',
     dataIndex: 'content',
     width: 200,
   },
