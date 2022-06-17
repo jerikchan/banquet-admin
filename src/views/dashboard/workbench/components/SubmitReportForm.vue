@@ -1,5 +1,5 @@
 <template>
-  <Card title="每日呈报" v-bind="$attrs">
+  <Card title="今日所有待办" v-bind="$attrs">
     <!-- <template #extra>
       <a-button type="link" size="small" @click="handleView">更多</a-button>
     </template> -->
