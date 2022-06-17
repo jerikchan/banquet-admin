@@ -15,6 +15,7 @@
         RoleEnum.BOOKER,
         RoleEnum.ANALYST,
         RoleEnum.LOOK_ABOUT_ANLYLSIS,
+        RoleEnum.FINANCE_MANAGER,
       ]"
     >
       <div class="!my-4 md:flex enter-y">

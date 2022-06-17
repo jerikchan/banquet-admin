@@ -18,6 +18,7 @@ const manager: AppRouteModule = {
       RoleEnum.SALES,
       RoleEnum.SALES_MANAGER,
       RoleEnum.LOOK_ABOUT_PERFORMANCE,
+      RoleEnum.FINANCE_MANAGER,
     ],
   },
   children: [
@@ -39,6 +40,7 @@ const manager: AppRouteModule = {
           RoleEnum.MANAGER,
           RoleEnum.SALES_MANAGER,
           RoleEnum.LOOK_ABOUT_PERFORMANCE,
+          RoleEnum.FINANCE_MANAGER,
         ],
       },
       component: () => import('/@/views/admin/performance/dept/index.vue'),
