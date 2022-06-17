@@ -170,6 +170,11 @@ export const backlogColumns: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '联系方式',
+    dataIndex: 'customerMobile',
+    width: 100,
+  },
+  {
     title: '待办时间',
     dataIndex: 'backlogTime',
     width: 200,
