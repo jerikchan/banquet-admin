@@ -186,6 +186,16 @@ export const searchFormSchema: FormSchema[] = [
       ],
     },
   },
+  {
+    field: 'createTime',
+    label: '获客日期',
+    component: 'DatePicker',
+    componentProps: {
+      mode: 'date',
+      format: 'YYYY-MM',
+      valueFormat: 'YYYY-MM',
+    },
+  },
 ];
 
 export const customerFormSchema: FormSchema[] = [

@@ -249,6 +249,7 @@
             customerMobile: '',
             customerSourceSearch: '',
             isFirst: '',
+            createTime: '',
           };
           if (formData['customerType']) {
             for (let i = 0; i < formData['customerType'].length; i++) {
@@ -269,6 +270,10 @@
 
           if (formData['isFirst']) {
             queryData.isFirst = formData['isFirst'];
+          }
+
+          if (formData['createTime']) {
+            queryData.createTime = formData['createTime'];
           }
 
           if (formData['salesName']) {
