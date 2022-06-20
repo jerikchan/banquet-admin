@@ -26,13 +26,24 @@ enum Api {
   ReloadAgreementSales = '/agreement/reloadAgreementSales',
 
   GetFoodsChooseInfos = '/foods/findFoodsChoose',
+
+  AddPurposeAgreement = '/agreement/purpose/add',
+  UpdatePurposeAgreement = '/agreement/purpose/update',
+  GetPurposeAgreementList = '/agreement/purpose/list',
+  GetPurposeDetail = '/agreement/purpose/detail',
 }
 
 export const getContractList = (params?: ContractParams) =>
   defHttp.get<ContractListGetResultModel>({ url: Api.GetContractist, params }, { devUrl });
 
+export const getPurposeAgreementList = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetPurposeAgreementList, params }, { devUrl });
+
 export const getAgreementInfo = (params?: {}) =>
   defHttp.get<ContractListGetResultModel>({ url: Api.GetAgreementInfo, params }, { devUrl });
+
+export const getPurposeDetail = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetPurposeDetail, params }, { devUrl });
 
 export const getFoodsInfos = (params?: {}) =>
   defHttp.get<ContractListGetResultModel>({ url: Api.GetFoodsInfos, params }, { devUrl });
@@ -49,11 +60,17 @@ export const getScheduleByAgreementId = (params?: {}) =>
 export const addContract = (params?: ContractParams) =>
   defHttp.post<ContractListGetResultModel>({ url: Api.AddContract, params }, { devUrl });
 
+export const addPurposeAgreement = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.AddPurposeAgreement, params }, { devUrl });
+
 export const reloadAgreementSales = (params?: {}) =>
   defHttp.post<{}>({ url: Api.ReloadAgreementSales, params }, { devUrl });
 
 export const updateContract = (params?: ContractParams) =>
   defHttp.post<ContractListGetResultModel>({ url: Api.UpdateContract, params }, { devUrl });
+
+export const updatePurposeAgreement = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.UpdatePurposeAgreement, params }, { devUrl });
 
 export const deleteContract = (params?: { id: string }) =>
   defHttp.post<ContractListGetResultModel>({ url: Api.DeleteContract, params }, { devUrl });

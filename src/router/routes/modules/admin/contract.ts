@@ -32,6 +32,14 @@ const contract: AppRouteModule = {
       component: () => import('/@/views/admin/contract/list/index.vue'),
     },
     {
+      path: 'purpose/list',
+      name: 'PurposeContractList',
+      meta: {
+        title: '意向合同列表',
+      },
+      component: () => import('/@/views/admin/purpose/index.vue'),
+    },
+    {
       path: 'contract_detail/:id',
       name: 'ContracDetail',
       meta: {
@@ -42,6 +50,18 @@ const contract: AppRouteModule = {
         currentActiveMenu: '/contract/list',
       },
       component: () => import('/@/views/admin/contract/list/ContractDetailModal.vue'),
+    },
+    {
+      path: 'purpose_contract_detail/:id',
+      name: 'PurposeContracDetail',
+      meta: {
+        hideMenu: true,
+        title: '意向合同详情',
+        showMenu: false,
+        hideTab: true,
+        currentActiveMenu: '/contract/purpose/list',
+      },
+      component: () => import('/@/views/admin/purpose/ContractDetailModal.vue'),
     },
   ],
 };
