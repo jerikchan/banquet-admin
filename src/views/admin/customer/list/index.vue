@@ -92,10 +92,17 @@
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
-              label: '合同下单',
+              label: '正式合同下单',
               ifShow: record.customerType === '2',
               onClick: handleContractOpen.bind(null, record, '5'),
-              disabled: record.status === '1',
+              disabled: record.status === '1' || record.hasPurposeAgreement === 'true',
+              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+            },
+            {
+              label: '意向合同下单',
+              ifShow: record.customerType === '2',
+              onClick: handlePurposeContract.bind(null, record, '5'),
+              disabled: record.status === '1' || record.hasPurposeAgreement === 'true',
               auth: [RoleEnum.SUPER, RoleEnum.SALES],
             },
             {
@@ -114,7 +121,7 @@
                 record.customerType === '0' ||
                 record.customerType === '2',
               onClick: handleInvalid.bind(null, record, '6'),
-              disabled: record.status === '1',
+              disabled: record.status === '1' || record.hasPurposeAgreement === 'true',
               auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
             },
             {
@@ -132,6 +139,7 @@
     <CustomerCancelModal @register="registerCancelModal" @success="handleSuccess" />
     <CustomerTypeModal @register="registerTypeModal" @success="handleTypeSuccess" />
     <ContractModal @register="registerContractModal" @success="handleContractSuccess" />
+    <PurposeContractModal @register="registPurposeContractModal" @success="handleContractSuccess" />
     <CustomerAllocationSalesModal
       @register="registerAllocationModal"
       @success="handleAllocationSuccess"
@@ -143,7 +151,6 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive } from 'vue';
-  // import { useRoute } from 'vue-router';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import {
     getCustomerList,
@@ -163,12 +170,12 @@
   import { useGo } from '/@/hooks/web/usePage';
   import { columns, searchFormSchema } from './customer.data';
   import { useMessage } from '/@/hooks/web/useMessage';
-  // import { BasicUpload } from '/@/components/Upload';
   import { RoleEnum } from '/@/enums/roleEnum';
   import CustomerInvalidModal from './CustomerInvalidModal.vue';
   import { useGlobSetting } from '/@/hooks/setting';
   import { unreadCustomerStatus } from '/@/views/admin/customer/list/unreadCustomerStatus';
   import CustomerLostReAllocateModal from './CustomerLostReAllocateModal.vue';
+  import PurposeContractModal from '/@/views/admin/purpose/ContractModal.vue';
 
   export default defineComponent({
     name: 'CustomerManagement',
@@ -185,11 +192,13 @@
       CustomerCancelModal,
       CustomerInvalidModal,
       CustomerLostReAllocateModal,
+      PurposeContractModal,
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTypeModal, { openModal: openTypeModal }] = useModal();
       const [registerContractModal, { openModal: openContractModal }] = useModal();
+      const [registPurposeContractModal, { openModal: openPurposeContractModal }] = useModal();
       const [registerAllocationModal, { openModal: openAllocationnModal }] = useModal();
       const [registerCancelModal, { openModal: openCancelModal }] = useModal();
       const [registerCommentAddModal, { openModal: openCommentAddnModal }] = useModal();
@@ -249,7 +258,8 @@
             customerMobile: '',
             customerSourceSearch: '',
             isFirst: '',
-            createTime: '',
+            createTimeStart: '',
+            createTimeEnd: '',
           };
           if (formData['customerType']) {
             for (let i = 0; i < formData['customerType'].length; i++) {
@@ -273,7 +283,8 @@
           }
 
           if (formData['createTime']) {
-            queryData.createTime = formData['createTime'];
+            queryData.createTimeStart = formData['createTime'][0];
+            queryData.createTimeEnd = formData['createTime'][1];
           }
 
           if (formData['salesName']) {
@@ -410,6 +421,19 @@
           toType,
         });
       }
+
+      function handlePurposeContract(record: Recordable, toType) {
+        openPurposeContractModal(true, {
+          record: {
+            ...record,
+            id: '',
+            customerId: record.id,
+          },
+          isUpdate: false,
+          toType,
+        });
+      }
+
       async function handleDelete(record: Recordable) {
         console.log(record);
         await deleteCustomer({ id: record.id });
@@ -509,6 +533,7 @@
         searchInfo,
         handleTypeUpdate,
         handleContractOpen,
+        handlePurposeContract,
         handleAllocation,
         handleUnallocation,
         handleCustomerDetail,
@@ -524,6 +549,7 @@
         handleExportSuccess,
         handleLostReSales,
         registerLostReAllocateModal,
+        registPurposeContractModal,
       };
     },
   });

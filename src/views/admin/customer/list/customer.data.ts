@@ -53,6 +53,11 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
+    title: '签订意向合同',
+    dataIndex: 'hasPurposeAgreementStr',
+    width: 50,
+  },
+  {
     title: '意向时间',
     dataIndex: 'banquetTime',
     width: 100,
@@ -189,12 +194,8 @@ export const searchFormSchema: FormSchema[] = [
   {
     field: 'createTime',
     label: '获客日期',
-    component: 'DatePicker',
-    componentProps: {
-      mode: 'date',
-      format: 'YYYY-MM',
-      valueFormat: 'YYYY-MM',
-    },
+    component: 'RangePicker',
+    componentProps: {},
   },
 ];
 

@@ -21,14 +21,14 @@
   import { defineComponent, ref, computed, unref, reactive } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { contractFormSchema } from './contract.data';
-  import { addPurposeAgreement, updatePurposeAgreement } from '/@/api/admin/contract';
+  import { contractFormSchema } from '/@/views/admin/contract/list/contract.data';
+  import { toFormal, updateContract } from '/@/api/admin/contract';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PlusOutlined } from '@ant-design/icons-vue';
   import { uploadPicApiCustom } from '/@/api/sys/upload';
 
   export default defineComponent({
-    name: 'PurposeContractModal',
+    name: 'PurposeToFormalContractModal',
     components: { BasicModal, BasicForm, PlusOutlined },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -57,7 +57,7 @@
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
-        debugger;
+        idRef.value = data.record.id;
         if (!unref(isUpdate)) {
           setFieldsValue({
             status: '0',
@@ -83,7 +83,9 @@
         });
       });
 
-      const getTitle = computed(() => (isUpdate.value ? '修改意向合同' : '新增意向合同'));
+      const getTitle = computed(() =>
+        isUpdate.value ? '意向合同转正式合同' : '意向合同转正式合同'
+      );
 
       function onFileChange(fileInfo, { fileList }) {
         fileInfo.data = fileList.map((fileInfo) => fileInfo.response || fileInfo);
@@ -106,14 +108,17 @@
           // TODO custom api
           console.log(values);
           if (!unref(isUpdate)) {
-            await addPurposeAgreement(values);
-            createMessage.success('新增意向合同成功');
-          } else {
-            await updatePurposeAgreement({
+            await toFormal({
               ...values,
               id: idRef.value,
             });
-            createMessage.success('修改意向合同成功');
+            createMessage.success('操作成功');
+          } else {
+            await updateContract({
+              ...values,
+              id: idRef.value,
+            });
+            createMessage.success('操作成功');
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: idRef.value } });

@@ -31,6 +31,10 @@ enum Api {
   UpdatePurposeAgreement = '/agreement/purpose/update',
   GetPurposeAgreementList = '/agreement/purpose/list',
   GetPurposeDetail = '/agreement/purpose/detail',
+
+  ToFormal = '/agreement/purpose/to/formal',
+
+  CancelPurpose = '/agreement/purpose/cancel',
 }
 
 export const getContractList = (params?: ContractParams) =>
@@ -62,6 +66,12 @@ export const addContract = (params?: ContractParams) =>
 
 export const addPurposeAgreement = (params?: {}) =>
   defHttp.post<{}>({ url: Api.AddPurposeAgreement, params }, { devUrl });
+
+export const toFormal = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.ToFormal, params }, { devUrl });
+
+export const cancelPurpose = (params?: {}) =>
+  defHttp.post<{}>({ url: Api.CancelPurpose, params }, { devUrl });
 
 export const reloadAgreementSales = (params?: {}) =>
   defHttp.post<{}>({ url: Api.ReloadAgreementSales, params }, { devUrl });

@@ -1,8 +1,8 @@
 <template>
-  <PageWrapper title="合同详情" contentBackground @back="goBack">
+  <PageWrapper title="意向合同详情" contentBackground @back="goBack">
     <Description
-      title="合同基本信息"
-      :collapseOptions="{ canExpand: false, helpMessage: '合同信息' }"
+      title="意向合同基本信息"
+      :collapseOptions="{ canExpand: false, helpMessage: '意向合同信息' }"
       :column="2"
       :data="agreementInfoData"
       :schema="agreemetnDetailSchema"
@@ -16,7 +16,7 @@
   import { PageWrapper } from '/@/components/Page';
   import { useRoute } from 'vue-router';
   import { useGo } from '/@/hooks/web/usePage';
-  import { getAgreementInfo } from '/@/api/admin/contract';
+  import { getPurposeDetail } from '/@/api/admin/contract';
   import { Divider, Card, Descriptions, Steps } from 'ant-design-vue';
   import { agreemetnDetailSchema } from './contract.data';
 
@@ -87,7 +87,7 @@
       // });
 
       async function handleData(id: string) {
-        let res = await getAgreementInfo({ id: id });
+        let res = await getPurposeDetail({ id: id });
         Object.assign(agreementInfoData, res);
       }
 
