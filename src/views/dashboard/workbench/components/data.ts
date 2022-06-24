@@ -194,6 +194,11 @@ export const backlogColumns: BasicColumn[] = [
     dataIndex: 'statusStr',
     width: 100,
   },
+  {
+    title: '批注',
+    dataIndex: 'endorse',
+    width: 200,
+  },
 ];
 
 export const submitReportColumn: BasicColumn[] = [

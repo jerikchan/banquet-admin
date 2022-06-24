@@ -55,6 +55,8 @@ enum Api {
   GetSubmitReportInfos = '/report/findSubmitReportInfos',
 
   GetEncourageInfo = '/encourage/findSelected',
+
+  GetBacklogDoneList = '/backlog/findBackLogsNativeDone',
 }
 
 export const getAccountList = (params?: AccountParams) =>
@@ -65,6 +67,9 @@ export const getSubmitReportInfos = (params?: {}) =>
 
 export const getEncourageInfo = (params?: {}) =>
   defHttp.get<{}>({ url: Api.GetEncourageInfo, params }, { devUrl });
+
+export const getBacklogDoneList = (params?: {}) =>
+  defHttp.get<{}>({ url: Api.GetBacklogDoneList, params }, { devUrl });
 
 export const getBacklogsInfoByBooker = (params?: {}) =>
   defHttp.get<{}>({ url: Api.GetBacklogsInfoByBooker, params }, { devUrl });

@@ -30,6 +30,7 @@
           ]"
         >
           <BacklogCard :loading="loading" class="!my-4 enter-y" />
+          <!-- <BacklogDoneCard :loading="loading" class="!my-4 enter-y" /> -->
         </Authority>
         <Authority
           :value="[RoleEnum.SUPER, RoleEnum.SALES_MANAGER, RoleEnum.MANAGER, RoleEnum.BOOKER]"
@@ -62,6 +63,7 @@
   import DynamicInfo from './components/DynamicInfo.vue';
   // import SaleRadar from './components/SaleRadar.vue';
   import BacklogCard from './components/BacklogCard.vue';
+  // import BacklogDoneCard from './components/BacklogDoneCard.vue';
   import EncourageModal from './components/EncourageModal.vue';
   import { RoleEnum } from '/@/enums/roleEnum';
   // import PerfCard from '/@/views/dashboard/analysis/components/PerfCard.vue';
@@ -84,6 +86,7 @@
       PerfCard,
       SalesCard,
       SubmitReportForm,
+      // BacklogDoneCard,
       SubmitReportYesterdayForm,
     },
     setup() {

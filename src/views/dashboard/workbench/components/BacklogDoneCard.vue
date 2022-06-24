@@ -1,31 +1,9 @@
 <template>
-  <Card title="待办事项" v-bind="$attrs">
+  <Card title="已办事项" v-bind="$attrs">
     <!-- <template #extra>
       <a-button type="link" size="small" @click="handleView">更多</a-button>
     </template> -->
     <BasicTable @register="registerTable">
-      <template #action="{ record }">
-        <TableAction
-          :actions="[
-            {
-              icon: 'clarity:info-standard-line',
-              tooltip: '查看详情',
-              ifShow: record.type === '回访',
-              onClick: handleCustomerDetail.bind(null, record),
-            },
-            {
-              icon: 'clarity:note-edit-line',
-              tooltip: '处理',
-              onClick: handleEvent.bind(null, record),
-            },
-          ]"
-        />
-      </template>
-    </BasicTable>
-  </Card>
-
-  <Card title="已办事项" v-bind="$attrs">
-    <BasicTable @register="registerDoneTable">
       <template #action="{ record }">
         <TableAction
           :actions="[
@@ -48,7 +26,7 @@
   import { groupItems } from './data';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   // import { getReviewList } from '/@/api/admin/approval';
-  import { updateBackLogStatus, changeBacklogStatus } from '/@/api/admin/system';
+  import { updateBackLogStatus } from '/@/api/admin/system';
   import { backlogColumns } from './data';
   import { Card } from 'ant-design-vue';
   // import { useGo } from '/@/hooks/web/usePage';
@@ -59,13 +37,11 @@
 
   import { useGo } from '/@/hooks/web/usePage';
 
-  import { useModal } from '/@/components/Modal';
+  // import { useModal } from '/@/components/Modal';
 
   import BacklogCommentModal from './BacklogCommentModal.vue';
 
   import BacklogAcceptModal from './BacklogAcceptModal.vue';
-
-  import { useBacklogCard } from './useBacklogCard';
 
   import { useBacklogDoneCard } from './useBacklogDoneCard';
 
@@ -82,28 +58,10 @@
       const { createMessage } = useMessage();
       const go = useGo();
       // const cardData = reactive({});
-      const [, { getBacklogs, reload: reloadBacklogCard }] = useBacklogCard();
-      const [, { getBacklogDoneList, reload: reloadBacklogDoneCard }] = useBacklogDoneCard();
-      const [registerModal, { openModal }] = useModal();
-      const [registerAcceptModal, { openModal: openAcceptModal }] = useModal();
+      const [, { getBacklogDoneList, reload: reloadBacklogCard }] = useBacklogDoneCard();
+      // const [registerModal, { openModal }] = useModal();
+      // const [registerAcceptModal, { openModal: openAcceptModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        api: getBacklogs,
-        rowKey: 'id',
-        columns: backlogColumns,
-        formConfig: {
-          labelWidth: 120,
-          autoSubmitOnEnter: true,
-        },
-        actionColumn: {
-          width: 50,
-          title: '操作',
-          dataIndex: 'action',
-          slots: { customRender: 'action' },
-        },
-        pagination: true,
-      });
-
-      const [registerDoneTable, { reload: reloadDone }] = useTable({
         api: getBacklogDoneList,
         rowKey: 'id',
         columns: backlogColumns,
@@ -140,32 +98,31 @@
         go('/dashboard/chat_record_detail/' + record.id);
       }
 
-      async function handleEvent(record: Recordable) {
-        if ('回访' === record.type) {
-          openModal(true, {
-            isUpdate: false,
-            ...record,
-          });
-        } else if ('合同回款' === record.type) {
-          openAcceptModal(true, {
-            isUpdate: false,
-            ...record,
-          });
-        } else if ('试妆' === record.type) {
-          await changeBacklogStatus({ id: record.id });
-          go('/dashboard/try_form_detail/' + record.tryOnMakeUpFormId);
-        } else if ('执行beo单' === record.type) {
-          await changeBacklogStatus({ id: record.id });
-          go('/beo/order');
-        }
-        console.log(record);
-      }
+      // async function handleEvent(record: Recordable) {
+      //   if ('回访' === record.type) {
+      //     openModal(true, {
+      //       isUpdate: false,
+      //       ...record,
+      //     });
+      //   } else if ('合同回款' === record.type) {
+      //     openAcceptModal(true, {
+      //       isUpdate: false,
+      //       ...record,
+      //     });
+      //   } else if ('试妆' === record.type) {
+      //     await changeBacklogStatus({ id: record.id });
+      //     go('/dashboard/try_form_detail/' + record.tryOnMakeUpFormId);
+      //   } else if ('执行beo单' === record.type) {
+      //     await changeBacklogStatus({ id: record.id });
+      //     go('/beo/order');
+      //   }
+      //   console.log(record);
+      // }
 
       function handleSuccess() {
         reload();
-        reloadDone();
         reloadBacklogCard();
-        reloadBacklogDoneCard();
+        // reloadBacklogCard();
         // const tempData = getBacklogNum();
         // Object.assign(cardData, tempData);
         // go('/dashboard/workbench');
@@ -180,14 +137,12 @@
         handleViewDetail,
         handleFinish,
         registerTable,
-        registerDoneTable,
-        handleEvent,
-        registerModal,
-        registerAcceptModal,
+        // handleEvent,
+        // registerModal,
+        // registerAcceptModal,
         handleSuccess,
         handleCustomerDetail,
         RoleEnum,
-        // registerDoneTable,
         // cardData,
       };
     },
