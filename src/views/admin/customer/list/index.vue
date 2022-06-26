@@ -96,14 +96,24 @@
               ifShow: record.customerType === '2',
               onClick: handleContractOpen.bind(null, record, '5'),
               disabled: record.status === '1' || record.hasPurposeAgreement === 'true',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+              auth: [
+                RoleEnum.SUPER,
+                RoleEnum.SALES,
+                RoleEnum.SALES_OFFICER,
+                RoleEnum.SALES_MANAGER,
+              ],
             },
             {
               label: '意向合同下单',
               ifShow: record.customerType === '2',
               onClick: handlePurposeContract.bind(null, record, '5'),
               disabled: record.status === '1' || record.hasPurposeAgreement === 'true',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES],
+              auth: [
+                RoleEnum.SUPER,
+                RoleEnum.SALES,
+                RoleEnum.SALES_OFFICER,
+                RoleEnum.SALES_MANAGER,
+              ],
             },
             {
               label: '转为流失',
