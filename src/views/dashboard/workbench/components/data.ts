@@ -237,10 +237,17 @@ export const submitReportColumn: BasicColumn[] = [
     width: 100,
     customRender: ({ record }) => {
       const status = record.status;
-      const enable = ~~status === 1;
-      const color = enable ? 'green' : 'red';
-      const text = enable ? '已处理' : '未处理';
-      return h(Tag, { color: color }, () => text);
+
+      if (record.type === '流失' || record.type === '无效') {
+        const color = 'yellow';
+        const text = record.type;
+        return h(Tag, { color: color }, () => text);
+      } else {
+        const enable = ~~status === 1;
+        const color = enable ? 'green' : 'red';
+        const text = enable ? '已处理' : '未处理';
+        return h(Tag, { color: color }, () => text);
+      }
     },
   },
   {
