@@ -4,6 +4,8 @@ import { getCommentTypeList } from '/@/api/admin/customer';
 import { getReturnTypeList } from '/@/api/admin/finance';
 import { getTotalList } from '/@/api/admin/finance';
 import { DescItem } from '/@/components/Description/index';
+import { h } from 'vue';
+import { Tag } from 'ant-design-vue';
 // import { FormSchema } from '/@/components/Table';
 
 interface GroupItem {
@@ -180,6 +182,18 @@ export const backlogColumns: BasicColumn[] = [
     width: 200,
   },
   {
+    title: '状态',
+    dataIndex: 'statusStr',
+    width: 100,
+    customRender: ({ record }) => {
+      const status = record.status;
+      const enable = ~~status === 1;
+      const color = enable ? 'green' : 'red';
+      const text = enable ? '已处理' : '未处理';
+      return h(Tag, { color: color }, () => text);
+    },
+  },
+  {
     title: '事项类型',
     dataIndex: 'type',
     width: 120,
@@ -188,11 +202,6 @@ export const backlogColumns: BasicColumn[] = [
     title: '待办内容',
     dataIndex: 'content',
     width: 200,
-  },
-  {
-    title: '状态',
-    dataIndex: 'statusStr',
-    width: 100,
   },
   {
     title: '批注',
@@ -223,6 +232,18 @@ export const submitReportColumn: BasicColumn[] = [
     width: 120,
   },
   {
+    title: '状态',
+    dataIndex: 'statusStr',
+    width: 100,
+    customRender: ({ record }) => {
+      const status = record.status;
+      const enable = ~~status === 1;
+      const color = enable ? 'green' : 'red';
+      const text = enable ? '已处理' : '未处理';
+      return h(Tag, { color: color }, () => text);
+    },
+  },
+  {
     title: '类型',
     dataIndex: 'type',
     width: 80,
@@ -236,11 +257,6 @@ export const submitReportColumn: BasicColumn[] = [
     title: '最新跟进内容',
     dataIndex: 'newContent',
     width: 200,
-  },
-  {
-    title: '处理状态',
-    dataIndex: 'statusStr',
-    width: 80,
   },
   {
     title: '批注',
