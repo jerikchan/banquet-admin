@@ -53,14 +53,14 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
-    title: '签订意向合同',
-    dataIndex: 'hasPurposeAgreementStr',
-    width: 50,
-  },
-  {
     title: '意向时间',
     dataIndex: 'banquetTime',
     width: 100,
+  },
+  {
+    title: '签订意向合同',
+    dataIndex: 'hasPurposeAgreementStr',
+    width: 50,
   },
   {
     title: '客户状态',
