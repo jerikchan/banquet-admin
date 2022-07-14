@@ -16,7 +16,12 @@
               icon: 'grommet-icons:document-performance',
               tooltip: '批注',
               onClick: handleEndorse.bind(null, record),
-              auth: [RoleEnum.SUPER, RoleEnum.BOOKER],
+              auth: [
+                RoleEnum.SUPER,
+                RoleEnum.BOOKER,
+                RoleEnum.SALES_MANAGER,
+                RoleEnum.SALES_OFFICER,
+              ],
             },
           ]"
         />
