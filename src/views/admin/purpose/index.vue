@@ -22,7 +22,12 @@
               label: '转正式合同',
               onClick: toFormal.bind(null, record, '5'),
               disabled: record.status === '1' || record.status === '5' || record.status === '6',
-              auth: [RoleEnum.SUPER, RoleEnum.SALES_OFFICER, RoleEnum.SALES_MANAGER],
+              auth: [
+                RoleEnum.SUPER,
+                RoleEnum.SALES_OFFICER,
+                RoleEnum.SALES_MANAGER,
+                RoleEnum.SALES,
+              ],
             },
             {
               label: '退订',
