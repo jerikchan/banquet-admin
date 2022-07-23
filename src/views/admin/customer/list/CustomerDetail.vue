@@ -45,6 +45,10 @@
       field: 'statusStr',
     },
     {
+      label: '获客渠道',
+      field: 'customerSource',
+    },
+    {
       label: '是否已邀约进店',
       field: 'isFirstStr',
     },
