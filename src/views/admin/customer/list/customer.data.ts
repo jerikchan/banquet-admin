@@ -23,16 +23,6 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
-    title: '跟进销售',
-    dataIndex: 'salesManagerName',
-    width: 100,
-  },
-  {
-    title: '客户类型',
-    dataIndex: 'customerTypeStr',
-    width: 90,
-  },
-  {
     title: '联系电话',
     dataIndex: 'customerMobile',
     width: 120,
@@ -43,9 +33,14 @@ export const columns: BasicColumn[] = [
     width: 80,
   },
   {
-    title: '是否邀约进店',
-    dataIndex: 'isFirstStr',
-    width: 50,
+    title: '跟进销售',
+    dataIndex: 'salesManagerName',
+    width: 100,
+  },
+  {
+    title: '客户类型',
+    dataIndex: 'customerTypeStr',
+    width: 90,
   },
   {
     title: '获客时间',
@@ -53,13 +48,8 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
-    title: '意向时间',
-    dataIndex: 'banquetTime',
-    width: 100,
-  },
-  {
-    title: '签订意向合同',
-    dataIndex: 'hasPurposeAgreementStr',
+    title: '是否邀约进店',
+    dataIndex: 'isFirstStr',
     width: 50,
   },
   {
@@ -68,9 +58,19 @@ export const columns: BasicColumn[] = [
     width: 50,
   },
   {
+    title: '意向时间',
+    dataIndex: 'banquetTime',
+    width: 100,
+  },
+  {
     title: '意向厅',
     dataIndex: 'banquetRoom',
     width: 80,
+  },
+  {
+    title: '签订意向合同',
+    dataIndex: 'hasPurposeAgreementStr',
+    width: 50,
   },
   {
     title: '是否已下beo单',
