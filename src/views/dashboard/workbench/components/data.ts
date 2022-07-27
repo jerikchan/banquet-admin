@@ -177,6 +177,11 @@ export const backlogColumns: BasicColumn[] = [
     width: 100,
   },
   {
+    title: '获客渠道',
+    dataIndex: 'customerSource',
+    width: 100,
+  },
+  {
     title: '待办时间',
     dataIndex: 'backlogTime',
     width: 200,
@@ -220,6 +225,11 @@ export const submitReportColumn: BasicColumn[] = [
     title: '客户号码',
     dataIndex: 'customerMobile',
     width: 120,
+  },
+  {
+    title: '获客渠道',
+    dataIndex: 'customerSource',
+    width: 100,
   },
   {
     title: '预计跟进时间',
