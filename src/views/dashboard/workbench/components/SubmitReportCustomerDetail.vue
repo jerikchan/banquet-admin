@@ -40,6 +40,10 @@
       field: 'customerTypeStr',
     },
     {
+      label: '获客渠道',
+      field: 'customerSource',
+    },
+    {
       label: '客户状态',
       field: 'statusStr',
     },
